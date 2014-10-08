@@ -1,3 +1,10 @@
 **** maven ****
 mvn eclipse:eclipse -Dwtpversion=2.0
 mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
+
+
+
+*** git ****
+git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
+git push -u origin master
+
