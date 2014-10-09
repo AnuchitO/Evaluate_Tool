@@ -5,10 +5,6 @@
              version="1.0">
    <persistence-unit name="evaluateToolDatabase">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      
-      <class>com.spt.evt.entity.User</class>
-      <class>com.spt.evt.entity.Booking</class>
-      <class>com.spt.evt.entity.Hotel</class>
       <properties>
       	 <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
       	 <property name="hibernate.hbm2ddl.auto" value="create-drop" />

@@ -17,6 +17,6 @@
 	<mvc:view-controller path="/users/logoutSuccess" />
 
 	<!-- Scans for annotated @Controllers in the classpath -->
-	<context:component-scan base-package="com.spt.evt,com.spt.evt.controller" />
+	<context:component-scan base-package="com.spt.evt" />
 	 
 </beans>
