@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.spt.evt.Utils.AjaxUtils;
 import com.spt.evt.entity.Hotel;
 import com.spt.evt.service.BookingService;
+import com.spt.evt.utils.AjaxUtils;
 
 @Controller
 public class HotelsController {
@@ -34,17 +34,20 @@ public class HotelsController {
 
 	@RequestMapping(value = "/hotels/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable Long id) {
+		System.out.println(" ===show /hotels/{id}===");
 		return "hotels/show";
 	}
 
 	@RequestMapping(value = "/hotels/{id}/edit", method = RequestMethod.GET)
 	public String edit(@PathVariable Long id) {
+		System.out.println(" ===/hotels/{id}/edit===");
 		return "hotels/edit";
 	}
 
 	@RequestMapping(value = "/hotels/{id}", method = RequestMethod.POST)
 	public String edit(Hotel hotel, BindingResult result,
 			@RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
+		System.out.println(" ===edit /hotels/{id}===");
 		if (result.hasErrors()) {
 			return "hotels/edit";
 		}

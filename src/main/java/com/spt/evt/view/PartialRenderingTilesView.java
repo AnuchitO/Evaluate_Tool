@@ -37,13 +37,13 @@ import org.springframework.web.servlet.support.JstlUtils;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 
-import com.spt.evt.Utils.AjaxUtils;
+import com.spt.evt.utils.AjaxUtils;
 
 /**
  * Detects htmlFormat=nolayout and renders the selected Tiles definition without the surrounding layout.
  */
 public class PartialRenderingTilesView extends TilesView {
-	private static final Logger logger = LoggerFactory.getLogger(AjaxUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(PartialRenderingTilesView.class);
 	
 	private TilesRequestContextFactory tilesRequestContextFactory;
 
