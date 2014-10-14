@@ -8,6 +8,6 @@
 	<!-- Root Context: defines shared resources accessible to all other web components -->
 	
 	<!-- Configures shared data layer -->
-	<import resource="data.xml" />
+	<import resource="database.xml" />
 	
 </beans>
