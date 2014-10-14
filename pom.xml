@@ -14,7 +14,13 @@
 		<aspectj.version>1.7.0</aspectj.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>	
+	<dependencies>
+		    <dependency>
+					<groupId>org.json</groupId>
+					<artifactId>json</artifactId>
+					<version>20140107</version>
+				</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
