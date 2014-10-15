@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Base implements Serializable {
+	
 	private Long id;
 
 	private String name;
@@ -34,6 +35,5 @@ public class Base implements Serializable {
 	public String toString() {
 		return "Base [id=" + id + ", name=" + name + "]";
 	}
-	
 	
 }

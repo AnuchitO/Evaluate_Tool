@@ -9,7 +9,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
 
-
 	<definition name="hotels/main" extends="standardLayout">
 		<put-attribute name="body">
 			<definition template="/WEB-INF/views/hotels/main.jsp">
@@ -27,8 +26,13 @@
 	<definition name="evt001" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/evt001.jsp" />
 	</definition>
+	
 	<definition name="memberregister" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/memberregister.jsp" />
+	</definition>
+	
+	<definition name="evaluateboard" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/evaluateboard.jsp" />
 	</definition>
 		
 </tiles-definitions>

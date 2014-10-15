@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Register</title>
 <style>
+body {
+	background-color: #CEFFFD;
+}
 form {
 	margin: 40px;
 }
@@ -22,7 +25,7 @@ div {
 	
 		<div class="row" id="head">
 			<div class="col-md-6 col-md-offset-3">
-				<pre><strong>Sign Up</strong></pre>
+				<pre class="bg-primary"><strong>Sign Up</strong></pre>
 			</div>
 		</div>
 		
@@ -39,16 +42,12 @@ div {
 			<div class="col-md-1 col-md-offset-3">
 				<strong>Gender</strong>
 			</div>
-			<div class="col-md-1">
 				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="female" value="option1">Female
+					<input type="radio" name="inlineRadioOptions" id="female" value="female">Female
 				</label>
-			</div>
-			<div class="col-md-1">
 				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="male" value="option2">Male
+					<input type="radio" name="inlineRadioOptions" id="male" value="male">Male
 				</label>
-			</div>
 		</div>
 		
 		<div class="row">
@@ -74,12 +73,12 @@ div {
 		
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<select class="form-control">
+				<select id=position class="form-control">
 					<option>Position</option>
-				  	<option></option>
-				  	<option></option>
-				  	<option></option>
-				  	<option></option>
+				  	<option>2</option>
+				  	<option>3</option>
+				  	<option>4</option>
+				  	<option>5</option>
 				</select>
 			</div>
 		</div>
@@ -95,12 +94,12 @@ div {
 				<input type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
 			</div>
 			<div class="col-md-3">
-				<select class="form-control">
+				<select id=internship class="form-control">
 					<option>Internship or Co-operative</option>
-				  	<option></option>
-				  	<option></option>
-				  	<option></option>
-				  	<option></option>
+				  	<option>2</option>
+				  	<option>3</option>
+				  	<option>4</option>
+				  	<option>5</option>
 				</select>
 			</div>
 		</div>
@@ -119,51 +118,41 @@ div {
 		
 	</form>
 
-<!-- <form id="contact">
-  <input name="user[email]" value="jsmith@example.com">
-  <input name="user[pets][]" type="checkbox" value="cat" checked>
-  <input name="user[pets][]" type="checkbox" value="dog" checked>
-  <input name="user[pets][]" type="checkbox" value="bird">
-  <input type="submit">
-</form> -->
-
 <script>
 	$(function() {
 		$("#button").click(function() {
-			//$("#formSignUp").submit(function(event){
-				//var data = $(this).serialize();
-				var dataForm = {};
-					dataForm.firstname = $("#firstName").val();
-					dataForm.lastname = $("#lastName").val();
-					dataForm.gender = $("#gender").val();
-					dataForm.email = $("#email").val();
-					dataForm.reemail = $("#confirmEmail").val();
-					dataForm.password = $("#password").val();
-					dataForm.repassword = $("#confirmPassword").val();
-					dataForm.position = $("#position").val();
-					dataForm.institute = $("#institute").val();
-					dataForm.phonenumber = $("#phoneNumber").val();
-					dataForm.internship = $("#internship").val();
-					dataForm.facebook = $("#facebook").val();
-				
-				var dataSend = JSON.stringify(dataForm);
-				
-				console.info(dataSend);
-					$.ajax({
-						url : "/EvaluateTool/memberregister",
-						type: 'POST',					
-						data: {
-							dataForm:dataSend
-						},					
-						success : function(data) {
-							alert(data);
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status + " er:" + er);
-						}
-					});
-			});
-	//	});
+			
+			var dataForm = {};
+				dataForm.firstname = $("#firstName").val();
+				dataForm.lastname = $("#lastName").val();
+				dataForm.gender = $("input:radio:checked").val();
+				dataForm.email = $("#email").val();
+				dataForm.reemail = $("#confirmEmail").val();
+				dataForm.password = $("#password").val();
+				dataForm.repassword = $("#confirmPassword").val();
+				dataForm.position = $("#position").val();
+				dataForm.institute = $("#institute").val();
+				dataForm.phonenumber = $("#phoneNumber").val();
+				dataForm.internship = $("#internship").val();
+				dataForm.facebook = $("#facebook").val();
+			
+			var dataSend = JSON.stringify(dataForm);
+			
+			console.info(dataSend);
+				$.ajax({
+					url : "/EvaluateTool/memberregister",
+					type: 'POST',					
+					data: {
+						dataForm:dataSend
+					},					
+					success : function(data) {
+						alert(data);
+					},
+					error : function(data, status, er) {
+						alert("error: " + data + " status: " + status + " er:" + er);
+					}
+				});
+		});
 	});
 </script>
 </body>

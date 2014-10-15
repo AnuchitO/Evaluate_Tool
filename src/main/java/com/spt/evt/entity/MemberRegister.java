@@ -1,62 +1,44 @@
 package com.spt.evt.entity;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="memberRegister")
-public class MemberRegister {
+public class MemberRegister implements Serializable {
+
+	private Long id;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String gender;
+
+	private String email;
+
+	private String reenterEmail;
+
+	private String password;
+
+	private String reenterPassword;
+
+	private String positionA;
+
+	private String institute;
+
+	private String phoneNumber;
+
+	private String internship;
+
+	private String facebook;
 
 	@Id
 	@GeneratedValue
-	@Column(name="id")
-	private Integer id;
-
-	@Column(name="firstName")
-	private String firstName;
-
-	@Column(name="lastName")
-	private String lastName;
-
-	@Column(name="gender")
-	private String gender;
-	
-	@Column(name="email")
-	private String email;
-
-	@Column(name="reenterEmail")
-	private String reenterEmail;
-
-	@Column(name="password")
-	private String password;
-
-	@Column(name="reenterPassword")
-	private String reenterPassword;
-
-	@Column(name="position")
-	private String position;
-
-	@Column(name="institute")
-	private String institute;
-
-	@Column(name="phoneNumber")
-	private Integer phoneNumber;
-
-	@Column(name="internship")
-	private String internship;
-
-	@Column(name="facebook")
-	private String facebook;
-
-	public Integer getId() {
+	public Long getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -115,12 +97,12 @@ public class MemberRegister {
 		this.reenterPassword = reenterPassword;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getPositionA() {
+		return positionA;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setPositionA(String position) {
+		this.positionA = position;
 	}
 
 	public String getInstitute() {
@@ -131,11 +113,11 @@ public class MemberRegister {
 		this.institute = institute;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -153,6 +135,20 @@ public class MemberRegister {
 
 	public void setFacebook(String facebook) {
 		this.facebook = facebook;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", Firstname=" + firstName + " Lastname="
+				+ lastName + " Gender=" + gender + " Email=" + email
+				+ " Re-Email=" + reenterEmail + " Password=" + password
+				+ " Re-Password=" + reenterPassword + " Position=" + positionA
+				+ " Institute=" + institute + " Phonenumber=" + phoneNumber
+				+ " Internship=" + internship + " Facebook=" + facebook + "]";
 	}
 
 }
