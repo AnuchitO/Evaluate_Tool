@@ -47,7 +47,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	}
 
 	@Override
-	public void save(Base base) {
+	public void save(Base base) {		
 		this.getHibernateTemplate().save(base);
 	}
 
