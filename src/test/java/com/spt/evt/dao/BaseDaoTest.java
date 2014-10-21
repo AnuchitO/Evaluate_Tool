@@ -1,4 +1,4 @@
-package com.spt.evt.service;
+package com.spt.evt.dao;
 
 import static org.hamcrest.core.Is.is;
 
@@ -11,25 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.spt.evt.entity.Base;
 
 /**
- * Created by : Anuchit Prasertsang Created Date : 21/10/2014
+ * Created by : Anuchit Prasertsang 
+ * Created Date : 21/10/2014
  */
-public class BaseServiceTest extends AbstractTestService {
+public class BaseDaoTest extends AbstractTestDao {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 
-	public BaseService getBaseService() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseService(BaseService baseService) {
-		this.baseService = baseService;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 
 	@Test
 	public void remark() {
-		logger.debug("-= Begin test BaseServiceTest() =-");
+		logger.debug("-= Begin test BaseDaoTest() =-");
 	}
 
 	@Test
@@ -37,8 +38,9 @@ public class BaseServiceTest extends AbstractTestService {
 		String name = "name";
 		Base base = new Base();
 		base.setName(name);
-		this.getBaseService().save(base);
-		Assert.assertThat(this.getBaseService().findByName(name).getName(),is(name));
+		this.getBaseDao().save(base);
+
+		Assert.assertThat(this.getBaseDao().findByName(name).getName(),is(name));
 	}
 
 }

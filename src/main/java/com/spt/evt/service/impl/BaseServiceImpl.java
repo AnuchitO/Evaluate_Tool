@@ -49,5 +49,8 @@ public class BaseServiceImpl implements BaseService {
 		this.baseDao.save(base);	
 	}
 
+	public Base findByName(String name){
+		return this.getBaseDao().findByName(name);
+	}
 
 }

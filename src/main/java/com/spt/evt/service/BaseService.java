@@ -12,5 +12,6 @@ public interface BaseService {
 
 	public void save(Base base);
 
+	public Base findByName(String name);
 }
 
