@@ -9,12 +9,18 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.7</java-version>
-		<org.springframework-version>3.0.5.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.11.RELEASE</org.springframework-version>
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 		<aspectj.version>1.7.0</aspectj.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>	
+	<dependencies>
+		    <dependency>
+					<groupId>org.json</groupId>
+					<artifactId>json</artifactId>
+					<version>20140107</version>
+				</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -242,13 +248,6 @@
 					<source>${java-version}</source>
 					<target>${java-version}</target>
 				</configuration>
-				<!--version>2.3.2</version>
-			    <configuration>
-			        <source>1.7</source>
-			        <target>1.7</target>
-			        <encoding>${project.build.sourceEncoding}</encoding>           
-			        <executable>${env.JAVA_7_HOME}</executable>
-			    </configuration-->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -279,10 +278,10 @@
                     <downloadJavadocs>true</downloadJavadocs>
                     <wtpversion>2.0</wtpversion>
                     <sourceExcludes>
-                    <sourceExclude>**/.svn/**</sourceExclude>
+                    	<sourceExclude>**/.svn/**</sourceExclude>
                     </sourceExcludes>
                     <additionalProjectFacets>
-                    <jst.java>1.5</jst.java>
+                    	<jst.java>1.7</jst.java>
                     </additionalProjectFacets>
                 </configuration>
             </plugin>
@@ -290,11 +289,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
 				<configuration>
 					<junitArtifactName>junit:junit</junitArtifactName>
-					<excludes>
-						<exclude>**/*_Roo_*</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -40,8 +40,7 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public List<Base> findAll() {
-		
+	public List<Base> findAll() {		
 		return this.baseDao.findAll();
 	}
 
