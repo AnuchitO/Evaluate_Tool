@@ -40,8 +40,7 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public List<Base> findAll() {
-		
+	public List<Base> findAll() {		
 		return this.baseDao.findAll();
 	}
 
@@ -50,5 +49,8 @@ public class BaseServiceImpl implements BaseService {
 		this.baseDao.save(base);	
 	}
 
+	public Base findByName(String name){
+		return this.getBaseDao().findByName(name);
+	}
 
 }

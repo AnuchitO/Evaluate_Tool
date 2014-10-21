@@ -6,8 +6,10 @@ import com.spt.evt.entity.Base;
 import com.spt.evt.entity.Booking;
 
 public interface BaseDao {
-    public List<Base> findAll();
+	public List<Base> findAll();
 
 	public void save(Base base);
+
+	public Base findByName(String name);
 
 }

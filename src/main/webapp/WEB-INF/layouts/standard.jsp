@@ -11,6 +11,7 @@
 </style>
 <!--[if lt IE 8]>
 	        <link rel="stylesheet" href="<c:url value="/resources/blueprint/ie.css" />" type="text/css" media="screen, projection" />
+
 	<![endif]-->
 <script type="text/javascript"
 	src="<c:url value="/resources/javascript/jquery/1.4/jquery.js" />"></script>
