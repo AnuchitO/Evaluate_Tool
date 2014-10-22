@@ -7,4 +7,5 @@ mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
 *** git ****
 git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
 git remote show origin
+git merge dev --no-ff
 git push -u origin master
