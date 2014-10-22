@@ -16,13 +16,8 @@ import com.spt.evt.entity.Base;
 
 
 @Repository
-public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
+public class BaseDaoImpl extends AbstracHibernateDaoSupport implements BaseDao {
 	private static final Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
-
-	@Autowired
-	public void setWiredSessionFactory(SessionFactory sessionFactory) {
-		setSessionFactory(sessionFactory);
-	}
 
 	@Override
 	public List<Base> findAll() {
