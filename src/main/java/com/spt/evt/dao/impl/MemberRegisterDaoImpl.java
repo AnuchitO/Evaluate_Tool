@@ -9,30 +9,15 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.spt.evt.dao.MemberRegisterDao;
-import com.spt.evt.entity.Base;
 import com.spt.evt.entity.MemberRegister;
 
 @Repository
-public class MemberRegisterDaoImpl extends HibernateDaoSupport implements MemberRegisterDao {
-	
-	private EntityManager em;
-	
-	@Autowired
-	public void setWiredSessionFactory(SessionFactory sessionFactory) {
-		setSessionFactory(sessionFactory);
-	}
-	
-	@PersistenceContext
-	public void setEntityManager(EntityManager em) {
-		this.em = em;
-	}
+public class MemberRegisterDaoImpl extends AbstracHibernateDaoSupport implements MemberRegisterDao {
 
 	@Override
 	public void save(MemberRegister memberRegister) {
-		System.out.println("GGGGGGGGGGGGGGG");
 		this.getHibernateTemplate().save(memberRegister);
 		
 	}
