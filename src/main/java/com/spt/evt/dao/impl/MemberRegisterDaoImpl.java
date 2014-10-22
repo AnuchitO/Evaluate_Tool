@@ -9,10 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.spt.evt.dao.MemberRegisterDao;
-import com.spt.evt.entity.Base;
 import com.spt.evt.entity.MemberRegister;
 
 @Repository

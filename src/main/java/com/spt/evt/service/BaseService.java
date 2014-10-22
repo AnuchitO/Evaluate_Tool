@@ -3,8 +3,6 @@ package com.spt.evt.service;
 import java.util.List;
 
 import com.spt.evt.entity.Base;
-import com.spt.evt.entity.Booking;
-import com.spt.evt.entity.Hotel;
 
 public interface BaseService {
 

@@ -24,8 +24,12 @@
 	<!-- Configures a handler for serving static resources by forwarding to the Servlet container's default Servlet. -->
 	<mvc:default-servlet-handler />
 	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
-		<property name="viewClass" value="com.spt.evt.view.PartialRenderingTilesView"/>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="basenames">
+			<list>
+				<value>views_app</value>
+			</list>
+		</property>
 	</bean>
 
 	<!-- Initializes the Apache Tiles CompositeView system -->
