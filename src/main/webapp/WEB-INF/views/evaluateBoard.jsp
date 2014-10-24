@@ -190,19 +190,11 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-sm-6 col-md-6">
+						<div class="col-sm-12 col-md-12">
 							<div class="panel panel-primary">
 								<div class="panel-head">
 								</div>
 								<div class="panel-body"></div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-6">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<a id="committeeImg" href="/EvaluateTool/evaluateBoard"><img src="resources/images/committee.jpg" alt="" width="100%" height="100%" class="img-rounded" /></a>
-								</div>
-								<div class="panel-footer">Committee</div>
 							</div>
 						</div>
 					</div>
