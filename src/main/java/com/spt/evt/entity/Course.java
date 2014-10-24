@@ -21,7 +21,7 @@ public class Course extends BaseEntity implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
-	private Set<Subject> subjects = new HashSet<Subject>(0);
+	private Set<Subject> subjects = new HashSet<Subject>();
 
 	@Id
 	@GeneratedValue
@@ -29,7 +29,7 @@ public class Course extends BaseEntity implements Serializable {
 		return id;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
 	public Set<Subject> getSubjects() {
 		return subjects;
 	}
