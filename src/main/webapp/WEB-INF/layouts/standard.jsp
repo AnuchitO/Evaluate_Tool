@@ -8,12 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 @IMPORT url("${contextPath}/resources/styles/css/bootstrap.min.css");
+@IMPORT url("${contextPath}/resources/styles/css/bootstrap-select.css");
 </style>
 <!--[if lt IE 8]>
 	        <link rel="stylesheet" href="<c:url value="/resources/blueprint/ie.css" />" type="text/css" media="screen, projection" />
 	<![endif]-->
 <script type="text/javascript"
-	src="<c:url value="/resources/javascript/jquery/1.4/jquery.js" />"></script>
+	src="<c:url value="/resources/javascript/jquery/jquery-1.11.1.min.js" />"></script>
 </head>
 <body>
 	<div id="page" class="container">
@@ -33,6 +34,6 @@
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
-		src="${contextPath}/resources/styles/js/bootstrap.js"></script>
+		src="${contextPath}/resources/styles/js/bootstrap-select.js"></script>
 </body>
 </html>

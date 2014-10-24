@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class EvaluateBoardController {
-
-	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
+public class ExaminationRoomController {
+	
+	@RequestMapping(value="/examinationRoom",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-		return new ModelAndView("evaluateBoard"); // ชื่อของ tile ที่เรา definition ในไฟล์ tiles.xml
+		return new ModelAndView("examinationRoom"); // ชื่อของ tile ที่เรา definition ในไฟล์ tiles.xml
 
 	}
-	
+
 }
