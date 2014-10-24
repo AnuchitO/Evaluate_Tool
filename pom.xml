@@ -15,11 +15,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		    <dependency>
-					<groupId>org.json</groupId>
-					<artifactId>json</artifactId>
-					<version>20140107</version>
-				</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
 
 		<!-- Spring -->
 		<dependency>
@@ -31,14 +31,14 @@
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
-				 </exclusion>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency>				
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -50,21 +50,21 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-aop</artifactId>
-	        <version>${org.springframework-version}</version>
-	    </dependency>
-	     <dependency>
-	        <groupId>org.aspectj</groupId>
-	        <artifactId>aspectjrt</artifactId>
-	        <version>${aspectj.version}</version>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.aspectj</groupId>
-	        <artifactId>aspectjweaver</artifactId>
-	        <version>${aspectj.version}</version>
-	    </dependency>
-	    
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -113,7 +113,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-				
+
 		<!-- Database -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -140,7 +140,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
+
 		<!-- Apache Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -151,17 +151,17 @@
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging-api</artifactId>
-				 </exclusion>
-			</exclusions>			
+				</exclusion>
+			</exclusions>
 		</dependency>
-				
+
 		<!-- Hibernate JPA 2 Provider -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.5.0-Final</version>
 		</dependency>
-		
+
 		<!-- JSR 303 with Hibernate Validator -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -173,8 +173,8 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.0.2.GA</version>
 		</dependency>
-				
-		<!--  Joda Time -->
+
+		<!-- Joda Time -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -185,7 +185,7 @@
 			<artifactId>joda-time-jsptags</artifactId>
 			<version>1.0.2</version>
 			<scope>runtime</scope>
-		</dependency>		
+		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -213,29 +213,39 @@
 			<id>org.springframework.maven.snapshot</id>
 			<name>Spring Maven Snapshot Repository</name>
 			<url>http://maven.springframework.org/snapshot</url>
-			<releases><enabled>false</enabled></releases>
-			<snapshots><enabled>true</enabled></snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 		<!-- For developing against latest Spring milestones -->
-        <repository>
+		<repository>
 			<id>org.springframework.maven.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
-			<snapshots><enabled>false</enabled></snapshots>
-		</repository>		
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 		<!-- Maven Central -->
 		<repository>
 			<id>org.maven.central</id>
 			<name>Maven Central Repository</name>
 			<url>http://repo1.maven.org/maven2</url>
-			<snapshots><enabled>false</enabled></snapshots>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 		<!-- Needed for Hibernate, which is not published to central -->
 		<repository>
 			<id>org.jboss.repository</id>
 			<name>JBoss Maven Repository</name>
-            <url>http://repository.jboss.org/maven2</url>
-	   		<snapshots><enabled>false</enabled></snapshots>
+			<url>http://repository.jboss.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 	<build>
@@ -269,22 +279,22 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.8</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <wtpversion>2.0</wtpversion>
-                    <sourceExcludes>
-                    	<sourceExclude>**/.svn/**</sourceExclude>
-                    </sourceExcludes>
-                    <additionalProjectFacets>
-                    	<jst.java>1.7</jst.java>
-                    </additionalProjectFacets>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<sourceExcludes>
+						<sourceExclude>**/.svn/**</sourceExclude>
+					</sourceExcludes>
+					<additionalProjectFacets>
+						<jst.java>1.7</jst.java>
+					</additionalProjectFacets>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -298,7 +308,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.0-beta-1</version>
-			</plugin>						
+			</plugin>
 		</plugins>
 	</build>
 </project>

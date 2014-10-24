@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,7 +32,9 @@ public class Subject extends BaseEntity implements Serializable {
 		return id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)// join
+	@JoinColumn(name = "course", nullable = false)
 	public Course getCourse() {
 		return course;
 	}
