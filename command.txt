@@ -1,4 +1,5 @@
 **** maven ****
+mvn archetype:generate -DgroupId=com -DartifactId=Evaluate_Tool -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
 mvn eclipse:eclipse -Dwtpversion=2.0
 mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
  
