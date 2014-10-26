@@ -3,8 +3,11 @@ package com.spt.evt.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Participant extends BaseEntity implements Serializable {
@@ -14,40 +17,46 @@ public class Participant extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private Person person;
-	private Room room;
-	private String role;
-
 	@Id
 	@GeneratedValue
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "person", nullable = false)
+	private Person person;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "room", nullable = false)
+	private Room room;
+
+	private String role;
+
 	public Long getId() {
 		return id;
-	}
-
-	
-	public Person getPerson() {
-		return person;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public String getRole() {
-		return role;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public Person getPerson() {
+		return person;
+	}
+
 	public void setPerson(Person person) {
 		this.person = person;
 	}
 
+	public Room getRoom() {
+		return room;
+	}
+
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public String getRole() {
+		return role;
 	}
 
 	public void setRole(String role) {

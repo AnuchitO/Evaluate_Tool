@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Subject extends BaseEntity implements Serializable {
 
@@ -20,28 +23,21 @@ public class Subject extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private String description;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "course", nullable = false)
 	private Course course;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
 	private Set<Topic> topics = new HashSet<Topic>(0);
 
-	@Id
-	@GeneratedValue
 	public Long getId() {
 		return id;
-	}
-
-
-	@ManyToOne(fetch = FetchType.LAZY)// join
-	@JoinColumn(name = "course", nullable = false)
-	public Course getCourse() {
-		return course;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY)
-	public Set<Topic> getTopics() {
-		return topics;
 	}
 
 	public void setId(Long id) {
@@ -64,8 +60,16 @@ public class Subject extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
+	public Course getCourse() {
+		return course;
+	}
+
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Set<Topic> getTopics() {
+		return topics;
 	}
 
 	public void setTopics(Set<Topic> topics) {
@@ -75,7 +79,8 @@ public class Subject extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Subject [id=" + id + ", name=" + name + ", description="
-				+ description + ", course=" + course + "]";
+				+ description + ", course=" + course + ", topics=" + topics
+				+ "]";
 	}
 
 }

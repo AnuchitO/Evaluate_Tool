@@ -2,19 +2,22 @@ package com.spt.evt.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person extends BaseEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private String lastName;
@@ -24,8 +27,15 @@ public class Person extends BaseEntity implements Serializable {
 	private String phone;
 	private String positionName;
 
-	@Id
-	@GeneratedValue
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+	private Set<Enroll> enrolls = new HashSet<Enroll>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+	private Set<Participant> participants = new HashSet<Participant>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "committee")
+	private Set<ScoreBoard> scoreBoards = new HashSet<ScoreBoard>();
+
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +76,14 @@ public class Person extends BaseEntity implements Serializable {
 		this.email = email;
 	}
 
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -82,12 +100,28 @@ public class Person extends BaseEntity implements Serializable {
 		this.positionName = positionName;
 	}
 
-	public Date getBirthDay() {
-		return birthDay;
+	public Set<Enroll> getEnrolls() {
+		return enrolls;
 	}
 
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
+	public void setEnrolls(Set<Enroll> enrolls) {
+		this.enrolls = enrolls;
+	}
+
+	public Set<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
+	}
+
+	public Set<ScoreBoard> getScoreBoards() {
+		return scoreBoards;
+	}
+
+	public void setScoreBoards(Set<ScoreBoard> scoreBoards) {
+		this.scoreBoards = scoreBoards;
 	}
 
 	@Override
@@ -95,7 +129,8 @@ public class Person extends BaseEntity implements Serializable {
 		return "Person [id=" + id + ", name=" + name + ", lastName=" + lastName
 				+ ", gender=" + gender + ", email=" + email + ", birthDay="
 				+ birthDay + ", phone=" + phone + ", positionName="
-				+ positionName + "]";
+				+ positionName + ", enrolls=" + enrolls + ", participants="
+				+ participants + ", scoreBoards=" + scoreBoards + "]";
 	}
 
 }

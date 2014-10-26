@@ -1,25 +1,29 @@
 package com.spt.evt.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Room extends BaseEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private String description;
-	
-	@Id
-	@GeneratedValue
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
+	private Set<Participant> participants = new HashSet<Participant>();
+
 	public Long getId() {
 		return id;
 	}
@@ -44,10 +48,18 @@ public class Room extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
+	public Set<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
+	}
+
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
+		return "Room [id=" + id + ", name=" + name + ", description="
+				+ description + ", participants=" + participants + "]";
 	}
 
 }

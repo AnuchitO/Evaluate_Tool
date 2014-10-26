@@ -3,20 +3,29 @@ package com.spt.evt.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Enroll extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private Person person;
-	private Course course;
-
 	@Id
 	@GeneratedValue
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "person", nullable = false)
+	private Person person;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "course", nullable = false)
+	private Course course;
+
 	public Long getId() {
 		return id;
 	}
