@@ -23,23 +23,12 @@ public class SubjectDaoTest extends AbstractTestDao {
 	@Autowired
 	private SubjectDao subjectDao;
 
-	@Autowired
-	private CourseDao courseDao;
-
 	public SubjectDao getSubjectDao() {
 		return subjectDao;
 	}
 
 	public void setSubjectDao(SubjectDao subjectDao) {
 		this.subjectDao = subjectDao;
-	}
-
-	public CourseDao getCourseDao() {
-		return courseDao;
-	}
-
-	public void setCourseDao(CourseDao courseDao) {
-		this.courseDao = courseDao;
 	}
 
 	@Test
