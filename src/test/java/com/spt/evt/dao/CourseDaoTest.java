@@ -1,14 +1,11 @@
 package com.spt.evt.dao;
 
-import static org.hamcrest.core.Is.is;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.spt.evt.entity.Base;
 import com.spt.evt.entity.Course;
 
 /**
