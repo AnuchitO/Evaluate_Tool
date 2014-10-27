@@ -26,6 +26,8 @@ public class ScoreBoard extends BaseEntity implements Serializable {
 	@JoinColumn(name = "topic", nullable = false)
 	private Topic topic;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "examiner", nullable = false)
 	private Person examiner;
 
 	private Double score;

@@ -34,7 +34,10 @@ public class Person extends BaseEntity implements Serializable {
 	private Set<Participant> participants = new HashSet<Participant>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "committee")
-	private Set<ScoreBoard> scoreBoards = new HashSet<ScoreBoard>();
+	private Set<ScoreBoard> committee = new HashSet<ScoreBoard>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examiner")
+	private Set<ScoreBoard> examiner = new HashSet<ScoreBoard>();
 
 	public Long getId() {
 		return id;
@@ -116,12 +119,20 @@ public class Person extends BaseEntity implements Serializable {
 		this.participants = participants;
 	}
 
-	public Set<ScoreBoard> getScoreBoards() {
-		return scoreBoards;
+	public Set<ScoreBoard> getCommittee() {
+		return committee;
 	}
 
-	public void setScoreBoards(Set<ScoreBoard> scoreBoards) {
-		this.scoreBoards = scoreBoards;
+	public void setCommittee(Set<ScoreBoard> committee) {
+		this.committee = committee;
+	}
+
+	public Set<ScoreBoard> getExaminer() {
+		return examiner;
+	}
+
+	public void setExaminer(Set<ScoreBoard> examiner) {
+		this.examiner = examiner;
 	}
 
 	@Override
@@ -130,7 +141,7 @@ public class Person extends BaseEntity implements Serializable {
 				+ ", gender=" + gender + ", email=" + email + ", birthDay="
 				+ birthDay + ", phone=" + phone + ", positionName="
 				+ positionName + ", enrolls=" + "[enrolls]" + ", participants="
-				+ "[participants]" + ", scoreBoards=" + "[scoreBoards]" + "]";
+				+ "[participants]" + ", committee=" + "[committee]"+ ", examiner=" + "[examiner]" + "]";
 	}
 
 }

@@ -95,5 +95,5 @@ insert into Participant (id,person,room,role) values (2,3,1,'committee')
 insert into Participant (id,person,room,role) values (3,1,1,'committee')
 insert into Participant (id,person,room,role) values (4,4,1,'committee')
 
-
+insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'comment')
 
