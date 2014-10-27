@@ -36,7 +36,6 @@ public abstract class AbstractTestDao {
 
 	@Test
 	public void testSampleAbstractDao() {
-		logger.error("testSampleAbstractDao()");
 		Assert.assertThat("\"testSampleAbstractDao\"",is("\"testSampleAbstractDao\""));
 	}
 
