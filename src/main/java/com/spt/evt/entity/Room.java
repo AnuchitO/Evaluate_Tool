@@ -59,7 +59,7 @@ public class Room extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + ", participants=" + participants + "]";
+				+ description + ", participants=" + "[participants]" + "]";
 	}
 
 }

@@ -65,8 +65,8 @@ public class Participant extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Participant [id=" + id + ", person=" + person + ", room="
-				+ room + ", role=" + role + "]";
+		return "Participant [id=" + id + ", person=" + "[person]" + ", room="
+				+ "[room]" + ", role=" + "[role]" + "]";
 	}
 
 }

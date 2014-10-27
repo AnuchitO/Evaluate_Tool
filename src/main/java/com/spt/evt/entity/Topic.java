@@ -76,8 +76,8 @@ public class Topic extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Topic [id=" + id + ", name=" + name + ", description="
-				+ description + ", subject=" + subject + ", scoreBoards="
-				+ scoreBoards + "]";
+				+ description + ", subject=" + "Set<[subject]>" + ", scoreBoards="
+				+ "Sets<[coreBoards]>" + "]";
 	}
 
 }

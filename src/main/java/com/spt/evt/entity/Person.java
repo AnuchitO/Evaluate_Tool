@@ -129,8 +129,8 @@ public class Person extends BaseEntity implements Serializable {
 		return "Person [id=" + id + ", name=" + name + ", lastName=" + lastName
 				+ ", gender=" + gender + ", email=" + email + ", birthDay="
 				+ birthDay + ", phone=" + phone + ", positionName="
-				+ positionName + ", enrolls=" + enrolls + ", participants="
-				+ participants + ", scoreBoards=" + scoreBoards + "]";
+				+ positionName + ", enrolls=" + "[enrolls]" + ", participants="
+				+ "[participants]" + ", scoreBoards=" + "[scoreBoards]" + "]";
 	}
 
 }
