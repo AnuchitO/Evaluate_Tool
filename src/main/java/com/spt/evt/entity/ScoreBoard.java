@@ -81,8 +81,8 @@ public class ScoreBoard extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ScoreBoard [id=" + id + ", committee=" + committee + ", topic="
-				+ topic + ", examiner=" + examiner + ", score=" + score
+		return "ScoreBoard [id=" + id + ", committee=" + "[committee]" + ", topic="
+				+ "[topic]" + ", examiner=" + "[examiner]" + ", score=" + score
 				+ ", comment=" + comment + "]";
 	}
 

@@ -52,7 +52,7 @@ public class Enroll extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Enroll [id=" + id + ", person=" + person + ", course=" + course
+		return "Enroll [id=" + id + ", person=" + "[person]" + ", course=" + "[course]"
 				+ "]";
 	}
 

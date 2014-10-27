@@ -76,8 +76,8 @@ public class Course extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Course [id=" + id + ", name=" + name + ", description="
-				+ description + ", subjects=" + subjects + ", enrolls="
-				+ enrolls + "]";
+				+ description + ", subjects=" + "Set<subject>" + ", enrolls="
+				+ "Set<enrolls>" + "]";
 	}
 
 }

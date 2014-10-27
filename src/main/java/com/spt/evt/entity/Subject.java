@@ -79,7 +79,7 @@ public class Subject extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Subject [id=" + id + ", name=" + name + ", description="
-				+ description + ", course=" + course + ", topics=" + topics
+				+ description + ", course=" + "Set<[course]>" + ", topics=" + "Set<[topics]>"
 				+ "]";
 	}
 
