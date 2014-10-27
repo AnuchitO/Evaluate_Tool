@@ -16,29 +16,29 @@ import com.spt.evt.entity.Base;
 public class BaseServiceTest extends AbstractTestService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private BaseService baseService;
+//	@Autowired
+//	private BaseService baseService;
+//
+//	public BaseService getBaseService() {
+//		return baseService;
+//	}
+//
+//	public void setBaseService(BaseService baseService) {
+//		this.baseService = baseService;
+//	}
+//
+//	@Test
+//	public void remark() {
+//		logger.debug("-= Begin test BaseServiceTest() =-");
+//	}
 
-	public BaseService getBaseService() {
-		return baseService;
-	}
-
-	public void setBaseService(BaseService baseService) {
-		this.baseService = baseService;
-	}
-
-	@Test
-	public void remark() {
-		logger.debug("-= Begin test BaseServiceTest() =-");
-	}
-
-	@Test
-	public void testSaveNameShouldBeName() {
-		String name = "name";
-		Base base = new Base();
-		base.setName(name);
-		this.getBaseService().save(base);
-		Assert.assertThat(this.getBaseService().findByName(name).getName(),is(name));
-	}
+//	@Test
+//	public void testSaveNameShouldBeName() {
+//		String name = "name";
+//		Base base = new Base();
+//		base.setName(name);
+//		this.getBaseService().save(base);
+//		Assert.assertThat(this.getBaseService().findByName(name).getName(),is(name));
+//	}
 
 }
