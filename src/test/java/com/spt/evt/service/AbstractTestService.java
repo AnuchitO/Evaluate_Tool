@@ -18,29 +18,29 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by : Anuchit Prasertsang 
  * Created Date : 21/10/2014
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebAppConfiguration
-//@Transactional
-//@ActiveProfiles("test")
-//@Configurable
-//@ContextConfiguration({"classpath:META-INF/spring/evaluatetool-context.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@Transactional
+@ActiveProfiles("test")
+@Configurable
+@ContextConfiguration({"classpath:META-INF/spring/evaluatetool-context.xml"})
 public abstract class AbstractTestService { 
     Logger logger = LoggerFactory.getLogger(AbstractTestService.class);
 
-//    @Before
-//    public void setup() {
-//
-//    }
-//    
-//    @Test
-//	public void testSampleAbstractService() {
-//    	logger.error("testSampleAbstractService()");
-//    	 Assert.assertThat("\"testSampleAbstractService\"", is("\"testSampleAbstractService\""));
-//	}
-//
-//    @After
-//    public void after() {
-//
-//    }
+    @Before
+    public void setup() {
+
+    }
+    
+    @Test
+	public void testSampleAbstractService() {
+    	logger.error("testSampleAbstractService()");
+    	 Assert.assertThat("\"testSampleAbstractService\"", is("\"testSampleAbstractService\""));
+	}
+
+    @After
+    public void after() {
+
+    }
 
 }

@@ -22,10 +22,11 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 			.getLogger(ScoreBoardDaoImpl.class);
 
 	@Override
-	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic) {
+	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic,Person examiner) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ScoreBoard.class);
 		criteria.add(Restrictions.eq("committee", committee));
 		criteria.add(Restrictions.eq("topic", topic));
+		criteria.add(Restrictions.eq("examiner", examiner));
 		List<ScoreBoard> result = this.getHibernateTemplate().findByCriteria(criteria);
 		ScoreBoard scoreBoard = null;
 		try {
