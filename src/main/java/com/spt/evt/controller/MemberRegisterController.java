@@ -34,15 +34,15 @@ public class MemberRegisterController {
 		this.memberRegisterService = memberRegisterService;
 	}
 
-	@RequestMapping(value="/memberregister",method=RequestMethod.GET)
+	@RequestMapping(value="/memberRegister",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-		return new ModelAndView("memberregister"); // ชื่อของ tile ที่เรา definition ในไฟล์ tiles.xml
+		return new ModelAndView("memberRegister"); // ชื่อของ tile ที่เรา definition ในไฟล์ tiles.xml
 
 	}
 	
-	@RequestMapping(value="/memberregister", method = RequestMethod.POST)
+	@RequestMapping(value="/memberRegister", method = RequestMethod.POST)
 	public @ResponseBody String post(@RequestParam(value="dataForm") String dataForm) {
 		memberRegisterService.setData(dataForm);
 		System.out.println("DATA"+dataForm);

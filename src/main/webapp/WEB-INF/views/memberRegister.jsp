@@ -7,7 +7,6 @@
 <title>Member Register</title>
 <style>
 body {
-	background-color: #CEFFFD;
 }
 form {
 	margin: 40px;
@@ -17,6 +16,9 @@ div {
 }
 #head {
 	text-align: center;
+}
+.selectpicker {
+	margin: -3px;
 }
 </style>
 </head>
@@ -30,26 +32,27 @@ div {
 		</div>
 		
 		<div class="row">
-			<div class="col-md-3 col-md-offset-3">
+			<div class="col-sm-6 col-md-3 col-md-offset-3">
 				<input type="text" class="form-control" id="firstName" placeholder="First Name">
 			</div>
-			<div class="col-md-3">
+			<div class="col-sm-6 col-md-3">
 				<input type="text" class="form-control" id="lastName" placeholder="Last Name">
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-1 col-md-offset-3">
 				<strong>Gender</strong>
 			</div>
-				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="female" value="female">Female
+			<div class="col-md-3">
+				<label class="radio-inline"> <input type="radio"
+					name="inlineRadioOptions" id="female" value="female">Female
+				</label> <label class="radio-inline"> <input type="radio"
+					name="inlineRadioOptions" id="male" value="male">Male
 				</label>
-				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="male" value="male">Male
-				</label>
+			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<input type="email" class="form-control" id="email" placeholder="Enter email">
@@ -63,22 +66,20 @@ div {
 		</div>
 		
 		<div class="row">
-			<div class="col-md-3 col-md-offset-3">
+			<div class="col-sm-6 col-md-3 col-md-offset-3">
 				<input type="password" class="form-control" id="password" placeholder="Password">
 			</div>
-			<div class="col-md-3">
+			<div class="col-sm-6 col-md-3">
 				<input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter Password">
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<select id=position class="form-control">
-					<option>Position</option>
+				<select id=position class="selectpicker" data-width="100%">
+					<option selected disabled>Position</option>
+				  	<option>1</option>
 				  	<option>2</option>
-				  	<option>3</option>
-				  	<option>4</option>
-				  	<option>5</option>
 				</select>
 			</div>
 		</div>
@@ -90,16 +91,14 @@ div {
 		</div>
 		
 		<div class="row">
-			<div class="col-md-3 col-md-offset-3">
+			<div class="col-sm-6 col-md-3 col-md-offset-3">
 				<input type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
 			</div>
-			<div class="col-md-3">
-				<select id=internship class="form-control">
-					<option>Internship or Co-operative</option>
-				  	<option>2</option>
-				  	<option>3</option>
-				  	<option>4</option>
-				  	<option>5</option>
+			<div class="col-sm-6 col-md-3">
+				<select id=internship class="selectpicker" data-width="100%">
+					<option selected disabled>Internship or Co-operative</option>
+				  	<option>Internship</option>
+				  	<option>Co-operative</option>
 				</select>
 			</div>
 		</div>
@@ -140,7 +139,7 @@ div {
 			
 			console.info(dataSend);
 				$.ajax({
-					url : "/EvaluateTool/memberregister",
+					url : "/EvaluateTool/memberRegister",
 					type: 'POST',					
 					data: {
 						dataForm:dataSend
