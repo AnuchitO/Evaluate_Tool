@@ -42,6 +42,7 @@ public class CommitteeServiceTest extends AbstractTestService {
 		Long courseId = 1L;
 		JSONObject courseInformation = this.getCommitteeService().getCourseInformation(examinerId, committeeId, courseId);
 		Assert.assertNotNull(courseInformation.get("subject"));
+		Assert.assertTrue(0!=courseInformation.length());
 		//		Assert.assertThat("\"\"", is("\"\""));
 	}
 

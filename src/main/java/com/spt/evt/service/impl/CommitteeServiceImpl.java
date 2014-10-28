@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 import com.spt.evt.dao.BaseDao;
 import com.spt.evt.entity.Base;
 import com.spt.evt.entity.Course;
+import com.spt.evt.entity.Person;
+import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 import com.spt.evt.service.BaseService;
 import com.spt.evt.service.CommitteeService;
 import com.spt.evt.service.CourseService;
+import com.spt.evt.service.ScoreBoardService;
 import com.spt.evt.service.SubjectService;
 import com.spt.evt.service.TopicService;
 
@@ -27,80 +30,53 @@ public class CommitteeServiceImpl implements CommitteeService {
 			.getLogger(CommitteeServiceImpl.class);
 
 	@Autowired
-	private CourseService courseService;
-	@Autowired
-	private SubjectService subjectService;
-	@Autowired
-	private TopicService topicService;
+	private ProviderService providerService;
 
-	public TopicService getTopicService() {
-		return topicService;
+	public ProviderService getProviderService() {
+		return providerService;
 	}
 
-	public void setTopicService(TopicService topicService) {
-		this.topicService = topicService;
-	}
-
-	public SubjectService getSubjectService() {
-		return subjectService;
-	}
-
-	public void setSubjectService(SubjectService subjectService) {
-		this.subjectService = subjectService;
-	}
-
-	public CourseService getCourseService() {
-		return courseService;
-	}
-
-	public void setCourseService(CourseService courseService) {
-		this.courseService = courseService;
+	public void setProviderService(ProviderService providerService) {
+		this.providerService = providerService;
 	}
 
 	@Override
 	public JSONObject getCourseInformation(Long examinerId, Long committeeId,Long courseId) {
+		
 		JSONObject courseInformation = new JSONObject();
-		Course course = this.getCourseService().findById(courseId);
-		List<Subject> subjects = this.getSubjectService().findByCourse(course);
+		
+		Person committee = this.getProviderService().getPersonService().findById(committeeId);
+		Person examiner = this.getProviderService().getPersonService().findById(examinerId);
+		Course course = this.getProviderService().getCourseService().findById(courseId);
+		List<Subject> subjects = this.getProviderService().getSubjectService().findByCourse(course);
 
+		JSONObject subjectElement = null;
 		for (Subject subject : subjects) {
-				List<Topic> topics = this.getTopicService().findBySubject(subject);
-				for(Topic topic:topics){
-					
-					logger.error("********* + **** " + topic.getName());
+			subjectElement = new JSONObject();
+			subjectElement.put("id", subject.getId());
+			subjectElement.put("name",subject.getName());
+			
+			List<Topic> topics = this.getProviderService().getTopicService().findBySubject(subject);
+			for (Topic topic : topics) {
+				JSONObject topicElement = new JSONObject();
+				topicElement.put("id",topic.getId());
+				topicElement.put("name",topic.getName());
+				topicElement.put("description",topic.getDescription());
+				
+				ScoreBoard scoreBoard = this.getProviderService().getScoreBoardService().findByCommiteeAndTopic(committee, topic, examiner);
+				
+				if(null!=scoreBoard){
+					topicElement.put("score",scoreBoard.getScore());
+				}else{
+					topicElement.put("score",0);
 				}
 				
+				subjectElement.append("topic", topicElement);
+			}
+			
+			courseInformation.append("subject", subjectElement);
 		}
-
-		
 		return courseInformation;
-	}
-
-	public static void main(String[] args) {
-		JSONObject course = new JSONObject();
-
-		JSONObject subject = new JSONObject();
-		subject.put("id", "2");
-		subject.put("name", "java");
-
-		JSONObject topic = new JSONObject();
-		topic.put("id", "5");
-		topic.put("name", "Declaration & Access control");
-		topic.put("description", "C Can declare variable and class in java.");
-		subject.append("topic", topic);
-
-		JSONObject topic2 = new JSONObject();
-		topic2.put("id", "6");
-		topic2.put("name", "Assignments");
-		topic2.put("description",
-				"B Understand default value of variable, scope of variable wrapper class.");
-
-		subject.append("topic", topic2);
-
-		course.append("subject", subject);
-
-		System.out.println(course.get("subject"));
-
 	}
 
 }

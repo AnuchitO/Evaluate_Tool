@@ -3,6 +3,7 @@ package com.spt.evt.dao.impl;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class TopicDaoImpl extends AbstracHibernateDaoSupport implements
 	public List<Topic> findBySubject(Subject subject) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Topic.class);
 		criteria.add(Restrictions.eq("subject", subject));
+		criteria.addOrder(Order.asc("id"));
 		List<Topic> result = this.getHibernateTemplate().findByCriteria(criteria);
 		return result;
 	}

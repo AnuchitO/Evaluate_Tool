@@ -41,12 +41,10 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	}
 
 	@Override
-	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic,	Person examiner) {
-		return this.getScoreBoardDao().findByCommiteeAndTopic(committee, topic, examiner);
+	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic,
+			Person examiner) {
+		return this.getScoreBoardDao().findByCommiteeAndTopic(committee, topic,
+				examiner);
 	}
-
-
-
-	
 
 }

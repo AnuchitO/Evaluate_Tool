@@ -3,6 +3,7 @@ package com.spt.evt.dao.impl;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 		criteria.add(Restrictions.eq("committee", committee));
 		criteria.add(Restrictions.eq("topic", topic));
 		criteria.add(Restrictions.eq("examiner", examiner));
+		criteria.addOrder(Order.asc("id"));
 		List<ScoreBoard> result = this.getHibernateTemplate().findByCriteria(criteria);
 		ScoreBoard scoreBoard = null;
 		try {
