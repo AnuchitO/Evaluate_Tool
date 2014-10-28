@@ -14,7 +14,7 @@ public class CourseDaoImpl extends AbstracHibernateDaoSupport implements
 
 	@Override
 	public Course findById(Long id) {
-		logger.error("findById()");
+		logger.info("findById()");
 		return (Course) this.getHibernateTemplate().get(Course.class, id);
 	}
 }
