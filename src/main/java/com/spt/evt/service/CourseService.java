@@ -1,5 +1,8 @@
 package com.spt.evt.service;
 
-public interface CourseService {
+import com.spt.evt.entity.Course;
 
+
+public interface CourseService {
+	public Course findById(Long id);
 }
