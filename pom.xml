@@ -206,6 +206,12 @@
 			<version>${org.springframework-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>jasper-el</artifactId>
+			<version>6.0.41</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<!-- For testing against latest Spring snapshots -->
@@ -247,6 +253,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+
+
 	</repositories>
 	<build>
 		<plugins>
@@ -309,7 +317,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.0-beta-1</version>
 			</plugin>
-			
+
 			<!-- Jetty plugin for development environment -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
