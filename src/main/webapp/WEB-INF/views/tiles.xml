@@ -32,8 +32,8 @@
 	</definition>
 	
 	<definition name="evaluateBoard" extends="standardLayout">
-		<!--put-attribute name="body" value="/WEB-INF/views/evaluateBoard.jsp" /-->
-		<put-attribute name="body" value="/WEB-INF/views/socketDemo2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/evaluateBoard.jsp" />
+		<!--put-attribute name="body" value="/WEB-INF/views/socketDemo2.jsp" /-->
 	</definition>
 	
 	<definition name="examinerDashBoard" extends="standardLayout">

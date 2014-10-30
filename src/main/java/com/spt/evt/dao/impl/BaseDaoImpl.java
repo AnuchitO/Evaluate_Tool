@@ -21,7 +21,7 @@ public class BaseDaoImpl extends AbstracHibernateDaoSupport implements BaseDao {
 
 	@Override
 	public List<Base> findAll() {
-		return null;//this.getHibernateTemplate().find("from Base");
+		return (List<Base>) this.getHibernateTemplate().find("from Base");
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class BaseDaoImpl extends AbstracHibernateDaoSupport implements BaseDao {
 		 DetachedCriteria criteria = DetachedCriteria.forClass(Base.class);  
 		 				  criteria.add(Restrictions.eq("name", name));
 		 				 
-		 List<Base> result = null;//this.getHibernateTemplate().findByCriteria(criteria);
+		 List<Base> result = (List<Base>) this.getHibernateTemplate().findByCriteria(criteria);
 		 Base base = new Base();
 		 try {
 			base = result.get(0);

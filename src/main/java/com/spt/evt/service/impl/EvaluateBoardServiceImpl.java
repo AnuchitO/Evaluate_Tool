@@ -68,7 +68,7 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 				if(null!=scoreBoard){
 					topicElement.put("score",scoreBoard.getScore());
 				}else{
-					topicElement.put("score",0);
+					topicElement.put("score","-");
 				}
 				
 				subjectElement.append("topic", topicElement);

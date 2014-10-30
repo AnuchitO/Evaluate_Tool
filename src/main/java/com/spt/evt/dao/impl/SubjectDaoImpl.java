@@ -26,7 +26,7 @@ public class SubjectDaoImpl extends AbstracHibernateDaoSupport implements
 		DetachedCriteria criteria = DetachedCriteria.forClass(Subject.class);
 		criteria.add(Restrictions.eq("course", course));
 		criteria.addOrder(Order.asc("id"));
-		List<Subject> result = null;//this.getHibernateTemplate().findByCriteria(criteria);
+		List<Subject> result = (List<Subject>) this.getHibernateTemplate().findByCriteria(criteria);
 		return result;
 	}
 }
