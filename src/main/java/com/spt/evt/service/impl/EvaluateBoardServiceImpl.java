@@ -18,16 +18,16 @@ import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 import com.spt.evt.service.BaseService;
-import com.spt.evt.service.CommitteeService;
+import com.spt.evt.service.EvaluateBoardService;
 import com.spt.evt.service.CourseService;
 import com.spt.evt.service.ScoreBoardService;
 import com.spt.evt.service.SubjectService;
 import com.spt.evt.service.TopicService;
 
 @Service
-public class CommitteeServiceImpl implements CommitteeService {
+public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 	private static final Logger logger = LoggerFactory
-			.getLogger(CommitteeServiceImpl.class);
+			.getLogger(EvaluateBoardServiceImpl.class);
 
 	@Autowired
 	private ProviderService providerService;
