@@ -297,7 +297,7 @@
 
 				var dataSend = JSON.stringify(data);
 				$.ajax({
-					url : "/EvaluateTool/evaluateBoardTopicList",
+					url : "/EvaluateTool/application/evaluateBoardTopicList",
 					type : 'POST',
 					data : {
 						data : dataSend

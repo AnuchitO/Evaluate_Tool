@@ -22,19 +22,16 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ActiveProfiles("test")
-//@ContextConfiguration(locations = {"classpath:META-INF/spring/evaluatetool-context.xml", "classpath:META-INF/spring/evaluatetool/evaluatetool-servlet.xml" ,"file:/home/nong/KATA/Evaluate_Tool/src/main/webapp/WEB-INF/views/tiles.xml","file:/home/nong/KATA/Evaluate_Tool/src/main/webapp/WEB-INF/layouts/tiles.xml"})
-public class SampleControllerTest {
-//	private final static Logger logger = LoggerFactory.getLogger(SampleControllerTest.class);
+public class SampleControllerTest extends AbstractTestController {
+	private final static Logger logger = LoggerFactory.getLogger(SampleControllerTest.class);
 //	@Autowired
-//	@Qualifier(value="handlerAdapter")
 //	private HandlerAdapter handlerAdapter;
 //	@Autowired
 //	private HandlerMapping handlerMapping;
 //	private MockHttpServletRequest request;
 //	private MockHttpServletResponse response;
 //
+//	
 //	private ModelAndView handle(final HttpServletRequest request,
 //			final HttpServletResponse response) throws Exception {
 //		final HandlerExecutionChain handler = handlerMapping
