@@ -14,12 +14,12 @@ import org.slf4j.LoggerFactory;
 public class BaseControllerTest extends AbstractTestController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//@Test
+	@Test
 	public void remark() {
 		logger.debug("-= Begin test BaseControllerTest() =-");
 	}
 
-	//@Test
+	@Test
 	public void sampleTES() {
 		Assert.assertThat("\"sample\"", is("\"sample\""));
 	}

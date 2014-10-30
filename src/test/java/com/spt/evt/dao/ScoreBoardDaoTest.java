@@ -1,7 +1,5 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.ScoreBoard;
-import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 
 /**
