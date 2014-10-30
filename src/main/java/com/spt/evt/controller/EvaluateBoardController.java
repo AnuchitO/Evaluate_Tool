@@ -32,7 +32,7 @@ public class EvaluateBoardController {
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
-
+		System.out.println("*************************** evaluateBoard  *****************");
 		return new ModelAndView("evaluateBoard");
 
 	}

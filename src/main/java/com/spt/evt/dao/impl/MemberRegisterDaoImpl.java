@@ -24,7 +24,7 @@ public class MemberRegisterDaoImpl extends AbstracHibernateDaoSupport implements
 
 	@Override
 	public List<MemberRegister> findAll() {
-		return this.getHibernateTemplate().find("from MemberRegister");
+		return null;//this.getHibernateTemplate().find("from MemberRegister");
 	}
 
 }
