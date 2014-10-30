@@ -1,4 +1,4 @@
-package com.spt.evt.controller;
+package com.spt.evt.soket;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

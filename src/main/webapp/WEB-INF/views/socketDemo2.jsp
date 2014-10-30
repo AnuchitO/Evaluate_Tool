@@ -2866,7 +2866,6 @@ if (typeof define === 'function' && define.amd) {
     </script>
     <script type="text/javascript">
         var stompClient = null;
-        setConnected(false);
         function setConnected(connected) {
         	console.log("setConnected");
             document.getElementById('connect').disabled = connected;

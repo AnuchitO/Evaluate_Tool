@@ -1,4 +1,4 @@
-package com.spt.evt.controller;
+package com.spt.evt.soket;
 
 public class HelloMessage {
 

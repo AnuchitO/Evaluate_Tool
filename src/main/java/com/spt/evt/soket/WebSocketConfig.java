@@ -1,4 +1,4 @@
-package com.spt.evt.controller;
+package com.spt.evt.soket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;

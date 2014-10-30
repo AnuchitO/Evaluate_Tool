@@ -48,7 +48,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-               com.spt.evt.controller
+               com.spt.evt.soket
             </param-value>
         </init-param>
 		<load-on-startup>2</load-on-startup>
