@@ -1,17 +1,12 @@
 package com.spt.evt.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.BaseDao;
 import com.spt.evt.dao.CourseDao;
-import com.spt.evt.entity.Base;
 import com.spt.evt.entity.Course;
-import com.spt.evt.service.BaseService;
 import com.spt.evt.service.CourseService;
 
 @Service

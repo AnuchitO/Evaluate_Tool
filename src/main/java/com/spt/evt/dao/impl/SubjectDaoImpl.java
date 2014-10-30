@@ -9,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.spt.evt.dao.CourseDao;
 import com.spt.evt.dao.SubjectDao;
-import com.spt.evt.entity.Base;
 import com.spt.evt.entity.Course;
 import com.spt.evt.entity.Subject;
 
