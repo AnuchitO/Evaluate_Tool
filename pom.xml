@@ -309,6 +309,19 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.0-beta-1</version>
 			</plugin>
+			
+			<!-- Jetty plugin for development environment -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.1.0.v20131115</version>
+				<configuration>
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/EvaluateTool</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
