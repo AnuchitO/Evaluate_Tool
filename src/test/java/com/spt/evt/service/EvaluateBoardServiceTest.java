@@ -15,17 +15,17 @@ import com.spt.evt.entity.Person;
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
-public class CommitteeServiceTest extends AbstractTestService {
+public class EvaluateBoardServiceTest extends AbstractTestService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private CommitteeService committeeService;
+	private EvaluateBoardService committeeService;
 
-	public CommitteeService getCommitteeService() {
+	public EvaluateBoardService getCommitteeService() {
 		return committeeService;
 	}
 
-	public void setCommitteeService(CommitteeService committeeService) {
+	public void setCommitteeService(EvaluateBoardService committeeService) {
 		this.committeeService = committeeService;
 	}
 	
