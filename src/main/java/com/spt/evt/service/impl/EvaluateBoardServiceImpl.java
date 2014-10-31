@@ -54,7 +54,7 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 				topicElement.put("name",topic.getName());
 				topicElement.put("description",topic.getDescription());
 				
-				ScoreBoard scoreBoard = this.getProviderService().getScoreBoardService().findByCommiteeAndTopic(committee, topic, examiner);
+				ScoreBoard scoreBoard = this.getProviderService().getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
 				
 				if(null!=scoreBoard){
 					topicElement.put("score",scoreBoard.getScore());
@@ -68,6 +68,34 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 			courseInformation.append("subject", subjectElement);
 		}
 		return courseInformation;
+	}
+
+	@Override
+	public String scoring(Long committeeId, Long examinerId, Long topicId,Double score, String comment) {
+		Person committee = new Person();
+		committee.setId(committeeId);
+
+		Topic topic = new Topic();
+		topic.setId(topicId);
+
+		Person examiner = new Person();
+		examiner.setId(examinerId);
+		
+		ScoreBoard scoreBoard = new ScoreBoard();
+		scoreBoard.setCommittee(committee);
+		scoreBoard.setTopic(topic);
+		scoreBoard.setExaminer(examiner);
+		scoreBoard.setScore(score);
+		scoreBoard.setComment(comment);
+		
+		try {
+			this.getProviderService().getScoreBoardService().save(scoreBoard);
+		} catch (Exception e) {
+			return "Scoring Unsuccess";
+		}
+		
+		return "Success";
+		
 	}
 
 }

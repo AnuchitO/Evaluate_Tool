@@ -6,6 +6,8 @@ import com.spt.evt.entity.Topic;
 
 public interface ScoreBoardService {
 
-	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic,Person examiner);
+	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,Person examiner);
+
+	public void save(ScoreBoard scoreBoard);
 
 }

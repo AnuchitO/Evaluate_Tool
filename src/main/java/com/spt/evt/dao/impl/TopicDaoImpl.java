@@ -10,14 +10,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.spt.evt.dao.TopicDao;
+import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 
 @Repository
 public class TopicDaoImpl extends AbstracHibernateDaoSupport implements
 		TopicDao {
-	private static final Logger logger = LoggerFactory
-			.getLogger(TopicDaoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(TopicDaoImpl.class);
+
+	@Override
+	public Topic findById(Long id) {
+		return (Topic) this.getHibernateTemplate().get(Topic.class, id);
+	}
 
 	@Override
 	public List<Topic> findBySubject(Subject subject) {
@@ -28,5 +33,6 @@ public class TopicDaoImpl extends AbstracHibernateDaoSupport implements
 		
 		return result;
 	}
+
 
 }

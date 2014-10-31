@@ -1,5 +1,8 @@
 package com.spt.evt.service;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -43,8 +46,42 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Person examiner = new Person();
 		examiner.setId(2L);
 		
-		ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopic(committee, topic,examiner);
+		ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic,examiner);
 		Assert.assertNotNull(scoreBoard);
 	}
+	
+	@Test
+	public void testSaveScoreBoardShouldBeIdNotNull() throws Exception {
+		Double score = 0.8;
+		String comment = "Test Comment";
+		
+		Person committee = new Person();
+		committee.setId(3L);
+
+		Topic topic = new Topic();
+		topic.setId(3L);
+
+		Person examiner = new Person();
+		examiner.setId(2L);
+		
+		ScoreBoard scoreBoardBefore = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		Assert.assertNull(scoreBoardBefore);
+		
+		ScoreBoard scoreBoard = new ScoreBoard();
+		scoreBoard.setCommittee(committee);
+		scoreBoard.setTopic(topic);
+		scoreBoard.setExaminer(examiner);
+		scoreBoard.setScore(score);
+		scoreBoard.setComment(comment);
+		
+		this.getScoreBoardService().save(scoreBoard);
+		
+		Assert.assertNotNull(scoreBoard.getId());			
+		
+		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));
+		Assert.assertEquals(score, scoreBoard.getScore());
+		
+	}
+	
 
 }

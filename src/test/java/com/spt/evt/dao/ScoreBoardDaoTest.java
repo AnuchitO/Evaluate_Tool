@@ -1,5 +1,7 @@
 package com.spt.evt.dao;
 
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -18,6 +20,16 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;
+	@Autowired
+	private MemberRegisterDao memberRegisterDao;
+
+	public MemberRegisterDao getMemberRegisterDao() {
+		return memberRegisterDao;
+	}
+
+	public void setMemberRegisterDao(MemberRegisterDao memberRegisterDao) {
+		this.memberRegisterDao = memberRegisterDao;
+	}
 
 	public ScoreBoardDao getScoreBoardDao() {
 		return scoreBoardDao;
@@ -36,15 +48,53 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
 		Person committee = new Person();
 		committee.setId(3L);
-		
+
 		Topic topic = new Topic();
 		topic.setId(1L);
-		
+
 		Person examiner = new Person();
 		examiner.setId(2L);
-		
-		ScoreBoard scoreBoard = this.getScoreBoardDao().findByCommiteeAndTopic(committee, topic,examiner);
+
+		ScoreBoard scoreBoard = this.getScoreBoardDao()
+				.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
 		Assert.assertNotNull(scoreBoard);
+	}
+
+	@Test
+	public void testSave() throws Exception {
+		Double score = 0.8;
+		String comment = "Test Comment";
+		Long committeeId = 3L;
+		Long examinerId = 2L;
+		Long topicId = 3L;
+
+		Person committee = new Person();
+		committee.setId(committeeId);
+
+		Topic topic = new Topic();
+		topic.setId(topicId);
+
+		Person examiner = new Person();
+		examiner.setId(examinerId);
+
+		ScoreBoard scoreBoardBefore = this.getScoreBoardDao().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		Assert.assertNull(scoreBoardBefore);
+
+		ScoreBoard scoreBoard = new ScoreBoard();
+
+		scoreBoard.setCommittee(committee);
+		scoreBoard.setTopic(topic);
+		scoreBoard.setExaminer(examiner);
+
+		scoreBoard.setScore(score);
+		scoreBoard.setComment(comment);
+
+		this.getScoreBoardDao().save(scoreBoard);
+		Assert.assertNotNull(scoreBoard.getId());
+		Assert.assertThat(scoreBoard.getComment().toString(),
+				is("Test Comment"));
+		Assert.assertEquals(score, scoreBoard.getScore());
+
 	}
 
 }

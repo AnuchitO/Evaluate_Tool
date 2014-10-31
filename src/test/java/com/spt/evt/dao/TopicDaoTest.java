@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 
@@ -39,6 +40,12 @@ public class TopicDaoTest extends AbstractTestDao {
 		subject.setId(1L);
 		List<Topic> topics = this.getTopicDao().findBySubject(subject);
 		Assert.assertNotNull(topics);
+	}
+
+	@Test
+	public void testFindTopicByIdShouldBeNotNull() {
+		Topic topic = this.getTopicDao().findById(1L);
+		Assert.assertNotNull(topic);
 	}
 
 }

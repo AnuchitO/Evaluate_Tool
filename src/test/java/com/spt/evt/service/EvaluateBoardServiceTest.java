@@ -1,5 +1,8 @@
 package com.spt.evt.service;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
+
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,7 +41,17 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		JSONObject courseInformation = this.getCommitteeService().getCourseInformation(examinerId, committeeId, courseId);
 		Assert.assertNotNull(courseInformation.get("subject"));
 		Assert.assertTrue(0!=courseInformation.length());
-		//		Assert.assertThat("\"\"", is("\"\""));
+	
 	}
 
+	@Test
+	public void testScoring() throws Exception {
+		Long examinerId= 2L;
+		Long committeeId  = 3L;		
+		Long topicId = 2L;
+		Double score = 0.5;
+		String comment = "Test Comment";
+		String statusSave = this.getCommitteeService().scoring(committeeId, examinerId, topicId, score, comment);
+		Assert.assertThat(statusSave, is("Success"));
+	}
 }
