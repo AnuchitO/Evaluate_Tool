@@ -23,7 +23,7 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 			.getLogger(ScoreBoardDaoImpl.class);
 
 	@Override
-	public ScoreBoard findByCommiteeAndTopic(Person committee, Topic topic,Person examiner) {
+	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,Person examiner) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ScoreBoard.class);
 		criteria.add(Restrictions.eq("committee", committee));
 		criteria.add(Restrictions.eq("topic", topic));
@@ -37,6 +37,12 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 			logger.info("Data Not found.");
 		}
 		return scoreBoard;
+	}
+
+	@Override
+	public void save(ScoreBoard scoreBoard) {
+		this.getHibernateTemplate().save(scoreBoard);
+		
 	}
 
 }

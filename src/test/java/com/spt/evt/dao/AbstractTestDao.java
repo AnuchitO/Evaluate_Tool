@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,8 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by : Anuchit Prasertsang 
- * Created Date : 21/10/2014
+ * Created by : Anuchit Prasertsang Created Date : 21/10/2014
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -29,6 +29,27 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractTestDao {
 	Logger logger = LoggerFactory.getLogger(AbstractTestDao.class);
 
+	@Autowired
+	private PersonDao personDao;
+	@Autowired
+	private TopicDao topicDao;
+
+	public TopicDao getTopicDao() {
+		return topicDao;
+	}
+
+	public void setTopicDao(TopicDao topicDao) {
+		this.topicDao = topicDao;
+	}
+
+	public PersonDao getPersonDao() {
+		return personDao;
+	}
+
+	public void setPersonDao(PersonDao personDao) {
+		this.personDao = personDao;
+	}
+
 	@Before
 	public void setup() {
 
@@ -36,7 +57,8 @@ public abstract class AbstractTestDao {
 
 	@Test
 	public void testSampleAbstractDao() {
-		Assert.assertThat("\"testSampleAbstractDao\"",is("\"testSampleAbstractDao\""));
+		Assert.assertThat("\"testSampleAbstractDao\"",
+				is("\"testSampleAbstractDao\""));
 	}
 
 	@After
