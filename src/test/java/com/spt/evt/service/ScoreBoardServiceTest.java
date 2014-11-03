@@ -76,8 +76,7 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		
 		this.getScoreBoardService().save(scoreBoard);
 		
-		Assert.assertNotNull(scoreBoard.getId());			
-		
+		Assert.assertNotNull(scoreBoard.getId());					
 		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));
 		Assert.assertEquals(score, scoreBoard.getScore());
 		
