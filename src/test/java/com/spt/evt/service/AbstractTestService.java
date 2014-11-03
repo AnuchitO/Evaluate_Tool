@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@Transactional
 @ActiveProfiles("test")
 @Configurable
 @ContextConfiguration({"classpath:META-INF/spring/evaluatetool-context.xml"})
@@ -34,8 +33,8 @@ public abstract class AbstractTestService {
     
     @Test
 	public void testSampleAbstractService() {
-    	logger.error("testSampleAbstractService()");
-    	 Assert.assertThat("\"testSampleAbstractService\"", is("\"testSampleAbstractService\""));
+    	logger.debug("testSampleAbstractService()");
+    	Assert.assertThat("\"testSampleAbstractService\"", is("\"testSampleAbstractService\""));
 	}
 
     @After

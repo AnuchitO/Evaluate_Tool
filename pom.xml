@@ -358,6 +358,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.16</version>
 				<configuration>
+				<printSummary>true</printSummary>
+				<redirectTestOutputToFile>true</redirectTestOutputToFile>
 					<junitArtifactName>junit:junit</junitArtifactName>
 				</configuration>
 			</plugin>

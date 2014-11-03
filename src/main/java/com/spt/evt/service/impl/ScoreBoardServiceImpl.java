@@ -19,24 +19,24 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;
 
-	public ScoreBoardDao getScoreBoardDao() {
-		return scoreBoardDao;
-	}
-
-	public void setScoreBoardDao(ScoreBoardDao scoreBoardDao) {
-		this.scoreBoardDao = scoreBoardDao;
-	}
+//	public ScoreBoardDao getScoreBoardDao() {
+//		return scoreBoardDao;
+//	}
+//
+//	public void setScoreBoardDao(ScoreBoardDao scoreBoardDao) {
+//		this.scoreBoardDao = scoreBoardDao;
+//	}
 
 	@Override
 	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,
 			Person examiner) {
-		return this.getScoreBoardDao().findByCommiteeAndTopicAndExaminer(committee, topic,
+		return scoreBoardDao.findByCommiteeAndTopicAndExaminer(committee, topic,
 				examiner);
 	}
 
 	@Override
 	public void save(ScoreBoard scoreBoard) {
-		this.getScoreBoardDao().save(scoreBoard);		
+		scoreBoardDao.save(scoreBoard);		
 	}
 
 }

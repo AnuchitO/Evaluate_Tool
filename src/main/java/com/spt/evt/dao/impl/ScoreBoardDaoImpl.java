@@ -29,6 +29,12 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 		criteria.add(Restrictions.eq("topic", topic));
 		criteria.add(Restrictions.eq("examiner", examiner));
 		criteria.addOrder(Order.asc("id"));
+		
+		ScoreBoard sample = new ScoreBoard();
+		sample.setCommittee(committee);
+		sample.setTopic(topic);
+		sample.setExaminer(examiner);
+		
 		List<ScoreBoard> result = (List<ScoreBoard>) this.getHibernateTemplate().findByCriteria(criteria);
 		ScoreBoard scoreBoard = null;
 		try {
