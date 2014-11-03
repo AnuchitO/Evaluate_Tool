@@ -78,14 +78,6 @@
 	padding: 15px 25px;
 }
 
-#buttonSubmit {
-	margin-top: 10px;
-}
-
-#panelScoreBtnSubmit {
-	margin-top: 10px;
-}
-
 .nav-pills>li {
 	border-radius: 5px;
 	background-color: #BDBDBD;
@@ -133,7 +125,9 @@
 			id="committeeId" value="3">Committee : P'Aod</label> <label
 			id="courseId" value="1">Course : SDT</label>
 
+
 		<div id="formBoard">
+			<span id="spanScore0" class="badge pull-right">2 / 58</span> <br>
 			<div class="panel-group" id="accordion"></div>
 		</div>
 
@@ -146,7 +140,7 @@
 				<textarea id="message" class="form-control" rows="3"
 					placeholder="comment here"></textarea>
 
-				<div class="btn-group">
+				<div id="panelButtonScore" class="btn-group">
 					<button id="btn0" type="button" class="btn btn-default" value="0">0</button>
 					<button id="btn03" type="button" class="btn btn-default"
 						value="0.3">0.3</button>
@@ -214,36 +208,52 @@
 		<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
-		<h4 id="panelTitle0" class="panel-title">
-		</h4>
+		<h4 id="panelTitle0" class="panel-title"></h4>
 		<div id="collapse0" class="panel-collapse collapse"></div>
 		<div id="panelBody0" class="panel-body"></div>
 		<ul id="navpills0" class="nav nav-pills nav-stacked">
 		</ul>
-		<li id="listNavpills0" class="lialert"
-			onClick="javascript:showModal(this);"></li><a id="linkToScore0"
-			href="#"></a>
-		<span id="spanScore0" class="badge pull-right"></span>
+		<li id="listNavpills0" onClick="javascript:showModal(this);"></li> <a
+			id="linkToScore0" href="#"></a> <span id="spanScore0"
+			class="badge pull-right"></span>
 		<!----------------------Model Collapse---------------------->
 
 		<!----------------------Model Panel in Modal---------------------->
 		<div id="panelScore0" class="panel panel-primary"></div>
 		<div id="panelScoreHead0" class="panel-heading"></div>
 		<label id="panelScoreSubject0" class="textSubject"></label>
-		<button id="panelScoreBtnClose" type="button" class="close" data-dismiss="modal"
-			aria-hidden="true">&times;</button>
+		<button id="panelScoreBtnClose" type="button" class="close"
+			data-dismiss="modal" aria-hidden="true">&times;</button>
 		<div id="panelScoreBody0" class="panel-body"></div>
-		<label id="panelScoreDescription0" class="textDescription"></label>
+		<span id="dummyKeepIdTopic0" class="textId"></span> <label
+			id="panelScoreDescription0" class="textDescription"></label>
 		<textarea id="panelScoreMessage0" class="form-control" rows="3"
 			placeholder="comment here"></textarea>
 		<div id="panelScoreBtnGroup0" class="btn-group">
-			<button id="btn0" type="button" class="btn btn-default" value="0">0</button>
-			<button id="btn03" type="button" class="btn btn-default" value="0.3">0.3</button>
-			<button id="btn05" type="button" class="btn btn-default" value="0.5">0.5</button>
-			<button id="btn08" type="button" class="btn btn-default" value="0.8">0.8</button>
-			<button id="btn1" type="button" class="btn btn-default" value="1">1</button>
+			<button id="btnZero0" type="button"
+				class="btn btn-default buttonFirst" value="0"
+				onClick="javascript:setScore(this.id)"
+				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">0</button>
+			<button id="btnThree0" type="button"
+				class="btn btn-default buttonSecond" value="0.3"
+				onClick="javascript:setScore(this.id)"
+				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.3</button>
+			<button id="btnFive0" type="button"
+				class="btn btn-default buttonSecond" value="0.5"
+				onClick="javascript:setScore(this.id)"
+				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.5</button>
+			<button id="btnEight0" type="button"
+				class="btn btn-default buttonSecond" value="0.8"
+				onClick="javascript:setScore(this.id)"
+				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.8</button>
+			<button id="btnOne0" type="button"
+				class="btn btn-default buttonFirst" value="1"
+				onClick="javascript:setScore(this.id)"
+				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">1</button>
 		</div>
-		<button id="panelScoreBtnSubmit" type="button" class="btn btn-primary">Submit</button>
+		<button id="panelScoreBtnSubmit0" type="button"
+			class="btn btn-primary" onClick="javascript:sendMessageScore(this);"
+			style="margin: 20px">Submit</button>
 		<!----------------------Model Panel in Modal---------------------->
 
 		<!----------------------Model Modal---------------------->
@@ -258,13 +268,54 @@
 
 	<script>
 		function showModal(element) {
-			count=element.id.slice(-1);
-			$("#modalScore"+count).modal("show");
-			var textDescription = $("#"+element.id).children('a').text();
-			var textDescriptionDone = textDescription.split("0",1);
-			var textSubject = $("#"+element.id).parent('ul').parent('div').parent('div').parent('div').children('div').children('h4').text();
+			count = (element.id).replace(/[^\d.]/g, '');
+			$("#modalScore" + count).modal("show");
+			var textDescription = $("#" + element.id).children('a').clone()
+					.children('span').remove().end().text();
+			var textTopicId = $("#" + element.id).children('a').clone()
+					.children('span').remove().end().text();
+			var textSubject = $("#" + element.id).parent('ul').parent('div')
+					.parent('div').parent('div').children('div').children('h4')
+					.text();
 			$(".textSubject").text(textSubject);
-			$(".textDescription").text(textDescriptionDone);
+			$(".textDescription").text(textDescription);
+		}
+		function sendMessageScore(buttonSubmit) {
+			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
+			var textMessage = $("textarea#panelScoreMessage" + count).val();
+			var textScore = $("#panelScoreBtnGroup" + count).find(
+					"button.active").prop('value');
+			var textId = $("#dummyKeepIdTopic" + count).text();
+			alert(count + textMessage + textScore);
+
+			var dataSave = {};
+			dataSave.examinerId = $("#examinerId").attr('value');
+			dataSave.committeeId = $("#committeeId").attr('value');
+			dataSave.topicId = $("#committeeId").attr('value');
+			dataSave.score = $("#committeeId").attr('value');
+			dataSave.comment = $("#committeeId").attr('value');
+
+			var dataSend = JSON.stringify(dataSave);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/scoring",
+						type : 'POST',
+						data : {
+							data : dataSend
+						},
+						success : function(data) {
+
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+									+ " er:" + er);
+						}
+					});
+
+		}
+		function setScore(btnScore) {
+			$('button').removeClass('active');
+			$("#" + btnScore).addClass('active');
 		}
 		$(function() {
 			$("#panelRealTime").hide();
@@ -281,38 +332,50 @@
 			$("#panelScoreSubject0").hide();
 			$("#panelScoreBtnClose").hide();
 			$("#panelScoreBody0").hide();
+			$("#dummyKeepIdTopic0").hide();
 			$("#panelScoreDescription0").hide();
 			$("#panelScoreMessage0").hide();
 			$("#panelScoreBtnGroup0").hide();
-			$("#panelScoreBtnSubmit").hide();
-			
-			$("#topicList").click(function() {
-				$("#panelRealTime").hide();
-				$("#accordion").empty();
-				
-				var data = {};
-				data.examinerId = $("#examinerId").attr('value');
-				data.committeeId = $("#committeeId").attr('value');
-				data.courseId = $("#courseId").attr('value');
+			$("#panelScoreBtnSubmit0").hide();
+			$("#btnZero0").hide();
+			$("#btnThree0").hide();
+			$("#btnFive0").hide();
+			$("#btnEight0").hide();
+			$("#btnOne0").hide();
 
-				var dataSend = JSON.stringify(data);
-				$.ajax({
-					url : "/EvaluateTool/application/evaluateBoardTopicList",
-					type : 'POST',
-					data : {
-						data : dataSend
-					},
-					success : function(data) {
-						var course = JSON.parse(data);
-						createCollapse(course);
-					},
-					error : function(data, status, er) {
-						alert("error: " + data + " status: " + status
-								+ " er:" + er);
-					}
-				});
-			});
-			function createCollapse(course){
+			$("#topicList")
+					.click(
+							function() {
+								$("#panelRealTime").hide();
+								$("#accordion").empty();
+
+								var data = {};
+								data.examinerId = $("#examinerId")
+										.attr('value');
+								data.committeeId = $("#committeeId").attr(
+										'value');
+								data.courseId = $("#courseId").attr('value');
+
+								var dataSend = JSON.stringify(data);
+								$
+										.ajax({
+											url : "/EvaluateTool/application/evaluateBoardTopicList",
+											type : 'POST',
+											data : {
+												data : dataSend
+											},
+											success : function(data) {
+												var course = JSON.parse(data);
+												createCollapse(course);
+											},
+											error : function(data, status, er) {
+												alert("error: " + data
+														+ " status: " + status
+														+ " er:" + er);
+											}
+										});
+							});
+			function createCollapse(course) {
 				var dummyPanel = 0;
 				var dummyHead = 0;
 				var dummyCollapse = 0;
@@ -329,156 +392,456 @@
 				var dummyPanelScoreHead = 0;
 				var dummyPanelScoreSubject = 0;
 				var dummyPanelScoreBody = 0;
+				var dummyPanelScoreId = 0;
 				var dummyPanelScoreDescription = 0;
 				var dummyPanelScoreMessage = 0;
 				var dummyPanelScoreBtnGroup = 0;
-				
-				var genIdPanel = $("#panelCollapse"+ dummyPanel);
+				var dummyPanelScoreBtnSubmit = 0;
+				var dummyBtnZero = 0;
+				var dummyBtnThree = 0;
+				var dummyBtnFive = 0;
+				var dummyBtnEight = 0;
+				var dummyBtnOne = 0;
+
+				var genIdPanel = $("#panelCollapse" + dummyPanel);
 				var genIdHead = $("#panelHeading" + dummyHead);
 				var genIdTitle = $("#panelTitle" + dummyTitle);
-				var genIdCollapse = $("#collapse"+ dummyCollapse);
+				var genIdCollapse = $("#collapse" + dummyCollapse);
 				var genIdBody = $("#panelBody" + dummyBody);
-				var genIdNavpills = $("#navpills"+ dummyNavpills);
-				var genIdListNav = $("#listNavpills"+ dummyList);
-				var genIdScore = $("#spanScore"+ dummyScore);
+				var genIdNavpills = $("#navpills" + dummyNavpills);
+				var genIdListNav = $("#listNavpills" + dummyList);
+				var genIdScore = $("#spanScore" + dummyScore);
 				var genIdLink = $("#linkToScore" + dummyLink);
 				var genIdModalScore = $("#modalScore" + dummyModalScore);
-				var genIdModalScoreDialog = $("#modalScoreDialog" + dummyModalScoreDialog);
-				var genIdModalScoreContent = $("#modalScoreContent" + dummyModalScoreContent);
+				var genIdModalScoreDialog = $("#modalScoreDialog"
+						+ dummyModalScoreDialog);
+				var genIdModalScoreContent = $("#modalScoreContent"
+						+ dummyModalScoreContent);
 				var genIdPanelScore = $("#panelScore" + dummyPanelScore);
-				var genIdPanelScoreHead = $("#panelScoreHead" + dummyPanelScoreHead);
-				var genIdPanelScoreSubject = $("#panelScoreSubject" + dummyPanelScoreSubject);
-				var genIdPanelScoreBody = $("#panelScoreBody" + dummyPanelScoreBody);
-				var genIdPanelScoreDescription = $("#panelScoreDescription" + dummyPanelScoreDescription);
-				var genIdPanelScoreMessage = $("#panelScoreMessage" + dummyPanelScoreMessage);
-				var genIdPanelScoreBtnGroup = $("#panelScoreBtnGroup" + dummyPanelScoreBtnGroup);
+				var genIdPanelScoreHead = $("#panelScoreHead"
+						+ dummyPanelScoreHead);
+				var genIdPanelScoreSubject = $("#panelScoreSubject"
+						+ dummyPanelScoreSubject);
+				var genIdPanelScoreBody = $("#panelScoreBody"
+						+ dummyPanelScoreBody);
+				var genIdPanelScoreId = $("#dummyKeepIdTopic"
+						+ dummyPanelScoreId);
+				var genIdPanelScoreDescription = $("#panelScoreDescription"
+						+ dummyPanelScoreDescription);
+				var genIdPanelScoreMessage = $("#panelScoreMessage"
+						+ dummyPanelScoreMessage);
+				var genIdPanelScoreBtnGroup = $("#panelScoreBtnGroup"
+						+ dummyPanelScoreBtnGroup);
+				var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
+						+ dummyPanelScoreBtnSubmit);
+				var genIdBtnZero = $("#btnZero" + dummyBtnZero);
+				var genIdBtnThree = $("#btnThree" + dummyBtnThree);
+				var genIdBtnFive = $("#btnFive" + dummyBtnFive);
+				var genIdBtnEight = $("#btnEight" + dummyBtnEight);
+				var genIdBtnOne = $("#btnOne" + dummyBtnOne);
+
 				var sizeTopic = 0;
-				
-				$.each(course,function(i, item) {
-					item.forEach(function(subject) {
-						var sendNameOfSubject = subject.name;
-							$("#panelCollapse0").clone().attr('id','panelCollapse'+ (++dummyPanel))
-											.insertAfter(genIdPanel).fadeIn('slow')
-											.appendTo($("#accordion"));
-							$("#panelHeading0").clone().attr('id','panelHeading'+ (++dummyHead))
-											.attr('href','#collapse'+ dummyHead)
-											.attr('data-target','#collapse'+ dummyHead)
-											.insertAfter(genIdHead).show()
-											.appendTo($("#panelCollapse"+ dummyPanel));
-							$("#panelTitle0").clone().attr('id','panelTitle'+ (++dummyTitle))
-											.text(sendNameOfSubject).insertAfter(genIdTitle).show()
-											.appendTo($("#panelHeading"+ dummyHead));
-							$("#collapse0").clone().attr('id','collapse'+ (++dummyCollapse))
-											.insertAfter(genIdCollapse)
-											.appendTo($("#panelCollapse"+ dummyPanel));
-							$("#panelBody0").clone().attr('id','panelBody'+ (++dummyBody))
-											.show().appendTo($("#collapse"+ dummyCollapse));
-							$("#navpills0").clone().attr('id','navpills'+ (++dummyNavpills))
-											.insertAfter(genIdNavpills).show()
-											.appendTo($("#panelBody"+ dummyBody));
-							
-							var index = 0;
-							var keepTopic = item[sizeTopic].topic;
-							for (index; index < keepTopic.length; ++index) {
-								var sendTitle = keepTopic[index].name;
-								var sendDescription = keepTopic[index].description;
-								var sendScore = keepTopic[index].score;
-								$("#listNavpills0").clone().attr('id','listNavpills'+ (++dummyList))
-												.insertAfter(genIdListNav).show()
-												.appendTo($("#navpills"+ dummyNavpills));
-								$("#linkToScore0").clone().attr('id','linkToScore'+ (++dummyLink))
-												.text(sendTitle+ " : "+ sendDescription)
-												.insertAfter(genIdLink).show()
-												.appendTo($("#listNavpills"+ dummyList));
-								$("#spanScore0").clone().attr('id','spanScore'+ (++dummyScore))
-												.text(sendScore).insertAfter(genIdLink)
-												.appendTo($("#linkToScore"+ dummyLink));
-								
-								$("#modalScore0").clone().attr('id','modalScore'+ (++dummyModalScore))
-												.insertAfter(genIdModalScore);
-								$("#modalScoreDialog0").clone().attr('id','modalScoreDialog'+ (++dummyModalScoreDialog))
-												.insertAfter(genIdModalScoreDialog).show()
-												.appendTo($("#modalScore"+dummyModalScore));
-								$("#modalScoreContent0").clone().attr('id','modalScoreContent'+ (++dummyModalScoreContent))
-												.insertAfter(genIdModalScoreContent).show()
-												.appendTo($("#modalScoreDialog"+dummyModalScoreDialog));
-								$("#panelScore0").clone().attr('id','panelScore'+ (++dummyPanelScore))
-												.insertAfter(genIdPanelScore).show()
-												.appendTo($("#modalScoreContent"+ dummyModalScoreContent));
-								$("#panelScoreHead0").clone().attr('id','panelScoreHead'+ (++dummyPanelScoreHead))
-												.insertAfter(genIdPanelScoreHead).show()
-												.appendTo($("#panelScore"+ dummyPanelScore));
-								$("#panelScoreSubject0").clone().attr('id','panelScoreSubject'+ (++dummyPanelScoreSubject))
-												.insertAfter(genIdPanelScoreSubject).show()
-												.appendTo($("#panelScoreHead"+ dummyPanelScoreHead));
-								$("#panelScoreBtnClose").clone().show().appendTo($("#panelScoreHead"+ dummyPanelScoreHead));
-								$("#panelScoreBody0").clone().attr('id','panelScoreBody'+ (++dummyPanelScoreBody))
-												.insertAfter(genIdPanelScoreBody).show()
-												.appendTo($("#panelScore"+ dummyPanelScore));
-								$("#panelScoreDescription0").clone().attr('id','panelScoreDescription'+ (++dummyPanelScoreDescription))
-												.insertAfter(genIdPanelScoreDescription).show()
-												.appendTo($("#panelScoreBody"+ dummyPanelScoreBody));
-								$("#panelScoreMessage0").clone().attr('id','panelScoreMessage'+ (++dummyPanelScoreMessage))
-												.insertAfter(genIdPanelScoreMessage).show()
-												.appendTo($("#panelScoreBody"+ dummyPanelScoreBody));
-								$("#panelScoreBtnGroup0").clone().attr('id','panelScoreBtnGroup'+ (++dummyPanelScoreBtnGroup))
-												.insertAfter(genIdPanelScoreBtnGroup).show()
-												.appendTo($("#panelScoreBody"+ dummyPanelScoreBody));
-								$("#panelScoreBtnSubmit").clone().show().appendTo($("#panelScoreBody"+ dummyPanelScoreBody));
-							}
-							sizeTopic++;
-					});
-				});
+
+				$
+						.each(
+								course,
+								function(i, item) {
+									item
+											.forEach(function(subject) {
+												var sendNameOfSubject = subject.name;
+												$("#panelCollapse0")
+														.clone()
+														.attr(
+																'id',
+																'panelCollapse'
+																		+ (++dummyPanel))
+														.insertAfter(genIdPanel)
+														.fadeIn('slow')
+														.appendTo(
+																$("#accordion"));
+												$("#panelHeading0")
+														.clone()
+														.attr(
+																'id',
+																'panelHeading'
+																		+ (++dummyHead))
+														.attr(
+																'href',
+																'#collapse'
+																		+ dummyHead)
+														.attr(
+																'data-target',
+																'#collapse'
+																		+ dummyHead)
+														.insertAfter(genIdHead)
+														.show()
+														.appendTo(
+																$("#panelCollapse"
+																		+ dummyPanel));
+												$("#panelTitle0")
+														.clone()
+														.attr(
+																'id',
+																'panelTitle'
+																		+ (++dummyTitle))
+														.text(sendNameOfSubject)
+														.insertAfter(genIdTitle)
+														.show()
+														.appendTo(
+																$("#panelHeading"
+																		+ dummyHead));
+												$("#collapse0")
+														.clone()
+														.attr(
+																'id',
+																'collapse'
+																		+ (++dummyCollapse))
+														.insertAfter(
+																genIdCollapse)
+														.appendTo(
+																$("#panelCollapse"
+																		+ dummyPanel));
+												$("#panelBody0")
+														.clone()
+														.attr(
+																'id',
+																'panelBody'
+																		+ (++dummyBody))
+														.show()
+														.appendTo(
+																$("#collapse"
+																		+ dummyCollapse));
+												$("#navpills0")
+														.clone()
+														.attr(
+																'id',
+																'navpills'
+																		+ (++dummyNavpills))
+														.insertAfter(
+																genIdNavpills)
+														.show()
+														.appendTo(
+																$("#panelBody"
+																		+ dummyBody));
+
+												var index = 0;
+												var keepTopic = item[sizeTopic].topic;
+												for (index; index < keepTopic.length; ++index) {
+													var sendId = keepTopic[index].id;
+													var sendTitle = keepTopic[index].name;
+													var sendDescription = keepTopic[index].description;
+													var sendScore = keepTopic[index].score;
+													$("#listNavpills0")
+															.clone()
+															.attr(
+																	'id',
+																	'listNavpills'
+																			+ (++dummyList))
+															.insertAfter(
+																	genIdListNav)
+															.show()
+															.appendTo(
+																	$("#navpills"
+																			+ dummyNavpills));
+													$("#linkToScore0")
+															.clone()
+															.attr(
+																	'id',
+																	'linkToScore'
+																			+ (++dummyLink))
+															.text(
+																	sendTitle
+																			+ " : "
+																			+ sendDescription)
+															.insertAfter(
+																	genIdLink)
+															.show()
+															.appendTo(
+																	$("#listNavpills"
+																			+ dummyList));
+													$("#spanScore0")
+															.clone()
+															.attr(
+																	'id',
+																	'spanScore'
+																			+ (++dummyScore))
+															.text(sendScore)
+															.insertAfter(
+																	genIdLink)
+															.appendTo(
+																	$("#linkToScore"
+																			+ dummyLink));
+													$("#dummyKeepIdTopic0")
+															.clone()
+															.attr(
+																	'id',
+																	'dummyKeepIdTopic'
+																			+ (++dummyPanelScoreId))
+															.text(sendId)
+															.insertAfter(
+																	genIdPanelScoreId)
+															.hide()
+															.appendTo(
+																	$("#linkToScore"
+																			+ dummyLink));
+
+													$("#modalScore0")
+															.clone()
+															.attr(
+																	'id',
+																	'modalScore'
+																			+ (++dummyModalScore))
+															.insertAfter(
+																	genIdModalScore);
+													$("#modalScoreDialog0")
+															.clone()
+															.attr(
+																	'id',
+																	'modalScoreDialog'
+																			+ (++dummyModalScoreDialog))
+															.insertAfter(
+																	genIdModalScoreDialog)
+															.show()
+															.appendTo(
+																	$("#modalScore"
+																			+ dummyModalScore));
+													$("#modalScoreContent0")
+															.clone()
+															.attr(
+																	'id',
+																	'modalScoreContent'
+																			+ (++dummyModalScoreContent))
+															.insertAfter(
+																	genIdModalScoreContent)
+															.show()
+															.appendTo(
+																	$("#modalScoreDialog"
+																			+ dummyModalScoreDialog));
+													$("#panelScore0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScore'
+																			+ (++dummyPanelScore))
+															.insertAfter(
+																	genIdPanelScore)
+															.show()
+															.appendTo(
+																	$("#modalScoreContent"
+																			+ dummyModalScoreContent));
+													$("#panelScoreHead0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreHead'
+																			+ (++dummyPanelScoreHead))
+															.insertAfter(
+																	genIdPanelScoreHead)
+															.show()
+															.appendTo(
+																	$("#panelScore"
+																			+ dummyPanelScore));
+													$("#panelScoreSubject0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreSubject'
+																			+ (++dummyPanelScoreSubject))
+															.insertAfter(
+																	genIdPanelScoreSubject)
+															.show()
+															.appendTo(
+																	$("#panelScoreHead"
+																			+ dummyPanelScoreHead));
+													$("#panelScoreBtnClose")
+															.clone()
+															.show()
+															.appendTo(
+																	$("#panelScoreHead"
+																			+ dummyPanelScoreHead));
+													$("#panelScoreBody0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreBody'
+																			+ (++dummyPanelScoreBody))
+															.insertAfter(
+																	genIdPanelScoreBody)
+															.show()
+															.appendTo(
+																	$("#panelScore"
+																			+ dummyPanelScore));
+													$("#panelScoreDescription0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreDescription'
+																			+ (++dummyPanelScoreDescription))
+															.insertAfter(
+																	genIdPanelScoreDescription)
+															.show()
+															.appendTo(
+																	$("#panelScoreBody"
+																			+ dummyPanelScoreBody));
+													$("#panelScoreMessage0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreMessage'
+																			+ (++dummyPanelScoreMessage))
+															.insertAfter(
+																	genIdPanelScoreMessage)
+															.show()
+															.appendTo(
+																	$("#panelScoreBody"
+																			+ dummyPanelScoreBody));
+													$("#panelScoreBtnGroup0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreBtnGroup'
+																			+ (++dummyPanelScoreBtnGroup))
+															.insertAfter(
+																	genIdPanelScoreBtnGroup)
+															.show()
+															.appendTo(
+																	$("#panelScoreBody"
+																			+ dummyPanelScoreBody));
+													$("#btnZero0")
+															.clone()
+															.attr(
+																	'id',
+																	'btnZero'
+																			+ (++dummyBtnZero))
+															.insertAfter(
+																	genIdBtnZero)
+															.show()
+															.appendTo(
+																	$("#panelScoreBtnGroup"
+																			+ dummyPanelScoreBtnGroup));
+													$("#btnThree0")
+															.clone()
+															.attr(
+																	'id',
+																	'btnThree'
+																			+ (++dummyBtnThree))
+															.insertAfter(
+																	genIdBtnThree)
+															.show()
+															.appendTo(
+																	$("#panelScoreBtnGroup"
+																			+ dummyPanelScoreBtnGroup));
+													$("#btnFive0")
+															.clone()
+															.attr(
+																	'id',
+																	'btnFive'
+																			+ (++dummyBtnFive))
+															.insertAfter(
+																	genIdBtnFive)
+															.show()
+															.appendTo(
+																	$("#panelScoreBtnGroup"
+																			+ dummyPanelScoreBtnGroup));
+													$("#btnEight0")
+															.clone()
+															.attr(
+																	'id',
+																	'btnEight'
+																			+ (++dummyBtnEight))
+															.insertAfter(
+																	genIdBtnEight)
+															.show()
+															.appendTo(
+																	$("#panelScoreBtnGroup"
+																			+ dummyPanelScoreBtnGroup));
+													$("#btnOne0")
+															.clone()
+															.attr(
+																	'id',
+																	'btnOne'
+																			+ (++dummyBtnOne))
+															.insertAfter(
+																	genIdBtnOne)
+															.show()
+															.appendTo(
+																	$("#panelScoreBtnGroup"
+																			+ dummyPanelScoreBtnGroup));
+													$("#panelScoreBtnSubmit0")
+															.clone()
+															.attr(
+																	'id',
+																	'panelScoreBtnSubmit'
+																			+ (++dummyPanelScoreBtnSubmit))
+															.insertAfter(
+																	genIdPanelScoreBtnSubmit)
+															.show()
+															.appendTo(
+																	$("#panelScoreBody"
+																			+ dummyPanelScoreBody));
+												}
+												sizeTopic++;
+											});
+								});
 			}
 			$("#presenting").click(function() {
 				$("#accordion").empty();
 				$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			});
-			
+
 			$(".lialert").click(function() {
 				$("#accordion").empty();
 				$("#panelScore").fadeIn('slow').appendTo($("#formBoard"));
 			});
 			$("#btn0").click(function() {
-				$("#score").val("0");
+				$('button').removeClass('active');
+				$(this).addClass('active');
 			});
 			$("#btn03").click(function() {
-				$("#score").val("0.3");
+				$('button').removeClass('active');
+				$(this).addClass('active');
 			});
 			$("#btn05").click(function() {
-				$("#score").val("0.5");
+				$('button').removeClass('active');
+				$(this).addClass('active');
 			});
 			$("#btn08").click(function() {
-				$("#score").val("0.8");
+				$('button').removeClass('active');
+				$(this).addClass('active');
 			});
 			$("#btn1").click(function() {
-				$("#score").val("1");
+				$('button').removeClass('active');
+				$(this).addClass('active');
 			});
-			$("#buttonSubmit").click(function() {
-				var dataForm = {};
-				dataForm.message = $("textarea#message").val();
-				dataForm.btnGroup = $("#score").val();
-				alert(dataForm.message + " " + dataForm.btnGroup);
 
-				//var dataSend = JSON.stringify(dataForm);
+			$("#buttonSubmit").click(
+					function() {
+						var dataForm = {};
+						dataForm.message = $("textarea#message").val();
+						dataForm.btnGroup = $("#panelButtonScore").find(
+								"button.active").prop('value');
+						;
+						alert(dataForm.message + " " + dataForm.btnGroup);
 
-				//console.info(dataSend);
-				//$.ajax({
-				//url : "/EvaluateTool/evaluateboard",
-				//type : 'GET',
-				//data : {
-				//dataForm : dataSend
-				//},
-				//success : function(data) {
-				//alert(data);
-				//},
-				//error : function(data, status, er) {
-				//alert("error: " + data + " status: " + status
-				//	+ " er:" + er);
-				//}
-				//});
+						//var dataSend = JSON.stringify(dataForm);
 
-			});
+						//console.info(dataSend);
+						//$.ajax({
+						//url : "/EvaluateTool/evaluateboard",
+						//type : 'GET',
+						//data : {
+						//dataForm : dataSend
+						//},
+						//success : function(data) {
+						//alert(data);
+						//},
+						//error : function(data, status, er) {
+						//alert("error: " + data + " status: " + status
+						//	+ " er:" + er);
+						//}
+						//});
+
+					});
 		});
 	</script>
 </body>

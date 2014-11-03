@@ -91,6 +91,7 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 		try {
 			this.getProviderService().getScoreBoardService().save(scoreBoard);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "Scoring Unsuccess";
 		}
 		

@@ -16,28 +16,28 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
 public class ScoreBoardDaoTest extends AbstractTestDao {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(ScoreBoardDaoTest.class);
 
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;
 	@Autowired
 	private MemberRegisterDao memberRegisterDao;
 
-	public MemberRegisterDao getMemberRegisterDao() {
-		return memberRegisterDao;
-	}
-
-	public void setMemberRegisterDao(MemberRegisterDao memberRegisterDao) {
-		this.memberRegisterDao = memberRegisterDao;
-	}
-
-	public ScoreBoardDao getScoreBoardDao() {
-		return scoreBoardDao;
-	}
-
-	public void setScoreBoardDao(ScoreBoardDao scoreBoardDao) {
-		this.scoreBoardDao = scoreBoardDao;
-	}
+//	public MemberRegisterDao getMemberRegisterDao() {
+//		return memberRegisterDao;
+//	}
+//
+//	public void setMemberRegisterDao(MemberRegisterDao memberRegisterDao) {
+//		this.memberRegisterDao = memberRegisterDao;
+//	}
+//
+//	public ScoreBoardDao getScoreBoardDao() {
+//		return scoreBoardDao;
+//	}
+//
+//	public void setScoreBoardDao(ScoreBoardDao scoreBoardDao) {
+//		this.scoreBoardDao = scoreBoardDao;
+//	}
 
 	@Test
 	public void remark() {
@@ -55,14 +55,14 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		Person examiner = new Person();
 		examiner.setId(2L);
 
-		ScoreBoard scoreBoard = this.getScoreBoardDao()
+		ScoreBoard scoreBoard = scoreBoardDao
 				.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
 		Assert.assertNotNull(scoreBoard);
 	}
 
 	@Test
-	public void testSave() throws Exception {
-		Double score = 0.8;
+	public void testSave() {
+		Double score = 0.4;
 		String comment = "Test Comment";
 		Long committeeId = 3L;
 		Long examinerId = 2L;
@@ -77,7 +77,8 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		Person examiner = new Person();
 		examiner.setId(examinerId);
 
-		ScoreBoard scoreBoardBefore = this.getScoreBoardDao().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		ScoreBoard scoreBoardBefore = scoreBoardDao.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		logger.debug("scoreBoard :{}",scoreBoardBefore);
 		Assert.assertNull(scoreBoardBefore);
 
 		ScoreBoard scoreBoard = new ScoreBoard();
@@ -89,7 +90,7 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		scoreBoard.setScore(score);
 		scoreBoard.setComment(comment);
 
-		this.getScoreBoardDao().save(scoreBoard);
+		scoreBoardDao.save(scoreBoard);
 		Assert.assertNotNull(scoreBoard.getId());
 		Assert.assertThat(scoreBoard.getComment().toString(),
 				is("Test Comment"));

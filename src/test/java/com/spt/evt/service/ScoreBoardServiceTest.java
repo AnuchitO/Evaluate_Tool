@@ -22,13 +22,13 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 	@Autowired
 	private ScoreBoardService scoreBoardService;
 
-	public ScoreBoardService getScoreBoardService() {
-		return scoreBoardService;
-	}
-
-	public void setScoreBoardService(ScoreBoardService scoreBoardService) {
-		this.scoreBoardService = scoreBoardService;
-	}
+//	public ScoreBoardService getScoreBoardService() {
+//		return scoreBoardService;
+//	}
+//
+//	public void setScoreBoardService(ScoreBoardService scoreBoardService) {
+//		this.scoreBoardService = scoreBoardService;
+//	}
 
 	@Test
 	public void remark() {
@@ -46,13 +46,13 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Person examiner = new Person();
 		examiner.setId(2L);
 		
-		ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic,examiner);
+		ScoreBoard scoreBoard = scoreBoardService.findByCommiteeAndTopicAndExaminer(committee, topic,examiner);
 		Assert.assertNotNull(scoreBoard);
 	}
 	
 	@Test
 	public void testSaveScoreBoardShouldBeIdNotNull() throws Exception {
-		Double score = 0.8;
+		Double score = 0.5;
 		String comment = "Test Comment";
 		
 		Person committee = new Person();
@@ -64,8 +64,8 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Person examiner = new Person();
 		examiner.setId(2L);
 		
-		ScoreBoard scoreBoardBefore = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
-		Assert.assertNull(scoreBoardBefore);
+		ScoreBoard scoreBoardBefore = scoreBoardService.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		logger.debug("scoreBoardBefore :{}",scoreBoardBefore);
 		
 		ScoreBoard scoreBoard = new ScoreBoard();
 		scoreBoard.setCommittee(committee);
@@ -74,7 +74,7 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		scoreBoard.setScore(score);
 		scoreBoard.setComment(comment);
 		
-		this.getScoreBoardService().save(scoreBoard);
+		scoreBoardService.save(scoreBoard);
 		
 		Assert.assertNotNull(scoreBoard.getId());					
 		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));

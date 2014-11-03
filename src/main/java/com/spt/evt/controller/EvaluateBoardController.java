@@ -60,5 +60,13 @@ public class EvaluateBoardController {
 		
 		return status;
 	}
+//	@RequestMapping(value="/evaluateBoardSave",method=RequestMethod.POST)
+//	public @ResponseBody String saveCommentScore(@RequestParam(value="data") String data ,HttpServletRequest arg0,
+//			HttpServletResponse arg1) throws Exception {
+//		JSONObject jsonObj = new JSONObject(data);
+//		JSONObject courseInformation = evaluateBoardService.getCourseInformation(Long.parseLong(jsonObj.getString("examinerId")), Long.parseLong(jsonObj.getString("committeeId")), Long.parseLong(jsonObj.getString("courseId")));
+//		
+//		return courseInformation.toString();
+//	}
 
 }
