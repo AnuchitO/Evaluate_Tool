@@ -127,7 +127,9 @@
 
 
 		<div id="formBoard">
-			<span id="spanScore0" class="badge pull-right">2 / 58</span> <br>
+			<span id="submitOfAllTOpic" class="badge pull-right"><label
+				id="submitTopic" style="margin: 2px;"></label> / <label
+				id="totalTopic" style="margin: 2px;"></label></span> <br> <br>
 			<div class="panel-group" id="accordion"></div>
 		</div>
 
@@ -253,7 +255,7 @@
 		</div>
 		<button id="panelScoreBtnSubmit0" type="button"
 			class="btn btn-primary" onClick="javascript:sendMessageScore(this);"
-			style="margin: 20px">Submit</button>
+			data-dismiss="modal" style="margin: 20px">Submit</button>
 		<!----------------------Model Panel in Modal---------------------->
 
 		<!----------------------Model Modal---------------------->
@@ -286,8 +288,7 @@
 			var textScore = $("#panelScoreBtnGroup" + count).find(
 					"button.active").prop('value');
 			var textId = $("#dummyKeepIdTopic" + count).text();
-			alert(count + textMessage + textScore);
-
+			//alert(count + textMessage + textScore);
 			var dataSave = {};
 			dataSave.examinerId = $("#examinerId").attr('value');
 			dataSave.committeeId = $("#committeeId").attr('value');
@@ -312,6 +313,13 @@
 						}
 					});
 
+			if ($("#spanScore" + count).text() == '-') {
+				var keepOriginalSubmitTopic = $("#submitTopic").text();
+				keepOriginalSubmitTopic++;
+				$("#submitTopic").text(keepOriginalSubmitTopic);
+			}
+			$("#spanScore" + count).text(textScore);
+
 		}
 		function setScore(btnScore) {
 			$('button').removeClass('active');
@@ -319,6 +327,7 @@
 		}
 		$(function() {
 			$("#panelRealTime").hide();
+			$("#submitOfAllTOpic").hide();
 			$("#panelCollapse0").hide();
 			$("#panelHeading0").hide();
 			$("#panelTitle0").hide();
@@ -342,6 +351,8 @@
 			$("#btnFive0").hide();
 			$("#btnEight0").hide();
 			$("#btnOne0").hide();
+
+			var keepTopicOfSubmit = 0;
 
 			$("#topicList")
 					.click(
@@ -441,6 +452,7 @@
 				var genIdBtnOne = $("#btnOne" + dummyBtnOne);
 
 				var sizeTopic = 0;
+				var numberOfTopic = 0;
 
 				$
 						.each(
@@ -531,6 +543,7 @@
 													var sendTitle = keepTopic[index].name;
 													var sendDescription = keepTopic[index].description;
 													var sendScore = keepTopic[index].score;
+
 													$("#listNavpills0")
 															.clone()
 															.attr(
@@ -779,12 +792,26 @@
 															.appendTo(
 																	$("#panelScoreBody"
 																			+ dummyPanelScoreBody));
+													numberOfTopic++;
 												}
 												sizeTopic++;
+
 											});
+
 								});
+				$("#submitOfAllTOpic").show();
+				var indexCheck = 1
+				for (indexCheck; indexCheck < numberOfTopic; indexCheck++) {
+					if ($("#spanScore" + indexCheck).text() != '-') {
+						keepTopicOfSubmit++;
+					}
+				}
+				$("#submitTopic").text(keepTopicOfSubmit);
+				$("#totalTopic").text(numberOfTopic);
 			}
 			$("#presenting").click(function() {
+				$("#submitOfAllTOpic").hide();
+				$("#submitTopic").text(keepTopicOfSubmit--);
 				$("#accordion").empty();
 				$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			});
