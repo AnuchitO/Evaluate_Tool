@@ -16,17 +16,9 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private PersonDao personDao;
 
-	public PersonDao getPersonDao() {
-		return personDao;
-	}
-
-	public void setPersonDao(PersonDao personDao) {
-		this.personDao = personDao;
-	}
-
 	@Override
 	public Person findById(Long id) {
-		return this.getPersonDao().findById(id);
+		return this.personDao.findById(id);
 	}
 	
 	

@@ -22,14 +22,6 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 	@Autowired
 	private ScoreBoardService scoreBoardService;
 
-//	public ScoreBoardService getScoreBoardService() {
-//		return scoreBoardService;
-//	}
-//
-//	public void setScoreBoardService(ScoreBoardService scoreBoardService) {
-//		this.scoreBoardService = scoreBoardService;
-//	}
-
 	@Test
 	public void remark() {
 		logger.debug("-= Begin test ScoreBoardServiceTest() =-");
@@ -75,7 +67,7 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		scoreBoard.setComment(comment);
 		
 		scoreBoardService.save(scoreBoard);
-		
+		logger.debug("*************************************** :{}",scoreBoard.getId());
 		Assert.assertNotNull(scoreBoard.getId());					
 		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));
 		Assert.assertEquals(score, scoreBoard.getScore());

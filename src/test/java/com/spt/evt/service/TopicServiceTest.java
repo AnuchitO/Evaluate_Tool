@@ -20,13 +20,6 @@ public class TopicServiceTest extends AbstractTestService {
 	@Autowired
 	private TopicService topicservice;
 
-	public TopicService getTopicservice() {
-		return topicservice;
-	}
-
-	public void setTopicservice(TopicService topicservice) {
-		this.topicservice = topicservice;
-	}
 
 	@Test
 	public void remark() {
@@ -37,7 +30,7 @@ public class TopicServiceTest extends AbstractTestService {
 	public void testFindSubjectBySubjectShouldBeNotNull() {
 		Subject subject = new Subject();
 		subject.setId(1L);
-		List<Topic> topics = this.getTopicservice().findBySubject(subject);
+		List<Topic> topics = this.topicservice.findBySubject(subject);
 		Assert.assertNotNull(topics);
 	}
 

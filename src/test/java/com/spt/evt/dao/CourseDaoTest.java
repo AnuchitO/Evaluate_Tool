@@ -17,14 +17,6 @@ public class CourseDaoTest extends AbstractTestDao {
 	@Autowired
 	private CourseDao courseDao;
 
-	public CourseDao getCourseDao() {
-		return courseDao;
-	}
-
-	public void setCourseDao(CourseDao courseDao) {
-		this.courseDao = courseDao;
-	}
-
 	@Test
 	public void remark() {
 		logger.debug("/*** Begin test CourseDaoTest() ***/");
@@ -32,7 +24,7 @@ public class CourseDaoTest extends AbstractTestDao {
 
 	@Test
 	public void testFindCourseByIdBeNotNull() {
-		Course course = this.getCourseDao().findById(1L);
+		Course course = this.courseDao.findById(1L);
 		Assert.assertNotNull(course);
 	}
 

@@ -19,15 +19,6 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 	@Autowired
 	private EvaluateBoardService committeeService;
 
-	public EvaluateBoardService getCommitteeService() {
-		return committeeService;
-	}
-
-	public void setCommitteeService(EvaluateBoardService committeeService) {
-		this.committeeService = committeeService;
-	}
-	
-
 	@Test
 	public void remark() {
 		logger.debug("-= Begin test CommitteeServiceTest() =-");
@@ -38,7 +29,7 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Long examinerId = 2L;
 		Long committeeId = 3L;
 		Long courseId = 1L;
-		JSONObject courseInformation = this.getCommitteeService().getCourseInformation(examinerId, committeeId, courseId);
+		JSONObject courseInformation = this.committeeService.getCourseInformation(examinerId, committeeId, courseId);
 		Assert.assertNotNull(courseInformation.get("subject"));
 		Assert.assertTrue(0!=courseInformation.length());
 	
@@ -51,7 +42,7 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Long topicId = 2L;
 		Double score = 0.5;
 		String comment = "Test Comment";
-		String statusSave = this.getCommitteeService().scoring(committeeId, examinerId, topicId, score, comment);
+		String statusSave = this.committeeService.scoring(committeeId, examinerId, topicId, score, comment);
 		Assert.assertThat(statusSave, is("Success"));
 	}
 }

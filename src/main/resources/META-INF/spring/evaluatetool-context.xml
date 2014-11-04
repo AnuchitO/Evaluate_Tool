@@ -16,6 +16,7 @@
 						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	<!--<import resource="database.xml" /> -->
 	<aop:aspectj-autoproxy />
+	<!--context:load-time-weaver /-->
 
 	<!-- Creates an in-memory HSQLDB Database -->
 	<jdbc:embedded-database id="dataSource" />
@@ -37,7 +38,7 @@
 	</bean>
 
 	<aop:config>
-	    <aop:pointcut id="serviceOperation"		  expression="execution(* *..dao.*.*(..))"/>
+	    <aop:pointcut id="serviceOperation"		  expression="execution(* *..service.*.*(..))"/>
 	    <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
 	</aop:config>
 	

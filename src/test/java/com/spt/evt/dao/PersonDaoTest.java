@@ -17,14 +17,6 @@ public class PersonDaoTest extends AbstractTestDao {
 	@Autowired
 	private PersonDao personDao;
 
-	public PersonDao getPersonDao() {
-		return personDao;
-	}
-
-	public void setPersonDao(PersonDao personDao) {
-		this.personDao = personDao;
-	}
-
 	@Test
 	public void remark() {
 		logger.debug("/*** Begin test PersonDaoTest() ***/");
@@ -32,7 +24,7 @@ public class PersonDaoTest extends AbstractTestDao {
 
 	@Test
 	public void testFindPersonByIdShouldBeNotNull() {
-		Person person = this.getPersonDao().findById(1L);
+		Person person = this.personDao.findById(1L);
 		Assert.assertNotNull(person);
 	}
 
