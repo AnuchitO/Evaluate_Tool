@@ -1,6 +1,7 @@
 package com.spt.evt.dao;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,6 +45,7 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		Assert.assertNotNull(scoreBoard);
 	}
 
+	
 	@Test
 	public void testSave() {
 //		Double score = 0.4;

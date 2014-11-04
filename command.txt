@@ -11,3 +11,4 @@ git remote show origin
 git merge dev --no-ff
 git push -u origin master
  mvn eclipse:clean
+mvn clean compile test  -Dtest=ScoreBoardDaoTest
