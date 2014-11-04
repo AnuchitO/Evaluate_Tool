@@ -26,6 +26,8 @@ public class EvaluateBoardController {
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 		System.out.println("*************************** evaluateBoard  *****************");
+		//String committee = "P'aod";
+		//String examiner = "Patipol";
 		return new ModelAndView("evaluateBoard");
 
 	}
@@ -35,11 +37,11 @@ public class EvaluateBoardController {
 			HttpServletResponse arg1)  {
 		JSONObject jsonObj = new JSONObject(data);
 		JSONObject courseInformation = this.evaluateBoardService.getCourseInformation(Long.parseLong(jsonObj.getString("examinerId")), Long.parseLong(jsonObj.getString("committeeId")), Long.parseLong(jsonObj.getString("courseId")));
-		
+
 		return courseInformation.toString();
 
 	}
-	
+
 	@RequestMapping(value="/scoring",method=RequestMethod.POST)
 	public @ResponseBody String scoring(@RequestParam(value="data") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
 		JSONObject jsonObj = new JSONObject(data);		
@@ -48,19 +50,11 @@ public class EvaluateBoardController {
 		Long topicId =  jsonObj.getLong("topicId");
 		Double score =  jsonObj.getDouble("score");
 		String comment = jsonObj.getString("comment");
-		
+
 		logger.debug("Scoring ******************************************* : {}",jsonObj.toString());
 		String status = this.evaluateBoardService.scoring(committeeId, examinerId, topicId, score, comment);
-		
+
 		return status;
 	}
-//	@RequestMapping(value="/evaluateBoardSave",method=RequestMethod.POST)
-//	public @ResponseBody String saveCommentScore(@RequestParam(value="data") String data ,HttpServletRequest arg0,
-//			HttpServletResponse arg1) throws Exception {
-//		JSONObject jsonObj = new JSONObject(data);
-//		JSONObject courseInformation = evaluateBoardService.getCourseInformation(Long.parseLong(jsonObj.getString("examinerId")), Long.parseLong(jsonObj.getString("committeeId")), Long.parseLong(jsonObj.getString("courseId")));
-//		
-//		return courseInformation.toString();
-//	}
 
 }
