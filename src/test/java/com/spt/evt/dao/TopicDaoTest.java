@@ -21,14 +21,6 @@ public class TopicDaoTest extends AbstractTestDao {
 	@Autowired
 	private TopicDao topicDao;
 
-	public TopicDao getTopicDao() {
-		return topicDao;
-	}
-
-	public void setTopicDao(TopicDao topicDao) {
-		this.topicDao = topicDao;
-	}
-
 	@Test
 	public void remark() {
 		logger.debug("/*** Begin test TopicDaoTest() ***/");
@@ -38,13 +30,13 @@ public class TopicDaoTest extends AbstractTestDao {
 	public void testFindSubjectBySubjectShouldBeNotNull() {
 		Subject subject = new Subject();
 		subject.setId(1L);
-		List<Topic> topics = this.getTopicDao().findBySubject(subject);
+		List<Topic> topics = this.topicDao.findBySubject(subject);
 		Assert.assertNotNull(topics);
 	}
 
 	@Test
 	public void testFindTopicByIdShouldBeNotNull() {
-		Topic topic = this.getTopicDao().findById(1L);
+		Topic topic = this.topicDao.findById(1L);
 		Assert.assertNotNull(topic);
 	}
 

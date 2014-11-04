@@ -20,14 +20,6 @@ public class SubjectDaoTest extends AbstractTestDao {
 	@Autowired
 	private SubjectDao subjectDao;
 
-	public SubjectDao getSubjectDao() {
-		return subjectDao;
-	}
-
-	public void setSubjectDao(SubjectDao subjectDao) {
-		this.subjectDao = subjectDao;
-	}
-
 	@Test
 	public void remark() {
 		logger.debug("/*** Begin test SubjectDaoTest() ***/");
@@ -37,7 +29,7 @@ public class SubjectDaoTest extends AbstractTestDao {
 	public void testFindSubjectByCourseShouldBeNotNull() {
 		Course course = new Course();
 		course.setId(1L);
-		List<Subject> subjects = this.getSubjectDao().findByCourse(course);
+		List<Subject> subjects = this.subjectDao.findByCourse(course);
 		Assert.assertNotNull(subjects);
 	}
 

@@ -17,14 +17,6 @@ public class CourseServiceTest extends AbstractTestService {
 	@Autowired
 	private CourseService courseService;
 
-	public CourseService getCourseService() {
-		return courseService;
-	}
-
-	public void setCourseService(CourseService courseService) {
-		this.courseService = courseService;
-	}
-
 	@Test
 	public void remark() {
 		logger.debug("-= Begin test CourseServiceTest() =-");
@@ -32,7 +24,7 @@ public class CourseServiceTest extends AbstractTestService {
 
 	@Test
 	public void testFindCourseByIdBeNotNull() {
-		Course course = this.getCourseService().findById(1L);
+		Course course = this.courseService.findById(1L);
 		Assert.assertNotNull(course);
 	}
 

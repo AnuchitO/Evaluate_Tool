@@ -20,17 +20,9 @@ public class SubjectServiceImpl implements SubjectService {
 	@Autowired
 	private SubjectDao subjectDao;
 
-	public SubjectDao getSubjectDao() {
-		return subjectDao;
-	}
-
-	public void setSubjectDao(SubjectDao subjectDao) {
-		this.subjectDao = subjectDao;
-	}
-
 	@Override
 	public List<Subject> findByCourse(Course course) {
-		return this.getSubjectDao().findByCourse(course);
+		return this.subjectDao.findByCourse(course);
 	}
 	
 }

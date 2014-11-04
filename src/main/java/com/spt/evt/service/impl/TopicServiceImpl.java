@@ -20,17 +20,9 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TopicDao topicDao;
 
-	public TopicDao getTopicDao() {
-		return topicDao;
-	}
-
-	public void setTopicDao(TopicDao topicDao) {
-		this.topicDao = topicDao;
-	}
-
 	@Override
 	public List<Topic> findBySubject(Subject subject) {
-		return this.getTopicDao().findBySubject(subject);
+		return this.topicDao.findBySubject(subject);
 	}
 
 

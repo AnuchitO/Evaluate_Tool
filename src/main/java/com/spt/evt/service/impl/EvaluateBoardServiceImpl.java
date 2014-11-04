@@ -16,30 +16,19 @@ import com.spt.evt.entity.Topic;
 import com.spt.evt.service.EvaluateBoardService;
 
 @Service
-public class EvaluateBoardServiceImpl implements EvaluateBoardService {
+public class EvaluateBoardServiceImpl extends ProviderService implements EvaluateBoardService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(EvaluateBoardServiceImpl.class);
-
-	@Autowired
-	private ProviderService providerService;
-
-	public ProviderService getProviderService() {
-		return providerService;
-	}
-
-	public void setProviderService(ProviderService providerService) {
-		this.providerService = providerService;
-	}
 
 	@Override
 	public JSONObject getCourseInformation(Long examinerId, Long committeeId,Long courseId) {
 		
 		JSONObject courseInformation = new JSONObject();
 		
-		Person committee = this.getProviderService().getPersonService().findById(committeeId);
-		Person examiner = this.getProviderService().getPersonService().findById(examinerId);
-		Course course = this.getProviderService().getCourseService().findById(courseId);
-		List<Subject> subjects = this.getProviderService().getSubjectService().findByCourse(course);
+		Person committee = this.getPersonService().findById(committeeId);
+		Person examiner = this.getPersonService().findById(examinerId);
+		Course course = this.getCourseService().findById(courseId);
+		List<Subject> subjects = this.getSubjectService().findByCourse(course);
 
 		JSONObject subjectElement = null;
 		for (Subject subject : subjects) {
@@ -47,14 +36,14 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 			subjectElement.put("id", subject.getId());
 			subjectElement.put("name",subject.getName());
 			
-			List<Topic> topics = this.getProviderService().getTopicService().findBySubject(subject);
+			List<Topic> topics = this.getTopicService().findBySubject(subject);
 			for (Topic topic : topics) {
 				JSONObject topicElement = new JSONObject();
 				topicElement.put("id",topic.getId());
 				topicElement.put("name",topic.getName());
 				topicElement.put("description",topic.getDescription());
 				
-				ScoreBoard scoreBoard = this.getProviderService().getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+				ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
 				
 				if(null!=scoreBoard){
 					topicElement.put("score",scoreBoard.getScore());
@@ -89,7 +78,7 @@ public class EvaluateBoardServiceImpl implements EvaluateBoardService {
 		scoreBoard.setComment(comment);
 		
 		try {
-			this.getProviderService().getScoreBoardService().save(scoreBoard);
+			this.getScoreBoardService().save(scoreBoard);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "Scoring Unsuccess";

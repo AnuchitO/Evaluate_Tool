@@ -17,17 +17,9 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDao courseDao;
 
-	public CourseDao getCourseDao() {
-		return courseDao;
-	}
-
-	public void setCourseDao(CourseDao courseDao) {
-		this.courseDao = courseDao;
-	}
-
 	@Override
 	public Course findById(Long id) {
-		return this.getCourseDao().findById(id);
+		return this.courseDao.findById(id);
 	}
 
 }

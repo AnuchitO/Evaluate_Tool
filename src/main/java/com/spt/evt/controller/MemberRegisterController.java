@@ -26,14 +26,6 @@ public class MemberRegisterController {
 	@Autowired
 	private MemberRegisterService memberRegisterService;
 
-	public MemberRegisterService getMemberRegisterService() {
-		return memberRegisterService;
-	}
-
-	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
-		this.memberRegisterService = memberRegisterService;
-	}
-
 	@RequestMapping(value="/memberRegister",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {

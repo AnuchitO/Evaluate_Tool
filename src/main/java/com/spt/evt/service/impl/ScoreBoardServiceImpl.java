@@ -19,14 +19,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;
 
-//	public ScoreBoardDao getScoreBoardDao() {
-//		return scoreBoardDao;
-//	}
-//
-//	public void setScoreBoardDao(ScoreBoardDao scoreBoardDao) {
-//		this.scoreBoardDao = scoreBoardDao;
-//	}
-
 	@Override
 	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,
 			Person examiner) {

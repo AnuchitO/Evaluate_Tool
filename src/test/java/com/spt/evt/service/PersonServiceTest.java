@@ -17,13 +17,6 @@ public class PersonServiceTest extends AbstractTestService {
 	@Autowired
 	private PersonService personService;
 
-	public PersonService getPersonService() {
-		return personService;
-	}
-
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
-	}
 
 	@Test
 	public void remark() {
@@ -32,7 +25,7 @@ public class PersonServiceTest extends AbstractTestService {
 
 	@Test
 	public void testFindPersonByIdShouldBeNotNull() {
-		Person person = this.getPersonService().findById(1L);
+		Person person = this.personService.findById(1L);
 		Assert.assertNotNull(person);
 	}
 
