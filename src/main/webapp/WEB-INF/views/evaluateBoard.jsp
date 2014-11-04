@@ -288,13 +288,13 @@
 			var textScore = $("#panelScoreBtnGroup" + count).find(
 					"button.active").prop('value');
 			var textId = $("#dummyKeepIdTopic" + count).text();
-			//alert(count + textMessage + textScore);
+			alert(textId + textMessage + textScore);
 			var dataSave = {};
 			dataSave.examinerId = $("#examinerId").attr('value');
 			dataSave.committeeId = $("#committeeId").attr('value');
-			dataSave.topicId = $("#committeeId").attr('value');
-			dataSave.score = $("#committeeId").attr('value');
-			dataSave.comment = $("#committeeId").attr('value');
+			dataSave.topicId = textId;
+			dataSave.score = textScore;
+			dataSave.comment = textMessage;
 
 			var dataSend = JSON.stringify(dataSave);
 			$
@@ -352,7 +352,7 @@
 			$("#btnEight0").hide();
 			$("#btnOne0").hide();
 
-			var keepTopicOfSubmit = 0;
+			//var keepTopicOfSubmit = 0;
 
 			$("#topicList")
 					.click(
@@ -799,6 +799,7 @@
 											});
 
 								});
+				var keepTopicOfSubmit = 0;
 				$("#submitOfAllTOpic").show();
 				var indexCheck = 1
 				for (indexCheck; indexCheck < numberOfTopic; indexCheck++) {
@@ -811,7 +812,7 @@
 			}
 			$("#presenting").click(function() {
 				$("#submitOfAllTOpic").hide();
-				$("#submitTopic").text(keepTopicOfSubmit--);
+				//$("#submitTopic").text(keepTopicOfSubmit);
 				$("#accordion").empty();
 				$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			});
