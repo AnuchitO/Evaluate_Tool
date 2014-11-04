@@ -35,11 +35,19 @@ public class MemberRegisterController {
 	}
 	
 	@RequestMapping(value="/memberRegister", method = RequestMethod.POST)
-	public @ResponseBody String post(@RequestParam(value="dataForm") String dataForm) {
+	public @ResponseBody String register(@RequestParam(value="dataForm") String dataForm) {
 		memberRegisterService.setData(dataForm);
 		System.out.println("DATA"+dataForm);
 		List<MemberRegister> result = this.memberRegisterService.findAll();
 		logger.info("Result  ::: " + result.toString());
+		
+		return "Seccessful";
+	}
+	
+	@RequestMapping(value="/memberLogIn", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestParam(value="data") String data) {
+		
+		System.out.println("DATA"+data);
 		
 		return "Seccessful";
 	}

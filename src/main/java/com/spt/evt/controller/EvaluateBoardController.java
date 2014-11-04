@@ -26,9 +26,9 @@ public class EvaluateBoardController {
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 		System.out.println("*************************** evaluateBoard  *****************");
-		//String committee = "P'aod";
-		//String examiner = "Patipol";
-		return new ModelAndView("evaluateBoard");
+		String committee = "P'aod";
+		String examiner = "Patipol";
+		return new ModelAndView("evaluateBoard",committee,examiner);
 
 	}
 
