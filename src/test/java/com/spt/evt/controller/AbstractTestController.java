@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@Transactional
 @ActiveProfiles("test")
 @Configurable
 @ContextConfiguration({"classpath:META-INF/spring/evaluatetool-context.xml", "classpath:META-INF/spring/evaluatetool/evaluatetool-servlet.xml"})
