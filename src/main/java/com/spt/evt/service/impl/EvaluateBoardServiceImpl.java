@@ -47,8 +47,10 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 				
 				if(null!=scoreBoard){
 					topicElement.put("score",scoreBoard.getScore());
+					topicElement.put("comment",scoreBoard.getComment());
 				}else{
 					topicElement.put("score","-");
+					topicElement.put("comment","");
 				}
 				
 				subjectElement.append("topic", topicElement);
@@ -76,9 +78,19 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		scoreBoard.setExaminer(examiner);
 		scoreBoard.setScore(score);
 		scoreBoard.setComment(comment);
-		
+
 		try {
-			this.getScoreBoardService().save(scoreBoard);
+			ScoreBoard scoreBoardOld = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+			if(null!=scoreBoardOld){
+				scoreBoardOld.setCommittee(committee);
+				scoreBoardOld.setTopic(topic);
+				scoreBoardOld.setExaminer(examiner);
+				scoreBoardOld.setScore(score);
+				scoreBoardOld.setComment(comment);
+				this.getScoreBoardService().saveOrUpdate(scoreBoardOld);
+			}
+			
+			this.getScoreBoardService().saveOrUpdate(scoreBoard);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "Scoring Unsuccess";

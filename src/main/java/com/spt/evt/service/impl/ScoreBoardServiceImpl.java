@@ -31,4 +31,10 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 		scoreBoardDao.save(scoreBoard);		
 	}
 
+	@Override
+	public void saveOrUpdate(ScoreBoard scoreBoard) {
+		scoreBoardDao.saveOrUpdate(scoreBoard);		
+	}
+
+
 }

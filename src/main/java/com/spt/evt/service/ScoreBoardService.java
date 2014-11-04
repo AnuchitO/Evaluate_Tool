@@ -9,5 +9,7 @@ public interface ScoreBoardService {
 	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,Person examiner);
 
 	public void save(ScoreBoard scoreBoard);
+	
+	public void saveOrUpdate(ScoreBoard scoreBoard);
 
 }

@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spt.evt.dao.ScoreBoardDao;
 import com.spt.evt.dao.TopicDao;
@@ -45,10 +46,21 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 		return scoreBoard;
 	}
 
+	
+	
 	@Override
+	@Transactional
 	public void save(ScoreBoard scoreBoard) {
 		this.getHibernateTemplate().save(scoreBoard);
 		
 	}
+	
+	@Override
+	@Transactional
+	public void saveOrUpdate(ScoreBoard scoreBoard) {
+		this.getHibernateTemplate().saveOrUpdate(scoreBoard);
+		
+	}
+
 
 }
