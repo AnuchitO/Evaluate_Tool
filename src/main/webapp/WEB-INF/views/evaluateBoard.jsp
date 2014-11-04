@@ -127,7 +127,7 @@
 
 
 		<div id="formBoard">
-			<span id="submitOfAllTOpic" class="badge pull-right"><label
+			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
 				id="totalTopic" style="margin: 2px;"></label></span> <br> <br>
 			<div class="panel-group" id="accordion"></div>
@@ -288,7 +288,7 @@
 			var textScore = $("#panelScoreBtnGroup" + count).find(
 					"button.active").prop('value');
 			var textId = $("#dummyKeepIdTopic" + count).text();
-			alert(textId + textMessage + textScore);
+			//alert(textId + textMessage + textScore);
 			var dataSave = {};
 			dataSave.examinerId = $("#examinerId").attr('value');
 			dataSave.committeeId = $("#committeeId").attr('value');
