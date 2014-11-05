@@ -26,6 +26,28 @@ public class Person extends BaseEntity implements Serializable {
 	private Date birthDay;
 	private String phone;
 	private String positionName;
+	private String userName;
+	private String password;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
 	private Set<Enroll> enrolls = new HashSet<Enroll>();

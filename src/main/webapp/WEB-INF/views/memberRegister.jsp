@@ -6,20 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Register</title>
 <style>
-body {
-	
-}
-
 div {
 	padding: 3px;
 }
 
-#divLogIn{
-	margin: 50px;
-}
-
 #divSignUp{
-	margin-top: 100px;
+	margin: 40px;
 }
 
 #head {
@@ -32,26 +24,7 @@ div {
 </style>
 </head>
 <body>
-	<div id="divLogIn">
-		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<input type="text" class="form-control" id="userNameLogIn"
-					placeholder="Username">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<input type="password" class="form-control" id="passwordLogIn"
-					placeholder="Password">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<button id="buttonLogIn" type="button" class="btn btn-primary">Log
-					In</button>
-			</div>
-		</div>
-	</div>
+	
 	<div id="divSignUp">
 
 		<div class="row" id="head">

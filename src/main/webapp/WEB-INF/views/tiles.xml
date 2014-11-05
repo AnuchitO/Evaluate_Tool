@@ -27,6 +27,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/evt001.jsp" />
 	</definition>
 	
+	<definition name="logIn" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/logIn.jsp" />
+	</definition>
+	
 	<definition name="memberRegister" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/memberRegister.jsp" />
 	</definition>

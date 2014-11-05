@@ -19,13 +19,28 @@
 }
 
 .navbar-default {
-	background-color: #F8F8F8;
-	border-color: #E7E7E7;
+	background-color: #FF8C00;
 }
 
-.blue {
-	background-color: #428bca;
+.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
 	color: #FFFFFF;
+}
+
+.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+	color: #FFFFFF;
+}
+
+.panel-default>.panel-heading {
+	background-color: #FF8C00;
+	color: #FFFFFF;
+}
+
+.panel-default>.panel-body {
+	background-color: #FFD700;
+}
+
+.panel-collapse>.panel-body>.nav-pills>li>a {
+	background-color: #FFD700;
 }
 
 #btn0 {
@@ -121,11 +136,11 @@
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
 
-		<label id="examinerId" value="2">Examiner : Pite</label> <label
-			id="committeeId" value="3">Committee : P'Aod</label> <label
+		<label id="examinerId" value="2">Examiner : ${examinerName}</label> / <label
+			id="committeeId" value="3">Committee : ${committeeName}</label> / <label
 			id="courseId" value="1">Course : SDT</label>
-
-
+		${userName}
+		${password}
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -133,7 +148,7 @@
 			<div class="panel-group" id="accordion"></div>
 		</div>
 
-		<div id="panelRealTime" class="panel panel-primary">
+		<div id="panelRealTime" class="panel panel-default">
 			<div class="panel-heading">
 				<label id="subject">${subject}</label> : <label id="title">${title}</label>
 			</div>
@@ -153,60 +168,13 @@
 					<button id="btn1" type="button" class="btn btn-default" value="1">1</button>
 				</div>
 
-				<button id="buttonSubmit" type="button" class="btn btn-primary">Submit</button>
+				<button id="buttonSubmit" type="button" class="btn btn-default"
+					style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
 			</div>
 		</div>
 
-		<!-- <div class="panel-group" id="accordion">
-			<div class="panel panel-primary">
-				<div class="panel-heading" data-toggle="collapse"
-					data-parent="#accordion" href="#collapseObject"
-					data-target="#collapseObject">
-					<h4 class="panel-title">
-						Object - Oriented<span class="badge pull-right">4</span>
-					</h4>
-				</div>
-				<div id="collapseObject" class="panel-collapse collapse">
-					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li id="aaa"><a href="#">Abstraction : Understand
-									abstraction concept</a></li>
-							<li><a href="#">Encapsulation : Understand encapsulation
-									concept</a></li>
-							<li><a href="#">Inheritance : Understand inheritance
-									concept</a></li>
-							<li><a href="#">Polymorphism : Understand polymorphism
-									concept</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-primary">
-				<div class="panel-heading" data-toggle="collapse"
-					data-parent="#accordion" href="#collapseJava"
-					data-target="#collapseJava">
-					<h4 class="panel-title">
-						Java<span class="badge pull-right">3</span>
-					</h4>
-				</div>
-				<div id="collapseJava" class="panel-collapse collapse">
-					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li><a href="#">Assignments : grade B Understand default
-									value of variable, scope of variable wrapper class.</a></li>
-							<li><a href="#">Declaration & Access control : grade C
-									Can declare variable and class in java.</a></li>
-							<li><a href="#">Flow Control - Exceptions : grade C
-									Understand the mechanism of condition statement such as
-									If...else, switch and every type of loop.</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
 		<!----------------------Model Collapse---------------------->
-		<div id="panelCollapse0" class="panel panel-primary"></div>
+		<div id="panelCollapse0" class="panel panel-default"></div>
 		<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
@@ -221,7 +189,7 @@
 		<!----------------------Model Collapse---------------------->
 
 		<!----------------------Model Panel in Modal---------------------->
-		<div id="panelScore0" class="panel panel-primary"></div>
+		<div id="panelScore0" class="panel panel-default"></div>
 		<div id="panelScoreHead0" class="panel-heading"></div>
 		<label id="panelScoreSubject0" class="textSubject"></label>
 		<button id="panelScoreBtnClose" type="button" class="close"
@@ -232,30 +200,26 @@
 		<textarea id="panelScoreMessage0" class="form-control" rows="3"
 			placeholder="comment here"></textarea>
 		<div id="panelScoreBtnGroup0" class="btn-group">
-			<button id="btnZero0" type="button"
-				class="btn btn-default buttonFirst" value="0"
+			<button id="btnZero0" type="button" class="btn btn-default" value="0"
 				onClick="javascript:setScore(this.id)"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">0</button>
-			<button id="btnThree0" type="button"
-				class="btn btn-default buttonSecond" value="0.3"
-				onClick="javascript:setScore(this.id)"
+			<button id="btnThree0" type="button" class="btn btn-default"
+				value="0.3" onClick="javascript:setScore(this.id)"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.3</button>
-			<button id="btnFive0" type="button"
-				class="btn btn-default buttonSecond" value="0.5"
-				onClick="javascript:setScore(this.id)"
+			<button id="btnFive0" type="button" class="btn btn-default"
+				value="0.5" onClick="javascript:setScore(this.id)"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.5</button>
-			<button id="btnEight0" type="button"
-				class="btn btn-default buttonSecond" value="0.8"
-				onClick="javascript:setScore(this.id)"
+			<button id="btnEight0" type="button" class="btn btn-default"
+				value="0.8" onClick="javascript:setScore(this.id)"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.8</button>
-			<button id="btnOne0" type="button"
-				class="btn btn-default buttonFirst" value="1"
+			<button id="btnOne0" type="button" class="btn btn-default" value="1"
 				onClick="javascript:setScore(this.id)"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">1</button>
 		</div>
 		<button id="panelScoreBtnSubmit0" type="button"
-			class="btn btn-primary" onClick="javascript:sendMessageScore(this);"
-			data-dismiss="modal" style="margin: 20px">Submit</button>
+			class="btn btn-default" onClick="javascript:sendMessageScore(this);"
+			data-dismiss="modal"
+			style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
 		<!----------------------Model Panel in Modal---------------------->
 
 		<!----------------------Model Modal---------------------->
@@ -264,7 +228,10 @@
 		<div id="modalScoreDialog0" class="modal-dialog"></div>
 		<div id="modalScoreContent0" class="modal-content"></div>
 		<!----------------------Model Modal---------------------->
-
+		<div id="loader" align="center">
+			<img src="resources/images/ajax-loader.gif" alt="" width="10%"
+				height="10%"
+		</div>
 		<input type="hidden" id="score" value="" />
 	</div>
 
@@ -324,18 +291,20 @@
 			$('button').removeClass('active');
 			$("#" + btnScore).addClass('active');
 		}
-		var dummyBtnZero = 0;
-		var dummyBtnThree = 0;
-		var dummyBtnFive = 0;
-		var dummyBtnEight = 0;
-		var dummyBtnOne = 0;
 
-		var genIdBtnZero = $("#btnZero" + dummyBtnZero);
-		var genIdBtnThree = $("#btnThree" + dummyBtnThree);
-		var genIdBtnFive = $("#btnFive" + dummyBtnFive);
-		var genIdBtnEight = $("#btnEight" + dummyBtnEight);
-		var genIdBtnOne = $("#btnOne" + dummyBtnOne);
 		function checkScoreFromBase(score, count) {
+			var dummyBtnZero = count - 1;
+			var dummyBtnThree = count - 1;
+			var dummyBtnFive = count - 1;
+			var dummyBtnEight = count - 1;
+			var dummyBtnOne = count - 1;
+
+			var genIdBtnZero = $("#btnZero" + dummyBtnZero);
+			var genIdBtnThree = $("#btnThree" + dummyBtnThree);
+			var genIdBtnFive = $("#btnFive" + dummyBtnFive);
+			var genIdBtnEight = $("#btnEight" + dummyBtnEight);
+			var genIdBtnOne = $("#btnOne" + dummyBtnOne);
+
 			$("#btnZero0").clone().attr('id', 'btnZero' + (++dummyBtnZero))
 					.insertAfter(genIdBtnZero).show().appendTo(
 							$("#panelScoreBtnGroup" + count));
@@ -367,6 +336,12 @@
 			}
 		}
 		$(function() {
+			var $loading = $('#loader').hide();
+			$(document).ajaxStart(function() {
+				$loading.show();
+			}).ajaxStop(function() {
+				$loading.hide();
+			});
 			$("#panelRealTime").hide();
 			$("#submitOfAllTOpic").hide();
 			$("#panelCollapse0").hide();
@@ -392,8 +367,6 @@
 			$("#btnFive0").hide();
 			$("#btnEight0").hide();
 			$("#btnOne0").hide();
-
-			//var keepTopicOfSubmit = 0;
 
 			$("#topicList")
 					.click(
@@ -790,7 +763,6 @@
 			}
 			$("#presenting").click(function() {
 				$("#submitOfAllTOpic").hide();
-				//$("#submitTopic").text(keepTopicOfSubmit);
 				$("#accordion").empty();
 				$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			});

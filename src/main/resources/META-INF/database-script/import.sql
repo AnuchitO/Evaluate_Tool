@@ -73,10 +73,10 @@ insert into Topic (id,name,description,subject) values (57,'SQL Statement','B Ca
 insert into Topic (id,name,description,subject) values (58,'PL/SQL','B Can create stored procedure and function ',11)
 
 
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(1,'Anuchit','Prasertsang','Male','anuchit_p@softsquaregroup.com', '2007-01-03 04:13:43','09111111111','Software Development')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(2,'PATIPOL','SIRISUPPAKIJ','Male','patipol_s@softsquaregroup.com', '2007-01-03 04:13:43','0918563257','Software Development')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(3,'Suriya','Eiamerb','Male','suriya_e@softsquaregroup.com', '2007-01-03 04:13:43','0918652475','Software Analyst')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(4,'Sirirad','Chaiyaphom','Male','sirirad_c@softsquaregroup.com', '2007-01-03 04:13:43','0919865247','Software Development')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(1,'Anuchit','Prasertsang','Male','anuchit_p@softsquaregroup.com', '2007-01-03 04:13:43','09111111111','Software Development','a','a')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(2,'PATIPOL','SIRISUPPAKIJ','Male','patipol_s@softsquaregroup.com', '2007-01-03 04:13:43','0918563257','Software Development','p','p')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(3,'Suriya','Eiamerb','Male','suriya_e@softsquaregroup.com', '2007-01-03 04:13:43','0918652475','Software Analyst','s','s')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(4,'Sirirad','Chaiyaphom','Male','sirirad_c@softsquaregroup.com', '2007-01-03 04:13:43','0919865247','Software Development','z','z')
 
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
