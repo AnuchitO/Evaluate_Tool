@@ -25,7 +25,7 @@
 	<mvc:view-controller path="/users/logoutSuccess" />
 
 	<context:component-scan base-package="com.spt.evt,com.spt.evt.controller" />
-	
+
 	<!-- Configures the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -50,12 +50,10 @@
 	<!-- Configures transaction management around @Transactional components -->
 	<tx:annotation-driven />
 
-	<!-- Imports the application controllers that process client requests
-	<import resource="controllers.xml" />
-	 -->
-	 
-	 <beans profile="evaluateTool">
-		<bean id="tilesConfigurer"	class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+	<!-- Imports the application controllers that process client requests <import 
+		resource="controllers.xml" /> -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
 		lazy-init="false"><!-- lazy-init="true" -->
 		<property name="definitions">
 			<value>
@@ -63,16 +61,4 @@
 			</value>
 		</property>
 	</bean>
-	</beans>
-	
-	<beans profile="test">
-		<bean id="tilesConfigurer"	class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
-		lazy-init="true"><!-- lazy-init="true" -->
-		<property name="definitions">
-			<value>
-				/WEB-INF/**/tiles.xml
-			</value>
-		</property>
-	</bean>
-	</beans>
 </beans>

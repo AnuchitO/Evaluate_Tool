@@ -16,6 +16,7 @@
 						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	<!--<import resource="database.xml" /> -->
 	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="com.spt.evt" />
 	<!--context:load-time-weaver /-->
 
 	<!-- Creates an in-memory HSQLDB Database -->
@@ -89,7 +90,6 @@
 				</bean>
 			</property>
 		</bean>
-		<context:component-scan base-package="com.spt.evt" />
 	</beans>
 
 	<beans profile="test">
@@ -111,7 +111,6 @@
 			</property>
 		</bean>
 		
-		<context:component-scan base-package="com.spt.evt.service,com.spt.evt.dao" />
 	</beans>
 
 </beans>
