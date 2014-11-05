@@ -23,23 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @ActiveProfiles("test")
 @Configurable
 @ContextConfiguration({"classpath:META-INF/spring/evaluatetool-context.xml", "classpath:META-INF/spring/evaluatetool/evaluatetool-servlet.xml"})
-public abstract class AbstractTestController   { 
-    Logger logger = LoggerFactory.getLogger(AbstractTestController.class);
-
-    @Before
-    public void setup() {
-    	logger.error("setup()");
-    }
-    
-    @Test
-	public void sampleAbstract() {
-    	logger.error("testSampleAbstract()");
-    	 Assert.assertThat("\"testSampleAbstract\"", is("\"testSampleAbstract\""));
-	}
-
-    @After
-    public void after() {
-    	logger.error("after()");
-    }
+public abstract class TemplateTestController   { 
 
 }

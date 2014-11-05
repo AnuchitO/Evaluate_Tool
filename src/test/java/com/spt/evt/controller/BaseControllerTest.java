@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * Created by : Anuchit Prasertsang 
  * Created Date : 21/10/2014
  */
-public class BaseControllerTest extends AbstractTestController {
+public class BaseControllerTest extends TemplateTestController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Test

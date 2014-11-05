@@ -41,7 +41,7 @@ public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
 		try {
 			scoreBoard = result.get(0);
 		} catch (Exception e) {
-			logger.info("Data Not found.");
+
 		}
 		return scoreBoard;
 	}
