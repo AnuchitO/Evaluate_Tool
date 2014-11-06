@@ -9,7 +9,7 @@ import com.spt.evt.dao.CourseDao;
 import com.spt.evt.entity.Course;
 
 @Repository
-public class CourseDaoImpl extends AbstracHibernateDaoSupport implements
+public class CourseDaoImpl extends TemplateHibernateDaoSupport implements
 		CourseDao {
 	private static final Logger logger = LoggerFactory.getLogger(CourseDaoImpl.class);
 

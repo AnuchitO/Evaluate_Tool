@@ -25,9 +25,10 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		
 		JSONObject courseInformation = new JSONObject();
 		
-		Person committee = this.getPersonService().findById(committeeId);
-		Person examiner = this.getPersonService().findById(examinerId);
-		Course course = this.getCourseService().findById(courseId);
+		Person committee 	= this.getPersonService().findById(committeeId);
+		Person examiner 	= this.getPersonService().findById(examinerId);
+		Course course 		= this.getCourseService().findById(courseId);
+		
 		List<Subject> subjects = this.getSubjectService().findByCourse(course);
 
 		JSONObject subjectElement = null;
@@ -37,28 +38,32 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 			subjectElement.put("name",subject.getName());
 			
 			List<Topic> topics = this.getTopicService().findBySubject(subject);
-			for (Topic topic : topics) {
-				JSONObject topicElement = new JSONObject();
-				topicElement.put("id",topic.getId());
-				topicElement.put("name",topic.getName());
-				topicElement.put("description",topic.getDescription());
-				
-				ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
-				
-				if(null!=scoreBoard){
-					topicElement.put("score",scoreBoard.getScore());
-					topicElement.put("comment",scoreBoard.getComment());
-				}else{
-					topicElement.put("score","-");
-					topicElement.put("comment","");
-				}
-				
-				subjectElement.append("topic", topicElement);
-			}
+			findScoreaddIntoJsonOfTopic(committee, examiner, subjectElement, topics);
 			
 			courseInformation.append("subject", subjectElement);
 		}
 		return courseInformation;
+	}
+
+	private void findScoreaddIntoJsonOfTopic(Person committee, Person examiner,	JSONObject subjectElement, List<Topic> topics) {
+		for (Topic topic : topics) {
+			JSONObject topicElement = new JSONObject();
+			topicElement.put("id",topic.getId());
+			topicElement.put("name",topic.getName());
+			topicElement.put("description",topic.getDescription());
+			
+			ScoreBoard scoreBoard = this.getScoreBoardService().findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+			
+			if(null!=scoreBoard){
+				topicElement.put("score",scoreBoard.getScore());
+				topicElement.put("comment",scoreBoard.getComment());
+			}else{
+				topicElement.put("score","-");
+				topicElement.put("comment","");
+			}
+			
+			subjectElement.append("topic", topicElement);
+		}
 	}
 
 	@Override

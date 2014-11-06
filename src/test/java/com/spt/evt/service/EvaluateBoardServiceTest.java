@@ -19,7 +19,7 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class EvaluateBoardServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	public static final Logger LOGGER = LoggerFactory.getLogger(EvaluateBoardServiceTest.class);
 
 	@Autowired
 	private EvaluateBoardService committeeService;
@@ -32,9 +32,10 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Long committeeId = 3L;
 		Long courseId = 1L;
 		JSONObject courseInformation = this.committeeService.getCourseInformation(examinerId, committeeId, courseId);
-		Assert.assertNotNull(courseInformation.get("subject"));
+		LOGGER.error("*****************&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&******* ");
+		LOGGER.error("************************ {}",courseInformation.toString());
+		Assert.assertTrue(courseInformation.has("subject"));
 		Assert.assertTrue(0!=courseInformation.length());
-	
 	}
 
 	@Test
@@ -68,7 +69,7 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		examiner.setId(examinerId);
 		
 		ScoreBoard scoreBoard = this.scoreBoardService.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
-		logger.error("***************** scoreBoard [Score:{},Comment:{}]",scoreBoard.getScore(),scoreBoard.getComment());
+		LOGGER.error("***************** scoreBoard [Score:{},Comment:{}]",scoreBoard.getScore(),scoreBoard.getComment());
 		Assert.assertEquals(score, scoreBoard.getScore());
 		Assert.assertEquals(comment, scoreBoard.getComment());
 	}

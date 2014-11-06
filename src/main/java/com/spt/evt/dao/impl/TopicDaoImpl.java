@@ -16,7 +16,7 @@ import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 
 @Repository
-public class TopicDaoImpl extends AbstracHibernateDaoSupport implements
+public class TopicDaoImpl extends TemplateHibernateDaoSupport implements
 		TopicDao {
 	private static final Logger logger = LoggerFactory.getLogger(TopicDaoImpl.class);
 

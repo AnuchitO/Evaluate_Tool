@@ -15,7 +15,7 @@ import com.spt.evt.dao.MemberRegisterDao;
 import com.spt.evt.entity.MemberRegister;
 
 @Repository
-public class MemberRegisterDaoImpl extends AbstracHibernateDaoSupport implements MemberRegisterDao {
+public class MemberRegisterDaoImpl extends TemplateHibernateDaoSupport implements MemberRegisterDao {
 
 	@Override
 	public void save(MemberRegister memberRegister) {
