@@ -20,12 +20,6 @@ public class TopicServiceTest extends AbstractTestService {
 	@Autowired
 	private TopicService topicservice;
 
-
-	@Test
-	public void remark() {
-		logger.debug("-= Begin test TopicServiceTest() =-");
-	}
-
 	@Test
 	public void testFindSubjectBySubjectShouldBeNotNull() {
 		Subject subject = new Subject();

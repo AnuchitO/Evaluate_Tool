@@ -21,11 +21,6 @@ public class SubjectDaoTest extends AbstractTestDao {
 	private SubjectDao subjectDao;
 
 	@Test
-	public void remark() {
-		logger.debug("/*** Begin test SubjectDaoTest() ***/");
-	}
-
-	@Test
 	public void testFindSubjectByCourseShouldBeNotNull() {
 		Course course = new Course();
 		course.setId(1L);

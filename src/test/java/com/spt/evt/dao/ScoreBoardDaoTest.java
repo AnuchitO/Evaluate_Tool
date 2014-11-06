@@ -25,11 +25,6 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 	private MemberRegisterDao memberRegisterDao;
 
 	@Test
-	public void remark() {
-		logger.debug("/*** Begin test ScoreBoardDaoTest() ***/");
-	}
-
-	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
 		Person committee = new Person();
 		committee.setId(3L);

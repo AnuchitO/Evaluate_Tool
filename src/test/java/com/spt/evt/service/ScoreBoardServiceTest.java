@@ -23,11 +23,6 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 	private ScoreBoardService scoreBoardService;
 
 	@Test
-	public void remark() {
-		logger.debug("-= Begin test ScoreBoardServiceTest() =-");
-	}
-
-	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
 		Person committee = new Person();
 		committee.setId(3L);

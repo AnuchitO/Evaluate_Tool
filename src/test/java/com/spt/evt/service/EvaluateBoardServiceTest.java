@@ -27,11 +27,6 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 	private ScoreBoardService scoreBoardService;
 
 	@Test
-	public void remark() {
-		logger.debug("-= Begin test CommitteeServiceTest() =-");
-	}
-
-	@Test
 	public void testCourseInformationShouldBeJsonOfCourse() {
 		Long examinerId = 2L;
 		Long committeeId = 3L;
