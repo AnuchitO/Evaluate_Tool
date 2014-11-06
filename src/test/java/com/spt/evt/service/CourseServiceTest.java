@@ -18,11 +18,6 @@ public class CourseServiceTest extends AbstractTestService {
 	private CourseService courseService;
 
 	@Test
-	public void remark() {
-		logger.debug("-= Begin test CourseServiceTest() =-");
-	}
-
-	@Test
 	public void testFindCourseByIdBeNotNull() {
 		Course course = this.courseService.findById(1L);
 		Assert.assertNotNull(course);

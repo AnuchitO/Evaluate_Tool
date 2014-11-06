@@ -18,7 +18,7 @@ import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
 
 @Repository
-public class ScoreBoardDaoImpl extends AbstracHibernateDaoSupport implements
+public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		ScoreBoardDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ScoreBoardDaoImpl.class);

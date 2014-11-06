@@ -23,20 +23,18 @@ import com.spt.evt.service.EvaluateBoardService;
 
 @Controller
 public class EvaluateBoardController {
-	private static final Logger logger = LoggerFactory.getLogger(EvaluateBoardController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluateBoardController.class);
 	@Autowired
 	private EvaluateBoardService evaluateBoardService;
 
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		System.out.println("*************************** evaluateBoard  *****************");
-		//List<Person> persons = evaluateBoardService.getPerson(examinerId, committeeId);
-		String committeeName = "Suriya";
-		String examinerName = "Patipol";
-		Map model = new HashMap();
-		model.put("committeeName", committeeName);
-		model.put("examinerName", examinerName);
+	public ModelAndView handleGetRequest(HttpServletRequest arg0,HttpServletResponse arg1) throws Exception {
+			String committeeName = "Suriya";
+			String examinerName = "Patipol";
+			Map model = new HashMap();
+			model.put("committeeName", committeeName);
+			model.put("examinerName", examinerName);
+			
 		return new ModelAndView("evaluateBoard",model);
 
 	}
@@ -44,8 +42,12 @@ public class EvaluateBoardController {
 	@RequestMapping(value="/evaluateBoardTopicList",method=RequestMethod.POST)
 	public @ResponseBody String receiveCourseData(@RequestParam(value="data") String data ,HttpServletRequest arg0,
 			HttpServletResponse arg1)  {
-		JSONObject jsonObj = new JSONObject(data);
-		JSONObject courseInformation = this.evaluateBoardService.getCourseInformation(Long.parseLong(jsonObj.getString("examinerId")), Long.parseLong(jsonObj.getString("committeeId")), Long.parseLong(jsonObj.getString("courseId")));
+		JSONObject courseDetail = new JSONObject(data);
+		Long examinerId 	= Long.parseLong(courseDetail.getString("examinerId"));
+		Long committeeId 	= Long.parseLong(courseDetail.getString("committeeId"));		
+		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
+		
+		JSONObject courseInformation = this.evaluateBoardService.getCourseInformation(examinerId,committeeId , courseId);
 
 		return courseInformation.toString();
 
@@ -53,14 +55,13 @@ public class EvaluateBoardController {
 
 	@RequestMapping(value="/scoring",method=RequestMethod.POST)
 	public @ResponseBody String scoring(@RequestParam(value="data") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
-		JSONObject jsonObj = new JSONObject(data);		
-		Long examinerId = jsonObj.getLong("examinerId");
-		Long committeeId = jsonObj.getLong("committeeId");
-		Long topicId =  jsonObj.getLong("topicId");
-		Double score =  jsonObj.getDouble("score");
-		String comment = jsonObj.getString("comment");
+		JSONObject scoreExaminer = new JSONObject(data);		
+		Long examinerId 	= scoreExaminer.getLong("examinerId");
+		Long committeeId 	= scoreExaminer.getLong("committeeId");
+		Long topicId 		=  scoreExaminer.getLong("topicId");
+		Double score 		=  scoreExaminer.getDouble("score");
+		String comment 		= scoreExaminer.getString("comment");
 
-		logger.debug("Scoring ******************************************* : {}",jsonObj.toString());
 		String status = this.evaluateBoardService.scoring(committeeId, examinerId, topicId, score, comment);
 
 		return status;

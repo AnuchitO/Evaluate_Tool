@@ -22,11 +22,6 @@ public class SubjectServiceTest extends AbstractTestService {
 	private SubjectDao subjectDao;
 	
 	@Test
-	public void remark() {
-		logger.debug("-= Begin test SubjectServiceTest() =-");
-	}
-
-	@Test
 	public void testFindSubjectByCourseShouldBeNotNull() {
 		Course course = new Course();
 		course.setId(1L);

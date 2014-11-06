@@ -17,12 +17,6 @@ public class PersonServiceTest extends AbstractTestService {
 	@Autowired
 	private PersonService personService;
 
-
-	@Test
-	public void remark() {
-		logger.debug("-= Begin test PersonServiceTest() =-");
-	}
-
 	@Test
 	public void testFindPersonByIdShouldBeNotNull() {
 		Person person = this.personService.findById(1L);

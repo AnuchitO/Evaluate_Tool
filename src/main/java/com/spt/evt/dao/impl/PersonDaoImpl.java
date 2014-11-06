@@ -9,7 +9,7 @@ import com.spt.evt.dao.PersonDao;
 import com.spt.evt.entity.Person;
 
 @Repository
-public class PersonDaoImpl extends AbstracHibernateDaoSupport implements
+public class PersonDaoImpl extends TemplateHibernateDaoSupport implements
 		PersonDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(PersonDaoImpl.class);

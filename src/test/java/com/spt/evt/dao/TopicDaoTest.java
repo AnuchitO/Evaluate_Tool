@@ -22,11 +22,6 @@ public class TopicDaoTest extends AbstractTestDao {
 	private TopicDao topicDao;
 
 	@Test
-	public void remark() {
-		logger.debug("/*** Begin test TopicDaoTest() ***/");
-	}
-
-	@Test
 	public void testFindSubjectBySubjectShouldBeNotNull() {
 		Subject subject = new Subject();
 		subject.setId(1L);
