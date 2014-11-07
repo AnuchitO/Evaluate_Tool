@@ -23,20 +23,20 @@
 }
 
 .navbar-default>.container-fluid>.navbar-header>.navbar-brand {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 .navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 .panel-default>.panel-heading {
 	background-color: #FF8C00;
-	color: #FFFFFF;
+	color: #000000;
 }
 
 .panel-default>.panel-body {
-	background-color: #FFD700;
+	
 }
 
 .panel-collapse>.panel-body>.nav-pills>li>a {
@@ -124,8 +124,8 @@
 				</div>
 				<div id="bs-navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a id="presenting">Presenting</a></li>
-						<li><a id="topicList">Topic List</a></li>
+						<!-- <li><a id="presenting">Presenting</a></li>
+						<li><a id="topicList">Topic List</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -136,11 +136,11 @@
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
 
-		<label id="examinerId" value="2">Examiner : ${examinerName}</label> / <label
-			id="committeeId" value="3">Committee : ${committeeName}</label> / <label
-			id="courseId" value="1">Course : SDT</label>
-		${userName}
-		${password}
+		<label id="examinerId" value="${idExaminer}">Examiner :
+			${nameExaminer} ${lastNameExaminer}</label> / <label id="committeeId"
+			value="${idCommittee}">Committee : ${nameCommittee}
+			${lastNameCommittee}</label> / <label id="courseId" value="1">Course
+			: SDT</label>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -201,24 +201,27 @@
 			placeholder="comment here"></textarea>
 		<div id="panelScoreBtnGroup0" class="btn-group">
 			<button id="btnZero0" type="button" class="btn btn-default" value="0"
-				onClick="javascript:setScore(this.id)"
+				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">0</button>
 			<button id="btnThree0" type="button" class="btn btn-default"
-				value="0.3" onClick="javascript:setScore(this.id)"
+				value="0.3"
+				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.3</button>
 			<button id="btnFive0" type="button" class="btn btn-default"
-				value="0.5" onClick="javascript:setScore(this.id)"
+				value="0.5"
+				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.5</button>
 			<button id="btnEight0" type="button" class="btn btn-default"
-				value="0.8" onClick="javascript:setScore(this.id)"
+				value="0.8"
+				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.8</button>
 			<button id="btnOne0" type="button" class="btn btn-default" value="1"
-				onClick="javascript:setScore(this.id)"
+				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">1</button>
 		</div>
 		<button id="panelScoreBtnSubmit0" type="button"
-			class="btn btn-default" onClick="javascript:sendMessageScore(this);"
-			data-dismiss="modal"
+			class="btn btn-default"
+			onClick="javascript:sendDetailScoreOfTopic(this);"
 			style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
 		<!----------------------Model Panel in Modal---------------------->
 
@@ -226,18 +229,64 @@
 		<div class="modal fade" id="modalScore0" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
 		<div id="modalScoreDialog0" class="modal-dialog"></div>
-		<div id="modalScoreContent0" class="modal-content"></div>
 		<!----------------------Model Modal---------------------->
 		<div id="loader" align="center">
 			<img src="resources/images/ajax-loader.gif" alt="" width="10%"
 				height="10%"
+		</div>
+		<div id="alertChooseScore" class="alert alert-warning" role="alert"
+			style="margin-top: 20px;">
+			<strong>Warning! </strong>Please choose Score.
 		</div>
 		<input type="hidden" id="score" value="" />
 	</div>
 
 	<script>
 		function showModal(element) {
+			$("#alertChooseScore").hide();
 			count = (element.id).replace(/[^\d.]/g, '');
+			if ($("#spanScore" + count).text() == '-') {
+				$("#panelScoreMessage" + count).val('');
+				$("#btnZero" + count).removeClass('active');
+				$("#btnThree" + count).removeClass('active');
+				$("#btnFive" + count).removeClass('active');
+				$("#btnEight" + count).removeClass('active');
+				$("#btnOne" + count).removeClass('active');
+				$("#panelScoreBtnSubmit" + count).removeAttr("data-dismiss");
+			} else {
+				var checkScore = $("#spanScore" + count).text();
+				if (checkScore == "0") {
+					$("#btnThree" + count).removeClass('active');
+					$("#btnFive" + count).removeClass('active');
+					$("#btnEight" + count).removeClass('active');
+					$("#btnOne" + count).removeClass('active');
+					$("#btnZero" + count).addClass('active');
+				} else if (checkScore == "0.3") {
+					$("#btnZero" + count).removeClass('active');
+					$("#btnFive" + count).removeClass('active');
+					$("#btnEight" + count).removeClass('active');
+					$("#btnOne" + count).removeClass('active');
+					$("#btnThree" + count).addClass('active');
+				} else if (checkScore == "0.5") {
+					$("#btnZero" + count).removeClass('active');
+					$("#btnThree" + count).removeClass('active');
+					$("#btnEight" + count).removeClass('active');
+					$("#btnOne" + count).removeClass('active');
+					$("#btnFive" + count).addClass('active');
+				} else if (checkScore == "0.8") {
+					$("#btnZero" + count).removeClass('active');
+					$("#btnThree" + count).removeClass('active');
+					$("#btnFive" + count).removeClass('active');
+					$("#btnOne" + count).removeClass('active');
+					$("#btnEight" + count).addClass('active');
+				} else {
+					$("#btnZero" + count).removeClass('active');
+					$("#btnThree" + count).removeClass('active');
+					$("#btnFive" + count).removeClass('active');
+					$("#btnEight" + count).removeClass('active');
+					$("#btnOne" + count).addClass('active');
+				}
+			}
 			$("#modalScore" + count).modal("show");
 			var textDescription = $("#" + element.id).children('a').clone()
 					.children('span').remove().end().text();
@@ -249,47 +298,55 @@
 			$(".textSubject").text(textSubject);
 			$(".textDescription").text(textDescription);
 		}
-		function sendMessageScore(buttonSubmit) {
+		function sendDetailScoreOfTopic(buttonSubmit) {
 			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
 			var textMessage = $("textarea#panelScoreMessage" + count).val();
 			var textScore = $("#panelScoreBtnGroup" + count).find(
 					"button.active").prop('value');
 			var textId = $("#dummyKeepIdTopic" + count).text();
-			var dataSave = {};
-			dataSave.examinerId = $("#examinerId").attr('value');
-			dataSave.committeeId = $("#committeeId").attr('value');
-			dataSave.topicId = textId;
-			dataSave.score = textScore;
-			dataSave.comment = textMessage;
+			if (textScore == null) {
+				$("#alertChooseScore").show().appendTo(
+						$("#panelScoreBody" + count));
+			} else {
 
-			var dataSend = JSON.stringify(dataSave);
-			$
-					.ajax({
-						url : "/EvaluateTool/application/scoring",
-						type : 'POST',
-						data : {
-							data : dataSend
-						},
-						success : function(data) {
+				var detailScoreOfTopic = {};
+				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
+				detailScoreOfTopic.committeeId = $("#committeeId")
+						.attr('value');
+				detailScoreOfTopic.topicId = textId;
+				detailScoreOfTopic.score = textScore;
+				detailScoreOfTopic.comment = textMessage;
 
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status
-									+ " er:" + er);
-						}
-					});
+				var dataDetailScoreOfTopic = JSON.stringify(detailScoreOfTopic);
+				$.ajax({
+					url : "/EvaluateTool/application/scoring",
+					type : 'POST',
+					data : {
+						dataDetailScoreOfTopic : dataDetailScoreOfTopic
+					},
+					success : function(data) {
 
-			if ($("#spanScore" + count).text() == '-') {
-				var keepOriginalSubmitTopic = $("#submitTopic").text();
-				keepOriginalSubmitTopic++;
-				$("#submitTopic").text(keepOriginalSubmitTopic);
+					},
+					error : function(data, status, er) {
+						alert("error: " + data + " status: " + status + " er:"
+								+ er);
+					}
+				});
+
+				if ($("#spanScore" + count).text() == '-') {
+					var keepOriginalSubmitTopic = $("#submitTopic").text();
+					keepOriginalSubmitTopic++;
+					$("#submitTopic").text(keepOriginalSubmitTopic);
+				}
+				$("#spanScore" + count).text(textScore);
 			}
-			$("#spanScore" + count).text(textScore);
 
 		}
-		function setScore(btnScore) {
-			$('button').removeClass('active');
+		function setScore(btnScore, groupScore) {
+			$("#" + groupScore + '>' + 'button').removeClass('active');
 			$("#" + btnScore).addClass('active');
+			$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
+
 		}
 
 		function checkScoreFromBase(score, count) {
@@ -298,12 +355,14 @@
 			var dummyBtnFive = count - 1;
 			var dummyBtnEight = count - 1;
 			var dummyBtnOne = count - 1;
-
+			var dummyPanelScoreBtnSubmit = count - 1;
 			var genIdBtnZero = $("#btnZero" + dummyBtnZero);
 			var genIdBtnThree = $("#btnThree" + dummyBtnThree);
 			var genIdBtnFive = $("#btnFive" + dummyBtnFive);
 			var genIdBtnEight = $("#btnEight" + dummyBtnEight);
 			var genIdBtnOne = $("#btnOne" + dummyBtnOne);
+			var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
+					+ dummyPanelScoreBtnSubmit);
 
 			$("#btnZero0").clone().attr('id', 'btnZero' + (++dummyBtnZero))
 					.insertAfter(genIdBtnZero).show().appendTo(
@@ -320,17 +379,27 @@
 			$("#btnOne0").clone().attr('id', 'btnOne' + (++dummyBtnOne))
 					.insertAfter(genIdBtnOne).show().appendTo(
 							$("#panelScoreBtnGroup" + count));
+			$("#panelScoreBtnSubmit0").clone().attr('id',
+					'panelScoreBtnSubmit' + (++dummyPanelScoreBtnSubmit))
+					.insertAfter(genIdPanelScoreBtnSubmit).show().appendTo(
+							$("#panelScoreBody" + count));
 
 			if (score == 0) {
 				$("#btnZero" + count).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
+
 			} else if (score == 0.3) {
 				$("#btnThree" + count).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
 			} else if (score == 0.5) {
 				$("#btnFive" + count).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
 			} else if (score == 0.8) {
 				$("#btnEight" + count).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
 			} else if (score == 1) {
 				$("#btnOne" + count).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
 			} else {
 
 			}
@@ -342,6 +411,7 @@
 			}).ajaxStop(function() {
 				$loading.hide();
 			});
+			$("#alertChooseScore").hide();
 			$("#panelRealTime").hide();
 			$("#submitOfAllTOpic").hide();
 			$("#panelCollapse0").hide();
@@ -367,39 +437,32 @@
 			$("#btnFive0").hide();
 			$("#btnEight0").hide();
 			$("#btnOne0").hide();
+			$("#panelRealTime").hide();
+			$("#accordion").empty();
 
-			$("#topicList")
-					.click(
-							function() {
-								$("#panelRealTime").hide();
-								$("#accordion").empty();
+			var data = {};
+			data.examinerId = $("#examinerId").attr('value');
+			data.committeeId = $("#committeeId").attr('value');
+			data.courseId = $("#courseId").attr('value');
 
-								var data = {};
-								data.examinerId = $("#examinerId")
-										.attr('value');
-								data.committeeId = $("#committeeId").attr(
-										'value');
-								data.courseId = $("#courseId").attr('value');
+			var dataSend = JSON.stringify(data);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/evaluateBoardTopicList",
+						type : 'POST',
+						data : {
+							data : dataSend
+						},
+						success : function(data) {
+							var course = JSON.parse(data);
+							createCollapse(course);
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+									+ " er:" + er);
+						}
+					});
 
-								var dataSend = JSON.stringify(data);
-								$
-										.ajax({
-											url : "/EvaluateTool/application/evaluateBoardTopicList",
-											type : 'POST',
-											data : {
-												data : dataSend
-											},
-											success : function(data) {
-												var course = JSON.parse(data);
-												createCollapse(course);
-											},
-											error : function(data, status, er) {
-												alert("error: " + data
-														+ " status: " + status
-														+ " er:" + er);
-											}
-										});
-							});
 			function createCollapse(course) {
 				var dummyPanel = 0;
 				var dummyHead = 0;
@@ -421,7 +484,6 @@
 				var dummyPanelScoreDescription = 0;
 				var dummyPanelScoreMessage = 0;
 				var dummyPanelScoreBtnGroup = 0;
-				var dummyPanelScoreBtnSubmit = 0;
 
 				var genIdPanel = $("#panelCollapse" + dummyPanel);
 				var genIdHead = $("#panelHeading" + dummyHead);
@@ -452,8 +514,6 @@
 						+ dummyPanelScoreMessage);
 				var genIdPanelScoreBtnGroup = $("#panelScoreBtnGroup"
 						+ dummyPanelScoreBtnGroup);
-				var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
-						+ dummyPanelScoreBtnSubmit);
 
 				var sizeTopic = 0;
 				var numberOfTopic = 0;
@@ -577,18 +637,6 @@
 															.appendTo(
 																	$("#listNavpills"
 																			+ dummyList));
-													$("#spanScore0")
-															.clone()
-															.attr(
-																	'id',
-																	'spanScore'
-																			+ (++dummyScore))
-															.text(sendScore)
-															.insertAfter(
-																	genIdLink)
-															.appendTo(
-																	$("#linkToScore"
-																			+ dummyLink));
 													$("#dummyKeepIdTopic0")
 															.clone()
 															.attr(
@@ -599,6 +647,18 @@
 															.insertAfter(
 																	genIdPanelScoreId)
 															.hide()
+															.appendTo(
+																	$("#linkToScore"
+																			+ dummyLink));
+													$("#spanScore0")
+															.clone()
+															.attr(
+																	'id',
+																	'spanScore'
+																			+ (++dummyScore))
+															.text(sendScore)
+															.insertAfter(
+																	genIdLink)
 															.appendTo(
 																	$("#linkToScore"
 																			+ dummyLink));
@@ -623,18 +683,6 @@
 															.appendTo(
 																	$("#modalScore"
 																			+ dummyModalScore));
-													$("#modalScoreContent0")
-															.clone()
-															.attr(
-																	'id',
-																	'modalScoreContent'
-																			+ (++dummyModalScoreContent))
-															.insertAfter(
-																	genIdModalScoreContent)
-															.show()
-															.appendTo(
-																	$("#modalScoreDialog"
-																			+ dummyModalScoreDialog));
 													$("#panelScore0")
 															.clone()
 															.attr(
@@ -645,8 +693,8 @@
 																	genIdPanelScore)
 															.show()
 															.appendTo(
-																	$("#modalScoreContent"
-																			+ dummyModalScoreContent));
+																	$("#modalScoreDialog"
+																			+ dummyModalScoreDialog));
 													$("#panelScoreHead0")
 															.clone()
 															.attr(
@@ -731,18 +779,6 @@
 															sendScore,
 															dummyPanelScoreBtnGroup);
 
-													$("#panelScoreBtnSubmit0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreBtnSubmit'
-																			+ (++dummyPanelScoreBtnSubmit))
-															.insertAfter(
-																	genIdPanelScoreBtnSubmit)
-															.show()
-															.appendTo(
-																	$("#panelScoreBody"
-																			+ dummyPanelScoreBody));
 													numberOfTopic++;
 												}
 												sizeTopic++;
@@ -761,11 +797,14 @@
 				$("#submitTopic").text(keepTopicOfSubmit);
 				$("#totalTopic").text(numberOfTopic);
 			}
-			$("#presenting").click(function() {
-				$("#submitOfAllTOpic").hide();
-				$("#accordion").empty();
-				$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
-			});
+			//$("#topicList").click(function() {
+
+			//});
+			//$("#presenting").click(function() {
+			//	$("#submitOfAllTOpic").hide();
+			//	$("#accordion").empty();
+			//	$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
+			//});
 
 			$(".lialert").click(function() {
 				$("#accordion").empty();

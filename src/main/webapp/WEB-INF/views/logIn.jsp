@@ -6,12 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-div {
-	padding: 3px;
+#divLogIn {
+	margin-top: 50px;
 }
 
-#divLogIn {
-	margin: 50px;
+.panel-default>.panel-heading {
+	text-align: center;
+	background-color: #FF8C00;
+	color: #000000;
+}
+
+#userName {
+	margin: 3px;
+}
+
+#password {
+	margin: 3px;
+}
+
+#buttonLogIn {
+	margin: 3px;
+	background-color: #FF8C00;
 }
 </style>
 </head>
@@ -19,47 +34,61 @@ div {
 	<div id="divLogIn">
 		<div class="row">
 			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<input type="text" class="form-control" id="userName"
-					placeholder="Username">
+				<div class="panel panel-default">
+					<div class="panel-heading">Log In</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control" id="userName"
+									placeholder="Username">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-md-11">
+								<input type="password" class="form-control" id="password"
+									placeholder="Password">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-md-11">
+								<button id="buttonLogIn" type="button" class="btn btn-default">Log
+									In</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<input type="password" class="form-control" id="password"
-					placeholder="Password">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
-				<button id="buttonLogIn" type="button" class="btn btn-primary">Log
-					In</button>
-			</div>
-		</div>
+
+
 	</div>
 	<script>
-		$("#buttonLogIn").click(function() {
-			var data = {};
-			data.userName = $("#userName").val();
-			data.password = $("#password").val();
-			//alert(data.userName + " " + data.password);
-			var data = JSON.stringify(data);
-			$
-					.ajax({
-						url : "/EvaluateTool/application/checkUserPassword",
-						type : 'POST',
-						data : {
-							data : data
-						},
-						success : function(data) {
-							location.href = "/EvaluateTool/application/evaluateBoard";
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status
-									+ " er:" + er);
-						}
-					});
+		$("#buttonLogIn")
+				.click(
+						function() {
+							var userAndPassword = {};
+							userAndPassword.userName = $("#userName").val();
+							userAndPassword.password = $("#password").val();
+							var dataUserAndPassword = JSON
+									.stringify(userAndPassword);
+							$
+									.ajax({
+										url : "/EvaluateTool/application/checkUserPassword",
+										type : 'POST',
+										data : {
+											dataUserAndPassword : dataUserAndPassword
+										},
+										success : function(data) {
+											location.href = "/EvaluateTool/application/examinationRoom";
+										},
+										error : function(data, status, er) {
+											alert("error: " + data
+													+ " status: " + status
+													+ " er:" + er);
+										}
+									});
 
-		});
+						});
 	</script>
 </body>
 </html>

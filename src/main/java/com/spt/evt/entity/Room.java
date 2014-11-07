@@ -20,6 +20,10 @@ public class Room extends BaseEntity implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private String examiner;
+	private String modulator;
+	private String status;
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
 	private Set<Participant> participants = new HashSet<Participant>();
@@ -48,6 +52,30 @@ public class Room extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
+	public String getExaminer() {
+		return examiner;
+	}
+
+	public void setExaminer(String examiner) {
+		this.examiner = examiner;
+	}
+
+	public String getModulator() {
+		return modulator;
+	}
+
+	public void setModulator(String modulator) {
+		this.modulator = modulator;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	public Set<Participant> getParticipants() {
 		return participants;
 	}
@@ -59,7 +87,8 @@ public class Room extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + ", participants=" + "[participants]" + "]";
+				+ description + "examiner=" + examiner + "modulator=" 
+				+ modulator + "status=" + status + ", participants=" + "[participants]" + "]";
 	}
 
 }

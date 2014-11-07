@@ -16,103 +16,89 @@
 	color: #FFFFFF;
 	background-color: #428bca;
 }
+
 .modal-title {
 	text-align: center;
 }
 </style>
 <body>
 	<div class="row">
-		<pre class="bg-primary"><strong>Evaluate Tool</strong></pre>
+		<pre class="bg-default">
+			<strong>Evaluate Tool</strong>
+		</pre>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="col-sm-4 col-md-4">
-				<div id="room1" class="panel panel-primary">
-					<div class="panel-body">
-						<p id="roomName1">
-							<strong>Pite</strong>
-						</p>
-						<p>Software Development Trainee</p>
-						<p>Java Room 9:00 AM - 12:00 AM</p>
-					</div>
-					<div id="footer1" class="panel-footer panel-primary">Join</div>
-				</div>
-			</div>
-			<div class="col-sm-4 col-md-4">
-				<div id="room2" class="panel panel-primary">
-					<div class="panel-body">
-						<p id="roomName2">
-							<strong>Nong</strong>
-						</p>
-						<p>Software Development</p>
-						<p>Assembly Room 9:00 AM - 12:00 AM</p>
-					</div>
-					<div id="footer2" class="panel-footer panel-primary">Join</div>
-				</div>
-			</div>
-			<div class="col-sm-4 col-md-4">
-				<div id="room3" class="panel panel-primary">
-					<div class="panel-body">
-						<p id="roomName3">
-							<strong>Bank</strong>
-						</p>
-						<p>Software Analysis</p>
-						<p>Assembly Room 9:00 AM - 12:00 AM</p>
-					</div>
-					<div id="footer3" class="panel-footer panel-primary">Join</div>
-				</div>
-			</div>
-		</div>
+	<div id="examinerId">2</div>
+	<div id="committeeId">3</div>
+	<div id="container" class="row">
+		<div id="setSizeContainer" class="col-md-12"></div>
 	</div>
-
-	<div class="modal fade" id="modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Join Relate</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-6 col-md-6">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<a id="examinerImg" href="/EvaluateTool/examinerDashBoard"><img src="resources/images/examiner.jpg" alt="" width="100%" height="100%" class="img-rounded" /></a>
-								</div>
-								<div class="panel-footer">Examiner</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-6">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<a id="committeeImg" href="/EvaluateTool/evaluateBoard"><img src="resources/images/committee.jpg" alt="" width="100%" height="100%" class="img-rounded" /></a>
-								</div>
-								<div class="panel-footer">Committee</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<div id="setSizeCard" class="col-sm-5 col-md-5 col-md-offset-1"></div>
+	<div id="room0" class="panel panel-default"></div>
+	<div id="body" class="panel-body"></div>
+	<div id="setSizeProgress" class="col-sm-4 col-md-4"></div>
+	<div id="setSizeDetail" class="col-sm-8 col-md-8"></div>
+	<div id="roomName"></div>
+	<strong id="examinerName"></strong>
+	<div id="roomDetail"></div>
+	<div id="examiner">Examiner :</div>
+	<div id="modulator">Modulator :</div>
+	<div id="roomStatus">Status :</div>
+	<div id="setSizeBtn" class="row"></div>
+	<div id="setSizeBtnExaminer" class="col-sm-6 col-md-6"></div>
+	<div id="setSizeBtnCommittee" class="col-sm-6 col-md-6"></div>
+	<button id="btnExaminer" type="button" class="btn btn-default disabled">Examiner</button>
+	<button id="btnCommittee" type="button" class="btn btn-default">Committee</button>
 	<script>
-		$(function() {
-			$("#room1").click(function() {
-				$("#modal").modal("show");
-			});
-			$("#room2").click(function() {
-				$("#modal").modal("show");
-			});
-			$("#room3").click(function() {
-				$("#modal").modal("show");
-			});
-			//$("#committeeImg").click(function() {
-				
-			//});
-		});
+		$("#btnCommittee")
+				.click(
+						function() {
+							var detailPerson = {};
+							detailPerson.committeeId = $("#committeeId").text();
+							detailPerson.examinerId = $("#examinerId").text();
+							var dataPersonId = JSON.stringify(detailPerson);
+							$
+									.ajax({
+										url : "/EvaluateTool/application/checkCommittee",
+										type : 'POST',
+										data : {
+											dataPersonId : dataPersonId
+										},
+										success : function(data) {
+											var idExaminer = JSON.parse(data).idExaminer;
+											var nameExaminer = JSON.parse(data).nameExaminer;
+											var lastNameExaminer = JSON
+													.parse(data).lastNameExaminer;
+											var idCommittee = JSON.parse(data).idCommittee;
+											var nameCommittee = JSON
+													.parse(data).nameCommittee;
+											var lastNameCommittee = JSON
+													.parse(data).lastNameCommittee;
+											location.href = "/EvaluateTool/application/evaluateBoard"
+													+ "?idExaminer="
+													+ encodeURIComponent(idExaminer)
+													+ "&nameExaminer="
+													+ encodeURIComponent(nameExaminer)
+													+ "&lastNameExaminer="
+													+ encodeURIComponent(lastNameExaminer)
+													+ "&idCommittee="
+													+ +encodeURIComponent(idCommittee)
+													+ "&nameCommittee="
+													+ encodeURIComponent(nameCommittee)
+													+ "&lastNameCommittee="
+													+ encodeURIComponent(lastNameCommittee);
+										},
+										error : function(data, status, er) {
+											alert("error: " + data
+													+ " status: " + status
+													+ " er:" + er);
+										}
+									});
+						});
+		//$(function() {
+		//	$("#room").click(function() {
+		//		$("#modal").modal("show");
+		//	});
+		//});
 	</script>
 </body>
 </html>
