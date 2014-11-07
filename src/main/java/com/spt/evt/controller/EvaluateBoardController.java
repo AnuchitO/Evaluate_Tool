@@ -1,7 +1,6 @@
 package com.spt.evt.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.entity.Person;
 import com.spt.evt.service.EvaluateBoardService;
 
 @Controller
@@ -29,12 +27,21 @@ public class EvaluateBoardController {
 
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,HttpServletResponse arg1) throws Exception {
-			String committeeName = "Suriya";
-			String examinerName = "Patipol";
-			Map model = new HashMap();
-			model.put("committeeName", committeeName);
-			model.put("examinerName", examinerName);
-			
+		String idExaminer = arg0.getParameter("idExaminer");
+		String nameExaminer = arg0.getParameter("nameExaminer");
+		String lastNameExaminer = arg0.getParameter("lastNameExaminer");
+		String idCommittee = arg0.getParameter("idCommittee");
+		String nameCommittee = arg0.getParameter("nameCommittee");
+		String lastNameCommittee = arg0.getParameter("lastNameCommittee");
+		LOGGER.debug("++++++++++++++++++++"+idExaminer+" "+idCommittee+" "+nameCommittee+" "+lastNameCommittee);
+		Map model = new HashMap();
+		model.put("idExaminer", idExaminer);
+		model.put("nameExaminer", nameExaminer);
+		model.put("lastNameExaminer", lastNameExaminer);
+		model.put("idCommittee", idCommittee);
+		model.put("nameCommittee", nameCommittee);
+		model.put("lastNameCommittee", lastNameCommittee);
+
 		return new ModelAndView("evaluateBoard",model);
 
 	}
@@ -46,7 +53,7 @@ public class EvaluateBoardController {
 		Long examinerId 	= Long.parseLong(courseDetail.getString("examinerId"));
 		Long committeeId 	= Long.parseLong(courseDetail.getString("committeeId"));		
 		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
-		
+
 		JSONObject courseInformation = this.evaluateBoardService.getCourseInformation(examinerId,committeeId , courseId);
 
 		return courseInformation.toString();
@@ -54,12 +61,12 @@ public class EvaluateBoardController {
 	}
 
 	@RequestMapping(value="/scoring",method=RequestMethod.POST)
-	public @ResponseBody String scoring(@RequestParam(value="data") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
+	public @ResponseBody String scoring(@RequestParam(value="dataDetailScoreOfTopic") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
 		JSONObject scoreExaminer = new JSONObject(data);		
 		Long examinerId 	= scoreExaminer.getLong("examinerId");
 		Long committeeId 	= scoreExaminer.getLong("committeeId");
-		Long topicId 		=  scoreExaminer.getLong("topicId");
-		Double score 		=  scoreExaminer.getDouble("score");
+		Long topicId 		= scoreExaminer.getLong("topicId");
+		Double score 		= scoreExaminer.getDouble("score");
 		String comment 		= scoreExaminer.getString("comment");
 
 		String status = this.evaluateBoardService.scoring(committeeId, examinerId, topicId, score, comment);

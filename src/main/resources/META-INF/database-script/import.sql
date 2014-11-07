@@ -74,16 +74,16 @@ insert into Topic (id,name,description,subject) values (58,'PL/SQL','B Can creat
 
 
 insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(1,'Anuchit','Prasertsang','Male','anuchit_p@softsquaregroup.com', '2007-01-03 04:13:43','09111111111','Software Development','a','a')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(2,'PATIPOL','SIRISUPPAKIJ','Male','patipol_s@softsquaregroup.com', '2007-01-03 04:13:43','0918563257','Software Development','p','p')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(2,'Patipol','Sirisuppakij','Male','patipol_s@softsquaregroup.com', '2007-01-03 04:13:43','0918563257','Software Development','p','p')
 insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(3,'Suriya','Eiamerb','Male','suriya_e@softsquaregroup.com', '2007-01-03 04:13:43','0918652475','Software Analyst','s','s')
 insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(4,'Sirirad','Chaiyaphom','Male','sirirad_c@softsquaregroup.com', '2007-01-03 04:13:43','0919865247','Software Development','z','z')
 
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
-insert into Room (id,name,description) values (1, 'Pite','Software Development Trainee Room Java 09:00 - 12:00 AM 22/10/2014')
-insert into Room (id,name,description) values (2, 'Nong','Software Development Trainee Room Basic 09:00 - 12:00 AM 22/10/2014')
-insert into Room (id,name,description) values (3, 'Kop','Software Development Trainee  Room Assembly 09:00 - 12:00 AM 22/10/2014')
-insert into Room (id,name,description) values (4, 'Milk','Software Development Trainee Room Ada 09:00 - 12:00 AM 22/10/2014')
+insert into Room (id,name,description,examiner,modulator,status) values (1, 'Pite','Room Java 09:00 - 12:00 AM','Patipol Sirisuppakij','Suriya','Testing')
+insert into Room (id,name,description,examiner,modulator,status) values (2, 'Nong','Room Basic 09:00 - 12:00 AM','Anuchit Prasertsang','Suriya','Wait')
+insert into Room (id,name,description,examiner,modulator,status) values (3, 'Kop','Room Assembly 09:00 - 12:00 AM','Sirirad Chaiyaphom','Suriya','Done')
+insert into Room (id,name,description,examiner,modulator,status) values (4, 'Milk','Room Ada 09:00 - 12:00 AM','John Lennon','Suriya','Testing')
 
 insert into Participant (id,person,room,role) values (1,2,1,'examiner')
 insert into Participant (id,person,room,role) values (2,3,1,'committee')

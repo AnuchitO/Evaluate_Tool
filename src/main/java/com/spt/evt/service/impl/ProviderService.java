@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spt.evt.service.CourseService;
 import com.spt.evt.service.PersonService;
+import com.spt.evt.service.RoomService;
 import com.spt.evt.service.ScoreBoardService;
 import com.spt.evt.service.SubjectService;
 import com.spt.evt.service.TopicService;
@@ -26,6 +27,8 @@ public class ProviderService {
 	private ScoreBoardService scoreBoardService;
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private RoomService roomService;
 
 	public PersonService getPersonService() {
 		return personService;
@@ -65,6 +68,14 @@ public class ProviderService {
 
 	public void setScoreBoardService(ScoreBoardService scoreBoardService) {
 		this.scoreBoardService = scoreBoardService;
+	}
+
+	public RoomService getRoomService() {
+		return roomService;
+	}
+
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
 	}
 
 }

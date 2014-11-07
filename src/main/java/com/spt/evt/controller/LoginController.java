@@ -29,7 +29,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/checkUserPassword",method=RequestMethod.POST)
-	public @ResponseBody String getUsernamePassword(@RequestParam(value="data") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
+	public @ResponseBody String getUsernamePassword(@RequestParam(value="dataUserAndPassword") String data ,HttpServletRequest arg0,HttpServletResponse arg1) {
 		
 		System.out.println("================================================="+data);
 		JSONObject jsonObj = new JSONObject(data);
