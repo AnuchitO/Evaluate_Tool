@@ -80,15 +80,21 @@ insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,u
 
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
-insert into Room (id,name,description,examiner,modulator,status) values (1, 'Pite','Room Java 09:00 - 12:00 AM','Patipol Sirisuppakij','Suriya','Testing')
-insert into Room (id,name,description,examiner,modulator,status) values (2, 'Nong','Room Basic 09:00 - 12:00 AM','Anuchit Prasertsang','Suriya','Wait')
-insert into Room (id,name,description,examiner,modulator,status) values (3, 'Kop','Room Assembly 09:00 - 12:00 AM','Sirirad Chaiyaphom','Suriya','Done')
-insert into Room (id,name,description,examiner,modulator,status) values (4, 'Milk','Room Ada 09:00 - 12:00 AM','John Lennon','Suriya','Testing')
+insert into Room (id,name,description,startTime,endTime,status) values (1, 'Pite','Room Java','09:00','12:00','Testing')
+insert into Room (id,name,description,startTime,endTime,status) values (2, 'Nong','Room Basic','09:00','12:00','Wait')
+insert into Room (id,name,description,startTime,endTime,status) values (3, 'Kop','Room Assembly','09:00','12:00','Done')
+insert into Room (id,name,description,startTime,endTime,status) values (4, 'Milk','Room Ada','09:00','12:00','Testing')
 
-insert into Participant (id,person,room,role) values (1,2,1,'examiner')
-insert into Participant (id,person,room,role) values (2,3,1,'committee')
-insert into Participant (id,person,room,role) values (3,1,1,'committee')
-insert into Participant (id,person,room,role) values (4,4,1,'committee')
+insert into Participants (id,person,room,role,modulator) values (1,2,1,'examiner',false)
+insert into Participants (id,person,room,role,modulator) values (2,3,1,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (3,1,1,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (4,4,1,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (5,1,2,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (6,2,2,'examiner',false)
+insert into Participants (id,person,room,role,modulator) values (7,4,3,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (8,2,3,'examiner',false)
+insert into Participants (id,person,room,role,modulator) values (9,4,4,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (10,2,4,'examiner',false)
 
 insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'good')
 

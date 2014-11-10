@@ -1,6 +1,7 @@
 package com.spt.evt.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
 import com.spt.evt.entity.Subject;
@@ -25,7 +27,8 @@ public class RoomDaoTest extends AbstractTestDao {
 	@Test
 	public void testFindAllRoomShouldBeNotNull() {
 		List<Room> rooms = this.roomDao.findAll();
-		LOGGER.debug("=================================="+rooms.toString());
+		Set<Participants> participantsSet = rooms.get(0).getParticipants();
+		Assert.assertFalse(participantsSet.isEmpty());
 		Assert.assertNotNull(rooms);
 	}
 }

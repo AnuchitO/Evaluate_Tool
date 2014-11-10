@@ -43,11 +43,15 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 
     @Test
     public void get_showEvaluateBoard() throws Exception {
-    	LOGGER.debug("**get_showEvaluateBoard()**");
     	mockMvc.perform(get("/evaluateBoard"))
 	        .andExpect(status().isOk())
 	        .andExpect(view().name("evaluateBoard"))
 	        .andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+    }  
+    
+    @Test
+    public void jsonSample() throws Exception {
+    	LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
     }  
 
 

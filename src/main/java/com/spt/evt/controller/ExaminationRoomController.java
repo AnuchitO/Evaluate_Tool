@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,11 @@ public class ExaminationRoomController {
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-		//JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
-		//System.out.println(roomInformation);
+		JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
+		Map model = new HashMap();
+		model.put("room", roomInformation.toString());
 		
-		return new ModelAndView("examinationRoom");
+		return new ModelAndView("examinationRoom", model);
 
 	}
 

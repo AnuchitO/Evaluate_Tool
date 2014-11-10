@@ -3,7 +3,6 @@ package com.spt.evt.dao.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.spt.evt.dao.PersonDao;
 import com.spt.evt.entity.Person;
@@ -11,7 +10,7 @@ import com.spt.evt.entity.Person;
 @Repository
 public class PersonDaoImpl extends TemplateHibernateDaoSupport implements
 		PersonDao {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(PersonDaoImpl.class);
 
 	@Override

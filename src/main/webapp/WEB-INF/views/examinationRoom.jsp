@@ -32,23 +32,271 @@
 	<div id="container" class="row">
 		<div id="setSizeContainer" class="col-md-12"></div>
 	</div>
-	<div id="setSizeCard" class="col-sm-5 col-md-5 col-md-offset-1"></div>
+	<div id="setSizeCard0" class="col-sm-5 col-md-5"></div>
 	<div id="room0" class="panel panel-default"></div>
-	<div id="body" class="panel-body"></div>
-	<div id="setSizeProgress" class="col-sm-4 col-md-4"></div>
-	<div id="setSizeDetail" class="col-sm-8 col-md-8"></div>
-	<div id="roomName"></div>
-	<strong id="examinerName"></strong>
-	<div id="roomDetail"></div>
-	<div id="examiner">Examiner :</div>
-	<div id="modulator">Modulator :</div>
-	<div id="roomStatus">Status :</div>
-	<div id="setSizeBtn" class="row"></div>
-	<div id="setSizeBtnExaminer" class="col-sm-6 col-md-6"></div>
-	<div id="setSizeBtnCommittee" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer" type="button" class="btn btn-default disabled">Examiner</button>
-	<button id="btnCommittee" type="button" class="btn btn-default">Committee</button>
+	<div id="body0" class="panel-body"></div>
+	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
+	<div id="setSizeDetail0" class="col-sm-8 col-md-8"></div>
+	<div id="roomName0"></div>
+	<div id="roomDescription0"></div>
+	<div id="roomTime0"></div>
+	<div id="examiner0"></div>
+	<div id="modulator0"></div>
+	<div id="roomStatus0"></div>
+	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
+	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
+	<button id="btnExaminer0" type="button"
+		class="btn btn-default disabled">Examiner</button>
+	<button id="btnCommittee0" type="button" class="btn btn-default">Committee</button>
+
 	<script>
+		$(function() {
+			$("#setSizeCard0").hide();
+			$("#room0").hide();
+			$("#body0").hide();
+			$("#setSizeProgress0").hide();
+			$("#setSizeDetail0").hide();
+			$("#roomName0").hide();
+			$("#roomDescription0").hide();
+			$("#roomTime0").hide();
+			$("#examiner0").hide();
+			$("#modulator0").hide();
+			$("#roomStatus0").hide();
+			$("#setHalfSizeOne0").hide();
+			$("#setHalfSizeTwo0").hide();
+			$("#btnExaminer0").hide();
+			$("#btnCommittee0").hide();
+
+			var allRoom = JSON.parse('${room}');
+			var dummySetSizeCard = 0;
+			var dummyRoom = 0;
+			var dummyBody = 0;
+			var dummyProgress = 0;
+			var dummyDetail = 0;
+			var dummyRoomName = 0;
+			var dummyRoomDescription = 0;
+			var dummyTime = 0;
+			var dummyExaminer = 0;
+			var dummyModulator = 0;
+			var dummyRoomStatus = 0;
+			var dummySetHalfSizeOne = 0;
+			var dummySetHalfSizeTwo = 0;
+			var dummyBtnExaminer = 0;
+			var dummyBtnCommittee = 0;
+
+			var genSetSizeCard = ("#setSizeCard" + dummySetSizeCard);
+			var genRoom = ("#room" + dummyRoom);
+			var genBody = ("#body" + dummyBody);
+			var genProgress = ("#setSizeProgress" + dummyProgress);
+			var genDetail = ("#setSizeDetail" + dummyDetail);
+			var genRoomName = ("#roomName" + dummyRoomName);
+			var genRoomDescription = ("#roomDescription" + dummyRoomDescription);
+			var genTime = ("#roomTime" + dummyTime);
+			var genExaminer = ("#examiner" + dummyExaminer);
+			var genModulator = ("#modulator" + dummyModulator);
+			var genRoomStatus = ("#roomStatus" + dummyRoomStatus);
+			var genSetHalfSizeOne = ("#setHalfSizeOne" + dummySetHalfSizeOne);
+			var genSetHalfSizeTwo = ("#setHalfSizeTwo" + dummySetHalfSizeTwo);
+			var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
+			var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
+
+			$
+					.each(
+							allRoom,
+							function(i, item) {
+
+								item
+										.forEach(function(room) {
+											var roomId = room.id;
+											var roomName = room.name;
+											var roomDescription = room.description;
+											var roomStartTime = room.startTime;
+											var roomEndTime = room.endTime;
+											var roomExaminer = room.examiner;
+											var roomModulator = room.modulator;
+											var roomStatus = room.status;
+
+											$("#setSizeCard0")
+													.clone()
+													.attr(
+															'id',
+															'setSizeCard'
+																	+ (++dummySetSizeCard))
+													.insertAfter(genSetSizeCard)
+													.show()
+													.appendTo(
+															$("#setSizeContainer"));
+											$("#room0")
+													.clone()
+													.attr(
+															'id',
+															'room'
+																	+ (++dummyRoom))
+													.insertAfter(genRoom)
+													.fadeIn('slow')
+													.appendTo(
+															$("#setSizeCard"
+																	+ dummySetSizeCard));
+											$("#body0")
+													.clone()
+													.attr(
+															'id',
+															'body'
+																	+ (++dummyBody))
+													.insertAfter(genBody)
+													.show()
+													.appendTo(
+															$("#room"
+																	+ dummyRoom));
+											$("#setSizeProgress0")
+													.clone()
+													.attr(
+															'id',
+															'setSizeProgress'
+																	+ (++dummyProgress))
+													.insertAfter(genProgress)
+													.show()
+													.appendTo(
+															$("#body"
+																	+ dummyRoom));
+											$("#setSizeDetail0")
+													.clone()
+													.attr(
+															'id',
+															'setSizeDetail'
+																	+ (++dummyDetail))
+													.insertAfter(genDetail)
+													.show()
+													.appendTo(
+															$("#body"
+																	+ dummyRoom));
+											$("#roomName0")
+													.clone()
+													.attr(
+															'id',
+															'roomName'
+																	+ (++dummyRoomName))
+													.text(roomName)
+													.insertAfter(genRoomName)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#roomDescription0")
+													.clone()
+													.attr(
+															'id',
+															'roomDescription'
+																	+ (++dummyRoomDescription))
+													.text(roomDescription)
+													.insertAfter(
+															genRoomDescription)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#roomTime0")
+													.clone()
+													.attr(
+															'id',
+															'roomTime'
+																	+ (++dummyTime))
+													.text(
+															roomStartTime
+																	+ " : "
+																	+ roomEndTime)
+													.insertAfter(genTime)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#examiner0")
+													.clone()
+													.attr(
+															'id',
+															'examiner'
+																	+ (++dummyExaminer))
+													.text("Examiner : "+roomExaminer)
+													.insertAfter(genExaminer)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#modulator0")
+													.clone()
+													.attr(
+															'id',
+															'modulator'
+																	+ (++dummyModulator))
+													.text("Modulator : "+roomModulator)
+													.insertAfter(genModulator)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#roomStatus0")
+													.clone()
+													.attr(
+															'id',
+															'roomStatus'
+																	+ (++dummyRoomStatus))
+													.text("Status : "+roomStatus)
+													.insertAfter(genRoomStatus)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#setHalfSizeOne0")
+													.clone()
+													.attr(
+															'id',
+															'setHalfSizeOne'
+																	+ (++dummySetHalfSizeOne))
+													.insertAfter(
+															genSetHalfSizeOne)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#setHalfSizeTwo0")
+													.clone()
+													.attr(
+															'id',
+															'setHalfSizeTwo'
+																	+ (++dummySetHalfSizeTwo))
+													.insertAfter(
+															genSetHalfSizeTwo)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+
+											$("#btnExaminer0")
+													.clone()
+													.attr(
+															'id',
+															'btnExaminer'
+																	+ (++dummyBtnExaminer))
+													.insertAfter(genBtnExaminer)
+													.show()
+													.appendTo(
+															$("#setHalfSizeOne"
+																	+ dummySetHalfSizeOne));
+											$("#btnCommittee0")
+													.clone()
+													.attr(
+															'id',
+															'btnCommitte'
+																	+ (++dummyBtnCommittee))
+													.insertAfter(
+															genBtnCommittee)
+													.show()
+													.appendTo(
+															$("#setHalfSizeTwo"
+																	+ dummySetHalfSizeTwo));
+										});
+							});
+		});
 		$("#btnCommittee")
 				.click(
 						function() {
