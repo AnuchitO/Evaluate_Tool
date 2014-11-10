@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Participant extends BaseEntity implements Serializable {
+public class Participants extends BaseEntity implements Serializable {
 
 	/**
 	 * 
@@ -21,15 +21,17 @@ public class Participant extends BaseEntity implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "person", nullable = false)
 	private Person person;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "room", nullable = false)
 	private Room room;
 
 	private String role;
+
+	private Boolean Modulator;
 
 	public Long getId() {
 		return id;
@@ -63,10 +65,18 @@ public class Participant extends BaseEntity implements Serializable {
 		this.role = role;
 	}
 
+	public Boolean getModulator() {
+		return Modulator;
+	}
+
+	public void setModulator(Boolean modulator) {
+		Modulator = modulator;
+	}
+
 	@Override
 	public String toString() {
 		return "Participant [id=" + id + ", person=" + "[person]" + ", room="
-				+ "[room]" + ", role=" + "[role]" + "]";
+				+ "[room]" + ", role=" + "[role]" + ", modulator =" + "[modulator]" +"]";
 	}
 
 }

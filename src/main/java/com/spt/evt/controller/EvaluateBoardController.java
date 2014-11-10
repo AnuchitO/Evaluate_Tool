@@ -33,7 +33,6 @@ public class EvaluateBoardController {
 		String idCommittee = arg0.getParameter("idCommittee");
 		String nameCommittee = arg0.getParameter("nameCommittee");
 		String lastNameCommittee = arg0.getParameter("lastNameCommittee");
-		LOGGER.debug("++++++++++++++++++++"+idExaminer+" "+idCommittee+" "+nameCommittee+" "+lastNameCommittee);
 		Map model = new HashMap();
 		model.put("idExaminer", idExaminer);
 		model.put("nameExaminer", nameExaminer);

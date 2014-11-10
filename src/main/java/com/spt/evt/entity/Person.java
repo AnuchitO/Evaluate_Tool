@@ -53,7 +53,7 @@ public class Person extends BaseEntity implements Serializable {
 	private Set<Enroll> enrolls = new HashSet<Enroll>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-	private Set<Participant> participants = new HashSet<Participant>();
+	private Set<Participants> participants = new HashSet<Participants>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "committee")
 	private Set<ScoreBoard> committee = new HashSet<ScoreBoard>();
@@ -133,11 +133,11 @@ public class Person extends BaseEntity implements Serializable {
 		this.enrolls = enrolls;
 	}
 
-	public Set<Participant> getParticipants() {
+	public Set<Participants> getParticipants() {
 		return participants;
 	}
 
-	public void setParticipants(Set<Participant> participants) {
+	public void setParticipants(Set<Participants> participants) {
 		this.participants = participants;
 	}
 

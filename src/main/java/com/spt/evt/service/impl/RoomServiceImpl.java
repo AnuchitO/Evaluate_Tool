@@ -14,7 +14,7 @@ import com.spt.evt.service.RoomService;
 @Service
 public class RoomServiceImpl implements RoomService{
 
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TopicServiceImpl.class);
 
 	@Autowired

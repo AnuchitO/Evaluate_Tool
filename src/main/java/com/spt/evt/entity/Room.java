@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,13 +22,13 @@ public class Room extends BaseEntity implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
-	private String examiner;
-	private String modulator;
+	private String startTime;
+	private String endTime;
 	private String status;
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
-	private Set<Participant> participants = new HashSet<Participant>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
+	private Set<Participants> participants = new HashSet<Participants>();
 
 	public Long getId() {
 		return id;
@@ -52,20 +54,20 @@ public class Room extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
-	public String getExaminer() {
-		return examiner;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setExaminer(String examiner) {
-		this.examiner = examiner;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
-	public String getModulator() {
-		return modulator;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setModulator(String modulator) {
-		this.modulator = modulator;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getStatus() {
@@ -75,20 +77,20 @@ public class Room extends BaseEntity implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public Set<Participant> getParticipants() {
+
+	public Set<Participants> getParticipants() {
 		return participants;
 	}
 
-	public void setParticipants(Set<Participant> participants) {
+	public void setParticipants(Set<Participants> participants) {
 		this.participants = participants;
 	}
 
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + "examiner=" + examiner + "modulator=" 
-				+ modulator + "status=" + status + ", participants=" + "[participants]" + "]";
+				+ description + ",startTime=" + startTime + ",endTime=" + endTime 
+				+ "status=" + status + ", participants=" + "[participants]" + "]";
 	}
 
 }
