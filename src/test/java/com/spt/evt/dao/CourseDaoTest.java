@@ -12,14 +12,14 @@ import com.spt.evt.entity.Course;
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
 public class CourseDaoTest extends AbstractTestDao {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(RoomDaoTest.class);
 
 	@Autowired
 	private CourseDao courseDao;
 
 	@Test
 	public void remark() {
-		logger.debug("/*** Begin test CourseDaoTest() ***/");
+		LOGGER.debug("/*** Begin test CourseDaoTest() ***/");
 	}
 
 	@Test

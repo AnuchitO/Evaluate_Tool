@@ -10,11 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
-import com.spt.evt.entity.Subject;
-import com.spt.evt.entity.Topic;
-
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */

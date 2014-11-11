@@ -16,6 +16,10 @@
 	color: #000000;
 }
 
+.panel-default>.panel-body {
+	background-color: #FFD700;
+}
+
 #userName {
 	margin: 3px;
 }
@@ -33,24 +37,24 @@
 <body>
 	<div id="divLogIn">
 		<div class="row">
-			<div class="col-sm-4 col-md-4 col-md-offset-4">
+			<div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">Log In</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-sm-11 col-md-11">
+							<div class="col-sm-12 col-md-12">
 								<input type="text" class="form-control" id="userName"
 									placeholder="Username">
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-11 col-md-11">
+							<div class="col-sm-12 col-md-12">
 								<input type="password" class="form-control" id="password"
 									placeholder="Password">
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-11 col-md-11">
+							<div class="col-sm-12 col-md-12">
 								<button id="buttonLogIn" type="button" class="btn btn-default">Log
 									In</button>
 							</div>
@@ -79,12 +83,20 @@
 											dataUserAndPassword : dataUserAndPassword
 										},
 										success : function(data) {
-											location.href = "/EvaluateTool/application/examinationRoom";
+											var yourId = JSON.parse(data).id;
+											var yourName = JSON.parse(data).name;
+											var yourLastName = JSON.parse(data).lastName;
+											alert("Wellcome , " + yourName
+													+ " " + yourLastName);
+											location.href = "/EvaluateTool/application/examinationRoom"
+													+ "?yourId="
+													+ encodeURIComponent(yourId);
 										},
 										error : function(data, status, er) {
-											alert("error: " + data
-													+ " status: " + status
-													+ " er:" + er);
+											alert("Wrong Username or Password, Try Again");
+											//alert("error: " + data
+											//		+ " status: " + status
+											//		+ " er:" + er);
 										}
 									});
 

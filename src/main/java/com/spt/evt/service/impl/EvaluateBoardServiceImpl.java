@@ -17,7 +17,7 @@ import com.spt.evt.service.EvaluateBoardService;
 
 @Service
 public class EvaluateBoardServiceImpl extends ProviderService implements EvaluateBoardService {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(EvaluateBoardServiceImpl.class);
 
 	@Override

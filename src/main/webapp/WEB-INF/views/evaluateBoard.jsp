@@ -137,10 +137,10 @@
 			Panel</button> -->
 
 		<label id="examinerId" value="${idExaminer}">Examiner :
-			${nameExaminer} ${lastNameExaminer}</label> / <label id="committeeId"
-			value="${idCommittee}">Committee : ${nameCommittee}
-			${lastNameCommittee}</label> / <label id="courseId" value="1">Course
-			: SDT</label>
+			${nameExaminer} ${lastNameExaminer}</label> <br>
+		<label id="committeeId" value="${idCommittee}">Committee :
+			${nameCommittee} ${lastNameCommittee}</label> <br>
+		<label id="courseId" value="1">Course : SDT</label>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label

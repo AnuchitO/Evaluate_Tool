@@ -17,7 +17,7 @@ import com.spt.evt.entity.Subject;
 @Repository
 public class SubjectDaoImpl extends TemplateHibernateDaoSupport implements
 		SubjectDao {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SubjectDaoImpl.class);
 
 	@Override

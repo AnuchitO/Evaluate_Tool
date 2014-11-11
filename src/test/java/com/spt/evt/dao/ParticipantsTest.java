@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
-import com.spt.evt.entity.Subject;
-import com.spt.evt.entity.Topic;
 
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
@@ -22,7 +19,7 @@ public class ParticipantsTest extends AbstractTestDao {
 
 	@Autowired
 	private ParticipantsDao participantsDao;
-	
+
 	@Test
 	public void testFindByExampleShouldBeRoomId1() {
 		Room room = new Room();
@@ -32,5 +29,5 @@ public class ParticipantsTest extends AbstractTestDao {
 		List<Participants> participantsList = participantsDao.findByExample(participants);
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());
 	}
-	
+
 }

@@ -29,10 +29,12 @@ public class ExaminationRoomController {
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
+		String yourId = arg0.getParameter("yourId");
 		JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
 		Map model = new HashMap();
+		model.put("yourId", yourId);
 		model.put("room", roomInformation.toString());
-		
+
 		return new ModelAndView("examinationRoom", model);
 
 	}
