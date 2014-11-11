@@ -28,44 +28,41 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 			roomDetail.put("endTime",room.getEndTime());
 			roomDetail.put("status",room.getStatus());
 
-			String personCommitteeName;
-			String personCommitteeLastName;
-			String personCommittee;
+			String personModulatorName;
+			String personModulatorLastName;
+			String personModulator;
+			Long personExaminerId;
 			String personExaminerName;
 			String personExaminerLastName;
 			String personExaminer;
+
 			Set<Participants> participantsSet = room.getParticipants();
 			for(Participants participants : participantsSet){
 				Boolean check = participants.getModulator();
 				String role = participants.getRole();
+
 				if(role.equals("examiner")){
+					personExaminerId = participants.getPerson().getId();
 					personExaminerName = participants.getPerson().getName();
 					personExaminerLastName = participants.getPerson().getLastName();
 					personExaminer = personExaminerName + " " + personExaminerLastName;
+					roomDetail.put("examinerId", personExaminerId.toString());
 					roomDetail.put("examiner", personExaminer);
 				}
 				if(check == true){
-					personCommitteeName = participants.getPerson().getName();
-					personCommitteeLastName = participants.getPerson().getLastName();
-					personCommittee = personCommitteeName +" "+ personCommitteeLastName;
-					roomDetail.put("modulator", personCommittee);
+					personModulatorName = participants.getPerson().getName();
+					personModulatorLastName = participants.getPerson().getLastName();
+					personModulator = personModulatorName +" "+ personModulatorLastName;
+					roomDetail.put("modulator", personModulator);
 				}
 
 			}
 			allRoom.append("room", roomDetail);
-			
+
 		}
-		System.out.println("==================="+allRoom);
 		return allRoom;
 	}
-
-	@Override
-	public JSONObject getParticipantInformation() {
-		JSONObject allParticipant = new JSONObject();
-
-		return null;
-	}
-
+	
 	@Override
 	public JSONObject getPersonInformation(Long examinerId, Long committeeId) {
 		JSONObject committeeInformation = new JSONObject();

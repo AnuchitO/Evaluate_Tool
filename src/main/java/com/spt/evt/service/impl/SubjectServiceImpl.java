@@ -14,7 +14,7 @@ import com.spt.evt.service.SubjectService;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SubjectServiceImpl.class);
 
 	@Autowired

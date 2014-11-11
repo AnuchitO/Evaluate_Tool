@@ -20,19 +20,29 @@
 .modal-title {
 	text-align: center;
 }
+
+.btn {
+	background-color: #FF8C00;
+}
+
+.bg-default {
+	background-color: #FF8C00;
+}
+
+.panel-body {
+	background-color: #FFD700;
+}
+
 </style>
 <body>
+	<input type="hidden" id="committeeId" value="${yourId}" />
 	<div class="row">
-		<pre class="bg-default">
-			<strong>Evaluate Tool</strong>
-		</pre>
+		<pre class="bg-default"><strong>Evaluate Tool</strong></pre>
 	</div>
-	<div id="examinerId">2</div>
-	<div id="committeeId">3</div>
 	<div id="container" class="row">
-		<div id="setSizeContainer" class="col-md-12"></div>
+		<div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
 	</div>
-	<div id="setSizeCard0" class="col-sm-5 col-md-5"></div>
+	<div id="setSizeCard0" class="col-sm-6 col-md-5"></div>
 	<div id="room0" class="panel panel-default"></div>
 	<div id="body0" class="panel-body"></div>
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
@@ -40,6 +50,7 @@
 	<div id="roomName0"></div>
 	<div id="roomDescription0"></div>
 	<div id="roomTime0"></div>
+	<input type="hidden" id="examinerId0" value="" />
 	<div id="examiner0"></div>
 	<div id="modulator0"></div>
 	<div id="roomStatus0"></div>
@@ -47,7 +58,8 @@
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
 	<button id="btnExaminer0" type="button"
 		class="btn btn-default disabled">Examiner</button>
-	<button id="btnCommittee0" type="button" class="btn btn-default">Committee</button>
+	<button id="btnCommittee0" type="button" class="btn btn-default"
+		onClick="javascript:sendId(this)">Committee</button>
 
 	<script>
 		$(function() {
@@ -76,6 +88,7 @@
 			var dummyRoomName = 0;
 			var dummyRoomDescription = 0;
 			var dummyTime = 0;
+			var dummyExaminerId = 0;
 			var dummyExaminer = 0;
 			var dummyModulator = 0;
 			var dummyRoomStatus = 0;
@@ -92,6 +105,7 @@
 			var genRoomName = ("#roomName" + dummyRoomName);
 			var genRoomDescription = ("#roomDescription" + dummyRoomDescription);
 			var genTime = ("#roomTime" + dummyTime);
+			var genExaminerId = ("#examinerId" + dummyExaminerId);
 			var genExaminer = ("#examiner" + dummyExaminer);
 			var genModulator = ("#modulator" + dummyModulator);
 			var genRoomStatus = ("#roomStatus" + dummyRoomStatus);
@@ -112,6 +126,7 @@
 											var roomDescription = room.description;
 											var roomStartTime = room.startTime;
 											var roomEndTime = room.endTime;
+											var roomExaminerId = room.examinerId;
 											var roomExaminer = room.examiner;
 											var roomModulator = room.modulator;
 											var roomStatus = room.status;
@@ -210,13 +225,27 @@
 													.appendTo(
 															$("#setSizeDetail"
 																	+ dummyDetail));
+											$("#examinerId0")
+													.clone()
+													.attr(
+															'id',
+															'examinerId'
+																	+ (++dummyExaminerId))
+													.val(room.examinerId)
+													.insertAfter(genExaminerId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
 											$("#examiner0")
 													.clone()
 													.attr(
 															'id',
 															'examiner'
 																	+ (++dummyExaminer))
-													.text("Examiner : "+roomExaminer)
+													.text(
+															"Examiner : "
+																	+ roomExaminer)
 													.insertAfter(genExaminer)
 													.show()
 													.appendTo(
@@ -228,7 +257,9 @@
 															'id',
 															'modulator'
 																	+ (++dummyModulator))
-													.text("Modulator : "+roomModulator)
+													.text(
+															"Modulator : "
+																	+ roomModulator)
 													.insertAfter(genModulator)
 													.show()
 													.appendTo(
@@ -240,7 +271,9 @@
 															'id',
 															'roomStatus'
 																	+ (++dummyRoomStatus))
-													.text("Status : "+roomStatus)
+													.text(
+															"Status : "
+																	+ roomStatus)
 													.insertAfter(genRoomStatus)
 													.show()
 													.appendTo(
@@ -297,56 +330,46 @@
 										});
 							});
 		});
-		$("#btnCommittee")
-				.click(
-						function() {
-							var detailPerson = {};
-							detailPerson.committeeId = $("#committeeId").text();
-							detailPerson.examinerId = $("#examinerId").text();
-							var dataPersonId = JSON.stringify(detailPerson);
-							$
-									.ajax({
-										url : "/EvaluateTool/application/checkCommittee",
-										type : 'POST',
-										data : {
-											dataPersonId : dataPersonId
-										},
-										success : function(data) {
-											var idExaminer = JSON.parse(data).idExaminer;
-											var nameExaminer = JSON.parse(data).nameExaminer;
-											var lastNameExaminer = JSON
-													.parse(data).lastNameExaminer;
-											var idCommittee = JSON.parse(data).idCommittee;
-											var nameCommittee = JSON
-													.parse(data).nameCommittee;
-											var lastNameCommittee = JSON
-													.parse(data).lastNameCommittee;
-											location.href = "/EvaluateTool/application/evaluateBoard"
-													+ "?idExaminer="
-													+ encodeURIComponent(idExaminer)
-													+ "&nameExaminer="
-													+ encodeURIComponent(nameExaminer)
-													+ "&lastNameExaminer="
-													+ encodeURIComponent(lastNameExaminer)
-													+ "&idCommittee="
-													+ +encodeURIComponent(idCommittee)
-													+ "&nameCommittee="
-													+ encodeURIComponent(nameCommittee)
-													+ "&lastNameCommittee="
-													+ encodeURIComponent(lastNameCommittee);
-										},
-										error : function(data, status, er) {
-											alert("error: " + data
-													+ " status: " + status
-													+ " er:" + er);
-										}
-									});
-						});
-		//$(function() {
-		//	$("#room").click(function() {
-		//		$("#modal").modal("show");
-		//	});
-		//});
+		function sendId(element) {
+			count = (element.id).replace(/[^\d.]/g, '');
+			var detailPerson = {};
+			detailPerson.committeeId = $("#committeeId").val();
+			detailPerson.examinerId = $("#examinerId" + count).val();
+			var dataPersonId = JSON.stringify(detailPerson);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/checkCommittee",
+						type : 'POST',
+						data : {
+							dataPersonId : dataPersonId
+						},
+						success : function(data) {
+							var idExaminer = JSON.parse(data).idExaminer;
+							var nameExaminer = JSON.parse(data).nameExaminer;
+							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+							var idCommittee = JSON.parse(data).idCommittee;
+							var nameCommittee = JSON.parse(data).nameCommittee;
+							var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+							location.href = "/EvaluateTool/application/evaluateBoard"
+									+ "?idExaminer="
+									+ encodeURIComponent(idExaminer)
+									+ "&nameExaminer="
+									+ encodeURIComponent(nameExaminer)
+									+ "&lastNameExaminer="
+									+ encodeURIComponent(lastNameExaminer)
+									+ "&idCommittee="
+									+ +encodeURIComponent(idCommittee)
+									+ "&nameCommittee="
+									+ encodeURIComponent(nameCommittee)
+									+ "&lastNameCommittee="
+									+ encodeURIComponent(lastNameCommittee);
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+									+ " er:" + er);
+						}
+					});
+		}
 	</script>
 </body>
 </html>

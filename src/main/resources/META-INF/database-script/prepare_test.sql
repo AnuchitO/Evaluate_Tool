@@ -1,4 +1,3 @@
-
 insert into Course (id, name,description) values (1, 'SDT','Software Development Trainee')
 
 insert into Subject (id,name,description,course) values (1,'Object-Oriented','Object-Oriented',1)
@@ -74,10 +73,13 @@ insert into Topic (id,name,description,subject) values (57,'SQL Statement','B Ca
 insert into Topic (id,name,description,subject) values (58,'PL/SQL','B Can create stored procedure and function ',11)
 
 
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(1,'Anuchit','Prasertsang','Male','anuchit_p@softsquaregroup.com', '2007-01-03 04:13:43','09111111111','Software Development')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(2,'PATIPOL','SIRISUPPAKIJ','Male','patipol_s@softsquaregroup.com', '2007-01-03 04:13:43','0918563257','Software Development')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(3,'Suriya','Eiamerb','Male','suriya_e@softsquaregroup.com', '2007-01-03 04:13:43','0918652475','Software Analyst')
-insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName) values(4,'Sirirad','Chaiyaphom','Male','sirirad_c@softsquaregroup.com', '2007-01-03 04:13:43','0919865247','Software Development')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(1,'Anuchit','Prasertsang','Male','anuchit_p@softsquaregroup.com','2007-01-03 04:13:43','09111111111','Software Development','anuchit','prasertsang')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(2,'Patipol','Sirisuppakij','Male','patipol_s@softsquaregroup.com','2007-01-03 04:13:43','0918563257','Software Development','patipol','sirisuppakij')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(3,'Suriya','Eiamerb','Male','suriya_e@softsquaregroup.com','2007-01-03 04:13:43','0918652475','Software Analyst','suriya_e','suriya_e')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(4,'Sirirad','Chaiyaphom','Female','sirirad_c@softsquaregroup.com','2007-01-03 04:13:43','0919865247','Software Development','sirirad','chaiyaphom')
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(5,'Wutthinan','Wanchongkham','Male','wutthinan_w@softsquaregroup.com','2007-01-03 04:13:43','0920665533','Software Development','wutthinan','wanchongkham');
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(6,'Apichat','Eakwongsa','Male','apichat_e@softsquaregroup.com','2007-01-03 04:13:43','0850332198','Software Development','apichat','eakwongsa');
+insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(7,'Somchai','Pakdee','Male','somchai_p@softsquaregroup.com','2007-01-03 04:13:43','0839008787','Software Development','somchai','pakdee');
 
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
@@ -90,6 +92,15 @@ insert into Participants (id,person,room,role,modulator) values (1,2,1,'examiner
 insert into Participants (id,person,room,role,modulator) values (2,3,1,'committee',true)
 insert into Participants (id,person,room,role,modulator) values (3,1,1,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (4,4,1,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (5,1,2,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (6,1,2,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (7,5,2,'examiner',false)
+insert into Participants (id,person,room,role,modulator) values (8,4,3,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (9,1,3,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (10,6,3,'examiner',false)
+insert into Participants (id,person,room,role,modulator) values (11,4,4,'committee',true)
+insert into Participants (id,person,room,role,modulator) values (12,1,4,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (13,7,4,'examiner',false)
 
-insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'comment')
+insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'good')
 

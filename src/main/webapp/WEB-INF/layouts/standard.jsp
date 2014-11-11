@@ -28,7 +28,7 @@
 			<tiles:insertAttribute name="body" />
 		</div>
 		<div id="footer">
-			<hr />
+			<!-- <hr /> -->
 		</div>
 	</div>
 	<script type="text/javascript"

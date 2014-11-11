@@ -1,5 +1,7 @@
 package com.spt.evt.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,11 @@ public class PersonServiceImpl implements PersonService {
 	public Person findById(Long id) {
 		return this.personDao.findById(id);
 	}
-	
-	
 
+	@Override
+	public List<Person> findByUserNameAndPassword(String userName, String password) {
+		
+		return this.personDao.findByUserNameAndPassword(userName, password);
+	}
+	
 }
