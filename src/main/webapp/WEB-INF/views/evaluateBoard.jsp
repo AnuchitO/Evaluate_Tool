@@ -105,6 +105,10 @@
 .panel-heading {
 	cursor: pointer;
 }
+
+a {
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -126,6 +130,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!-- <li><a id="presenting">Presenting</a></li>
 						<li><a id="topicList">Topic List</a></li> -->
+						<li><a id="goToRoom">Go To Room</a></li>
 					</ul>
 				</div>
 			</div>
@@ -137,10 +142,10 @@
 			Panel</button> -->
 
 		<label id="examinerId" value="${idExaminer}">Examiner :
-			${nameExaminer} ${lastNameExaminer}</label> <br>
-		<label id="committeeId" value="${idCommittee}">Committee :
-			${nameCommittee} ${lastNameCommittee}</label> <br>
-		<label id="courseId" value="1">Course : SDT</label>
+			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
+			value="${idCommittee}">Committee : ${nameCommittee}
+			${lastNameCommittee}</label> <br> <label id="courseId" value="1">Course
+			: Software Development Trainee</label>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -179,6 +184,9 @@
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
 		<h4 id="panelTitle0" class="panel-title"></h4>
+		<span id="spanTopic0" class="badge pull-right"></span> <label
+			id="submitEachTopic0" style="margin: 2px;"></label> <label
+			id="totalEachTopic0" style="margin: 2px;"></label>
 		<div id="collapse0" class="panel-collapse collapse"></div>
 		<div id="panelBody0" class="panel-body"></div>
 		<ul id="navpills0" class="nav nav-pills nav-stacked">
@@ -221,7 +229,7 @@
 		</div>
 		<button id="panelScoreBtnSubmit0" type="button"
 			class="btn btn-default"
-			onClick="javascript:sendDetailScoreOfTopic(this);"
+			onClick="javascript:sendDetailScoreOfTopic(this,$(this).parent().attr('id'));"
 			style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
 		<!----------------------Model Panel in Modal---------------------->
 
@@ -242,7 +250,9 @@
 	</div>
 
 	<script>
+		var keepId
 		function showModal(element) {
+			keepId = $('#' + element.id).parent().attr('id');
 			$("#alertChooseScore").hide();
 			count = (element.id).replace(/[^\d.]/g, '');
 			if ($("#spanScore" + count).text() == '-') {
@@ -288,17 +298,17 @@
 				}
 			}
 			$("#modalScore" + count).modal("show");
-			var textDescription = $("#" + element.id).children('a').clone()
-					.children('span').remove().end().text();
-			var textTopicId = $("#" + element.id).children('a').clone()
-					.children('span').remove().end().text();
 			var textSubject = $("#" + element.id).parent('ul').parent('div')
 					.parent('div').parent('div').children('div').children('h4')
-					.text();
+					.clone().children('span').remove().end().text();
+			var textDescription = $("#" + element.id).children('a').clone()
+					.children('span').remove().end().text();
+
 			$(".textSubject").text(textSubject);
 			$(".textDescription").text(textDescription);
 		}
 		function sendDetailScoreOfTopic(buttonSubmit) {
+			var countOfId = (keepId).replace(/[^\d.]/g, '');
 			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
 			var textMessage = $("textarea#panelScoreMessage" + count).val();
 			var textScore = $("#panelScoreBtnGroup" + count).find(
@@ -337,6 +347,11 @@
 					var keepOriginalSubmitTopic = $("#submitTopic").text();
 					keepOriginalSubmitTopic++;
 					$("#submitTopic").text(keepOriginalSubmitTopic);
+					var keepOriginalSubmitEachTopic = $(
+							"#submitEachTopic" + countOfId).text();
+					keepOriginalSubmitEachTopic++;
+					$("#submitEachTopic" + countOfId).text(
+							keepOriginalSubmitEachTopic);
 				}
 				$("#spanScore" + count).text(textScore);
 			}
@@ -464,10 +479,15 @@
 					});
 
 			function createCollapse(course) {
+				var countOfSpanScore = 1;
+
 				var dummyPanel = 0;
 				var dummyHead = 0;
 				var dummyCollapse = 0;
 				var dummyTitle = 0;
+				var dummyCountScoreEachTopic = 0;
+				var dummySubmitEachTopic = 0;
+				var dummyTotalEachTopic = 0;
 				var dummyBody = 0;
 				var dummyNavpills = 0;
 				var dummyList = 0;
@@ -488,6 +508,12 @@
 				var genIdPanel = $("#panelCollapse" + dummyPanel);
 				var genIdHead = $("#panelHeading" + dummyHead);
 				var genIdTitle = $("#panelTitle" + dummyTitle);
+				var genIdCountScoreEachTopic = $("#spanTopic"
+						+ dummyCountScoreEachTopic);
+				var genIdSubmitEachTopic = $("#submitEachTopic"
+						+ dummySubmitEachTopic);
+				var genIdTotalEachTopic = $("#totalEachTopic"
+						+ dummyTotalEachTopic);
 				var genIdCollapse = $("#collapse" + dummyCollapse);
 				var genIdBody = $("#panelBody" + dummyBody);
 				var genIdNavpills = $("#navpills" + dummyNavpills);
@@ -566,6 +592,42 @@
 														.appendTo(
 																$("#panelHeading"
 																		+ dummyHead));
+												$("#spanTopic0")
+														.clone()
+														.attr(
+																'id',
+																'spanTopic'
+																		+ (++dummyCountScoreEachTopic))
+														.insertAfter(
+																genIdCountScoreEachTopic)
+														.show()
+														.appendTo(
+																$("#panelTitle"
+																		+ dummyTitle));
+												$("#submitEachTopic0")
+														.clone()
+														.attr(
+																'id',
+																'submitEachTopic'
+																		+ (++dummySubmitEachTopic))
+														.insertAfter(
+																genIdSubmitEachTopic)
+														.show()
+														.appendTo(
+																$("#spanTopic"
+																		+ dummyCountScoreEachTopic));
+												$("#totalEachTopic0")
+														.clone()
+														.attr(
+																'id',
+																'totalEachTopic'
+																		+ (++dummyTotalEachTopic))
+														.insertAfter(
+																genIdTotalEachTopic)
+														.show()
+														.appendTo(
+																$("#spanTopic"
+																		+ dummyCountScoreEachTopic));
 												$("#collapse0")
 														.clone()
 														.attr(
@@ -600,6 +662,7 @@
 																$("#panelBody"
 																		+ dummyBody));
 
+												var numberEachOfTopic = 0;
 												var index = 0;
 												var keepTopic = item[sizeTopic].topic;
 												for (index; index < keepTopic.length; ++index) {
@@ -780,9 +843,31 @@
 															dummyPanelScoreBtnGroup);
 
 													numberOfTopic++;
+													numberEachOfTopic++;
 												}
 												sizeTopic++;
+												var indexCheckTopic = 0;
+												var keepEachTopicOfSubmit = 0;
+												for (indexCheckTopic; indexCheckTopic < numberEachOfTopic; indexCheckTopic++) {
+													if ($(
+															"#spanScore"
+																	+ countOfSpanScore)
+															.text() != '-') {
+														keepEachTopicOfSubmit++;
+													}
+													countOfSpanScore++;
+												}
 
+												$(
+														"#submitEachTopic"
+																+ sizeTopic)
+														.text(
+																keepEachTopicOfSubmit);
+												$("#totalEachTopic" + sizeTopic)
+														.text(
+																"/"
+																		+ " "
+																		+ numberEachOfTopic);
 											});
 
 								});
@@ -805,7 +890,15 @@
 			//	$("#accordion").empty();
 			//	$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			//});
-
+			$("#goToRoom")
+					.click(
+							function() {
+								var yourId = $("#committeeId").attr('value');
+								location.href = "/EvaluateTool/application/examinationRoom"
+										+ "?yourId="
+										+ encodeURIComponent(yourId);
+								;
+							});
 			$(".lialert").click(function() {
 				$("#accordion").empty();
 				$("#panelScore").fadeIn('slow').appendTo($("#formBoard"));
