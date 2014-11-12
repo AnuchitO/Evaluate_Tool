@@ -27,12 +27,16 @@
 		<put-attribute name="body" value="/WEB-INF/views/evt001.jsp" />
 	</definition>
 	
+	<definition name="memberRegister" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/memberRegister.jsp" />
+	</definition>
+	
 	<definition name="logIn" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/logIn.jsp" />
 	</definition>
 	
-	<definition name="memberRegister" extends="standardLayout">
-		<put-attribute name="body" value="/WEB-INF/views/memberRegister.jsp" />
+	<definition name="examinationRoom" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/examinationRoom.jsp" />
 	</definition>
 	
 	<definition name="evaluateBoard" extends="standardLayout">
@@ -44,8 +48,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/examinerDashBoard.jsp" />
 	</definition>
 	
-	<definition name="examinationRoom" extends="standardLayout">
-		<put-attribute name="body" value="/WEB-INF/views/examinationRoom.jsp" />
+	<definition name="report" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/report.jsp" />
 	</definition>
 		
 </tiles-definitions>

@@ -23,16 +23,16 @@
 }
 
 .navbar-default>.container-fluid>.navbar-header>.navbar-brand {
-	color: #000000;
+	color: black;
 }
 
 .navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
-	color: #000000;
+	color: black;
 }
 
 .panel-default>.panel-heading {
 	background-color: #FF8C00;
-	color: #000000;
+	color: black;
 }
 
 .panel-default>.panel-body {
@@ -99,7 +99,7 @@
 }
 
 .nav-pills>li>a {
-	color: #000000;
+	color: black;
 }
 
 .panel-heading {
@@ -109,11 +109,13 @@
 a {
 	cursor: pointer;
 }
+.badge{
+	background-color: #585858; 
+}
 </style>
 </head>
 
 <body>
-
 	<div id="container" class="container">
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
@@ -184,7 +186,7 @@ a {
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
 		<h4 id="panelTitle0" class="panel-title"></h4>
-		<span id="spanTopic0" class="badge pull-right"></span> <label
+		<span id="spanTopic0" class="badge pull-right" style="background-color: #585858;"></span> <label
 			id="submitEachTopic0" style="margin: 2px;"></label> <label
 			id="totalEachTopic0" style="margin: 2px;"></label>
 		<div id="collapse0" class="panel-collapse collapse"></div>
