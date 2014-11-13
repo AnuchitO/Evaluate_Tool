@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 
@@ -24,6 +25,9 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 
 	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
+		Room room = new Room();
+		room.setId(1L);
+		
 		Person committee = new Person();
 		committee.setId(3L);
 
@@ -33,12 +37,15 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Person examiner = new Person();
 		examiner.setId(2L);
 		
-		ScoreBoard scoreBoard = scoreBoardService.findByCommiteeAndTopicAndExaminer(committee, topic,examiner);
+		ScoreBoard scoreBoard = scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic,examiner);
 		Assert.assertNotNull(scoreBoard);
 	}
 	
 	@Test
 	public void testSaveScoreBoardShouldBeIdNotNull() throws Exception {
+		Room room = new Room();
+		room.setId(1L);
+		
 		Double score = 0.5;
 		String comment = "Test Comment";
 		
@@ -51,10 +58,11 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Person examiner = new Person();
 		examiner.setId(2L);
 		
-		ScoreBoard scoreBoardBefore = scoreBoardService.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+		ScoreBoard scoreBoardBefore = scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
 		logger.debug("scoreBoardBefore :{}",scoreBoardBefore);
 		
 		ScoreBoard scoreBoard = new ScoreBoard();
+		scoreBoard.setRoom(room);
 		scoreBoard.setCommittee(committee);
 		scoreBoard.setTopic(topic);
 		scoreBoard.setExaminer(examiner);

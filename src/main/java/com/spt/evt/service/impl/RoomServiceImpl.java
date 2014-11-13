@@ -25,4 +25,9 @@ public class RoomServiceImpl implements RoomService{
 		return this.roomDao.findAll();
 	}
 
+	@Override
+	public Room findById(Long id) {
+		return this.roomDao.findById(id);
+	}
+
 }

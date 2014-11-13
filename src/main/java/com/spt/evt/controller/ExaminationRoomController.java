@@ -42,9 +42,10 @@ public class ExaminationRoomController {
 	@RequestMapping(value="/checkCommittee",method=RequestMethod.POST)
 	public @ResponseBody String getUsernamePassword(@RequestParam(value="dataPersonId") String dataPersonId ,HttpServletRequest arg0,HttpServletResponse arg1) {
 		JSONObject personDetail = new JSONObject(dataPersonId);
+		Long roomId		 	= Long.parseLong(personDetail.getString("roomId"));
 		Long examinerId 	= Long.parseLong(personDetail.getString("examinerId"));
 		Long committeeId 	= Long.parseLong(personDetail.getString("committeeId"));
-		JSONObject committeeInformation = this.examinationRoomService.getPersonInformation(examinerId,committeeId);
+		JSONObject committeeInformation = this.examinationRoomService.getPersonInformation(roomId,examinerId,committeeId);
 
 		return committeeInformation.toString();
 	}

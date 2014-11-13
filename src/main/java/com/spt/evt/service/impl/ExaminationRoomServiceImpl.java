@@ -64,17 +64,18 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	}
 	
 	@Override
-	public JSONObject getPersonInformation(Long examinerId, Long committeeId) {
+	public JSONObject getPersonInformation(Long roomId, Long examinerId, Long committeeId) {
 		JSONObject committeeInformation = new JSONObject();
+		Room room			= this.getRoomService().findById(roomId);
 		Person examiner 	= this.getPersonService().findById(examinerId);
 		Person committee 	= this.getPersonService().findById(committeeId);
+		committeeInformation.put("idRoom", room.getId());
 		committeeInformation.put("idExaminer", examiner.getId());
 		committeeInformation.put("nameExaminer", examiner.getName());
 		committeeInformation.put("lastNameExaminer", examiner.getLastName());
 		committeeInformation.put("idCommittee", committee.getId());
 		committeeInformation.put("nameCommittee", committee.getName());
 		committeeInformation.put("lastNameCommittee", committee.getLastName());
-		System.out.println("======="+committeeInformation);
 
 		return committeeInformation;
 	}

@@ -142,7 +142,7 @@ a {
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-
+		<input type="hidden" id="roomId" value="${idRoom}" />
 		<label id="examinerId" value="${idExaminer}">Examiner :
 			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
 			value="${idCommittee}">Committee : ${nameCommittee}
@@ -322,6 +322,7 @@ a {
 			} else {
 
 				var detailScoreOfTopic = {};
+				detailScoreOfTopic.roomId = $("#roomId").val();
 				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
 				detailScoreOfTopic.committeeId = $("#committeeId")
 						.attr('value');
@@ -458,6 +459,7 @@ a {
 			$("#accordion").empty();
 
 			var data = {};
+			data.roomId = $("#roomId").val();
 			data.examinerId = $("#examinerId").attr('value');
 			data.committeeId = $("#committeeId").attr('value');
 			data.courseId = $("#courseId").attr('value');

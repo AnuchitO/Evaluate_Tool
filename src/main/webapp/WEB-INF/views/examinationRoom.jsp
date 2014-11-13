@@ -32,7 +32,6 @@
 .panel-body {
 	background-color: #FFD700;
 }
-
 </style>
 <body>
 	<input type="hidden" id="committeeId" value="${yourId}" />
@@ -48,6 +47,7 @@
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 	<div id="setSizeDetail0" class="col-sm-8 col-md-8"></div>
 	<div id="roomName0"></div>
+	<input type="hidden" id="roomId0" value="" />
 	<div id="roomDescription0"></div>
 	<div id="roomTime0"></div>
 	<input type="hidden" id="examinerId0" value="" />
@@ -85,6 +85,7 @@
 			var dummyBody = 0;
 			var dummyProgress = 0;
 			var dummyDetail = 0;
+			var dummyRoomId = 0;
 			var dummyRoomName = 0;
 			var dummyRoomDescription = 0;
 			var dummyTime = 0;
@@ -102,6 +103,7 @@
 			var genBody = ("#body" + dummyBody);
 			var genProgress = ("#setSizeProgress" + dummyProgress);
 			var genDetail = ("#setSizeDetail" + dummyDetail);
+			var genRoomId = ("#roomId" + dummyRoomId);
 			var genRoomName = ("#roomName" + dummyRoomName);
 			var genRoomDescription = ("#roomDescription" + dummyRoomDescription);
 			var genTime = ("#roomTime" + dummyTime);
@@ -185,6 +187,18 @@
 													.appendTo(
 															$("#body"
 																	+ dummyRoom));
+											$("#roomId0")
+													.clone()
+													.attr(
+															'id',
+															'roomId'
+																	+ (++dummyRoomId))
+													.val(room.id)
+													.insertAfter(genRoomId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
 											$("#roomName0")
 													.clone()
 													.attr(
@@ -333,6 +347,7 @@
 		function sendId(element) {
 			count = (element.id).replace(/[^\d.]/g, '');
 			var detailPerson = {};
+			detailPerson.roomId = $("#roomId" + count).val();
 			detailPerson.committeeId = $("#committeeId").val();
 			detailPerson.examinerId = $("#examinerId" + count).val();
 			var dataPersonId = JSON.stringify(detailPerson);
@@ -344,6 +359,7 @@
 							dataPersonId : dataPersonId
 						},
 						success : function(data) {
+							var idRoom = JSON.parse(data).idRoom;
 							var idExaminer = JSON.parse(data).idExaminer;
 							var nameExaminer = JSON.parse(data).nameExaminer;
 							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
@@ -351,7 +367,9 @@
 							var nameCommittee = JSON.parse(data).nameCommittee;
 							var lastNameCommittee = JSON.parse(data).lastNameCommittee;
 							location.href = "/EvaluateTool/application/evaluateBoard"
-									+ "?idExaminer="
+									+ "?idRoom="
+									+ encodeURIComponent(idRoom)
+									+ "&idExaminer="
 									+ encodeURIComponent(idExaminer)
 									+ "&nameExaminer="
 									+ encodeURIComponent(nameExaminer)

@@ -15,4 +15,9 @@ public class RoomDaoImpl extends TemplateHibernateDaoSupport implements RoomDao 
 		return  (List<Room>) this.getHibernateTemplate().find("from Room");
 	}
 
+	@Override
+	public Room findById(Long id) {
+		return this.getHibernateTemplate().get(Room.class, id);
+	}
+
 }

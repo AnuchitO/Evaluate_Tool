@@ -102,5 +102,5 @@ insert into Participants (id,person,room,role,modulator) values (11,4,4,'committ
 insert into Participants (id,person,room,role,modulator) values (12,1,4,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (13,7,4,'examiner',false)
 
-insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'good')
+insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (1,1,3,1,2,0.8,'good')
 

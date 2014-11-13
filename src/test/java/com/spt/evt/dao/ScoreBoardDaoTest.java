@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 
@@ -26,6 +27,9 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 
 	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
+		Room room = new Room();
+		room.setId(1L);
+		
 		Person committee = new Person();
 		committee.setId(3L);
 
@@ -36,7 +40,7 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		examiner.setId(2L);
 
 		ScoreBoard scoreBoard = scoreBoardDao
-				.findByCommiteeAndTopicAndExaminer(committee, topic, examiner);
+				.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
 		Assert.assertNotNull(scoreBoard);
 	}
 
