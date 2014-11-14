@@ -27,4 +27,5 @@ public class RoomDaoTest extends AbstractTestDao {
 		Assert.assertFalse(participantsSet.isEmpty());
 		Assert.assertNotNull(rooms);
 	}
+	
 }

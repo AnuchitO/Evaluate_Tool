@@ -15,7 +15,7 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
 public class TopicDaoTest extends AbstractTestDao {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RoomDaoTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TopicDaoTest.class);
 
 	@Autowired
 	private TopicDao topicDao;

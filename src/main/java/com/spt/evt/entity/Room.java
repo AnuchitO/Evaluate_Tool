@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Room extends BaseEntity implements Serializable {
@@ -27,7 +27,7 @@ public class Room extends BaseEntity implements Serializable {
 	private String status;
 
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Participants> participants = new HashSet<Participants>();
 
 	public Long getId() {
@@ -90,7 +90,7 @@ public class Room extends BaseEntity implements Serializable {
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
 				+ description + ",startTime=" + startTime + ",endTime=" + endTime 
-				+ "status=" + status + ", participants=" + "[participants]" + "]";
+				+ ",status=" + status + ", participants=" + "[participants]" + "]";
 	}
 
 }

@@ -133,6 +133,7 @@ a {
 						<!-- <li><a id="presenting">Presenting</a></li>
 						<li><a id="topicList">Topic List</a></li> -->
 						<li><a id="goToRoom">Go To Room</a></li>
+						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
 			</div>

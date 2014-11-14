@@ -84,7 +84,7 @@ insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,u
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
 insert into Room (id,name,description,startTime,endTime,status) values (1, 'Pite','Room Java','09:00','12:00','Testing')
-insert into Room (id,name,description,startTime,endTime,status) values (2, 'Nong','Room Basic','09:00','12:00','Wait')
+insert into Room (id,name,description,startTime,endTime,status) values (2, 'Nong','Room Basic','09:00','12:00','Done')
 insert into Room (id,name,description,startTime,endTime,status) values (3, 'Kop','Room Assembly','09:00','12:00','Done')
 insert into Room (id,name,description,startTime,endTime,status) values (4, 'Milk','Room Ada','09:00','12:00','Testing')
 
@@ -102,5 +102,5 @@ insert into Participants (id,person,room,role,modulator) values (11,4,4,'committ
 insert into Participants (id,person,room,role,modulator) values (12,1,4,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (13,7,4,'examiner',false)
 
-insert into ScoreBoard (id,committee,topic,examiner,score,comment) values (1,3,1,2,0.8,'good')
+insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (1,1,3,1,2,0.8,'good')
 

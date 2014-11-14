@@ -14,7 +14,7 @@ import com.spt.evt.entity.Person;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class PersonDaoTest extends AbstractTestDao {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RoomDaoTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonDaoTest.class);
 
 	@Autowired
 	private PersonDao personDao;

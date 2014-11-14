@@ -13,9 +13,11 @@ a {
 div {
 	margin-right: 20px;
 }
+
 table>thead>tr>th {
 	text-align: center;
 }
+
 table>tbody>tr>td {
 	text-align: center;
 }
@@ -41,19 +43,24 @@ table>tbody>tr>td {
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-1 col-md-1 col-sm-offset-3 col-md-offset-3">
+		<div id="formTable" class="row">
+			<div id="setSizeWordExaminer"
+				class="col-sm-1 col-md-1 col-sm-offset-3 col-md-offset-3">
 				<label>Examiner</label>
 			</div>
-			<div class="col-sm-3 col-md-3">
+			<div id="setSizeTable" class="col-sm-3 col-md-3">
 				<select id="pickExaminer" class="selectpicker" data-width="100%">
-					<option>ALL</option>
+					<option id="optionAll">ALL</option>
 				</select>
 			</div>
-			<div class="col-sm-1 col-md-1">
-				<button>Sumary</button>
+			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
+				<button id="buttonSumary" type="button" class="btn btn-default"
+					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
 			</div>
 		</div>
+		<option id="option0"></option>
+		<input type="hidden" id="roomId0" value="" />
+		<br>
 		<div class="row">
 			<div class="col-sm-5 col-md-5 col-sm-offset-3 col-md-offset-3">
 				<table class="table table-bordered">
@@ -84,5 +91,37 @@ table>tbody>tr>td {
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		$(function() {
+			$("#option0").hide();
+			var doneRoom = JSON.parse('${room}');
+			var dummyOption = 0;
+			var dummyRoomId = 0;
+			var genOptionId = ("#option" + dummyOption);
+			var genRoomId = ("#roomId" + dummyRoomId);
+
+			$.each(doneRoom, function(i, item) {
+
+				item.forEach(function(room) {
+					var nameAndLastName = room.examiner;
+					var roomId = room.id;
+
+					$("#option0").clone()
+							.attr('id', 'option' + (++dummyOption)).text(
+									nameAndLastName).val(roomId).insertAfter(genOptionId)
+							.show().appendTo($("#pickExaminer"));
+					//$("#roomId0").clone()
+					//		.attr('id', 'roomId' + (++dummyRoomId)).val(roomId)
+					//		.insertAfter(genRoomId).show().appendTo(
+					//				$("#option" + dummyOption));
+				});
+			});
+
+		});
+		function showRoom(room) {
+			alert(room);
+		}
+	</script>
 </body>
 </html>

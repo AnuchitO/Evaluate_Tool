@@ -18,7 +18,7 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
 public class ScoreBoardDaoTest extends AbstractTestDao {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RoomDaoTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScoreBoardDaoTest.class);
 
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;

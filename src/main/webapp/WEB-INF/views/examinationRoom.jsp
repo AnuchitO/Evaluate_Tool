@@ -115,7 +115,7 @@
 			var genSetHalfSizeTwo = ("#setHalfSizeTwo" + dummySetHalfSizeTwo);
 			var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
 			var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
-
+			
 			$
 					.each(
 							allRoom,

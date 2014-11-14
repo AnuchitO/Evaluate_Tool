@@ -18,7 +18,7 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class ScoreBoardServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScoreBoardServiceTest.class);
 
 	@Autowired
 	private ScoreBoardService scoreBoardService;
@@ -59,7 +59,7 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		examiner.setId(2L);
 		
 		ScoreBoard scoreBoardBefore = scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
-		logger.debug("scoreBoardBefore :{}",scoreBoardBefore);
+		LOGGER.debug("scoreBoardBefore :{}",scoreBoardBefore);
 		
 		ScoreBoard scoreBoard = new ScoreBoard();
 		scoreBoard.setRoom(room);
@@ -70,7 +70,8 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		scoreBoard.setComment(comment);
 		
 		scoreBoardService.save(scoreBoard);
-		logger.debug("*************************************** :{}",scoreBoard.getId());
+		LOGGER.debug("*************************************** :{}",scoreBoard.getId());
+		Assert.assertNotNull(scoreBoard.getRoom());
 		Assert.assertNotNull(scoreBoard.getId());					
 		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));
 		Assert.assertEquals(score, scoreBoard.getScore());
