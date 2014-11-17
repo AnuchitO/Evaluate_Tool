@@ -109,8 +109,9 @@
 a {
 	cursor: pointer;
 }
-.badge{
-	background-color: #585858; 
+
+.badge {
+	background-color: #585858;
 }
 </style>
 </head>
@@ -143,8 +144,8 @@ a {
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-		<input type="hidden" id="roomId" value="${idRoom}" />
-		<label id="examinerId" value="${idExaminer}">Examiner :
+		<input type="hidden" id="roomId" value="${idRoom}" /> <label
+			id="examinerId" value="${idExaminer}">Examiner :
 			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
 			value="${idCommittee}">Committee : ${nameCommittee}
 			${lastNameCommittee}</label> <br> <label id="courseId" value="1">Course
@@ -187,7 +188,8 @@ a {
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
 		<h4 id="panelTitle0" class="panel-title"></h4>
-		<span id="spanTopic0" class="badge pull-right" style="background-color: #585858;"></span> <label
+		<span id="spanTopic0" class="badge pull-right"
+			style="background-color: #585858;"></span> <label
 			id="submitEachTopic0" style="margin: 2px;"></label> <label
 			id="totalEachTopic0" style="margin: 2px;"></label>
 		<div id="collapse0" class="panel-collapse collapse"></div>
@@ -879,7 +881,7 @@ a {
 				var keepTopicOfSubmit = 0;
 				$("#submitOfAllTOpic").show();
 				var indexCheck = 1
-				for (indexCheck; indexCheck < numberOfTopic; indexCheck++) {
+				for (indexCheck; indexCheck <= numberOfTopic; indexCheck++) {
 					if ($("#spanScore" + indexCheck).text() != '-') {
 						keepTopicOfSubmit++;
 					}

@@ -27,5 +27,21 @@ public class RoomDaoImpl extends TemplateHibernateDaoSupport implements RoomDao 
 	public Room findById(Long id) {
 		return this.getHibernateTemplate().get(Room.class, id);
 	}
+	
+	@Override
+	public List<Room> findByStatus() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Room.class);
+		criteria.add(Restrictions.eq("status", "Done"));
+		//criteria.add(Restrictions.)
+		List<Room> resultRoom = (List<Room>) this.getHibernateTemplate().findByCriteria(criteria);
+		//LOGGER.debug("SIZE--------"+resultRoom.size());
+		//LOGGER.debug("===All Room==="+resultRoom);
+		//for(Room c:resultRoom){
+		//	this.getHibernateTemplate().initialize(c.getParticipants());
+		//}
+		
+		//LOGGER.debug("==="+resultRoom);
+		return resultRoom;
+	}
 
 }

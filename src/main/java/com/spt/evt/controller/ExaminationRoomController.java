@@ -34,10 +34,8 @@ public class ExaminationRoomController {
 		Map model = new HashMap();
 		model.put("yourId", yourId);
 		model.put("room", roomInformation.toString());
-		System.out.println(model);
-
+		
 		return new ModelAndView("examinationRoom", model);
-
 	}
 
 	@RequestMapping(value="/checkCommittee",method=RequestMethod.POST)

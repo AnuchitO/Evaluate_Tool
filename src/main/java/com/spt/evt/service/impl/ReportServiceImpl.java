@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.ReportDao;
+import com.spt.evt.dao.RoomDao;
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Room;
 import com.spt.evt.service.ReportService;
@@ -18,7 +18,7 @@ import com.spt.evt.service.ReportService;
 public class ReportServiceImpl implements ReportService{
 
 	@Autowired
-	private ReportDao reportDao;
+	private RoomDao roomDao;
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ReportServiceImpl.class);
@@ -27,7 +27,7 @@ public class ReportServiceImpl implements ReportService{
 	public JSONObject findByStatus() {
 		JSONObject roomDetailSend = new JSONObject();
 		JSONObject roomDetail = null;
-		List<Room> rooms = this.reportDao.findByStatus();
+		List<Room> rooms = this.roomDao.findByStatus();
 		for (Room room : rooms) {
 			roomDetail = new JSONObject();
 			roomDetail.put("id", room.getId());
@@ -36,6 +36,7 @@ public class ReportServiceImpl implements ReportService{
 			roomDetail.put("startTime",room.getStartTime());
 			roomDetail.put("endTime",room.getEndTime());
 			roomDetail.put("status",room.getStatus());
+			roomDetail.put("score", room.getScore());
 
 			Long personExaminerId;
 			String personExaminerName;
@@ -54,13 +55,19 @@ public class ReportServiceImpl implements ReportService{
 					roomDetail.put("examinerId", personExaminerId.toString());
 					roomDetail.put("examiner", personExaminer);
 				}
-
 			}
-			//System.out.println("==========================="+roomDetail);
 			roomDetailSend.append("room", roomDetail);
 		}
-		//System.out.println("=============Service==========="+roomDetailSend);
 		return roomDetailSend;
+	}
+
+	@Override
+	public JSONObject getScoreOfRoom(Long id) {
+		Room rooms = this.roomDao.findById(id);
+		JSONObject	roomScore = new JSONObject();
+		roomScore.put("score", rooms.getScore());
+
+		return roomScore;
 	}
 
 }

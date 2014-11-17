@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Room;
 import com.spt.evt.service.ParticipantService;
 
 public class ParticipantServiceImpl implements ParticipantService {
@@ -18,5 +19,11 @@ public class ParticipantServiceImpl implements ParticipantService {
 		
 		return null;
 	}
+
+//	@Override
+//	public List<Participants> findParticipantsByRole(Room roomId) {
+//		
+//		return null;
+//	}
 
 }

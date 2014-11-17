@@ -7,8 +7,6 @@ import com.spt.evt.entity.Topic;
 
 public interface ScoreBoardDao {
 	public ScoreBoard findByRoomAndCommiteeAndTopicAndExaminer(Room room,Person committee,Topic topic,Person examiner);
-
 	public void save(ScoreBoard scoreBoard);
-	
 	public void saveOrUpdate(ScoreBoard scoreBoard);
 }

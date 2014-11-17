@@ -25,7 +25,7 @@ public class Room extends BaseEntity implements Serializable {
 	private String startTime;
 	private String endTime;
 	private String status;
-
+	private String score;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Participants> participants = new HashSet<Participants>();
@@ -78,6 +78,14 @@ public class Room extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
 	public Set<Participants> getParticipants() {
 		return participants;
 	}
@@ -90,7 +98,7 @@ public class Room extends BaseEntity implements Serializable {
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
 				+ description + ",startTime=" + startTime + ",endTime=" + endTime 
-				+ ",status=" + status + ", participants=" + "[participants]" + "]";
+				+ ",status=" + status + ",score=" + score + ", participants=" + "[participants]" + "]";
 	}
 
 }

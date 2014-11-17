@@ -39,14 +39,14 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 			subjectElement.put("name",subject.getName());
 
 			List<Topic> topics = this.getTopicService().findBySubject(subject);
-			findScoreaddIntoJsonOfTopic(room, committee, examiner, subjectElement, topics);
+			findScoreAddIntoJsonOfTopic(room, committee, examiner, subjectElement, topics);
 
 			courseInformation.append("subject", subjectElement);
 		}
 		return courseInformation;
 	}
 
-	private void findScoreaddIntoJsonOfTopic(Room room, Person committee, Person examiner,	JSONObject subjectElement, List<Topic> topics) {
+	private void findScoreAddIntoJsonOfTopic(Room room, Person committee, Person examiner,	JSONObject subjectElement, List<Topic> topics) {
 		for (Topic topic : topics) {
 			JSONObject topicElement = new JSONObject();
 			topicElement.put("id",topic.getId());
@@ -54,7 +54,7 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 			topicElement.put("description",topic.getDescription());
 
 			ScoreBoard scoreBoard = this.getScoreBoardService().findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
-
+			
 			if(null!=scoreBoard){
 				topicElement.put("score",scoreBoard.getScore());
 				topicElement.put("comment",scoreBoard.getComment());

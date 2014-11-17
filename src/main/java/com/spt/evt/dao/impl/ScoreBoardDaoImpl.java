@@ -48,8 +48,6 @@ public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		}
 		return scoreBoard;
 	}
-
-	
 	
 	@Override
 	@Transactional
@@ -64,6 +62,5 @@ public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		this.getHibernateTemplate().saveOrUpdate(scoreBoard);
 		
 	}
-
 
 }

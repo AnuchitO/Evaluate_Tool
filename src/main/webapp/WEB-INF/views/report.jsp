@@ -59,11 +59,10 @@ table>tbody>tr>td {
 			</div>
 		</div>
 		<option id="option0"></option>
-		<input type="hidden" id="roomId0" value="" />
-		<br>
+		<input type="hidden" id="roomId0" value="" /> <br>
 		<div class="row">
 			<div class="col-sm-5 col-md-5 col-sm-offset-3 col-md-offset-3">
-				<table class="table table-bordered">
+				<table id="table" class="table table-bordered">
 					<thead>
 						<tr>
 							<th>Examiner</th>
@@ -71,29 +70,23 @@ table>tbody>tr>td {
 							<th>Percent</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Patipol Sirisuppakij</td>
-							<td>80 of 100</td>
-							<td>80%</td>
+					<tbody id="tableBody">
+						<tr id="tableRow">
+							<td id="tableDataName"></td>
+							<td id="tableDataScore"></td>
+							<td id="tableDataPercent"></td>
 						</tr>
-						<tr>
-							<td>Anuchit Prasertsang</td>
-							<td>45 of 60</td>
-							<td>75%</td>
-						</tr>
-						<tr>
-							<td>Chutimon Chaiyo</td>
-							<td>80 of 80</td>
-							<td>100%</td>
-						</tr>
+					</tbody>
 				</table>
+
 			</div>
 		</div>
 	</div>
-	
+
+
 	<script>
 		$(function() {
+			$("#table").hide();
 			$("#option0").hide();
 			var doneRoom = JSON.parse('${room}');
 			var dummyOption = 0;
@@ -109,18 +102,43 @@ table>tbody>tr>td {
 
 					$("#option0").clone()
 							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(roomId).insertAfter(genOptionId)
-							.show().appendTo($("#pickExaminer"));
-					//$("#roomId0").clone()
-					//		.attr('id', 'roomId' + (++dummyRoomId)).val(roomId)
-					//		.insertAfter(genRoomId).show().appendTo(
-					//				$("#option" + dummyOption));
+									nameAndLastName).val(roomId).insertAfter(
+									genOptionId).show().appendTo(
+									$("#pickExaminer"));
 				});
 			});
 
 		});
 		function showRoom(room) {
-			alert(room);
+			var room = {};
+			room.roomId = $("#pickExaminer").val();
+			var dataRoomId = JSON.stringify(room);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/getroomscore",
+						type : 'POST',
+						data : {
+							dataRoomId : dataRoomId
+						},
+						success : function(data) {
+							var score = JSON.parse(data).score;
+							createTable(score);
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+									+ " er:" + er);
+						}
+					});
+		}
+		function createTable(score) {
+			$("#table").show();
+			$("#tableRow").appendTo($("#tableBody"));
+			$("#tableDataName").text($("#pickExaminer option:selected").text())
+					.appendTo($("#tableRow"));
+			$("#tableDataScore").text(score + " of " + score).appendTo(
+					$("#tableRow"));
+			var percent = (score * 100) / score;
+			$("#tableDataPercent").text(percent + "%").appendTo($("#tableRow"));
 		}
 	</script>
 </body>
