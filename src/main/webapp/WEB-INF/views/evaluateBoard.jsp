@@ -148,8 +148,8 @@ a {
 			id="examinerId" value="${idExaminer}">Examiner :
 			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
 			value="${idCommittee}">Committee : ${nameCommittee}
-			${lastNameCommittee}</label> <br> <label id="courseId" value="1">Course
-			: Software Development Trainee</label>
+			${lastNameCommittee}</label> <br> <label id="courseId"
+			value="${idCourse}">Course : ${nameCourse}</label>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -255,176 +255,6 @@ a {
 	</div>
 
 	<script>
-		var keepId
-		function showModal(element) {
-			keepId = $('#' + element.id).parent().attr('id');
-			$("#alertChooseScore").hide();
-			count = (element.id).replace(/[^\d.]/g, '');
-			if ($("#spanScore" + count).text() == '-') {
-				$("#panelScoreMessage" + count).val('');
-				$("#btnZero" + count).removeClass('active');
-				$("#btnThree" + count).removeClass('active');
-				$("#btnFive" + count).removeClass('active');
-				$("#btnEight" + count).removeClass('active');
-				$("#btnOne" + count).removeClass('active');
-				$("#panelScoreBtnSubmit" + count).removeAttr("data-dismiss");
-			} else {
-				var checkScore = $("#spanScore" + count).text();
-				if (checkScore == "0") {
-					$("#btnThree" + count).removeClass('active');
-					$("#btnFive" + count).removeClass('active');
-					$("#btnEight" + count).removeClass('active');
-					$("#btnOne" + count).removeClass('active');
-					$("#btnZero" + count).addClass('active');
-				} else if (checkScore == "0.3") {
-					$("#btnZero" + count).removeClass('active');
-					$("#btnFive" + count).removeClass('active');
-					$("#btnEight" + count).removeClass('active');
-					$("#btnOne" + count).removeClass('active');
-					$("#btnThree" + count).addClass('active');
-				} else if (checkScore == "0.5") {
-					$("#btnZero" + count).removeClass('active');
-					$("#btnThree" + count).removeClass('active');
-					$("#btnEight" + count).removeClass('active');
-					$("#btnOne" + count).removeClass('active');
-					$("#btnFive" + count).addClass('active');
-				} else if (checkScore == "0.8") {
-					$("#btnZero" + count).removeClass('active');
-					$("#btnThree" + count).removeClass('active');
-					$("#btnFive" + count).removeClass('active');
-					$("#btnOne" + count).removeClass('active');
-					$("#btnEight" + count).addClass('active');
-				} else {
-					$("#btnZero" + count).removeClass('active');
-					$("#btnThree" + count).removeClass('active');
-					$("#btnFive" + count).removeClass('active');
-					$("#btnEight" + count).removeClass('active');
-					$("#btnOne" + count).addClass('active');
-				}
-			}
-			$("#modalScore" + count).modal("show");
-			var textSubject = $("#" + element.id).parent('ul').parent('div')
-					.parent('div').parent('div').children('div').children('h4')
-					.clone().children('span').remove().end().text();
-			var textDescription = $("#" + element.id).children('a').clone()
-					.children('span').remove().end().text();
-
-			$(".textSubject").text(textSubject);
-			$(".textDescription").text(textDescription);
-		}
-		function sendDetailScoreOfTopic(buttonSubmit) {
-			var countOfId = (keepId).replace(/[^\d.]/g, '');
-			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
-			var textMessage = $("textarea#panelScoreMessage" + count).val();
-			var textScore = $("#panelScoreBtnGroup" + count).find(
-					"button.active").prop('value');
-			var textId = $("#dummyKeepIdTopic" + count).text();
-			if (textScore == null) {
-				$("#alertChooseScore").show().appendTo(
-						$("#panelScoreBody" + count));
-			} else {
-
-				var detailScoreOfTopic = {};
-				detailScoreOfTopic.roomId = $("#roomId").val();
-				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
-				detailScoreOfTopic.committeeId = $("#committeeId")
-						.attr('value');
-				detailScoreOfTopic.topicId = textId;
-				detailScoreOfTopic.score = textScore;
-				detailScoreOfTopic.comment = textMessage;
-
-				var dataDetailScoreOfTopic = JSON.stringify(detailScoreOfTopic);
-				$.ajax({
-					url : "/EvaluateTool/application/scoring",
-					type : 'POST',
-					data : {
-						dataDetailScoreOfTopic : dataDetailScoreOfTopic
-					},
-					success : function(data) {
-
-					},
-					error : function(data, status, er) {
-						alert("error: " + data + " status: " + status + " er:"
-								+ er);
-					}
-				});
-
-				if ($("#spanScore" + count).text() == '-') {
-					var keepOriginalSubmitTopic = $("#submitTopic").text();
-					keepOriginalSubmitTopic++;
-					$("#submitTopic").text(keepOriginalSubmitTopic);
-					var keepOriginalSubmitEachTopic = $(
-							"#submitEachTopic" + countOfId).text();
-					keepOriginalSubmitEachTopic++;
-					$("#submitEachTopic" + countOfId).text(
-							keepOriginalSubmitEachTopic);
-				}
-				$("#spanScore" + count).text(textScore);
-			}
-
-		}
-		function setScore(btnScore, groupScore) {
-			$("#" + groupScore + '>' + 'button').removeClass('active');
-			$("#" + btnScore).addClass('active');
-			$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-
-		}
-
-		function checkScoreFromBase(score, count) {
-			var dummyBtnZero = count - 1;
-			var dummyBtnThree = count - 1;
-			var dummyBtnFive = count - 1;
-			var dummyBtnEight = count - 1;
-			var dummyBtnOne = count - 1;
-			var dummyPanelScoreBtnSubmit = count - 1;
-			var genIdBtnZero = $("#btnZero" + dummyBtnZero);
-			var genIdBtnThree = $("#btnThree" + dummyBtnThree);
-			var genIdBtnFive = $("#btnFive" + dummyBtnFive);
-			var genIdBtnEight = $("#btnEight" + dummyBtnEight);
-			var genIdBtnOne = $("#btnOne" + dummyBtnOne);
-			var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
-					+ dummyPanelScoreBtnSubmit);
-
-			$("#btnZero0").clone().attr('id', 'btnZero' + (++dummyBtnZero))
-					.insertAfter(genIdBtnZero).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
-			$("#btnThree0").clone().attr('id', 'btnThree' + (++dummyBtnThree))
-					.insertAfter(genIdBtnThree).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
-			$("#btnFive0").clone().attr('id', 'btnFive' + (++dummyBtnFive))
-					.insertAfter(genIdBtnFive).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
-			$("#btnEight0").clone().attr('id', 'btnEight' + (++dummyBtnEight))
-					.insertAfter(genIdBtnEight).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
-			$("#btnOne0").clone().attr('id', 'btnOne' + (++dummyBtnOne))
-					.insertAfter(genIdBtnOne).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
-			$("#panelScoreBtnSubmit0").clone().attr('id',
-					'panelScoreBtnSubmit' + (++dummyPanelScoreBtnSubmit))
-					.insertAfter(genIdPanelScoreBtnSubmit).show().appendTo(
-							$("#panelScoreBody" + count));
-
-			if (score == 0) {
-				$("#btnZero" + count).addClass('active');
-				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-
-			} else if (score == 0.3) {
-				$("#btnThree" + count).addClass('active');
-				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-			} else if (score == 0.5) {
-				$("#btnFive" + count).addClass('active');
-				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-			} else if (score == 0.8) {
-				$("#btnEight" + count).addClass('active');
-				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-			} else if (score == 1) {
-				$("#btnOne" + count).addClass('active');
-				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
-			} else {
-
-			}
-		}
 		$(function() {
 			var $loading = $('#loader').hide();
 			$(document).ajaxStart(function() {
@@ -897,6 +727,191 @@ a {
 			//	$("#accordion").empty();
 			//	$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			//});
+			var keepId
+
+			function showModal(element) {
+				keepId = $('#' + element.id).parent().attr('id');
+				$("#alertChooseScore").hide();
+				count = (element.id).replace(/[^\d.]/g, '');
+				if ($("#spanScore" + count).text() == '-') {
+					$("#panelScoreMessage" + count).val('');
+					$("#btnZero" + count).removeClass('active');
+					$("#btnThree" + count).removeClass('active');
+					$("#btnFive" + count).removeClass('active');
+					$("#btnEight" + count).removeClass('active');
+					$("#btnOne" + count).removeClass('active');
+					$("#panelScoreBtnSubmit" + count)
+							.removeAttr("data-dismiss");
+				} else {
+					var checkScore = $("#spanScore" + count).text();
+					if (checkScore == "0") {
+						$("#btnThree" + count).removeClass('active');
+						$("#btnFive" + count).removeClass('active');
+						$("#btnEight" + count).removeClass('active');
+						$("#btnOne" + count).removeClass('active');
+						$("#btnZero" + count).addClass('active');
+					} else if (checkScore == "0.3") {
+						$("#btnZero" + count).removeClass('active');
+						$("#btnFive" + count).removeClass('active');
+						$("#btnEight" + count).removeClass('active');
+						$("#btnOne" + count).removeClass('active');
+						$("#btnThree" + count).addClass('active');
+					} else if (checkScore == "0.5") {
+						$("#btnZero" + count).removeClass('active');
+						$("#btnThree" + count).removeClass('active');
+						$("#btnEight" + count).removeClass('active');
+						$("#btnOne" + count).removeClass('active');
+						$("#btnFive" + count).addClass('active');
+					} else if (checkScore == "0.8") {
+						$("#btnZero" + count).removeClass('active');
+						$("#btnThree" + count).removeClass('active');
+						$("#btnFive" + count).removeClass('active');
+						$("#btnOne" + count).removeClass('active');
+						$("#btnEight" + count).addClass('active');
+					} else {
+						$("#btnZero" + count).removeClass('active');
+						$("#btnThree" + count).removeClass('active');
+						$("#btnFive" + count).removeClass('active');
+						$("#btnEight" + count).removeClass('active');
+						$("#btnOne" + count).addClass('active');
+					}
+				}
+				$("#modalScore" + count).modal("show");
+				var textSubject = $("#" + element.id).parent('ul')
+						.parent('div').parent('div').parent('div').children(
+								'div').children('h4').clone().children('span')
+						.remove().end().text();
+				var textDescription = $("#" + element.id).children('a').clone()
+						.children('span').remove().end().text();
+
+				$(".textSubject").text(textSubject);
+				$(".textDescription").text(textDescription);
+			}
+
+			function sendDetailScoreOfTopic(buttonSubmit) {
+				var countOfId = (keepId).replace(/[^\d.]/g, '');
+				count = (buttonSubmit.id).replace(/[^\d.]/g, '');
+				var textMessage = $("textarea#panelScoreMessage" + count).val();
+				var textScore = $("#panelScoreBtnGroup" + count).find(
+						"button.active").prop('value');
+				var textId = $("#dummyKeepIdTopic" + count).text();
+				if (textScore == null) {
+					$("#alertChooseScore").show().appendTo(
+							$("#panelScoreBody" + count));
+				} else {
+
+					var detailScoreOfTopic = {};
+					detailScoreOfTopic.roomId = $("#roomId").val();
+					detailScoreOfTopic.examinerId = $("#examinerId").attr(
+							'value');
+					detailScoreOfTopic.committeeId = $("#committeeId").attr(
+							'value');
+					detailScoreOfTopic.topicId = textId;
+					detailScoreOfTopic.score = textScore;
+					detailScoreOfTopic.comment = textMessage;
+
+					var dataDetailScoreOfTopic = JSON
+							.stringify(detailScoreOfTopic);
+					$.ajax({
+						url : "/EvaluateTool/application/scoring",
+						type : 'POST',
+						data : {
+							dataDetailScoreOfTopic : dataDetailScoreOfTopic
+						},
+						success : function(data) {
+
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+									+ " er:" + er);
+						}
+					});
+
+					if ($("#spanScore" + count).text() == '-') {
+						var keepOriginalSubmitTopic = $("#submitTopic").text();
+						keepOriginalSubmitTopic++;
+						$("#submitTopic").text(keepOriginalSubmitTopic);
+						var keepOriginalSubmitEachTopic = $(
+								"#submitEachTopic" + countOfId).text();
+						keepOriginalSubmitEachTopic++;
+						$("#submitEachTopic" + countOfId).text(
+								keepOriginalSubmitEachTopic);
+					}
+					$("#spanScore" + count).text(textScore);
+				}
+
+			}
+
+			function setScore(btnScore, groupScore) {
+				$("#" + groupScore + '>' + 'button').removeClass('active');
+				$("#" + btnScore).addClass('active');
+				$("#panelScoreBtnSubmit" + count).attr('data-dismiss', 'modal');
+
+			}
+
+			function checkScoreFromBase(score, count) {
+				var dummyBtnZero = count - 1;
+				var dummyBtnThree = count - 1;
+				var dummyBtnFive = count - 1;
+				var dummyBtnEight = count - 1;
+				var dummyBtnOne = count - 1;
+				var dummyPanelScoreBtnSubmit = count - 1;
+				var genIdBtnZero = $("#btnZero" + dummyBtnZero);
+				var genIdBtnThree = $("#btnThree" + dummyBtnThree);
+				var genIdBtnFive = $("#btnFive" + dummyBtnFive);
+				var genIdBtnEight = $("#btnEight" + dummyBtnEight);
+				var genIdBtnOne = $("#btnOne" + dummyBtnOne);
+				var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
+						+ dummyPanelScoreBtnSubmit);
+
+				$("#btnZero0").clone().attr('id', 'btnZero' + (++dummyBtnZero))
+						.insertAfter(genIdBtnZero).show().appendTo(
+								$("#panelScoreBtnGroup" + count));
+				$("#btnThree0").clone().attr('id',
+						'btnThree' + (++dummyBtnThree)).insertAfter(
+						genIdBtnThree).show().appendTo(
+						$("#panelScoreBtnGroup" + count));
+				$("#btnFive0").clone().attr('id', 'btnFive' + (++dummyBtnFive))
+						.insertAfter(genIdBtnFive).show().appendTo(
+								$("#panelScoreBtnGroup" + count));
+				$("#btnEight0").clone().attr('id',
+						'btnEight' + (++dummyBtnEight)).insertAfter(
+						genIdBtnEight).show().appendTo(
+						$("#panelScoreBtnGroup" + count));
+				$("#btnOne0").clone().attr('id', 'btnOne' + (++dummyBtnOne))
+						.insertAfter(genIdBtnOne).show().appendTo(
+								$("#panelScoreBtnGroup" + count));
+				$("#panelScoreBtnSubmit0").clone().attr('id',
+						'panelScoreBtnSubmit' + (++dummyPanelScoreBtnSubmit))
+						.insertAfter(genIdPanelScoreBtnSubmit).show().appendTo(
+								$("#panelScoreBody" + count));
+
+				if (score == 0) {
+					$("#btnZero" + count).addClass('active');
+					$("#panelScoreBtnSubmit" + count).attr('data-dismiss',
+							'modal');
+
+				} else if (score == 0.3) {
+					$("#btnThree" + count).addClass('active');
+					$("#panelScoreBtnSubmit" + count).attr('data-dismiss',
+							'modal');
+				} else if (score == 0.5) {
+					$("#btnFive" + count).addClass('active');
+					$("#panelScoreBtnSubmit" + count).attr('data-dismiss',
+							'modal');
+				} else if (score == 0.8) {
+					$("#btnEight" + count).addClass('active');
+					$("#panelScoreBtnSubmit" + count).attr('data-dismiss',
+							'modal');
+				} else if (score == 1) {
+					$("#btnOne" + count).addClass('active');
+					$("#panelScoreBtnSubmit" + count).attr('data-dismiss',
+							'modal');
+				} else {
+
+				}
+			}
+
 			$("#goToRoom")
 					.click(
 							function() {

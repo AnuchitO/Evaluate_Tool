@@ -28,6 +28,8 @@ public class EvaluateBoardController {
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,HttpServletResponse arg1) throws Exception {
 		String idRoom = arg0.getParameter("idRoom");
+		String idCourse = arg0.getParameter("idCourse");
+		String nameCourse = arg0.getParameter("nameCourse");
 		String idExaminer = arg0.getParameter("idExaminer");
 		String nameExaminer = arg0.getParameter("nameExaminer");
 		String lastNameExaminer = arg0.getParameter("lastNameExaminer");
@@ -36,13 +38,14 @@ public class EvaluateBoardController {
 		String lastNameCommittee = arg0.getParameter("lastNameCommittee");
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
+		model.put("idCourse", idCourse);
+		model.put("nameCourse", nameCourse);
 		model.put("idExaminer", idExaminer);
 		model.put("nameExaminer", nameExaminer);
 		model.put("lastNameExaminer", lastNameExaminer);
 		model.put("idCommittee", idCommittee);
 		model.put("nameCommittee", nameCommittee);
 		model.put("lastNameCommittee", lastNameCommittee);
-
 		return new ModelAndView("evaluateBoard",model);
 
 	}

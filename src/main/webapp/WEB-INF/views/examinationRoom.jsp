@@ -48,6 +48,8 @@
 	<div id="setSizeDetail0" class="col-sm-8 col-md-8"></div>
 	<div id="roomName0"></div>
 	<input type="hidden" id="roomId0" value="" />
+	<div id="courseName0"></div>
+	<input type="hidden" id="courseId0" value="" />
 	<div id="roomDescription0"></div>
 	<div id="roomTime0"></div>
 	<input type="hidden" id="examinerId0" value="" />
@@ -56,8 +58,8 @@
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button"
-		class="btn btn-default disabled">Examiner</button>
+	<button id="btnExaminer0" type="button" class="btn btn-default"
+		onClick="javascript:sendIdExaminer(this)">Examiner</button>
 	<button id="btnCommittee0" type="button" class="btn btn-default"
 		onClick="javascript:sendId(this)">Committee</button>
 
@@ -69,6 +71,7 @@
 			$("#setSizeProgress0").hide();
 			$("#setSizeDetail0").hide();
 			$("#roomName0").hide();
+			$("#courseName0").hide();
 			$("#roomDescription0").hide();
 			$("#roomTime0").hide();
 			$("#examiner0").hide();
@@ -87,6 +90,8 @@
 			var dummyDetail = 0;
 			var dummyRoomId = 0;
 			var dummyRoomName = 0;
+			var dummyCourseId = 0;
+			var dummyCourseName = 0;
 			var dummyRoomDescription = 0;
 			var dummyTime = 0;
 			var dummyExaminerId = 0;
@@ -105,6 +110,8 @@
 			var genDetail = ("#setSizeDetail" + dummyDetail);
 			var genRoomId = ("#roomId" + dummyRoomId);
 			var genRoomName = ("#roomName" + dummyRoomName);
+			var genCourseId = ("#courseId" + dummyCourseId);
+			var genCourseName = ("#courseName" + dummyCourseName);
 			var genRoomDescription = ("#roomDescription" + dummyRoomDescription);
 			var genTime = ("#roomTime" + dummyTime);
 			var genExaminerId = ("#examinerId" + dummyExaminerId);
@@ -115,7 +122,7 @@
 			var genSetHalfSizeTwo = ("#setHalfSizeTwo" + dummySetHalfSizeTwo);
 			var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
 			var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
-			
+
 			$
 					.each(
 							allRoom,
@@ -125,6 +132,8 @@
 										.forEach(function(room) {
 											var roomId = room.id;
 											var roomName = room.name;
+											var roomCourseId = room.courseId;
+											var roomCourseName = room.courseName;
 											var roomDescription = room.description;
 											var roomStartTime = room.startTime;
 											var roomEndTime = room.endTime;
@@ -193,7 +202,7 @@
 															'id',
 															'roomId'
 																	+ (++dummyRoomId))
-													.val(room.id)
+													.val(roomId)
 													.insertAfter(genRoomId)
 													.show()
 													.appendTo(
@@ -207,6 +216,30 @@
 																	+ (++dummyRoomName))
 													.text(roomName)
 													.insertAfter(genRoomName)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#courseId0")
+													.clone()
+													.attr(
+															'id',
+															'courseId'
+																	+ (++dummyCourseId))
+													.val(roomCourseId)
+													.insertAfter(genCourseId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#courseName0")
+													.clone()
+													.attr(
+															'id',
+															'courseName'
+																	+ (++dummyCourseName))
+													.text(roomCourseName)
+													.insertAfter(genCourseName)
 													.show()
 													.appendTo(
 															$("#setSizeDetail"
@@ -345,7 +378,7 @@
 							});
 		});
 		function sendId(element) {
-			count = (element.id).replace(/[^\d.]/g, '');
+			var count = (element.id).replace(/[^\d.]/g, '');
 			var detailPerson = {};
 			detailPerson.roomId = $("#roomId" + count).val();
 			detailPerson.committeeId = $("#committeeId").val();
@@ -360,6 +393,8 @@
 						},
 						success : function(data) {
 							var idRoom = JSON.parse(data).idRoom;
+							var idCourse = JSON.parse(data).idCourse;
+							var nameCourse = JSON.parse(data).nameCourse;
 							var idExaminer = JSON.parse(data).idExaminer;
 							var nameExaminer = JSON.parse(data).nameExaminer;
 							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
@@ -369,6 +404,10 @@
 							location.href = "/EvaluateTool/application/evaluateBoard"
 									+ "?idRoom="
 									+ encodeURIComponent(idRoom)
+									+ "&idCourse="
+									+ encodeURIComponent(idCourse)
+									+ "&nameCourse="
+									+ encodeURIComponent(nameCourse)
 									+ "&idExaminer="
 									+ encodeURIComponent(idExaminer)
 									+ "&nameExaminer="
@@ -387,6 +426,18 @@
 									+ " er:" + er);
 						}
 					});
+		}
+		function sendIdExaminer(element) {
+			count = (element.id).replace(/[^\d.]/g, '');
+			var roomId = $("#roomId" + count).val();
+			var examinerId = $("#examinerId" + count).val();
+			var courseId = $("#courseId" + count).val();
+
+			location.href = "/EvaluateTool/application/examinerDashBoard"
+					+ "?idRoom=" + encodeURIComponent(roomId) + "&idExaminer="
+					+ encodeURIComponent(examinerId) + "&idCourse="
+					+ encodeURIComponent(courseId);
+
 		}
 	</script>
 </body>

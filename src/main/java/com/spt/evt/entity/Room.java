@@ -22,6 +22,8 @@ public class Room extends BaseEntity implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private Long courseId;
+	private String courseName;
 	private String startTime;
 	private String endTime;
 	private String status;
@@ -52,6 +54,22 @@ public class Room extends BaseEntity implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
 	public String getStartTime() {
@@ -97,7 +115,8 @@ public class Room extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + ",startTime=" + startTime + ",endTime=" + endTime 
+				+ description + ",courseId=" + courseId + ",courseName=" + courseName 
+				+ ",startTime=" + startTime + ",endTime=" + endTime 
 				+ ",status=" + status + ",score=" + score + ", participants=" + "[participants]" + "]";
 	}
 
