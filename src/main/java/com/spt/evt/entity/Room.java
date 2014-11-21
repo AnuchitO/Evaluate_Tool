@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Room extends BaseEntity implements Serializable {
@@ -22,12 +22,14 @@ public class Room extends BaseEntity implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private Long courseId;
+	private String courseName;
 	private String startTime;
 	private String endTime;
 	private String status;
+	private String score;
 
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Participants> participants = new HashSet<Participants>();
 
 	public Long getId() {
@@ -54,6 +56,22 @@ public class Room extends BaseEntity implements Serializable {
 		this.description = description;
 	}
 
+	public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
 	public String getStartTime() {
 		return startTime;
 	}
@@ -78,6 +96,14 @@ public class Room extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
 	public Set<Participants> getParticipants() {
 		return participants;
 	}
@@ -89,8 +115,9 @@ public class Room extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + ",startTime=" + startTime + ",endTime=" + endTime 
-				+ "status=" + status + ", participants=" + "[participants]" + "]";
+				+ description + ",courseId=" + courseId + ",courseName=" + courseName 
+				+ ",startTime=" + startTime + ",endTime=" + endTime 
+				+ ",status=" + status + ",score=" + score + ", participants=" + "[participants]" + "]";
 	}
 
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Evaluate Tool</title>
 </head>
 <style>
 .panel-body {
@@ -32,7 +32,6 @@
 .panel-body {
 	background-color: #FFD700;
 }
-
 </style>
 <body>
 	<input type="hidden" id="committeeId" value="${yourId}" />
@@ -48,6 +47,9 @@
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 	<div id="setSizeDetail0" class="col-sm-8 col-md-8"></div>
 	<div id="roomName0"></div>
+	<input type="hidden" id="roomId0" value="" />
+	<div id="courseName0"></div>
+	<input type="hidden" id="courseId0" value="" />
 	<div id="roomDescription0"></div>
 	<div id="roomTime0"></div>
 	<input type="hidden" id="examinerId0" value="" />
@@ -56,8 +58,8 @@
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button"
-		class="btn btn-default disabled">Examiner</button>
+	<button id="btnExaminer0" type="button" class="btn btn-default"
+		onClick="javascript:sendIdExaminer(this)">Examiner</button>
 	<button id="btnCommittee0" type="button" class="btn btn-default"
 		onClick="javascript:sendId(this)">Committee</button>
 
@@ -69,6 +71,7 @@
 			$("#setSizeProgress0").hide();
 			$("#setSizeDetail0").hide();
 			$("#roomName0").hide();
+			$("#courseName0").hide();
 			$("#roomDescription0").hide();
 			$("#roomTime0").hide();
 			$("#examiner0").hide();
@@ -85,7 +88,10 @@
 			var dummyBody = 0;
 			var dummyProgress = 0;
 			var dummyDetail = 0;
+			var dummyRoomId = 0;
 			var dummyRoomName = 0;
+			var dummyCourseId = 0;
+			var dummyCourseName = 0;
 			var dummyRoomDescription = 0;
 			var dummyTime = 0;
 			var dummyExaminerId = 0;
@@ -102,7 +108,10 @@
 			var genBody = ("#body" + dummyBody);
 			var genProgress = ("#setSizeProgress" + dummyProgress);
 			var genDetail = ("#setSizeDetail" + dummyDetail);
+			var genRoomId = ("#roomId" + dummyRoomId);
 			var genRoomName = ("#roomName" + dummyRoomName);
+			var genCourseId = ("#courseId" + dummyCourseId);
+			var genCourseName = ("#courseName" + dummyCourseName);
 			var genRoomDescription = ("#roomDescription" + dummyRoomDescription);
 			var genTime = ("#roomTime" + dummyTime);
 			var genExaminerId = ("#examinerId" + dummyExaminerId);
@@ -123,6 +132,8 @@
 										.forEach(function(room) {
 											var roomId = room.id;
 											var roomName = room.name;
+											var roomCourseId = room.courseId;
+											var roomCourseName = room.courseName;
 											var roomDescription = room.description;
 											var roomStartTime = room.startTime;
 											var roomEndTime = room.endTime;
@@ -185,6 +196,18 @@
 													.appendTo(
 															$("#body"
 																	+ dummyRoom));
+											$("#roomId0")
+													.clone()
+													.attr(
+															'id',
+															'roomId'
+																	+ (++dummyRoomId))
+													.val(roomId)
+													.insertAfter(genRoomId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
 											$("#roomName0")
 													.clone()
 													.attr(
@@ -193,6 +216,30 @@
 																	+ (++dummyRoomName))
 													.text(roomName)
 													.insertAfter(genRoomName)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#courseId0")
+													.clone()
+													.attr(
+															'id',
+															'courseId'
+																	+ (++dummyCourseId))
+													.val(roomCourseId)
+													.insertAfter(genCourseId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#courseName0")
+													.clone()
+													.attr(
+															'id',
+															'courseName'
+																	+ (++dummyCourseName))
+													.text(roomCourseName)
+													.insertAfter(genCourseName)
 													.show()
 													.appendTo(
 															$("#setSizeDetail"
@@ -331,8 +378,9 @@
 							});
 		});
 		function sendId(element) {
-			count = (element.id).replace(/[^\d.]/g, '');
+			var count = (element.id).replace(/[^\d.]/g, '');
 			var detailPerson = {};
+			detailPerson.roomId = $("#roomId" + count).val();
 			detailPerson.committeeId = $("#committeeId").val();
 			detailPerson.examinerId = $("#examinerId" + count).val();
 			var dataPersonId = JSON.stringify(detailPerson);
@@ -344,6 +392,9 @@
 							dataPersonId : dataPersonId
 						},
 						success : function(data) {
+							var idRoom = JSON.parse(data).idRoom;
+							var idCourse = JSON.parse(data).idCourse;
+							var nameCourse = JSON.parse(data).nameCourse;
 							var idExaminer = JSON.parse(data).idExaminer;
 							var nameExaminer = JSON.parse(data).nameExaminer;
 							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
@@ -351,7 +402,13 @@
 							var nameCommittee = JSON.parse(data).nameCommittee;
 							var lastNameCommittee = JSON.parse(data).lastNameCommittee;
 							location.href = "/EvaluateTool/application/evaluateBoard"
-									+ "?idExaminer="
+									+ "?idRoom="
+									+ encodeURIComponent(idRoom)
+									+ "&idCourse="
+									+ encodeURIComponent(idCourse)
+									+ "&nameCourse="
+									+ encodeURIComponent(nameCourse)
+									+ "&idExaminer="
 									+ encodeURIComponent(idExaminer)
 									+ "&nameExaminer="
 									+ encodeURIComponent(nameExaminer)
@@ -369,6 +426,18 @@
 									+ " er:" + er);
 						}
 					});
+		}
+		function sendIdExaminer(element) {
+			count = (element.id).replace(/[^\d.]/g, '');
+			var roomId = $("#roomId" + count).val();
+			var examinerId = $("#examinerId" + count).val();
+			var courseId = $("#courseId" + count).val();
+
+			location.href = "/EvaluateTool/application/examinerDashBoard"
+					+ "?idRoom=" + encodeURIComponent(roomId) + "&idExaminer="
+					+ encodeURIComponent(examinerId) + "&idCourse="
+					+ encodeURIComponent(courseId);
+
 		}
 	</script>
 </body>

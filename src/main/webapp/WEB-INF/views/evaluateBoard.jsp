@@ -23,16 +23,16 @@
 }
 
 .navbar-default>.container-fluid>.navbar-header>.navbar-brand {
-	color: #000000;
+	color: black;
 }
 
 .navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
-	color: #000000;
+	color: black;
 }
 
 .panel-default>.panel-heading {
 	background-color: #FF8C00;
-	color: #000000;
+	color: black;
 }
 
 .panel-default>.panel-body {
@@ -99,7 +99,7 @@
 }
 
 .nav-pills>li>a {
-	color: #000000;
+	color: black;
 }
 
 .panel-heading {
@@ -109,11 +109,140 @@
 a {
 	cursor: pointer;
 }
+
+.badge {
+	background-color: #585858;
+}
+
+#notificationModulator_li {
+	position: relative;
+}
+
+#notificationContainerModulator {
+	background-color: #fff;
+	border: 1px solid rgba(100, 100, 100, .4);
+	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	overflow: visible;
+	position: absolute;
+	top: 30px;
+	margin-left: -170px;
+	width: 400px;
+	display: none;
+}
+
+#notificationContainerModulator:before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	color: transparent;
+	border: 10px solid black;
+	border-color: transparent transparent white;
+	margin-top: -20px;
+	margin-left: 188px;
+}
+
+#notificationTitleModulator {
+	font-weight: bold;
+	padding: 8px;
+	font-size: 13px;
+	background-color: #ffffff;
+	position: absolute;
+	z-index: 1000;
+	width: 384px;
+	border-bottom: 1px solid #dddddd;
+}
+
+#notificationsBodyModulator {
+	padding: 33px 0px 0px 0px !important;
+	min-height: 300px;
+}
+
+#notificationFooterModulator {
+	background-color: #e9eaed;
+	text-align: center;
+	font-weight: bold;
+	padding: 8px;
+	font-size: 12px;
+	border-top: 1px solid #dddddd;
+}
+
+#notification_li {
+	position: relative;
+}
+
+#notificationContainer {
+	background-color: #fff;
+	border: 1px solid rgba(100, 100, 100, .4);
+	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	overflow: visible;
+	position: absolute;
+	top: 30px;
+	margin-left: -170px;
+	width: 400px;
+	display: none;
+}
+
+#notificationContainer:before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	color: transparent;
+	border: 10px solid black;
+	border-color: transparent transparent white;
+	margin-top: -20px;
+	margin-left: 188px;
+}
+
+#notificationTitle {
+	font-weight: bold;
+	padding: 8px;
+	font-size: 13px;
+	background-color: #ffffff;
+	position: absolute;
+	z-index: 1000;
+	width: 384px;
+	border-bottom: 1px solid #dddddd;
+}
+
+#notificationsBody {
+	padding: 33px 0px 0px 0px !important;
+	min-height: 300px;
+}
+
+#notificationFooter {
+	background-color: #e9eaed;
+	text-align: center;
+	font-weight: bold;
+	padding: 8px;
+	font-size: 12px;
+	border-top: 1px solid #dddddd;
+}
+
+#notification_count {
+	padding: 3px 7px 3px 7px;
+	background: #cc0000;
+	color: #ffffff;
+	font-weight: bold;
+	margin-left: 77px;
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	position: absolute;
+	margin-top: -11px;
+	font-size: 11px;
+}
+
+.test {
+	border-bottom: 1px solid #ccc;
+}
 </style>
 </head>
 
 <body>
-
 	<div id="container" class="container">
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
@@ -130,22 +259,47 @@ a {
 					<ul class="nav navbar-nav navbar-right">
 						<!-- <li><a id="presenting">Presenting</a></li>
 						<li><a id="topicList">Topic List</a></li> -->
-						<li><a id="goToRoom">Go To Room</a></li>
+						<li><a id="room">Room</a></li>
+						<li id="notificationModulator_li">
+							<!-- <span id="notification_count">3</span> --> <a
+							id="notificationModulator" class="glyphicon glyphicon-user"></a>
+							<div id="notificationContainerModulator">
+								<div id="notificationTitleModulator">Depute to modulator</div>
+								<div id="notificationsBodyModulator"></div>
+								<div id="notificationFooterModulator">
+									<a href="#">See All</a>
+								</div>
+							</div>
+						</li>
+						<li id="notification_li">
+							<!-- <span id="notification_count">3</span> --> <a
+							id="notificationLink" class="glyphicon glyphicon-bell"></a>
+							<div id="notificationContainer">
+								<div id="notificationTitle">Request to join room</div>
+								<div id="notificationsBody"></div>
+								<div id="notificationFooter">
+									<a href="#">See All</a>
+								</div>
+							</div>
+						</li>
+						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-
+		<div id="nameOfRequestToJoinRoom0" class="test"></div>
+		<button id="btnAccept" type="button" class="btn btn-default">Accept</button>
+		<button id="btnDecline" type="button" class="btn btn-default">Decline</button>
 		<!-- <button id="buttonCreate" type="button" class="btn btn-primary">Create
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-
-		<label id="examinerId" value="${idExaminer}">Examiner :
+		<input type="hidden" id="roomId" value="${idRoom}" /> <label
+			id="examinerId" value="${idExaminer}">Examiner :
 			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
 			value="${idCommittee}">Committee : ${nameCommittee}
-			${lastNameCommittee}</label> <br> <label id="courseId" value="1">Course
-			: Software Development Trainee</label>
+			${lastNameCommittee}</label> <br> <label id="courseId"
+			value="${idCourse}">Course : ${nameCourse}</label>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -184,7 +338,8 @@ a {
 			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 		</div>
 		<h4 id="panelTitle0" class="panel-title"></h4>
-		<span id="spanTopic0" class="badge pull-right"></span> <label
+		<span id="spanTopic0" class="badge pull-right"
+			style="background-color: #585858;"></span> <label
 			id="submitEachTopic0" style="margin: 2px;"></label> <label
 			id="totalEachTopic0" style="margin: 2px;"></label>
 		<div id="collapse0" class="panel-collapse collapse"></div>
@@ -251,6 +406,7 @@ a {
 
 	<script>
 		var keepId
+
 		function showModal(element) {
 			keepId = $('#' + element.id).parent().attr('id');
 			$("#alertChooseScore").hide();
@@ -307,6 +463,7 @@ a {
 			$(".textSubject").text(textSubject);
 			$(".textDescription").text(textDescription);
 		}
+
 		function sendDetailScoreOfTopic(buttonSubmit) {
 			var countOfId = (keepId).replace(/[^\d.]/g, '');
 			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
@@ -320,6 +477,7 @@ a {
 			} else {
 
 				var detailScoreOfTopic = {};
+				detailScoreOfTopic.roomId = $("#roomId").val();
 				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
 				detailScoreOfTopic.committeeId = $("#committeeId")
 						.attr('value');
@@ -357,6 +515,7 @@ a {
 			}
 
 		}
+
 		function setScore(btnScore, groupScore) {
 			$("#" + groupScore + '>' + 'button').removeClass('active');
 			$("#" + btnScore).addClass('active');
@@ -419,6 +578,7 @@ a {
 
 			}
 		}
+
 		$(function() {
 			var $loading = $('#loader').hide();
 			$(document).ajaxStart(function() {
@@ -426,6 +586,9 @@ a {
 			}).ajaxStop(function() {
 				$loading.hide();
 			});
+			$("#nameOfRequestToJoinRoom0").hide();
+			$("#btnAccept").hide();
+			$("#btnDecline").hide();
 			$("#alertChooseScore").hide();
 			$("#panelRealTime").hide();
 			$("#submitOfAllTOpic").hide();
@@ -456,6 +619,7 @@ a {
 			$("#accordion").empty();
 
 			var data = {};
+			data.roomId = $("#roomId").val();
 			data.examinerId = $("#examinerId").attr('value');
 			data.committeeId = $("#committeeId").attr('value');
 			data.courseId = $("#courseId").attr('value');
@@ -874,7 +1038,7 @@ a {
 				var keepTopicOfSubmit = 0;
 				$("#submitOfAllTOpic").show();
 				var indexCheck = 1
-				for (indexCheck; indexCheck < numberOfTopic; indexCheck++) {
+				for (indexCheck; indexCheck <= numberOfTopic; indexCheck++) {
 					if ($("#spanScore" + indexCheck).text() != '-') {
 						keepTopicOfSubmit++;
 					}
@@ -882,6 +1046,7 @@ a {
 				$("#submitTopic").text(keepTopicOfSubmit);
 				$("#totalTopic").text(numberOfTopic);
 			}
+
 			//$("#topicList").click(function() {
 
 			//});
@@ -890,7 +1055,8 @@ a {
 			//	$("#accordion").empty();
 			//	$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			//});
-			$("#goToRoom")
+
+			$("#room")
 					.click(
 							function() {
 								var yourId = $("#committeeId").attr('value');
@@ -899,6 +1065,97 @@ a {
 										+ encodeURIComponent(yourId);
 								;
 							});
+			$("#logOut").click(function() {
+				location.href = "/EvaluateTool/application/logIn";
+			});
+
+			$("#notificationModulator").click(function() {
+				$("#notificationContainer").hide();
+				$("#notificationContainerModulator").fadeToggle(300);
+				//$("#notification_count").fadeOut("slow");
+				return false;
+			});
+
+			$("#notificationLink")
+					.click(
+							function() {
+								$("#notificationsBody").empty();
+								var person = {
+									"person" : [ {
+										"name" : "Anuchit",
+										"lastName" : "Prasertsang"
+									}, {
+										"name" : "Apichat",
+										"lastName" : "Eakwongsa"
+									}, {
+										"name" : "Sirirad",
+										"lastName" : "Chaiyaphom"
+									} ]
+								};
+								var dummyNameOfRequestToJoinRoom = 0;
+								var genNameOfRequestToJoinRoom = $("#nameOfRequestToJoinRoom"
+										+ dummyNameOfRequestToJoinRoom);
+
+								$
+										.each(
+												person,
+												function(i, item) {
+													item
+															.forEach(function(
+																	person) {
+
+																var fullName = person.name
+																		+ " "
+																		+ person.lastName;
+																$(
+																		"#nameOfRequestToJoinRoom0")
+																		.clone()
+																		.attr(
+																				'id',
+																				'nameOfRequestToJoinRoom'
+																						+ (++dummyNameOfRequestToJoinRoom))
+																		.text(
+																				fullName)
+																		.insertAfter(
+																				genNameOfRequestToJoinRoom)
+																		.show()
+																		.appendTo(
+																				$("#notificationsBody"));
+																$("#btnAccept")
+																		.clone()
+																		.show()
+																		.appendTo(
+																				$("#nameOfRequestToJoinRoom"
+																						+ dummyNameOfRequestToJoinRoom));
+																$("#btnDecline")
+																		.clone()
+																		.show()
+																		.appendTo(
+																				$("#nameOfRequestToJoinRoom"
+																						+ dummyNameOfRequestToJoinRoom));
+															});
+												});
+								$("#notificationContainerModulator").hide();
+								$("#notificationContainer").fadeToggle(300);
+								//$("#notification_count").fadeOut("slow");
+								return false;
+							});
+
+			//Document Click hiding the popup 
+			$(document).click(function() {
+				$("#notificationContainerModulator").hide();
+				$("#notificationContainer").hide();
+			});
+
+			$("#notificationContainerModulator").click(function() {
+				return false;
+			});
+
+			//Popup on click
+			$("#notificationContainer").click(function() {
+				return false;
+			});
+
 			$(".lialert").click(function() {
 				$("#accordion").empty();
 				$("#panelScore").fadeIn('slow').appendTo($("#formBoard"));

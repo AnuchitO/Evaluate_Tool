@@ -7,22 +7,23 @@ import org.springframework.stereotype.Service;
 
 import com.spt.evt.dao.ScoreBoardDao;
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 import com.spt.evt.service.ScoreBoardService;
 
 @Service
 public class ScoreBoardServiceImpl implements ScoreBoardService {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ScoreBoardServiceImpl.class);
 
 	@Autowired
 	private ScoreBoardDao scoreBoardDao;
 
 	@Override
-	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,
+	public ScoreBoard findByRoomAndCommiteeAndTopicAndExaminer(Room room, Person committee, Topic topic,
 			Person examiner) {
-		return scoreBoardDao.findByCommiteeAndTopicAndExaminer(committee, topic,
+		return scoreBoardDao.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic,
 				examiner);
 	}
 

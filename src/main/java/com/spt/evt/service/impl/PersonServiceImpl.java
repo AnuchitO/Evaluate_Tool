@@ -13,7 +13,7 @@ import com.spt.evt.service.PersonService;
 
 @Service
 public class PersonServiceImpl implements PersonService {
-	private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonServiceImpl.class);
 	
 	@Autowired
 	private PersonDao personDao;

@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Configurable
 @ContextConfiguration({ "classpath:META-INF/spring/evaluatetool-context.xml" })
 public abstract class AbstractTestDao {
-	Logger logger = LoggerFactory.getLogger(AbstractTestDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTestDao.class);
 
 	@Autowired
 	private PersonDao personDao;

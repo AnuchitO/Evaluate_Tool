@@ -23,6 +23,8 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 			roomDetail = new JSONObject();
 			roomDetail.put("id", room.getId());
 			roomDetail.put("name",room.getName());
+			roomDetail.put("courseId", room.getCourseId());
+			roomDetail.put("courseName", room.getCourseName());
 			roomDetail.put("description",room.getDescription());
 			roomDetail.put("startTime",room.getStartTime());
 			roomDetail.put("endTime",room.getEndTime());
@@ -64,18 +66,20 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	}
 	
 	@Override
-	public JSONObject getPersonInformation(Long examinerId, Long committeeId) {
+	public JSONObject getPersonInformation(Long roomId, Long examinerId, Long committeeId) {
 		JSONObject committeeInformation = new JSONObject();
+		Room room			= this.getRoomService().findById(roomId);
 		Person examiner 	= this.getPersonService().findById(examinerId);
 		Person committee 	= this.getPersonService().findById(committeeId);
+		committeeInformation.put("idRoom", room.getId());
+		committeeInformation.put("idCourse", room.getCourseId());
+		committeeInformation.put("nameCourse", room.getCourseName());
 		committeeInformation.put("idExaminer", examiner.getId());
 		committeeInformation.put("nameExaminer", examiner.getName());
 		committeeInformation.put("lastNameExaminer", examiner.getLastName());
 		committeeInformation.put("idCommittee", committee.getId());
 		committeeInformation.put("nameCommittee", committee.getName());
 		committeeInformation.put("lastNameCommittee", committee.getLastName());
-		System.out.println("======="+committeeInformation);
-
 		return committeeInformation;
 	}
 
