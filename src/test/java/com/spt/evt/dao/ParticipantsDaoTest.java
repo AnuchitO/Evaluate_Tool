@@ -14,8 +14,8 @@ import com.spt.evt.entity.Room;
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
-public class ParticipantsTest extends AbstractTestDao {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ParticipantsTest.class);
+public class ParticipantsDaoTest extends AbstractTestDao {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ParticipantsDaoTest.class);
 
 	@Autowired
 	private ParticipantsDao participantsDao;
@@ -29,5 +29,11 @@ public class ParticipantsTest extends AbstractTestDao {
 		List<Participants> participantsList = participantsDao.findByExample(participants);
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());
 	}
+	
+//	@Test
+//	public void testFindCommitteeByRoomIdShouldBeNotNull() {
+//		List<Participants> participantsList = participantsDao.findCommitteeByRoomId(1L);
+//		Assert.assertNotNull(participantsList);
+//	}
 
 }

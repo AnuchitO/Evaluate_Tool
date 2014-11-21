@@ -19,6 +19,10 @@ public class ScoreBoard extends BaseEntity implements Serializable {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "room", nullable = false)
+	private Room room;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "committee", nullable = false)
 	private Person committee;
 
@@ -39,6 +43,14 @@ public class ScoreBoard extends BaseEntity implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 	public Person getCommittee() {
@@ -83,8 +95,8 @@ public class ScoreBoard extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ScoreBoard [id=" + id + ", committee=" + "[committee]" + ", topic="
-				+ "[topic]" + ", examiner=" + "[examiner]" + ", score=" + score
+		return "ScoreBoard [id=" + id + ", room=" + "[room]" + ", committee=" + "[committee]" 
+				+ ", topic=" + "[topic]" + ", examiner=" + "[examiner]" + ", score=" + score
 				+ ", comment=" + comment + "]";
 	}
 

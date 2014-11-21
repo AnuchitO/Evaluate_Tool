@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spt.evt.dao.ScoreBoardDao;
 import com.spt.evt.dao.TopicDao;
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
@@ -20,18 +21,20 @@ import com.spt.evt.entity.Topic;
 @Repository
 public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		ScoreBoardDao {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ScoreBoardDaoImpl.class);
 
 	@Override
-	public ScoreBoard findByCommiteeAndTopicAndExaminer(Person committee, Topic topic,Person examiner) {
+	public ScoreBoard findByRoomAndCommiteeAndTopicAndExaminer(Room room, Person committee, Topic topic,Person examiner) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ScoreBoard.class);
+		criteria.add(Restrictions.eq("room", room));
 		criteria.add(Restrictions.eq("committee", committee));
 		criteria.add(Restrictions.eq("topic", topic));
 		criteria.add(Restrictions.eq("examiner", examiner));
 		criteria.addOrder(Order.asc("id"));
 		
 		ScoreBoard sample = new ScoreBoard();
+		sample.setRoom(room);
 		sample.setCommittee(committee);
 		sample.setTopic(topic);
 		sample.setExaminer(examiner);
@@ -45,8 +48,6 @@ public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		}
 		return scoreBoard;
 	}
-
-	
 	
 	@Override
 	@Transactional
@@ -61,6 +62,5 @@ public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		this.getHibernateTemplate().saveOrUpdate(scoreBoard);
 		
 	}
-
 
 }
