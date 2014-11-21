@@ -23,8 +23,6 @@ public class RoomDaoTest extends AbstractTestDao {
 	@Test
 	public void testFindAllRoomShouldBeNotNull() {
 		List<Room> rooms = this.roomDao.findAll();
-		Set<Participants> participantsSet = rooms.get(0).getParticipants();
-		Assert.assertFalse(participantsSet.isEmpty());
 		Assert.assertNotNull(rooms);
 	}
 
@@ -37,8 +35,6 @@ public class RoomDaoTest extends AbstractTestDao {
 	@Test
 	public void testFindRoomByStatusShouldBeNotNull() {
 		List<Room> rooms = this.roomDao.findByStatus();
-		Set<Participants> participantsSet = rooms.get(0).getParticipants();
-		Assert.assertFalse(participantsSet.isEmpty());
 		Assert.assertNotNull(rooms);
 	}
 

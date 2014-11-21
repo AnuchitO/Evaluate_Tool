@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spt.evt.service.CourseService;
+import com.spt.evt.service.ParticipantsService;
 import com.spt.evt.service.PersonService;
 import com.spt.evt.service.RoomService;
 import com.spt.evt.service.ScoreBoardService;
@@ -29,6 +30,9 @@ public class ProviderService {
 	private PersonService personService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private ParticipantsService participantsService;
+
 
 	public PersonService getPersonService() {
 		return personService;
@@ -76,6 +80,14 @@ public class ProviderService {
 
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
+	}
+
+	public ParticipantsService getParticipantsService() {
+		return participantsService;
+	}
+
+	public void setParticipantsService(ParticipantsService participantsService) {
+		this.participantsService = participantsService;
 	}
 
 }

@@ -29,8 +29,8 @@ import org.springframework.web.context.WebApplicationContext;
  * Created by : Anuchit Prasertsang 
  * Created Date : 06/11/2014
  */
-public class EvaluateBoardControllerTest extends TemplateTestController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluateBoardControllerTest.class);
+public class ReportControllerTest extends TemplateTestController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportControllerTest.class);
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -43,9 +43,9 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 
 	@Test
 	public void get_showEvaluateBoard() throws Exception {
-		mockMvc.perform(get("/evaluateBoard"))
+		mockMvc.perform(get("/report"))
 		.andExpect(status().isOk())
-		.andExpect(view().name("evaluateBoard"))
+		.andExpect(view().name("report"))
 		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
 	}  
 

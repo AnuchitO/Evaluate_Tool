@@ -29,11 +29,5 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 		List<Participants> participantsList = participantsDao.findByExample(participants);
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());
 	}
-	
-//	@Test
-//	public void testFindCommitteeByRoomIdShouldBeNotNull() {
-//		List<Participants> participantsList = participantsDao.findCommitteeByRoomId(1L);
-//		Assert.assertNotNull(participantsList);
-//	}
 
 }

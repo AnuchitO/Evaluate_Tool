@@ -1,11 +1,10 @@
-package com.spt.evt.dao;
+package com.spt.evt.service;
 
 import java.util.List;
 
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Room;
 
-public interface ParticipantsDao {
-	public List<Participants> findByExample(Participants participants);
+public interface ParticipantsService {
 	public List<Participants> findByRoom(Room room);
 }

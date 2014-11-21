@@ -36,7 +36,6 @@ public class ReportServiceImpl implements ReportService{
 			roomDetail.put("startTime",room.getStartTime());
 			roomDetail.put("endTime",room.getEndTime());
 			roomDetail.put("status",room.getStatus());
-			roomDetail.put("score", room.getScore());
 
 			Long personExaminerId;
 			String personExaminerName;
@@ -65,7 +64,6 @@ public class ReportServiceImpl implements ReportService{
 	public JSONObject getScoreOfRoom(Long id) {
 		Room rooms = this.roomDao.findById(id);
 		JSONObject	roomScore = new JSONObject();
-		roomScore.put("score", rooms.getScore());
 
 		return roomScore;
 	}

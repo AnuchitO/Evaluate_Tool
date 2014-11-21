@@ -23,13 +23,11 @@ public class Room extends BaseEntity implements Serializable {
 	private String name;
 	private String description;
 	private Long courseId;
-	private String courseName;
 	private String startTime;
 	private String endTime;
 	private String status;
-	private String score;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Participants> participants = new HashSet<Participants>();
 
 	public Long getId() {
@@ -64,14 +62,6 @@ public class Room extends BaseEntity implements Serializable {
 		this.courseId = courseId;
 	}
 
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
 	public String getStartTime() {
 		return startTime;
 	}
@@ -96,14 +86,6 @@ public class Room extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
-	public String getScore() {
-		return score;
-	}
-
-	public void setScore(String score) {
-		this.score = score;
-	}
-
 	public Set<Participants> getParticipants() {
 		return participants;
 	}
@@ -115,9 +97,9 @@ public class Room extends BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", name=" + name + ", description="
-				+ description + ",courseId=" + courseId + ",courseName=" + courseName 
+				+ description + ",courseId=" + courseId 
 				+ ",startTime=" + startTime + ",endTime=" + endTime 
-				+ ",status=" + status + ",score=" + score + ", participants=" + "[participants]" + "]";
+				+ ",status=" + status + ", participants=" + "[participants]" + "]";
 	}
 
 }

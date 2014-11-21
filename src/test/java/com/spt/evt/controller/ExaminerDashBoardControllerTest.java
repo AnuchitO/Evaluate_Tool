@@ -25,12 +25,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-/**
- * Created by : Anuchit Prasertsang 
- * Created Date : 06/11/2014
- */
-public class EvaluateBoardControllerTest extends TemplateTestController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluateBoardControllerTest.class);
+
+public class ExaminerDashBoardControllerTest extends TemplateTestController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExaminerDashBoardControllerTest.class);
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -42,17 +39,15 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 	}
 
 	@Test
-	public void get_showEvaluateBoard() throws Exception {
-		mockMvc.perform(get("/evaluateBoard"))
+	public void get_showExaminerDashBoard() throws Exception {
+		mockMvc.perform(get("/examinerDashBoard"))
 		.andExpect(status().isOk())
-		.andExpect(view().name("evaluateBoard"))
+		.andExpect(view().name("examinerDashBoard"))
 		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
 	}  
 
 	@Test
 	public void jsonSample() throws Exception {
 		LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-	}  
-
-
+	}
 }

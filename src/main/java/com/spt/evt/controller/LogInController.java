@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spt.evt.service.LogInService;
 
 @Controller
-public class LoginController {
+public class LogInController {
 
 	@Autowired
 	private LogInService logInService;

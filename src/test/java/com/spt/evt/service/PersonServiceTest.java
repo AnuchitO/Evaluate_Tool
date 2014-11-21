@@ -12,7 +12,7 @@ import com.spt.evt.entity.Person;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class PersonServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonServiceTest.class);
 
 	@Autowired
 	private PersonService personService;
