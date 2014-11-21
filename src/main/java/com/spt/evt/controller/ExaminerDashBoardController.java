@@ -29,17 +29,17 @@ public class ExaminerDashBoardController {
 	private ExaminerDashBoardService examinerDashBoardService;
 
 	@RequestMapping(value="/examinerDashBoard",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		String idRoom = arg0.getParameter("idRoom");
-		String idCourse = arg0.getParameter("idCourse");
-		String idExaminer = arg0.getParameter("idExaminer");
+	public ModelAndView handleGetRequest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String idRoom = request.getParameter("idRoom");
+		String idCourse = request.getParameter("idCourse");
+		String idExaminer = request.getParameter("idExaminer");
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
 		model.put("idExaminer", idExaminer);
 
-		return new ModelAndView("examinerDashBoard",model); // ชื่อของ tile ที่เรา definition ในไฟล์ tiles.xml
+		return new ModelAndView("examinerDashBoard",model);
 
 	}
 

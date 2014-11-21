@@ -16,27 +16,32 @@ public class ExaminerDashBoardServiceImpl extends ProviderService implements Exa
 	@Override
 	public JSONObject getCourseInformation(Long courseId) {
 		JSONObject courseInformation = new JSONObject();
-		Course course 		= this.getCourseService().findById(courseId);
-		List<Subject> subjects = this.getSubjectService().findByCourse(course);
+		Course course 			= this.getCourseService().findById(courseId);
+		List<Subject> subjects 	= this.getSubjectService().findByCourse(course);
+
 		JSONObject subjectElement = null;
 		for (Subject subject : subjects) {
 			subjectElement = new JSONObject();
 			subjectElement.put("id", subject.getId());
 			subjectElement.put("name",subject.getName());
 
-			List<Topic> topics = this.getTopicService().findBySubject(subject);
-			for (Topic topic : topics) {
-				JSONObject topicElement = new JSONObject();
-				topicElement.put("id",topic.getId());
-				topicElement.put("name",topic.getName());
-				topicElement.put("description",topic.getDescription());
-
-				subjectElement.append("topic", topicElement);
-			}
+			findTopicsAddIntoJsonSubject(subjectElement, subject);
 
 			courseInformation.append("subject", subjectElement);
 		}
 		return courseInformation;
+	}
+
+	private void findTopicsAddIntoJsonSubject(JSONObject subjectElement,Subject subject) {
+		List<Topic> topics = this.getTopicService().findBySubject(subject);
+		for (Topic topic : topics) {
+			JSONObject topicElement = new JSONObject();
+			topicElement.put("id",topic.getId());
+			topicElement.put("name",topic.getName());
+			topicElement.put("description",topic.getDescription());
+
+			subjectElement.append("topic", topicElement);
+		}
 	}
 
 }

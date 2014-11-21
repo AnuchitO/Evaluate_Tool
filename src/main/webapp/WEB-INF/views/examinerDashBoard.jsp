@@ -115,8 +115,8 @@
 		function showTopic(element) {
 			var sizeTopic = (element.id).replace(/[^\d.]/g, '') - 1;
 			var data = {};
-			data.roomId = $("#roomId").val();
-			data.examinerId = $("#examinerId").attr('value');
+			//data.roomId = $("#roomId").val();
+			//data.examinerId = $("#examinerId").attr('value');
 			data.courseId = $("#courseId").attr('value');
 
 			var dataSend = JSON.stringify(data);
