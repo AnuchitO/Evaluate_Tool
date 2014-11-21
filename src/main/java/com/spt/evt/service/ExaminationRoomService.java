@@ -4,5 +4,5 @@ import org.json.JSONObject;
 
 public interface ExaminationRoomService {
 	public JSONObject getRoomInformation();
-	public JSONObject getPersonInformation(Long roomId, Long examinerId, Long committeeId);
+	public JSONObject getPersonInRoomInformation(Long roomId, Long examinerId, Long committeeId);
 }

@@ -16,7 +16,7 @@ import com.spt.evt.entity.Subject;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class SubjectServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubjectServiceTest.class);
 
 	@Autowired
 	private SubjectDao subjectDao;

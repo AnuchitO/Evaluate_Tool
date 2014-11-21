@@ -43,7 +43,7 @@ public class ExaminationRoomController {
 		Long roomId		 	= Long.parseLong(personDetail.getString("roomId"));
 		Long examinerId 	= Long.parseLong(personDetail.getString("examinerId"));
 		Long committeeId 	= Long.parseLong(personDetail.getString("committeeId"));
-		JSONObject committeeInformation = this.examinationRoomService.getPersonInformation(roomId,examinerId,committeeId);
+		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId);
 		return committeeInformation.toString();
 	}
 

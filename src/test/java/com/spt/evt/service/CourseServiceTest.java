@@ -12,7 +12,7 @@ import com.spt.evt.entity.Course;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class CourseServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	public static final Logger LOGGER = LoggerFactory.getLogger(CourseServiceTest.class);
 
 	@Autowired
 	private CourseService courseService;

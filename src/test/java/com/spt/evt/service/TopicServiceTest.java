@@ -15,7 +15,7 @@ import com.spt.evt.entity.Topic;
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
 public class TopicServiceTest extends AbstractTestService {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(TopicServiceTest.class);
 
 	@Autowired
 	private TopicService topicservice;
