@@ -6,16 +6,14 @@ import com.spt.evt.entity.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spt.evt.service.ReportService;
 
 @Service
 public class ReportServiceImpl extends ProviderService implements ReportService{
-
-
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ReportServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportServiceImpl.class);
 
 	@Override
 	public JSONObject findByStatus() {
@@ -68,8 +66,25 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		String roomStatus = "Completed";
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
 		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
+		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
 
-		return null;
+		JSONObject report = new JSONObject();
+		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
+			JSONObject examinerReport = new JSONObject();
+
+			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
+			for(String key: scoreMap.keySet()) {
+				examinerReport.put(key, scoreMap.get(key));
+			}
+
+			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
+			examinerReport.put("examinerId",examiner.getId());
+			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
+			examinerReport.put("dateTest","");
+
+			report.append("report", examinerReport);
+		}
+		return report;
 
 	}
 

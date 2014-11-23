@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.ArrayList;
 
 @Service
-public class AveragesCalculationImpl implements AveragesCalculationService {
+public class AveragesCalculationServiceImpl implements AveragesCalculationService {
 
-	private static final Logger logger = LoggerFactory.getLogger(AveragesCalculationImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(AveragesCalculationServiceImpl.class);
 
 
 	@Override
@@ -34,7 +34,7 @@ public class AveragesCalculationImpl implements AveragesCalculationService {
 			}
 
 			Map<String, Object> scores = new HashMap<String, Object>();
-			scores.put("score", scoreOfRoom);
+				scores.put("score", scoreOfRoom);
 				scores.put("topicTotal",i);
 			result.put(keyRoom, scores);
 		}

@@ -1,17 +1,10 @@
 package com.spt.evt.service.impl;
 
+import com.spt.evt.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.spt.evt.service.CourseService;
-import com.spt.evt.service.ParticipantsService;
-import com.spt.evt.service.PersonService;
-import com.spt.evt.service.RoomService;
-import com.spt.evt.service.ScoreBoardService;
-import com.spt.evt.service.SubjectService;
-import com.spt.evt.service.TopicService;
 
 @Service
 public class ProviderService {
@@ -32,7 +25,16 @@ public class ProviderService {
 	private RoomService roomService;
 	@Autowired
 	private ParticipantsService participantsService;
+	@Autowired
+	private AveragesCalculationService averagesCalculationService;
 
+	public AveragesCalculationService getAveragesCalculationService() {
+		return averagesCalculationService;
+	}
+
+	public void setAveragesCalculationService(AveragesCalculationService averagesCalculationService) {
+		this.averagesCalculationService = averagesCalculationService;
+	}
 
 	public PersonService getPersonService() {
 		return personService;

@@ -2,6 +2,7 @@ package com.spt.evt.service;
 
 import java.util.List;
 
+import com.spt.evt.entity.Person;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -27,4 +28,11 @@ public class ParticipantsServiceTest extends AbstractTestService{
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());		
 	}
 
+	@Test
+	public void testFindByExaminerInRoomShouldBeExaminerRole() throws Exception {
+		Room room = new Room();
+		room.setId(1L);
+		Person examiner = this.participantsService.findByExaminerInRoom(room);
+		Assert.assertEquals("Patipol",examiner.getName());
+	}
 }
