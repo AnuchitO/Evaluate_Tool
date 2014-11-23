@@ -1,8 +1,11 @@
 package com.spt.evt.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.spt.evt.entity.Person;
+import com.spt.evt.entity.ScoreBoard;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +18,8 @@ import com.spt.evt.entity.Room;
 import com.spt.evt.service.ReportService;
 
 @Service
-public class ReportServiceImpl implements ReportService{
+public class ReportServiceImpl extends ProviderService implements ReportService{
 
-	@Autowired
-	private RoomDao roomDao;
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ReportServiceImpl.class);
@@ -27,7 +28,7 @@ public class ReportServiceImpl implements ReportService{
 	public JSONObject findByStatus() {
 		JSONObject roomDetailSend = new JSONObject();
 		JSONObject roomDetail = null;
-		List<Room> rooms = this.roomDao.findByStatus();
+		List<Room> rooms = this.getRoomService().findByStatus("Completed");
 		for (Room room : rooms) {
 			roomDetail = new JSONObject();
 			roomDetail.put("id", room.getId());
@@ -62,10 +63,31 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public JSONObject getScoreOfRoom(Long id) {
-		Room rooms = this.roomDao.findById(id);
+		Room rooms = this.getRoomService().findById(id);
 		JSONObject	roomScore = new JSONObject();
 
 		return roomScore;
+	}
+
+	@Override
+	public JSONObject getAllScore() {
+
+		String roomStatus = "Completed";
+		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
+		List<ScoreBoard> scoreBoardAll = new ArrayList<ScoreBoard>();
+		for (Room room : rooms) {
+			List<ScoreBoard> scoreBoards = this.getScoreBoardService().findByRoom(room);
+
+			if(!scoreBoards.isEmpty()) {
+				scoreBoardAll.addAll(scoreBoards);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public JSONObject getScoreByExaminer(Person examiner) {
+		return null;
 	}
 
 }

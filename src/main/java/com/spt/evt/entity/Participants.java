@@ -28,7 +28,7 @@ public class Participants extends BaseEntity implements Serializable {
 
 	private String role;
 
-	private Boolean Modulator;
+	private Boolean modulator;
 
 	public Long getId() {
 		return id;
@@ -63,11 +63,11 @@ public class Participants extends BaseEntity implements Serializable {
 	}
 
 	public Boolean getModulator() {
-		return Modulator;
+		return modulator;
 	}
 
 	public void setModulator(Boolean modulator) {
-		Modulator = modulator;
+		this.modulator = modulator;
 	}
 
 	@Override

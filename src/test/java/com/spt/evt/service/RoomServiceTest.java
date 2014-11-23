@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Room;
 
+import static org.hamcrest.core.Is.is;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
@@ -32,4 +34,11 @@ public class RoomServiceTest extends AbstractTestService {
 		Assert.assertNotNull(room);
 	}
 
+	@Test
+	public void testFindRoomByStatusShouldBeNotNull() {
+		String status = "Completed";
+		List<Room> rooms = this.roomService.findByStatus(status);
+		Assert.assertNotNull(rooms);
+		Assert.assertThat(rooms.get(0).getStatus(),is("Completed"));
+	}
 }

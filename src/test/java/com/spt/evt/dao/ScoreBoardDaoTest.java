@@ -3,6 +3,7 @@ package com.spt.evt.dao;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 
+import java.util.List;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
@@ -24,6 +27,8 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 	private ScoreBoardDao scoreBoardDao;
 	@Autowired
 	private MemberRegisterDao memberRegisterDao;
+	@Autowired
+	private RoomDao roomDao;
 
 	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
@@ -82,5 +87,15 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		//
 		//
 	}
+
+	@Test
+	public void testFindByRoom() {
+		String status = "Completed";
+		List<Room> rooms = this.roomDao.findByStatus(status);
+		Room room = rooms.get(0);
+		List<ScoreBoard> resultScoreBoard = this.scoreBoardDao.findByRoom(room);
+		Assert.assertNotNull(resultScoreBoard);
+	}
+
 
 }

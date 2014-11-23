@@ -63,4 +63,12 @@ public class ScoreBoardDaoImpl extends TemplateHibernateDaoSupport implements
 		
 	}
 
+	@Override
+	public List<ScoreBoard> findByRoom(Room room) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ScoreBoard.class);
+		criteria.add(Restrictions.eq("room", room));
+		List<ScoreBoard> resultScoreBoard = (List<ScoreBoard>) this.getHibernateTemplate().findByCriteria(criteria);
+		return resultScoreBoard;
+	}
+
 }

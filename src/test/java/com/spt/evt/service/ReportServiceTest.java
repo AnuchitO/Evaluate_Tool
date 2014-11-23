@@ -30,5 +30,10 @@ public class ReportServiceTest extends AbstractTestService {
 		Assert.assertTrue(roomInformation.has("room"));
 		Assert.assertNotNull(roomInformation);
 	}
-	
+
+	@Test
+	public void testGetAllScoreShouldBeJsonObject() throws Exception {
+		JSONObject result = this.reportService.getAllScore();
+		Assert.assertNotNull(result);
+	}
 }
