@@ -1,7 +1,6 @@
 package com.spt.evt.dao.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -29,18 +28,10 @@ public class RoomDaoImpl extends TemplateHibernateDaoSupport implements RoomDao 
 	}
 	
 	@Override
-	public List<Room> findByStatus() {
+	public List<Room> findByStatus(String status) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Room.class);
-		criteria.add(Restrictions.eq("status", "Done"));
-		//criteria.add(Restrictions.)
+		criteria.add(Restrictions.eq("status", status));
 		List<Room> resultRoom = (List<Room>) this.getHibernateTemplate().findByCriteria(criteria);
-		//LOGGER.debug("SIZE--------"+resultRoom.size());
-		//LOGGER.debug("===All Room==="+resultRoom);
-		//for(Room c:resultRoom){
-		//	this.getHibernateTemplate().initialize(c.getParticipants());
-		//}
-		
-		//LOGGER.debug("==="+resultRoom);
 		return resultRoom;
 	}
 

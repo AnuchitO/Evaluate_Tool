@@ -30,5 +30,10 @@ public class RoomServiceImpl implements RoomService{
 	public Room findById(Long id) {
 		return this.roomDao.findById(id);
 	}
-	
+
+	@Override
+	public List<Room> findByStatus(String status) {
+		return this.roomDao.findByStatus(status);
+	}
+
 }

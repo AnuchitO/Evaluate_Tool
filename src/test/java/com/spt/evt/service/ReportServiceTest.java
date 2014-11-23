@@ -15,6 +15,9 @@ import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
@@ -23,6 +26,8 @@ public class ReportServiceTest extends AbstractTestService {
 
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private RoomService roomService;
 
 	@Test
 	public void testFindByStatusShouldBeNotNull() {
@@ -30,5 +35,23 @@ public class ReportServiceTest extends AbstractTestService {
 		Assert.assertTrue(roomInformation.has("room"));
 		Assert.assertNotNull(roomInformation);
 	}
-	
+
+	@Test
+	public void testGetAllScoreShouldBeJsonObject() throws Exception {
+		JSONObject result = this.reportService.getAllScore();
+		Assert.assertTrue(result.has("report"));
+	}
+
+	@Test
+	public void testPrepareDataScoreBoardShouldBeMapScoreOfRoom() throws Exception {
+		String status = "Completed";
+		List<Room> rooms = this.roomService.findByStatus(status);
+		Map<Room, Map<Topic, List<Double>>> scoreOfRoom = this.reportService.prepareDataScoreBoard(rooms);
+		Map<Topic, List<Double>> scoreOfTopic = scoreOfRoom.get(rooms.get(0));
+		for (Topic key:scoreOfTopic.keySet()) {
+			List<Double> scoreList = scoreOfTopic.get(key);
+			Assert.assertTrue(0!=scoreList.size());
+			break;
+		}
+	}
 }

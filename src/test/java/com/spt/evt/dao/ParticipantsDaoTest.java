@@ -19,12 +19,14 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 
 	@Autowired
 	private ParticipantsDao participantsDao;
+	@Autowired
+	private RoomDao roomDao;
 
 	@Test
 	public void testFindByExampleShouldBeRoomId1() {
-		Room room = new Room();
-		room.setId(1L);
+		Room room = this.roomDao.findById(1L);
 		Participants participants = new Participants();
+		participants.setModulator(true);
 		participants.setRoom(room);
 		List<Participants> participantsList = participantsDao.findByExample(participants);
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());

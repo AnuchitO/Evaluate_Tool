@@ -34,8 +34,6 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Long committeeId = 3L;
 		Long courseId = 1L;
 		JSONObject courseInformation = this.committeeService.getCourseInformation(roomId, examinerId, committeeId, courseId);
-		LOGGER.error("*****************&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&******* ");
-		LOGGER.error("************************ {}",courseInformation.toString());
 		Assert.assertTrue(courseInformation.has("subject"));
 		Assert.assertTrue(0!=courseInformation.length());
 	}

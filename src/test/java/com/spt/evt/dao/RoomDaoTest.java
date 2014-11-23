@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Room;
+
+import static org.hamcrest.core.Is.is;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
@@ -34,8 +37,10 @@ public class RoomDaoTest extends AbstractTestDao {
 
 	@Test
 	public void testFindRoomByStatusShouldBeNotNull() {
-		List<Room> rooms = this.roomDao.findByStatus();
+		String status = "Completed";
+		List<Room> rooms = this.roomDao.findByStatus(status);
 		Assert.assertNotNull(rooms);
+		Assert.assertThat(rooms.get(0).getStatus(),is("Completed"));
 	}
 
 }

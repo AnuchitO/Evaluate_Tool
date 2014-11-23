@@ -12,6 +12,8 @@ import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 import com.spt.evt.service.ScoreBoardService;
 
+import java.util.List;
+
 @Service
 public class ScoreBoardServiceImpl implements ScoreBoardService {
 	private static final Logger LOGGER = LoggerFactory
@@ -35,6 +37,11 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	@Override
 	public void saveOrUpdate(ScoreBoard scoreBoard) {
 		scoreBoardDao.saveOrUpdate(scoreBoard);		
+	}
+
+	@Override
+	public List<ScoreBoard> findByRoom(Room room) {
+		return this.scoreBoardDao.findByRoom(room);
 	}
 
 

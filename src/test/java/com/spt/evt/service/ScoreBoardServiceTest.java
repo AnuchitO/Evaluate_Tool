@@ -14,6 +14,8 @@ import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
 
+import java.util.List;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
  */
@@ -22,6 +24,8 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 
 	@Autowired
 	private ScoreBoardService scoreBoardService;
+	@Autowired
+	private RoomService roomService;
 
 	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
@@ -77,6 +81,23 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		Assert.assertEquals(score, scoreBoard.getScore());
 		
 	}
-	
+
+	@Test
+	public void testFindByRoomShouldBeNotNull() throws Exception {
+		String status = "Completed";
+		List<Room> rooms =   this.roomService.findByStatus(status);
+		Room room = rooms.get(0);
+		List<ScoreBoard> resultScoreBoard = this.scoreBoardService.findByRoom(room);
+		Assert.assertNotNull(resultScoreBoard);
+	}
+
 
 }
+
+
+
+
+
+
+
+
