@@ -1,20 +1,13 @@
 package com.spt.evt.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import com.spt.evt.entity.Person;
-import com.spt.evt.entity.ScoreBoard;
+import com.spt.evt.entity.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.RoomDao;
-import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Room;
 import com.spt.evt.service.ReportService;
 
 @Service
@@ -74,15 +67,42 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 		String roomStatus = "Completed";
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
-		List<ScoreBoard> scoreBoardAll = new ArrayList<ScoreBoard>();
+		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
+
+		return null;
+
+	}
+
+	@Override
+	public Map<Room,Map<Topic, List<Double>>> prepareDataScoreBoard(List<Room> rooms) {
+		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = new HashMap<Room,Map<Topic,List<Double>>>();
+
 		for (Room room : rooms) {
 			List<ScoreBoard> scoreBoards = this.getScoreBoardService().findByRoom(room);
+			Map<Topic,List<Double>> scoreEachTopicExaminer = new HashMap<Topic,List<Double>>();
 
-			if(!scoreBoards.isEmpty()) {
-				scoreBoardAll.addAll(scoreBoards);
-			}
+			groupScoreOfTopic(scoreEachTopicExaminer, scoreBoards);
+
+			scoreExaminerAll.put(room, scoreEachTopicExaminer);
 		}
-		return null;
+		return scoreExaminerAll;
+	}
+
+	public void groupScoreOfTopic(Map<Topic, List<Double>> scoreEachTopicExaminer, List<ScoreBoard> scoreBoards) {
+		for(ScoreBoard scoreBoard:scoreBoards) {
+            List<Double> scoreTopic = null;
+            Topic topic = scoreBoard.getTopic();
+            Double score = new Double(scoreBoard.getScore());
+
+            if (scoreEachTopicExaminer.containsKey(topic)) {
+                scoreTopic = scoreEachTopicExaminer.get(topic);
+                scoreTopic.add(score);
+            } else {
+                scoreTopic = new ArrayList<Double>();
+                scoreTopic.add(score);
+                scoreEachTopicExaminer.put(topic, scoreTopic);
+            }
+        }
 	}
 
 	@Override
