@@ -39,6 +39,7 @@ public class ReportServiceTest extends AbstractTestService {
 	@Test
 	public void testGetAllScoreShouldBeJsonObject() throws Exception {
 		JSONObject result = this.reportService.getAllScore();
+		LOGGER.debug("EEEEEEEEEEEEEEEE {} ",result.toString());
 		Assert.assertTrue(result.has("report"));
 	}
 
