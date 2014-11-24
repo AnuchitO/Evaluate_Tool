@@ -9,4 +9,5 @@ import com.spt.evt.entity.Room;
 public interface ParticipantsService {
 	public List<Participants> findByRoom(Room room);
 	public Person findByExaminerInRoom(Room room);
+	public List<Participants> findByPerson(Person person);
 }

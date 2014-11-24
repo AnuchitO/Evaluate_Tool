@@ -28,18 +28,13 @@ public class ReportServiceTest extends AbstractTestService {
 	private ReportService reportService;
 	@Autowired
 	private RoomService roomService;
-
-	@Test
-	public void testFindByStatusShouldBeNotNull() {
-		JSONObject roomInformation = this.reportService.findByStatus();
-		Assert.assertTrue(roomInformation.has("room"));
-		Assert.assertNotNull(roomInformation);
-	}
+	@Autowired
+	private PersonService personService;
 
 	@Test
 	public void testGetAllScoreShouldBeJsonObject() throws Exception {
 		JSONObject result = this.reportService.getAllScore();
-		LOGGER.debug("EEEEEEEEEEEEEEEE {} ",result.toString());
+		LOGGER.debug(" ",result.toString());
 		Assert.assertTrue(result.has("report"));
 	}
 
@@ -55,4 +50,13 @@ public class ReportServiceTest extends AbstractTestService {
 			break;
 		}
 	}
+
+	@Test
+	public void testGetScoreByExaminerShouldBeJsonObject() {
+		Person examiner = this.personService.findById(2L);
+		JSONObject result = this.reportService.getScoreByExaminer(examiner);
+		LOGGER.debug(" ",result.toString());
+		Assert.assertTrue(result.has("report"));
+	}
+
 }

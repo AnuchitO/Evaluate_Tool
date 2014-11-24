@@ -50,7 +50,7 @@ table>tbody>tr>td {
 			</div>
 			<div id="setSizeTable" class="col-sm-3 col-md-3">
 				<select id="pickExaminer" class="selectpicker" data-width="100%">
-					<option id="optionAll">ALL</option>
+					<option id="optionAll" value="null">ALL</option>
 				</select>
 			</div>
 			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
@@ -68,13 +68,15 @@ table>tbody>tr>td {
 							<th>Examiner</th>
 							<th>Score</th>
 							<th>Percent</th>
+							<th>Date</th>
 						</tr>
 					</thead>
 					<tbody id="tableBody">
-						<tr id="tableRow">
-							<td id="tableDataName"></td>
-							<td id="tableDataScore"></td>
-							<td id="tableDataPercent"></td>
+						<tr id="tableRow0">
+							<td id="tableDataName" class="td"></td>
+							<td id="tableDataScore" class="td"></td>
+							<td id="tableDataPercent" class="td"></td>
+							<td id="tableDate" class="td"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -87,19 +89,20 @@ table>tbody>tr>td {
 	<script>
 		$(function() {
 			$("#table").hide();
+			$("#tableRow0").hide();
 			$("#option0").hide();
-			var doneRoom = JSON.parse('${room}');
+			var completedRoom = JSON.parse('${room}');
 			var dummyOption = 0;
 			var dummyRoomId = 0;
 			var genOptionId = ("#option" + dummyOption);
 			var genRoomId = ("#roomId" + dummyRoomId);
 
-			$.each(doneRoom, function(i, item) {
+			$.each(completedRoom, function(i, item) {
 
 				item.forEach(function(room) {
-					var nameAndLastName = room.examiner;
-					var roomId = room.id;
 
+					var nameAndLastName = room.examiner;
+					var roomId = room.examinerId;
 					$("#option0").clone()
 							.attr('id', 'option' + (++dummyOption)).text(
 									nameAndLastName).val(roomId).insertAfter(
@@ -109,36 +112,86 @@ table>tbody>tr>td {
 			});
 
 		});
-		function showRoom(room) {
-			var room = {};
-			room.roomId = $("#pickExaminer").val();
-			var dataRoomId = JSON.stringify(room);
+		function showRoom(examinerId) {
+			var examiner = {};
+			examiner.id = examinerId;
+			var examinerId = JSON.stringify(examiner);
 			$
 					.ajax({
 						url : "/EvaluateTool/application/getroomscore",
 						type : 'POST',
 						data : {
-							dataRoomId : dataRoomId
+							examinerId : examinerId
 						},
 						success : function(data) {
-							var score = JSON.parse(data).score;
-							createTable(score);
+							var report = JSON.parse(data);
+							var dummyTableRow = 0;
+							var genTableRow = $("#tableRow" + dummyTableRow);
+							$
+									.each(
+											report,
+											function(i, item) {
+
+												item
+														.forEach(function(
+																report) {
+															$("#table").show();
+															$("#tableRow0")
+																	.clone()
+																	.attr(
+																			'id',
+																			'tableRow'
+																					+ (++dummyTableRow))
+																	.insertAfter(
+																			genTableRow)
+																	.show()
+																	.appendTo(
+																			$("#tableBody"));
+															$("#tableDataName")
+																	.text(
+																			report.examiner)
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															$("#tableDataScore")
+																	.text(
+																			report.score
+																					+ " of "
+																					+ report.topicTotal)
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+
+															if (report.topicTotal == 0) {
+																report.topicTotal = 1;
+															}
+															var percent = (report.score / report.topicTotal) * 100;
+
+															$(
+																	"#tableDataPercent")
+																	.text(
+																			percent
+																					+ "%")
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															$("#tableDate")
+																	.text(
+																			report.dateTest)
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															alert($("#tableRow"+ dummyTableRow).attr('id'));
+														});
+
+											});
+
 						},
 						error : function(data, status, er) {
 							alert("error: " + data + " status: " + status
 									+ " er:" + er);
 						}
 					});
-		}
-		function createTable(score) {
-			$("#table").show();
-			$("#tableRow").appendTo($("#tableBody"));
-			$("#tableDataName").text($("#pickExaminer option:selected").text())
-					.appendTo($("#tableRow"));
-			$("#tableDataScore").text(score + " of " + score).appendTo(
-					$("#tableRow"));
-			var percent = (score * 100) / score;
-			$("#tableDataPercent").text(percent + "%").appendTo($("#tableRow"));
 		}
 	</script>
 </body>

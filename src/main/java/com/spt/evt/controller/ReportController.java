@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
 import com.spt.evt.service.ReportService;
+import com.spt.evt.service.impl.ReportServiceImpl;
 
 @Controller
 public class ReportController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
 
 	@Autowired
 	private ReportService reportService;
@@ -29,7 +34,8 @@ public class ReportController {
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
 
-		JSONObject roomInformation = this.reportService.findByStatus();
+		JSONObject roomInformation = this.reportService.getAllScore();
+		//LOGGER.debug("=========="+roomInformation);
 		Map model = new HashMap();
 		model.put("room", roomInformation.toString());
 
@@ -37,12 +43,19 @@ public class ReportController {
 	}
 
 	@RequestMapping(value="/getroomscore",method=RequestMethod.POST)
-	public @ResponseBody String getRoomScore(@RequestParam(value="dataRoomId") String dataRoomId ,HttpServletRequest arg0,HttpServletResponse arg1) {
-		JSONObject roomDetail = new JSONObject(dataRoomId);
-		Long roomId		 	= Long.parseLong(roomDetail.getString("roomId"));
-		JSONObject roomScore = this.reportService.getScoreOfRoom(roomId);
+	public @ResponseBody String getRoomScore(@RequestParam(value="examinerId") String examinerId ,HttpServletRequest arg0,HttpServletResponse arg1) {
+		JSONObject examinerDetail = new JSONObject(examinerId);
+		String id = examinerDetail.getString("id");
+		if(id.equals("null")) {
+			examinerDetail = this.reportService.getAllScore();
+		}
+		else{
+			Long examiner_Id = Long.parseLong(examinerDetail.getString("id"));
+			Person personDetail = this.reportService.getPersonByExaminerId(examiner_Id);
+			examinerDetail = this.reportService.getScoreByExaminer(personDetail);
+		}
 
-		return roomScore.toString();
+		return examinerDetail.toString();
 	}
 
 }

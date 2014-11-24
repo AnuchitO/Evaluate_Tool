@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
 
 /**
@@ -21,6 +22,8 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 	private ParticipantsDao participantsDao;
 	@Autowired
 	private RoomDao roomDao;
+	@Autowired
+	private PersonDao personDao;
 
 	@Test
 	public void testFindByExampleShouldBeRoomId1() {
@@ -30,6 +33,13 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 		participants.setRoom(room);
 		List<Participants> participantsList = participantsDao.findByExample(participants);
 		Assert.assertEquals(new Long(1),participantsList.get(0).getRoom().getId());
+	}
+	
+	@Test
+	public void testFindParticipantsByPersonShouldBeNotNull() {
+		Person person = this.personDao.findById(2L);
+		List<Participants> participantsList = participantsDao.findByPerson(person);
+		Assert.assertNotNull(participantsList);
 	}
 
 }
