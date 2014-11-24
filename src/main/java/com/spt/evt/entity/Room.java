@@ -1,6 +1,7 @@
 package com.spt.evt.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ public class Room extends BaseEntity implements Serializable {
 	private String name;
 	private String description;
 	private Long courseId;
-	private String startTime;
-	private String endTime;
+	private Date startTime;
+	private Date endTime;
 	private String status;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room",cascade=CascadeType.ALL,orphanRemoval=true)
@@ -62,19 +63,19 @@ public class Room extends BaseEntity implements Serializable {
 		this.courseId = courseId;
 	}
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
