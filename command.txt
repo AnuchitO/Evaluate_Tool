@@ -1,15 +1,14 @@
 **** maven ****
 mvn archetype:generate -DgroupId=com -DartifactId=Evaluate_Tool -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+mvn eclipse:clean
 mvn eclipse:eclipse -Dwtpversion=2.0
 mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
 mvn clean compile test -Djetty.port=8083 jetty:run
 
+mvn clean compile test  -Dtest=ScoreBoardDaoTest
 
 *** git ****
 git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
 git remote show origin
 git merge dev --no-ff
 git push -u origin master
- mvn eclipse:clean
-mvn clean compile test  -Dtest=ScoreBoardDaoTest
-mvn clean compile test  -Dtest=EvaluateBoardServiceTest
