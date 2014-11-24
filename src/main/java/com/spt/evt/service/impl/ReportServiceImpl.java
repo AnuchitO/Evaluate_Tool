@@ -1,5 +1,7 @@
 package com.spt.evt.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.spt.evt.entity.*;
@@ -62,13 +64,17 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 	@Override
 	public JSONObject getAllScore() {
-
 		String roomStatus = "Completed";
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
+		JSONObject report = generateScoreJsonObjectByRoom(rooms);
+		return report;
+	}
+
+	private JSONObject generateScoreJsonObjectByRoom(List<Room> rooms) {
 		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
 		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
-
 		JSONObject report = new JSONObject();
+
 		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
 			JSONObject examinerReport = new JSONObject();
 
@@ -80,12 +86,12 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
 			examinerReport.put("examinerId",examiner.getId());
 			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
-			examinerReport.put("dateTest","");
+			DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime()));
 
 			report.append("report", examinerReport);
 		}
 		return report;
-
 	}
 
 	@Override
