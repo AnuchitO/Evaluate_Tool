@@ -51,6 +51,7 @@ a {
 </style>
 <body>
 	<input type="hidden" id="committeeId" value="${yourId}" />
+	<input type="hidden" id="yourPosition" value="${yourPosition}" />
 	<div class="row">
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
@@ -91,9 +92,9 @@ a {
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button" class="btn btn-default"
+	<button id="btnExaminer0" type="button" class="btn btn-default examiner"
 		onClick="javascript:sendIdExaminer(this)">Examiner</button>
-	<button id="btnCommittee0" type="button" class="btn btn-default"
+	<button id="btnCommittee0" type="button" class="btn btn-default committee"
 		onClick="javascript:sendId(this)">Committee</button>
 
 	<script>
@@ -408,6 +409,16 @@ a {
 															$("#setHalfSizeTwo"
 																	+ dummySetHalfSizeTwo));
 										});
+								var yourPosition = $("#yourPosition").val();
+								
+								if(yourPosition=="Software Development Trainee"){
+									//alert(yourPosition);
+									$(".committee").attr('disabled', 'disabled');
+								}
+								else {
+									//alert(yourPosition);
+									$(".examiner").attr('disabled', 'disabled');
+								}
 							});
 		});
 		function sendId(element) {

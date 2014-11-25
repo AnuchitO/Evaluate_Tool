@@ -17,7 +17,7 @@ public class LogInServiceImpl extends ProviderService implements LogInService {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(LogInServiceImpl.class);
-	
+
 	@Autowired
 	private PersonDao personDao;
 
@@ -30,6 +30,7 @@ public class LogInServiceImpl extends ProviderService implements LogInService {
 			personDetail.put("id", person.getId());
 			personDetail.put("name", person.getName());
 			personDetail.put("lastName", person.getLastName());
+			personDetail.put("position", person.getPositionName());
 		}
 		return personDetail;
 	}

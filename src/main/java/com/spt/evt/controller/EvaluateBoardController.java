@@ -35,12 +35,12 @@ public class EvaluateBoardController {
 		String idCommittee = request.getParameter("idCommittee");
 		String nameCommittee = request.getParameter("nameCommittee");
 		String lastNameCommittee = request.getParameter("lastNameCommittee");
-		Long courseId = Long.parseLong(idCourse);
-		String nameCourse = evaluateBoardService.getCourseName(courseId);
+		String idCourseName = getCourseName(idCourse);
+
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
-		model.put("nameCourse", nameCourse);
+		model.put("nameCourse", idCourseName);
 		model.put("idExaminer", idExaminer);
 		model.put("nameExaminer", nameExaminer);
 		model.put("lastNameExaminer", lastNameExaminer);
@@ -78,6 +78,12 @@ public class EvaluateBoardController {
 		String status = this.evaluateBoardService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
 
 		return status;
+	}
+
+	public String getCourseName(String courseId){
+		Long idCourse = Long.parseLong(courseId);
+		String nameCourse = evaluateBoardService.getCourseName(idCourse);
+		return nameCourse;	
 	}
 
 }

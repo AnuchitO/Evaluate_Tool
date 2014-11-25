@@ -86,11 +86,14 @@
 											var yourId = JSON.parse(data).id;
 											var yourName = JSON.parse(data).name;
 											var yourLastName = JSON.parse(data).lastName;
+											var yourPosition = JSON.parse(data).position;
 											alert("Wellcome , " + yourName
 													+ " " + yourLastName);
 											location.href = "/EvaluateTool/application/examinationRoom"
 													+ "?yourId="
-													+ encodeURIComponent(yourId);
+													+ encodeURIComponent(yourId)
+													+ "&yourPosition="
+													+ encodeURIComponent(yourPosition);
 										},
 										error : function(data, status, er) {
 											alert("Wrong Username or Password, Try Again");
