@@ -33,6 +33,6 @@ public class ParticipantsServiceTest extends AbstractTestService{
 		Room room = new Room();
 		room.setId(1L);
 		Person examiner = this.participantsService.findByExaminerInRoom(room);
-		Assert.assertEquals("Patipol",examiner.getName());
+		Assert.assertEquals("Watcharaphong",examiner.getName());
 	}
 }

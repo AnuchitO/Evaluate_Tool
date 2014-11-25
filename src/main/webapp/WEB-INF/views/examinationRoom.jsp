@@ -7,6 +7,18 @@
 <title>Evaluate Tool</title>
 </head>
 <style>
+.navbar-default {
+	background-color: #FF8C00;
+}
+
+.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+	color: black;
+}
+
+.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+	color: black;
+}
+
 .panel-body {
 	text-align: right;
 }
@@ -32,11 +44,32 @@
 .panel-body {
 	background-color: #FFD700;
 }
+
+a {
+	cursor: pointer;
+}
 </style>
 <body>
 	<input type="hidden" id="committeeId" value="${yourId}" />
 	<div class="row">
-		<pre class="bg-default"><strong>Evaluate Tool</strong></pre>
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle"
+						data-target=".navbar-collapse" data-toggle="collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="">Evaluate Board</a>
+				</div>
+				<div id="bs-navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a id="logOut">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="container" class="row">
 		<div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
@@ -45,7 +78,7 @@
 	<div id="room0" class="panel panel-default"></div>
 	<div id="body0" class="panel-body"></div>
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
-	<div id="setSizeDetail0" class="col-sm-8 col-md-8"></div>
+	<div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
 	<div id="roomName0"></div>
 	<input type="hidden" id="roomId0" value="" />
 	<div id="courseName0"></div>
@@ -174,17 +207,17 @@
 													.appendTo(
 															$("#room"
 																	+ dummyRoom));
-											$("#setSizeProgress0")
-													.clone()
-													.attr(
-															'id',
-															'setSizeProgress'
-																	+ (++dummyProgress))
-													.insertAfter(genProgress)
-													.show()
-													.appendTo(
-															$("#body"
-																	+ dummyRoom));
+											//$("#setSizeProgress0")
+											//		.clone()
+											//		.attr(
+											//				'id',
+											//				'setSizeProgress'
+											//						+ (++dummyProgress))
+											//		.insertAfter(genProgress)
+											//		.show()
+											//		.appendTo(
+											//				$("#body"
+											//						+ dummyRoom));
 											$("#setSizeDetail0")
 													.clone()
 													.attr(
@@ -394,7 +427,6 @@
 						success : function(data) {
 							var idRoom = JSON.parse(data).idRoom;
 							var idCourse = JSON.parse(data).idCourse;
-							var nameCourse = JSON.parse(data).nameCourse;
 							var idExaminer = JSON.parse(data).idExaminer;
 							var nameExaminer = JSON.parse(data).nameExaminer;
 							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
@@ -406,8 +438,6 @@
 									+ encodeURIComponent(idRoom)
 									+ "&idCourse="
 									+ encodeURIComponent(idCourse)
-									+ "&nameCourse="
-									+ encodeURIComponent(nameCourse)
 									+ "&idExaminer="
 									+ encodeURIComponent(idExaminer)
 									+ "&nameExaminer="
@@ -439,6 +469,9 @@
 					+ encodeURIComponent(courseId);
 
 		}
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 	</script>
 </body>
 </html>

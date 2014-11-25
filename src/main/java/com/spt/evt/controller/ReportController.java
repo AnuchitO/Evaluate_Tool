@@ -33,11 +33,10 @@ public class ReportController {
 	@RequestMapping(value="/report",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
-
-		JSONObject roomInformation = this.reportService.getAllScore();
-		//LOGGER.debug("=========="+roomInformation);
+		
+		JSONObject completeRoomInformation = this.reportService.getAllScore();
 		Map model = new HashMap();
-		model.put("room", roomInformation.toString());
+		model.put("completeRoom", completeRoomInformation.toString());
 
 		return new ModelAndView("report",model);
 	}

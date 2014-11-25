@@ -6,6 +6,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Evaluate Tool</title>
 <style>
+.navbar-default {
+	background-color: #FF8C00;
+}
+
+.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+	color: black;
+}
+
+.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+	color: black;
+}
+
+th {
+	background-color: #FF8C00;
+}
+
+.tableBody {
+	background-color: #FFD700;
+}
+
 a {
 	cursor: pointer;
 }
@@ -20,6 +40,10 @@ table>thead>tr>th {
 
 table>tbody>tr>td {
 	text-align: center;
+}
+
+.btn {
+	background-color: #FF8C00;
 }
 </style>
 </head>
@@ -71,7 +95,7 @@ table>tbody>tr>td {
 							<th>Date</th>
 						</tr>
 					</thead>
-					<tbody id="tableBody">
+					<tbody id="tableBody0" class="tableBody">
 						<tr id="tableRow0">
 							<td id="tableDataName" class="td"></td>
 							<td id="tableDataScore" class="td"></td>
@@ -80,7 +104,6 @@ table>tbody>tr>td {
 						</tr>
 					</tbody>
 				</table>
-
 			</div>
 		</div>
 	</div>
@@ -89,9 +112,14 @@ table>tbody>tr>td {
 	<script>
 		$(function() {
 			$("#table").hide();
+			$("#tableBody0").hide();
 			$("#tableRow0").hide();
+			$("#tableDataName").hide();
+			$("#tableDataScore").hide();
+			$("#tableDataPercent").hide();
+			$("#tableDate").hide();
 			$("#option0").hide();
-			var completedRoom = JSON.parse('${room}');
+			var completedRoom = JSON.parse('${completeRoom}');
 			var dummyOption = 0;
 			var dummyRoomId = 0;
 			var genOptionId = ("#option" + dummyOption);
@@ -102,17 +130,18 @@ table>tbody>tr>td {
 				item.forEach(function(room) {
 
 					var nameAndLastName = room.examiner;
-					var roomId = room.examinerId;
+					var examinerId = room.examinerId;
 					$("#option0").clone()
 							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(roomId).insertAfter(
-									genOptionId).show().appendTo(
+									nameAndLastName).val(examinerId)
+							.insertAfter(genOptionId).show().appendTo(
 									$("#pickExaminer"));
 				});
 			});
 
 		});
 		function showRoom(examinerId) {
+			$("#tableBody1").remove();
 			var examiner = {};
 			examiner.id = examinerId;
 			var examinerId = JSON.stringify(examiner);
@@ -125,13 +154,24 @@ table>tbody>tr>td {
 						},
 						success : function(data) {
 							var report = JSON.parse(data);
+							var dummyTableBody = 0;
 							var dummyTableRow = 0;
+							var genTableBody = $("#tableBody" + dummyTableBody);
 							var genTableRow = $("#tableRow" + dummyTableRow);
 							$
 									.each(
 											report,
 											function(i, item) {
-
+												$("#tableBody0")
+														.clone()
+														.attr(
+																'id',
+																'tableBody'
+																		+ (++dummyTableBody))
+														.insertAfter(
+																genTableBody)
+														.fadeIn('slow')
+														.appendTo($("#table"));
 												item
 														.forEach(function(
 																report) {
@@ -146,18 +186,23 @@ table>tbody>tr>td {
 																			genTableRow)
 																	.show()
 																	.appendTo(
-																			$("#tableBody"));
+																			$("#tableBody"
+																					+ dummyTableBody));
 															$("#tableDataName")
+																	.clone()
 																	.text(
 																			report.examiner)
+																	.show()
 																	.appendTo(
 																			$("#tableRow"
 																					+ dummyTableRow));
 															$("#tableDataScore")
+																	.clone()
 																	.text(
 																			report.score
 																					+ " of "
 																					+ report.topicTotal)
+																	.show()
 																	.appendTo(
 																			$("#tableRow"
 																					+ dummyTableRow));
@@ -169,19 +214,22 @@ table>tbody>tr>td {
 
 															$(
 																	"#tableDataPercent")
+																	.clone()
 																	.text(
 																			percent
 																					+ "%")
+																	.show()
 																	.appendTo(
 																			$("#tableRow"
 																					+ dummyTableRow));
 															$("#tableDate")
+																	.clone()
 																	.text(
 																			report.dateTest)
+																	.show()
 																	.appendTo(
 																			$("#tableRow"
 																					+ dummyTableRow));
-															alert($("#tableRow"+ dummyTableRow).attr('id'));
 														});
 
 											});
@@ -193,6 +241,9 @@ table>tbody>tr>td {
 						}
 					});
 		}
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 	</script>
 </body>
 </html>

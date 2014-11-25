@@ -33,13 +33,13 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		room.setId(1L);
 		
 		Person committee = new Person();
-		committee.setId(3L);
+		committee.setId(2L);
 
 		Topic topic = new Topic();
 		topic.setId(1L);
 
 		Person examiner = new Person();
-		examiner.setId(2L);
+		examiner.setId(6L);
 		
 		ScoreBoard scoreBoard = scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic,examiner);
 		Assert.assertNotNull(scoreBoard);
@@ -54,13 +54,13 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		String comment = "Test Comment";
 		
 		Person committee = new Person();
-		committee.setId(3L);
+		committee.setId(2L);
 
 		Topic topic = new Topic();
 		topic.setId(3L);
 
 		Person examiner = new Person();
-		examiner.setId(2L);
+		examiner.setId(6L);
 		
 		ScoreBoard scoreBoardBefore = scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
 		LOGGER.debug("scoreBoardBefore :{}",scoreBoardBefore);
@@ -74,7 +74,6 @@ public class ScoreBoardServiceTest extends AbstractTestService {
 		scoreBoard.setComment(comment);
 		
 		scoreBoardService.save(scoreBoard);
-		LOGGER.debug("*************************************** :{}",scoreBoard.getId());
 		Assert.assertNotNull(scoreBoard.getRoom());
 		Assert.assertNotNull(scoreBoard.getId());					
 		Assert.assertThat(scoreBoard.getComment(), is("Test Comment"));

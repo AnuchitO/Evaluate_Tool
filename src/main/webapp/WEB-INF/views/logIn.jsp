@@ -54,8 +54,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12 col-md-12">
-								<button id="buttonLogIn" type="button" class="btn btn-default">Log
+							<div class="col-sm-1 col-md-1 col-md-offset-4 col-sm-offset-4">
+								<button id="buttonLogIn" type="submit" class="btn btn-default">Log
 									In</button>
 							</div>
 						</div>
@@ -94,9 +94,6 @@
 										},
 										error : function(data, status, er) {
 											alert("Wrong Username or Password, Try Again");
-											//alert("error: " + data
-											//		+ " status: " + status
-											//		+ " er:" + er);
 										}
 									});
 

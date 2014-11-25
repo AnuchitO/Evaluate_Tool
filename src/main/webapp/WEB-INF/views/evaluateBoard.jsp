@@ -260,8 +260,8 @@ a {
 						<!-- <li><a id="presenting">Presenting</a></li>
 						<li><a id="topicList">Topic List</a></li> -->
 						<li><a id="room">Room</a></li>
-						<li id="notificationModulator_li">
-							<!-- <span id="notification_count">3</span> --> <a
+						<!-- <li id="notificationModulator_li">
+							 <span id="notification_count">3</span>  <a
 							id="notificationModulator" class="glyphicon glyphicon-user"></a>
 							<div id="notificationContainerModulator">
 								<div id="notificationTitleModulator">Depute to modulator</div>
@@ -272,7 +272,7 @@ a {
 							</div>
 						</li>
 						<li id="notification_li">
-							<!-- <span id="notification_count">3</span> --> <a
+							 <span id="notification_count">3</span>  <a
 							id="notificationLink" class="glyphicon glyphicon-bell"></a>
 							<div id="notificationContainer">
 								<div id="notificationTitle">Request to join room</div>
@@ -281,7 +281,8 @@ a {
 									<a href="#">See All</a>
 								</div>
 							</div>
-						</li>
+						</li> -->
+						
 						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
@@ -1072,7 +1073,6 @@ a {
 			$("#notificationModulator").click(function() {
 				$("#notificationContainer").hide();
 				$("#notificationContainerModulator").fadeToggle(300);
-				//$("#notification_count").fadeOut("slow");
 				return false;
 			});
 

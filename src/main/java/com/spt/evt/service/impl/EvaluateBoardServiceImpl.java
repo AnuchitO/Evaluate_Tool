@@ -111,4 +111,11 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 
 	}
 
+	@Override
+	public String getCourseName(Long courseId) {
+		Course course 		= this.getCourseService().findById(courseId);
+		String courseName = course.getDescription();
+		return courseName;
+	}
+
 }

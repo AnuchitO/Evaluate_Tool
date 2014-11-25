@@ -26,16 +26,17 @@ public class EvaluateBoardController {
 	private EvaluateBoardService evaluateBoardService;
 
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,HttpServletResponse arg1) throws Exception {
-		String idRoom = arg0.getParameter("idRoom");
-		String idCourse = arg0.getParameter("idCourse");
-		String nameCourse = arg0.getParameter("nameCourse");
-		String idExaminer = arg0.getParameter("idExaminer");
-		String nameExaminer = arg0.getParameter("nameExaminer");
-		String lastNameExaminer = arg0.getParameter("lastNameExaminer");
-		String idCommittee = arg0.getParameter("idCommittee");
-		String nameCommittee = arg0.getParameter("nameCommittee");
-		String lastNameCommittee = arg0.getParameter("lastNameCommittee");
+	public ModelAndView handleGetRequest(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String idRoom = request.getParameter("idRoom");
+		String idCourse = request.getParameter("idCourse");
+		String idExaminer = request.getParameter("idExaminer");
+		String nameExaminer = request.getParameter("nameExaminer");
+		String lastNameExaminer = request.getParameter("lastNameExaminer");
+		String idCommittee = request.getParameter("idCommittee");
+		String nameCommittee = request.getParameter("nameCommittee");
+		String lastNameCommittee = request.getParameter("lastNameCommittee");
+		Long courseId = Long.parseLong(idCourse);
+		String nameCourse = evaluateBoardService.getCourseName(courseId);
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
