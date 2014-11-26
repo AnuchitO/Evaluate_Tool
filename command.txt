@@ -3,7 +3,8 @@ mvn archetype:generate -DgroupId=com -DartifactId=Evaluate_Tool -DarchetypeArtif
 mvn eclipse:eclipse -Dwtpversion=2.0
 mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
 mvn clean compile test -Djetty.port=8083 jetty:run
-
+ssh se@10.152.229.246
+ssh se@172.16.250.68
 
 *** git ****
 git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
