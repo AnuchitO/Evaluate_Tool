@@ -26,26 +26,32 @@ public class EvaluateBoardController {
 	private EvaluateBoardService evaluateBoardService;
 
 	@RequestMapping(value="/evaluateBoard",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,HttpServletResponse arg1) throws Exception {
-		String idRoom = arg0.getParameter("idRoom");
-		String idCourse = arg0.getParameter("idCourse");
-		String nameCourse = arg0.getParameter("nameCourse");
-		String idExaminer = arg0.getParameter("idExaminer");
-		String nameExaminer = arg0.getParameter("nameExaminer");
-		String lastNameExaminer = arg0.getParameter("lastNameExaminer");
-		String idCommittee = arg0.getParameter("idCommittee");
-		String nameCommittee = arg0.getParameter("nameCommittee");
-		String lastNameCommittee = arg0.getParameter("lastNameCommittee");
+	public ModelAndView handleGetRequest(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String idRoom = request.getParameter("idRoom");
+		String idCourse = request.getParameter("idCourse");
+		String idExaminer = request.getParameter("idExaminer");
+		String nameExaminer = request.getParameter("nameExaminer");
+		String lastNameExaminer = request.getParameter("lastNameExaminer");
+		String idCommittee = request.getParameter("idCommittee");
+		String nameCommittee = request.getParameter("nameCommittee");
+		String lastNameCommittee = request.getParameter("lastNameCommittee");
+		String idModulator = request.getParameter("idModulator");
+		String yourPosition = request.getParameter("yourPosition");
+		String idCourseName = getCourseName(idCourse);
+
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
-		model.put("nameCourse", nameCourse);
+		model.put("nameCourse", idCourseName);
 		model.put("idExaminer", idExaminer);
 		model.put("nameExaminer", nameExaminer);
 		model.put("lastNameExaminer", lastNameExaminer);
 		model.put("idCommittee", idCommittee);
 		model.put("nameCommittee", nameCommittee);
 		model.put("lastNameCommittee", lastNameCommittee);
+		model.put("idModulator", idModulator);
+		model.put("yourPosition", yourPosition);
+		
 		return new ModelAndView("evaluateBoard",model);
 
 	}
@@ -77,6 +83,21 @@ public class EvaluateBoardController {
 		String status = this.evaluateBoardService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
 
 		return status;
+	}
+
+	public String getCourseName(String courseId){
+		Long idCourse = Long.parseLong(courseId);
+		String nameCourse = evaluateBoardService.getCourseName(idCourse);
+		return nameCourse;	
+	}
+	
+	@RequestMapping(value="/setStatus",method=RequestMethod.POST)
+	public @ResponseBody String setStatusRoom(@RequestParam(value="roomId") String data ,HttpServletRequest request,HttpServletResponse response){
+		
+		JSONObject room = new JSONObject(data);
+		Long roomId = room.getLong("roomId");
+		this.evaluateBoardService.setStatusRoom(roomId);
+		return "Success";
 	}
 
 }

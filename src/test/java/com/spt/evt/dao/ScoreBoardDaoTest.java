@@ -36,13 +36,13 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		room.setId(1L);
 		
 		Person committee = new Person();
-		committee.setId(3L);
+		committee.setId(2L);
 
 		Topic topic = new Topic();
 		topic.setId(1L);
 
 		Person examiner = new Person();
-		examiner.setId(2L);
+		examiner.setId(6L);
 
 		ScoreBoard scoreBoard = scoreBoardDao
 				.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);

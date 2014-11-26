@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spt.evt.service.LogInService;
+import com.spt.evt.service.impl.LogInServiceImpl;
 
 @Controller
 public class LogInController {
 
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(LogInController.class);
+	
 	@Autowired
 	private LogInService logInService;
 

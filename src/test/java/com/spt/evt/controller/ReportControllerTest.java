@@ -52,7 +52,6 @@ public class ReportControllerTest extends TemplateTestController {
 	@Test
 	public void jsonSample() throws Exception {
 		LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-	}  
-
+	}
 
 }

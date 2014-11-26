@@ -36,4 +36,10 @@ public class RoomServiceImpl implements RoomService{
 		return this.roomDao.findByStatus(status);
 	}
 
+	@Override
+	public void setStatusRoom(Room room) {
+		this.roomDao.setStatusByRoom(room);
+		
+	}
+
 }

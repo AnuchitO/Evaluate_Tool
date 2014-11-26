@@ -43,4 +43,9 @@ public class ParticipantServiceImpl implements ParticipantsService {
 		return examiner;
 	}
 
+	@Override
+	public List<Participants> findByPerson(Person person) {
+		return this.participantsDao.findByPerson(person);
+	}
+
 }

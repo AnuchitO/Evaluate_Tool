@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,21 +20,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spt.evt.service.EvaluateBoardService;
 import com.spt.evt.service.ExaminationRoomService;
+import com.spt.evt.service.impl.LogInServiceImpl;
 
 @Controller
 public class ExaminationRoomController {
 
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(ExaminationRoomController.class);
+	
 	@Autowired
 	private ExaminationRoomService examinationRoomService;
 
 	@RequestMapping(value="/examinationRoom",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
+	public ModelAndView handleGetRequest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-		String yourId = arg0.getParameter("yourId");
+		String yourId = request.getParameter("yourId");
+		String yourPosition = request.getParameter("yourPosition");
 		JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
 		Map model = new HashMap();
 		model.put("yourId", yourId);
+		model.put("yourPosition", yourPosition);
 		model.put("room", roomInformation.toString());
 		return new ModelAndView("examinationRoom", model);
 	}
@@ -43,7 +51,8 @@ public class ExaminationRoomController {
 		Long roomId		 	= Long.parseLong(personDetail.getString("roomId"));
 		Long examinerId 	= Long.parseLong(personDetail.getString("examinerId"));
 		Long committeeId 	= Long.parseLong(personDetail.getString("committeeId"));
-		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId);
+		Long modulatorId	= Long.parseLong(personDetail.getString("modulatorId"));
+		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId,modulatorId);
 		return committeeInformation.toString();
 	}
 

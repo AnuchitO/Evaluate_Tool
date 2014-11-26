@@ -6,6 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Examiner Board</title>
 <style>
+.navbar-default {
+	background-color: #FF8C00;
+}
+
+.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+	color: black;
+}
+
+.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+	color: black;
+}
+
 .bs-sidebar {
 	background-color: #D8D8D8;
 }
@@ -23,17 +35,43 @@
 .highlight {
 	background: yellow;
 }
+
+a {
+	cursor: pointer;
+}
+
+.btn {
+	background-color: #FF8C00;
+}
 </style>
 </head>
 <body>
 	<input type="hidden" id="roomId" value="${idRoom}" />
+	<input type="hidden" id="yourId" value="${yourId}" />
+	<input type="hidden" id="yourPosition" value="${yourPosition}" />
 	<label id="examinerId" value="${idExaminer}"></label>
 	<br>
 	<label id="courseId" value="${idCourse}"></label>
 	<div class="row">
-		<pre>
-			<strong>Evaluate Tool</strong>
-		</pre>
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle"
+						data-target=".navbar-collapse" data-toggle="collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="">Evaluate Board</a>
+				</div>
+				<div id="bs-navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a id="room">Room</a></li>
+						<li><a id="logOut">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
@@ -251,6 +289,19 @@
 						}
 					});
 		}
+		$("#room").click(
+				function() {
+					var yourId = $("#yourId").attr('value');
+					var yourPosition = $("#yourPosition").val();
+					location.href = "/EvaluateTool/application/examinationRoom"
+							+ "?yourId=" + encodeURIComponent(yourId)
+							+ "&yourPosition="
+							+ encodeURIComponent(yourPosition);
+					;
+				});
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 	</script>
 </body>
 </html>

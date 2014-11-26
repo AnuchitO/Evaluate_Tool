@@ -34,10 +34,14 @@ public class ExaminerDashBoardController {
 		String idRoom = request.getParameter("idRoom");
 		String idCourse = request.getParameter("idCourse");
 		String idExaminer = request.getParameter("idExaminer");
+		String yourId = request.getParameter("yourId");
+		String yourPosition = request.getParameter("yourPosition");
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
 		model.put("idExaminer", idExaminer);
+		model.put("yourId", yourId);
+		model.put("yourPosition", yourPosition);
 
 		return new ModelAndView("examinerDashBoard",model);
 

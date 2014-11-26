@@ -6,6 +6,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Evaluate Tool</title>
 <style>
+.navbar-default {
+	background-color: #FF8C00;
+}
+
+.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+	color: black;
+}
+
+.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+	color: black;
+}
+
+th {
+	background-color: #FF8C00;
+}
+
+.tableBody {
+	background-color: #FFD700;
+}
+
 a {
 	cursor: pointer;
 }
@@ -20,6 +40,10 @@ table>thead>tr>th {
 
 table>tbody>tr>td {
 	text-align: center;
+}
+
+.btn {
+	background-color: #FF8C00;
 }
 </style>
 </head>
@@ -38,11 +62,13 @@ table>tbody>tr>td {
 				</div>
 				<div id="bs-navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
+						<li><a id="room">Room</a></li>
 						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		<input type="hidden" id="yourId" value="${yourId}" />
 		<div id="formTable" class="row">
 			<div id="setSizeWordExaminer"
 				class="col-sm-1 col-md-1 col-sm-offset-3 col-md-offset-3">
@@ -50,7 +76,7 @@ table>tbody>tr>td {
 			</div>
 			<div id="setSizeTable" class="col-sm-3 col-md-3">
 				<select id="pickExaminer" class="selectpicker" data-width="100%">
-					<option id="optionAll">ALL</option>
+					<option id="optionAll" value="null">ALL</option>
 				</select>
 			</div>
 			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
@@ -68,17 +94,18 @@ table>tbody>tr>td {
 							<th>Examiner</th>
 							<th>Score</th>
 							<th>Percent</th>
+							<th>Date</th>
 						</tr>
 					</thead>
-					<tbody id="tableBody">
-						<tr id="tableRow">
-							<td id="tableDataName"></td>
-							<td id="tableDataScore"></td>
-							<td id="tableDataPercent"></td>
+					<tbody id="tableBody0" class="tableBody">
+						<tr id="tableRow0">
+							<td id="tableDataName" class="td"></td>
+							<td id="tableDataScore" class="td"></td>
+							<td id="tableDataPercent" class="td"></td>
+							<td id="tableDate" class="td"></td>
 						</tr>
 					</tbody>
 				</table>
-
 			</div>
 		</div>
 	</div>
@@ -87,42 +114,128 @@ table>tbody>tr>td {
 	<script>
 		$(function() {
 			$("#table").hide();
+			$("#tableBody0").hide();
+			$("#tableRow0").hide();
+			$("#tableDataName").hide();
+			$("#tableDataScore").hide();
+			$("#tableDataPercent").hide();
+			$("#tableDate").hide();
 			$("#option0").hide();
-			var doneRoom = JSON.parse('${room}');
+			var completedRoom = JSON.parse('${completeRoom}');
 			var dummyOption = 0;
 			var dummyRoomId = 0;
 			var genOptionId = ("#option" + dummyOption);
 			var genRoomId = ("#roomId" + dummyRoomId);
 
-			$.each(doneRoom, function(i, item) {
+			$.each(completedRoom, function(i, item) {
 
 				item.forEach(function(room) {
-					var nameAndLastName = room.examiner;
-					var roomId = room.id;
 
+					var nameAndLastName = room.examiner;
+					var examinerId = room.examinerId;
 					$("#option0").clone()
 							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(roomId).insertAfter(
-									genOptionId).show().appendTo(
+									nameAndLastName).val(examinerId)
+							.insertAfter(genOptionId).show().appendTo(
 									$("#pickExaminer"));
 				});
 			});
 
 		});
-		function showRoom(room) {
-			var room = {};
-			room.roomId = $("#pickExaminer").val();
-			var dataRoomId = JSON.stringify(room);
+		function showRoom(examinerId) {
+			$("#tableBody1").remove();
+			var examiner = {};
+			examiner.id = examinerId;
+			var examinerId = JSON.stringify(examiner);
 			$
 					.ajax({
 						url : "/EvaluateTool/application/getroomscore",
 						type : 'POST',
 						data : {
-							dataRoomId : dataRoomId
+							examinerId : examinerId
 						},
 						success : function(data) {
-							var score = JSON.parse(data).score;
-							createTable(score);
+							var report = JSON.parse(data);
+							var dummyTableBody = 0;
+							var dummyTableRow = 0;
+							var genTableBody = $("#tableBody" + dummyTableBody);
+							var genTableRow = $("#tableRow" + dummyTableRow);
+							$
+									.each(
+											report,
+											function(i, item) {
+												$("#tableBody0")
+														.clone()
+														.attr(
+																'id',
+																'tableBody'
+																		+ (++dummyTableBody))
+														.insertAfter(
+																genTableBody)
+														.fadeIn('slow')
+														.appendTo($("#table"));
+												item
+														.forEach(function(
+																report) {
+															$("#table").show();
+															$("#tableRow0")
+																	.clone()
+																	.attr(
+																			'id',
+																			'tableRow'
+																					+ (++dummyTableRow))
+																	.insertAfter(
+																			genTableRow)
+																	.show()
+																	.appendTo(
+																			$("#tableBody"
+																					+ dummyTableBody));
+															$("#tableDataName")
+																	.clone()
+																	.text(
+																			report.examiner)
+																	.show()
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															$("#tableDataScore")
+																	.clone()
+																	.text(
+																			report.score
+																					+ " of "
+																					+ report.topicTotal)
+																	.show()
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+
+															if (report.topicTotal == 0) {
+																report.topicTotal = 1;
+															}
+															var percent = (report.score / report.topicTotal) * 100;
+
+															$(
+																	"#tableDataPercent")
+																	.clone()
+																	.text(
+																			percent
+																					+ "%")
+																	.show()
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															$("#tableDate")
+																	.clone()
+																	.text(
+																			report.dateTest)
+																	.show()
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+														});
+
+											});
+
 						},
 						error : function(data, status, er) {
 							alert("error: " + data + " status: " + status
@@ -130,16 +243,16 @@ table>tbody>tr>td {
 						}
 					});
 		}
-		function createTable(score) {
-			$("#table").show();
-			$("#tableRow").appendTo($("#tableBody"));
-			$("#tableDataName").text($("#pickExaminer option:selected").text())
-					.appendTo($("#tableRow"));
-			$("#tableDataScore").text(score + " of " + score).appendTo(
-					$("#tableRow"));
-			var percent = (score * 100) / score;
-			$("#tableDataPercent").text(percent + "%").appendTo($("#tableRow"));
-		}
+		$("#room").click(
+				function() {
+					var yourId = $("#yourId").attr('value');
+					location.href = "/EvaluateTool/application/examinationRoom"
+							+ "?yourId=" + encodeURIComponent(yourId);
+					;
+				});
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 	</script>
 </body>
 </html>

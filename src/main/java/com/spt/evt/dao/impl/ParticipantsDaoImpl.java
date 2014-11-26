@@ -28,5 +28,13 @@ public class ParticipantsDaoImpl extends TemplateHibernateDaoSupport implements 
 		List<Participants> result = (List<Participants>) this.getHibernateTemplate().findByCriteria(criteria);
 		return result;
 	}
+
+	@Override
+	public List<Participants> findByPerson(Person person) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Participants.class);
+		criteria.add(Restrictions.eq("person", person));
+		List<Participants> result = (List<Participants>) this.getHibernateTemplate().findByCriteria(criteria);
+		return result;
+	}
 	
 }

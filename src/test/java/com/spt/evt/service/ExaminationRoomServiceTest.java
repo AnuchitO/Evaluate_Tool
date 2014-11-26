@@ -34,7 +34,8 @@ public class ExaminationRoomServiceTest extends AbstractTestService {
 		Long roomId = 1L;
 		Long examinerId= 2L;
 		Long committeeId  = 3L;
-		JSONObject personInRoomInformation = this.examinationService.getPersonInRoomInformation(roomId, examinerId, committeeId);
+		Long modulatorId = 2L;
+		JSONObject personInRoomInformation = this.examinationService.getPersonInRoomInformation(roomId, examinerId, committeeId, modulatorId);
 		Assert.assertTrue(personInRoomInformation.has("idRoom"));
 		Assert.assertTrue(0!=personInRoomInformation.length());
 	}

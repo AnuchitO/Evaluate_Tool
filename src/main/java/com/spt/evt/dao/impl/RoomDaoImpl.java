@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spt.evt.dao.RoomDao;
 import com.spt.evt.entity.Room;
@@ -33,6 +34,13 @@ public class RoomDaoImpl extends TemplateHibernateDaoSupport implements RoomDao 
 		criteria.add(Restrictions.eq("status", status));
 		List<Room> resultRoom = (List<Room>) this.getHibernateTemplate().findByCriteria(criteria);
 		return resultRoom;
+	}
+
+	@Override
+	@Transactional
+	public void setStatusByRoom(Room room) {
+		room.setStatus("Completed");
+		this.getHibernateTemplate().saveOrUpdate(room);
 	}
 
 }
