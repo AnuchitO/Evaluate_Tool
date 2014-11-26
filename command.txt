@@ -6,7 +6,6 @@ mvn clean compile tomcat:run -Dmaven.tomcat.port=8083
 mvn clean compile test -Djetty.port=8083 jetty:run
 
 mvn clean compile test  -Dtest=ScoreBoardDaoTest
-
 ssh se@10.152.229.246
 ssh se@172.16.250.68
 
