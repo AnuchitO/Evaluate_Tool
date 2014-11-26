@@ -14,3 +14,8 @@ git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
 git remote show origin
 git merge dev --no-ff
 git push -u origin master
+
+******
+Jenkins
+http://172.16.250.24:8899/pluginManager/available
+http://172.16.250.24:9000/sonar/
