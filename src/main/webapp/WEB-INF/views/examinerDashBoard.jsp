@@ -47,6 +47,8 @@ a {
 </head>
 <body>
 	<input type="hidden" id="roomId" value="${idRoom}" />
+	<input type="hidden" id="yourId" value="${yourId}" />
+	<input type="hidden" id="yourPosition" value="${yourPosition}" />
 	<label id="examinerId" value="${idExaminer}"></label>
 	<br>
 	<label id="courseId" value="${idCourse}"></label>
@@ -64,6 +66,7 @@ a {
 				</div>
 				<div id="bs-navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
+						<li><a id="room">Room</a></li>
 						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
@@ -286,6 +289,19 @@ a {
 						}
 					});
 		}
+		$("#room").click(
+				function() {
+					var yourId = $("#yourId").attr('value');
+					var yourPosition = $("#yourPosition").val();
+					location.href = "/EvaluateTool/application/examinationRoom"
+							+ "?yourId=" + encodeURIComponent(yourId)
+							+ "&yourPosition="
+							+ encodeURIComponent(yourPosition);
+					;
+				});
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 	</script>
 </body>
 </html>

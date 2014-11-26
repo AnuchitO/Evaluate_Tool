@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spt.evt.dao.RoomDao;
 import com.spt.evt.entity.Course;
+import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
@@ -20,7 +22,7 @@ import com.spt.evt.service.EvaluateBoardService;
 public class EvaluateBoardServiceImpl extends ProviderService implements EvaluateBoardService {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(EvaluateBoardServiceImpl.class);
-
+	
 	@Override
 	public JSONObject getCourseInformation(Long roomId, Long examinerId, Long committeeId,Long courseId) {
 
@@ -116,6 +118,12 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		Course course 		= this.getCourseService().findById(courseId);
 		String courseName = course.getDescription();
 		return courseName;
+	}
+
+	@Override
+	public void setStatusRoom(Long roomId) {
+		Room room = this.getRoomService().findById(roomId);
+		this.getRoomService().setStatusRoom(room);
 	}
 
 }

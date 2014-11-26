@@ -87,8 +87,8 @@
 											var yourName = JSON.parse(data).name;
 											var yourLastName = JSON.parse(data).lastName;
 											var yourPosition = JSON.parse(data).position;
-											alert("Wellcome , " + yourName
-													+ " " + yourLastName);
+											//alert("Wellcome , " + yourName
+											//		+ " " + yourLastName);
 											location.href = "/EvaluateTool/application/examinationRoom"
 													+ "?yourId="
 													+ encodeURIComponent(yourId)

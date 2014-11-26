@@ -37,7 +37,6 @@ public class ExaminationRoomController {
 
 		String yourId = request.getParameter("yourId");
 		String yourPosition = request.getParameter("yourPosition");
-		//getPosition(yourPosition);
 		JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
 		Map model = new HashMap();
 		model.put("yourId", yourId);
@@ -52,15 +51,9 @@ public class ExaminationRoomController {
 		Long roomId		 	= Long.parseLong(personDetail.getString("roomId"));
 		Long examinerId 	= Long.parseLong(personDetail.getString("examinerId"));
 		Long committeeId 	= Long.parseLong(personDetail.getString("committeeId"));
-		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId);
+		Long modulatorId	= Long.parseLong(personDetail.getString("modulatorId"));
+		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId,modulatorId);
 		return committeeInformation.toString();
 	}
-	
-//	public String getPosition(String yourPosition){
-//		if(yourPosition.equals("Software Development Trainee")){
-//			
-//		}
-//		return yourPosition;
-//	}
 
 }

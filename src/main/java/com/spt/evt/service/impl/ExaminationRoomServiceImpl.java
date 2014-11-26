@@ -41,6 +41,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	}
 
 	private void findExaminerAndModulator(JSONObject roomDetail, Room room) {
+		Long personModulatorId;
 		String personModulatorName;
 		String personModulatorLastName;
 		String personModulator;
@@ -63,9 +64,11 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 				roomDetail.put("examiner", personExaminer);
 			}
 			else if(isModulator){
+				personModulatorId = participants.getPerson().getId();
 				personModulatorName = participants.getPerson().getName();
 				personModulatorLastName = participants.getPerson().getLastName();
 				personModulator = personModulatorName +" "+ personModulatorLastName;
+				roomDetail.put("modulatorId", personModulatorId);
 				roomDetail.put("modulator", personModulator);
 
 			}
@@ -74,11 +77,12 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	}
 
 	@Override
-	public JSONObject getPersonInRoomInformation(Long roomId, Long examinerId, Long committeeId) {
+	public JSONObject getPersonInRoomInformation(Long roomId, Long examinerId, Long committeeId, Long modulatorId) {
 		JSONObject personInRoomInformation = new JSONObject();
 		Room room			= this.getRoomService().findById(roomId);
 		Person examiner 	= this.getPersonService().findById(examinerId);
 		Person committee 	= this.getPersonService().findById(committeeId);
+		Person modulator	= this.getPersonService().findById(modulatorId);
 		personInRoomInformation.put("idRoom", room.getId());
 		personInRoomInformation.put("idCourse", room.getCourseId());
 		personInRoomInformation.put("idExaminer", examiner.getId());
@@ -87,6 +91,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		personInRoomInformation.put("idCommittee", committee.getId());
 		personInRoomInformation.put("nameCommittee", committee.getName());
 		personInRoomInformation.put("lastNameCommittee", committee.getLastName());
+		personInRoomInformation.put("idModulator", modulator.getId());
 		return personInRoomInformation;
 	}
 

@@ -31,11 +31,12 @@ public class ReportController {
 	private ReportService reportService;
 
 	@RequestMapping(value="/report",method=RequestMethod.GET)
-	public ModelAndView handleGetRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		
+	public ModelAndView handleGetRequest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String yourId = request.getParameter("yourId");
 		JSONObject completeRoomInformation = this.reportService.getAllScore();
 		Map model = new HashMap();
+		model.put("yourId", yourId);
 		model.put("completeRoom", completeRoomInformation.toString());
 
 		return new ModelAndView("report",model);

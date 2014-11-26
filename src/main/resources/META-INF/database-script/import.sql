@@ -89,7 +89,7 @@ insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,u
 insert into  Enroll (id,person,course)  values(1,2,1) 
 
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (1, 'Watcharapong','Room Java',1,'2014-12-01 09:00:00','2014-12-01 10:00:00','Completed')
-insert into Room (id,name,description,courseId,startTime,endTime,status) values (2, 'Thananun','Room Java',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Completed')
+insert into Room (id,name,description,courseId,startTime,endTime,status) values (2, 'Thananun','Room Java',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (3, 'Rittichai','Room Java',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (4, 'Anupat','Room Java',1,'2014-12-01 13:00:00','2014-12-01 14:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (5, 'Aphirat','Room Assembly',1,'2014-12-01 09:00:00','2014-12-01 10:00:00','Testing')

@@ -35,6 +35,8 @@ public class EvaluateBoardController {
 		String idCommittee = request.getParameter("idCommittee");
 		String nameCommittee = request.getParameter("nameCommittee");
 		String lastNameCommittee = request.getParameter("lastNameCommittee");
+		String idModulator = request.getParameter("idModulator");
+		String yourPosition = request.getParameter("yourPosition");
 		String idCourseName = getCourseName(idCourse);
 
 		Map model = new HashMap();
@@ -47,6 +49,9 @@ public class EvaluateBoardController {
 		model.put("idCommittee", idCommittee);
 		model.put("nameCommittee", nameCommittee);
 		model.put("lastNameCommittee", lastNameCommittee);
+		model.put("idModulator", idModulator);
+		model.put("yourPosition", yourPosition);
+		
 		return new ModelAndView("evaluateBoard",model);
 
 	}
@@ -84,6 +89,15 @@ public class EvaluateBoardController {
 		Long idCourse = Long.parseLong(courseId);
 		String nameCourse = evaluateBoardService.getCourseName(idCourse);
 		return nameCourse;	
+	}
+	
+	@RequestMapping(value="/setStatus",method=RequestMethod.POST)
+	public @ResponseBody String setStatusRoom(@RequestParam(value="roomId") String data ,HttpServletRequest request,HttpServletResponse response){
+		
+		JSONObject room = new JSONObject(data);
+		Long roomId = room.getLong("roomId");
+		this.evaluateBoardService.setStatusRoom(roomId);
+		return "Success";
 	}
 
 }

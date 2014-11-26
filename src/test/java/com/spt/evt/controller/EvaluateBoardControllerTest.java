@@ -2,6 +2,7 @@ package com.spt.evt.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -47,6 +48,7 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 	@Test
 	public void get_showEvaluateBoard() throws Exception {
 		String courseId = "1";
+		String roomId = "1";
 		mockMvc.perform(get("/evaluateBoard").param("idCourse", courseId))
 		.andExpect(status().isOk())
 		.andExpect(view().name("evaluateBoard"))
@@ -56,7 +58,14 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 	@Test
 	public void jsonSample() throws Exception {
 		LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-	}  
-
+	}
+	
+	@Test
+	public void setStatusRoom() {
+		//Long roomId = 1L;
+		//String status = this.setStatusRoom(roomId);
+		
+		//Assert.assertThat("A",is("A"));
+	}
 
 }

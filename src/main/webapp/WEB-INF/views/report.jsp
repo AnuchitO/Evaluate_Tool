@@ -62,11 +62,13 @@ table>tbody>tr>td {
 				</div>
 				<div id="bs-navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
+						<li><a id="room">Room</a></li>
 						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		<input type="hidden" id="yourId" value="${yourId}" />
 		<div id="formTable" class="row">
 			<div id="setSizeWordExaminer"
 				class="col-sm-1 col-md-1 col-sm-offset-3 col-md-offset-3">
@@ -241,6 +243,13 @@ table>tbody>tr>td {
 						}
 					});
 		}
+		$("#room").click(
+				function() {
+					var yourId = $("#yourId").attr('value');
+					location.href = "/EvaluateTool/application/examinationRoom"
+							+ "?yourId=" + encodeURIComponent(yourId);
+					;
+				});
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});

@@ -239,6 +239,10 @@ a {
 .test {
 	border-bottom: 1px solid #ccc;
 }
+
+#btnCompleteExamination {
+	background-color: #FF8C00;
+}
 </style>
 </head>
 
@@ -260,6 +264,7 @@ a {
 						<!-- <li><a id="presenting">Presenting</a></li>
 						<li><a id="topicList">Topic List</a></li> -->
 						<li><a id="room">Room</a></li>
+						<li><a id="report">Report</a></li>
 						<!-- <li id="notificationModulator_li">
 							 <span id="notification_count">3</span>  <a
 							id="notificationModulator" class="glyphicon glyphicon-user"></a>
@@ -282,7 +287,7 @@ a {
 								</div>
 							</div>
 						</li> -->
-						
+
 						<li><a id="logOut">Logout</a></li>
 					</ul>
 				</div>
@@ -295,12 +300,16 @@ a {
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-		<input type="hidden" id="roomId" value="${idRoom}" /> <label
+		<input type="hidden" id="roomId" value="${idRoom}" /><input
+			type="hidden" id="modulatorId" value="${idModulator}" /><input
+			type="hidden" id="yourPosition" value="${yourPosition}" /> <label
 			id="examinerId" value="${idExaminer}">Examiner :
 			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
 			value="${idCommittee}">Committee : ${nameCommittee}
 			${lastNameCommittee}</label> <br> <label id="courseId"
-			value="${idCourse}">Course : ${nameCourse}</label>
+			value="${idCourse}">Course : ${nameCourse}</label> <br>
+		<button id="btnCompleteExamination" type="button"
+			class="btn btn-default" value="">Complete</button>
 		<div id="formBoard">
 			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 				id="submitTopic" style="margin: 2px;"></label> / <label
@@ -581,6 +590,7 @@ a {
 		}
 
 		$(function() {
+
 			var $loading = $('#loader').hide();
 			$(document).ajaxStart(function() {
 				$loading.show();
@@ -618,6 +628,7 @@ a {
 			$("#btnOne0").hide();
 			$("#panelRealTime").hide();
 			$("#accordion").empty();
+			$("#btnCompleteExamination").hide();
 
 			var data = {};
 			data.roomId = $("#roomId").val();
@@ -1046,6 +1057,11 @@ a {
 				}
 				$("#submitTopic").text(keepTopicOfSubmit);
 				$("#totalTopic").text(numberOfTopic);
+				var checkModulatorId = $("#modulatorId").val();
+				var checkCommitteeId = $("#committeeId").attr('value');
+				if (checkModulatorId == checkCommitteeId) {
+					$("#btnCompleteExamination").show();
+				}
 			}
 
 			//$("#topicList").click(function() {
@@ -1061,15 +1077,23 @@ a {
 					.click(
 							function() {
 								var yourId = $("#committeeId").attr('value');
+								var yourPosition = $("#yourPosition").val();
 								location.href = "/EvaluateTool/application/examinationRoom"
 										+ "?yourId="
-										+ encodeURIComponent(yourId);
+										+ encodeURIComponent(yourId)
+										+ "&yourPosition="
+										+ encodeURIComponent(yourPosition);
 								;
 							});
 			$("#logOut").click(function() {
 				location.href = "/EvaluateTool/application/logIn";
 			});
-
+			$("#report").click(
+					function() {
+						var yourId = $("#committeeId").attr('value');
+						location.href = "/EvaluateTool/application/report"
+								+ "?yourId=" + encodeURIComponent(yourId);
+					});
 			$("#notificationModulator").click(function() {
 				$("#notificationContainer").hide();
 				$("#notificationContainerModulator").fadeToggle(300);
@@ -1138,9 +1162,31 @@ a {
 								$("#notificationContainerModulator").hide();
 								$("#notificationContainer").fadeToggle(300);
 								//$("#notification_count").fadeOut("slow");
-								return false;
+								//return false;
 							});
 
+			$("#btnCompleteExamination").click(
+					function() {
+						var data = {};
+						data.roomId = $("#roomId").val();
+
+						var roomId = JSON.stringify(data);
+						$.ajax({
+							url : "/EvaluateTool/application/setStatus",
+							type : 'POST',
+							data : {
+								roomId : roomId
+							},
+							success : function(data) {
+								var course = JSON.parse(data);
+								createCollapse(course);
+							},
+							error : function(data, status, er) {
+								alert("error: " + data + " status: " + status
+										+ " er:" + er);
+							}
+						});
+					});
 			//Document Click hiding the popup 
 			$(document).click(function() {
 				$("#notificationContainerModulator").hide();

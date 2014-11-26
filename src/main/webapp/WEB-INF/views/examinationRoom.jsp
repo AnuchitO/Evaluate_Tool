@@ -50,7 +50,7 @@ a {
 }
 </style>
 <body>
-	<input type="hidden" id="committeeId" value="${yourId}" />
+	<input type="hidden" id="yourId" value="${yourId}" />
 	<input type="hidden" id="yourPosition" value="${yourPosition}" />
 	<div class="row">
 		<div class="navbar navbar-default" role="navigation">
@@ -88,14 +88,16 @@ a {
 	<div id="roomTime0"></div>
 	<input type="hidden" id="examinerId0" value="" />
 	<div id="examiner0"></div>
+	<input type="hidden" id="modulatorId0" value="" />
 	<div id="modulator0"></div>
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button" class="btn btn-default examiner"
+	<button id="btnExaminer0" type="button"
+		class="btn btn-default examiner"
 		onClick="javascript:sendIdExaminer(this)">Examiner</button>
-	<button id="btnCommittee0" type="button" class="btn btn-default committee"
-		onClick="javascript:sendId(this)">Committee</button>
+	<button id="btnCommittee0" type="button"
+		class="btn btn-default committee" onClick="javascript:sendId(this)">Committee</button>
 
 	<script>
 		$(function() {
@@ -130,6 +132,7 @@ a {
 			var dummyTime = 0;
 			var dummyExaminerId = 0;
 			var dummyExaminer = 0;
+			var dummyModulatorId = 0;
 			var dummyModulator = 0;
 			var dummyRoomStatus = 0;
 			var dummySetHalfSizeOne = 0;
@@ -150,6 +153,7 @@ a {
 			var genTime = ("#roomTime" + dummyTime);
 			var genExaminerId = ("#examinerId" + dummyExaminerId);
 			var genExaminer = ("#examiner" + dummyExaminer);
+			var genModulatorId = ("#modulatorId" + dummyModulatorId);
 			var genModulator = ("#modulator" + dummyModulator);
 			var genRoomStatus = ("#roomStatus" + dummyRoomStatus);
 			var genSetHalfSizeOne = ("#setHalfSizeOne" + dummySetHalfSizeOne);
@@ -173,6 +177,7 @@ a {
 											var roomEndTime = room.endTime;
 											var roomExaminerId = room.examinerId;
 											var roomExaminer = room.examiner;
+											var roomModulatorId = room.modulatorId;
 											var roomModulator = room.modulator;
 											var roomStatus = room.status;
 
@@ -332,6 +337,18 @@ a {
 													.appendTo(
 															$("#setSizeDetail"
 																	+ dummyDetail));
+											$("#modulatorId0")
+													.clone()
+													.attr(
+															'id',
+															'modulatorId'
+																	+ (++dummyModulatorId))
+													.val(roomModulatorId)
+													.insertAfter(genModulatorId)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
 											$("#modulator0")
 													.clone()
 													.attr(
@@ -410,12 +427,12 @@ a {
 																	+ dummySetHalfSizeTwo));
 										});
 								var yourPosition = $("#yourPosition").val();
-								
-								if(yourPosition=="Software Development Trainee"){
+
+								if (yourPosition == "Software Development Trainee") {
 									//alert(yourPosition);
-									$(".committee").attr('disabled', 'disabled');
-								}
-								else {
+									$(".committee")
+											.attr('disabled', 'disabled');
+								} else {
 									//alert(yourPosition);
 									$(".examiner").attr('disabled', 'disabled');
 								}
@@ -425,8 +442,9 @@ a {
 			var count = (element.id).replace(/[^\d.]/g, '');
 			var detailPerson = {};
 			detailPerson.roomId = $("#roomId" + count).val();
-			detailPerson.committeeId = $("#committeeId").val();
+			detailPerson.committeeId = $("#yourId").val();
 			detailPerson.examinerId = $("#examinerId" + count).val();
+			detailPerson.modulatorId = $("#modulatorId" + count).val();
 			var dataPersonId = JSON.stringify(detailPerson);
 			$
 					.ajax({
@@ -444,6 +462,8 @@ a {
 							var idCommittee = JSON.parse(data).idCommittee;
 							var nameCommittee = JSON.parse(data).nameCommittee;
 							var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+							var idModulator = JSON.parse(data).idModulator;
+							var yourPosition = $("#yourPosition").val();
 							location.href = "/EvaluateTool/application/evaluateBoard"
 									+ "?idRoom="
 									+ encodeURIComponent(idRoom)
@@ -460,7 +480,11 @@ a {
 									+ "&nameCommittee="
 									+ encodeURIComponent(nameCommittee)
 									+ "&lastNameCommittee="
-									+ encodeURIComponent(lastNameCommittee);
+									+ encodeURIComponent(lastNameCommittee)
+									+ "&idModulator="
+									+ encodeURIComponent(idModulator)
+									+ "&yourPosition="
+									+ encodeURIComponent(yourPosition);
 						},
 						error : function(data, status, er) {
 							alert("error: " + data + " status: " + status
@@ -471,14 +495,17 @@ a {
 		function sendIdExaminer(element) {
 			count = (element.id).replace(/[^\d.]/g, '');
 			var roomId = $("#roomId" + count).val();
+			var yourId = $("#yourId").val();
+			var yourPosition = $("#yourPosition").val();
 			var examinerId = $("#examinerId" + count).val();
 			var courseId = $("#courseId" + count).val();
 
 			location.href = "/EvaluateTool/application/examinerDashBoard"
 					+ "?idRoom=" + encodeURIComponent(roomId) + "&idExaminer="
 					+ encodeURIComponent(examinerId) + "&idCourse="
-					+ encodeURIComponent(courseId);
-
+					+ encodeURIComponent(courseId) + "&yourId="
+					+ encodeURIComponent(yourId) + "&yourPosition="
+					+ encodeURIComponent(yourPosition);
 		}
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
