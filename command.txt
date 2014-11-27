@@ -10,6 +10,8 @@ ssh se@10.152.229.246
 ssh se@172.16.250.68
 
 --- Deploy ---
+user:evt
+pass:evt
 mvn tomcat7:deploy
 mvn tomcat7:undeploy 
 mvn tomcat7:redeploy
@@ -25,5 +27,6 @@ git push -u origin master
 Jenkins
 http://172.16.250.24:8899/pluginManager/available
 http://172.16.250.24:9000/sonar/
+http://172.16.250.129:8899/
 
 java -jar jenkins.war --httpPort=8899
