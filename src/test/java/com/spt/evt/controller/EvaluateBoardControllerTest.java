@@ -48,7 +48,6 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 	@Test
 	public void get_showEvaluateBoard() throws Exception {
 		String courseId = "1";
-		String roomId = "1";
 		mockMvc.perform(get("/evaluateBoard").param("idCourse", courseId))
 		.andExpect(status().isOk())
 		.andExpect(view().name("evaluateBoard"))

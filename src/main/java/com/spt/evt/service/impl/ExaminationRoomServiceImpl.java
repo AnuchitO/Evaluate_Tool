@@ -1,7 +1,6 @@
 package com.spt.evt.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -93,6 +92,26 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		personInRoomInformation.put("lastNameCommittee", committee.getLastName());
 		personInRoomInformation.put("idModulator", modulator.getId());
 		return personInRoomInformation;
+	}
+
+	public JSONObject findParticipantsByPersonId(Long personId) {
+		JSONObject participantsDetail = new JSONObject();
+		JSONObject personDetail = null;
+		Person person = this.getPersonService().findById(personId);
+		List<Participants> participants = findParticipantsByPerson(person);
+		for(Participants participant : participants){
+			personDetail = new JSONObject();
+			personDetail.put("idRoom", participant.getRoom().getId());
+			personDetail.put("idPerson", participant.getPerson().getId());
+			participantsDetail.append("room", personDetail);
+		}
+		
+		return participantsDetail;
+	}
+	
+	public List<Participants> findParticipantsByPerson(Person person) {
+		List<Participants> participants = this.getParticipantsService().findByPerson(person);
+		return participants;
 	}
 
 }
