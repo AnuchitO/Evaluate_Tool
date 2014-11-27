@@ -16,7 +16,6 @@ mvn tomcat7:deploy
 mvn tomcat7:undeploy 
 mvn tomcat7:redeploy
 
-
 *** git ****
 git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
 git remote show origin
