@@ -412,7 +412,7 @@
 					<configuration>
 						<url>http://localhost:8084/manager/text</url>
 						<server>Apache_Tomcat_7_Softplus</server>
-						<path>/EvaluateTool/application/logIn</path>
+						<path>/EvaluateTool</path>
 					</configuration>
 			</plugin>
 		</plugins>
