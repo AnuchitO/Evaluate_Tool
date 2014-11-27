@@ -9,6 +9,12 @@ mvn clean compile test  -Dtest=ScoreBoardDaoTest
 ssh se@10.152.229.246
 ssh se@172.16.250.68
 
+--- Deploy ---
+mvn tomcat7:deploy
+mvn tomcat7:undeploy 
+mvn tomcat7:redeploy
+
+
 *** git ****
 git remote add origin https://github.com/AnuchitPrasertsang/Evaluate_Tool.git
 git remote show origin
@@ -19,3 +25,5 @@ git push -u origin master
 Jenkins
 http://172.16.250.24:8899/pluginManager/available
 http://172.16.250.24:9000/sonar/
+
+java -jar jenkins.war --httpPort=8899
