@@ -43,7 +43,8 @@ public class ExaminationRoomControllerTest extends TemplateTestController {
 
 	@Test
 	public void get_showEvaluateBoard() throws Exception {
-		mockMvc.perform(get("/examinationRoom"))
+		String yourId = "1";
+		mockMvc.perform(get("/examinationRoom").param("yourId", yourId))
 		.andExpect(status().isOk())
 		.andExpect(view().name("examinationRoom"))
 		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));

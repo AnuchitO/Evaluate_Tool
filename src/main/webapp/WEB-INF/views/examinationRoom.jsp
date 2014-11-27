@@ -93,10 +93,10 @@ a {
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button"
+	<button id="btnExaminer0" type="button" disabled="disabled"
 		class="btn btn-default examiner"
 		onClick="javascript:sendIdExaminer(this)">Examiner</button>
-	<button id="btnCommittee0" type="button"
+	<button id="btnCommittee0" type="button" disabled="disabled"
 		class="btn btn-default committee" onClick="javascript:sendId(this)">Committee</button>
 
 	<script>
@@ -119,6 +119,7 @@ a {
 			$("#btnCommittee0").hide();
 
 			var allRoom = JSON.parse('${room}');
+			var memberEachRoom = JSON.parse('${memberEachRoom}');
 			var dummySetSizeCard = 0;
 			var dummyRoom = 0;
 			var dummyBody = 0;
@@ -213,17 +214,6 @@ a {
 													.appendTo(
 															$("#room"
 																	+ dummyRoom));
-											//$("#setSizeProgress0")
-											//		.clone()
-											//		.attr(
-											//				'id',
-											//				'setSizeProgress'
-											//						+ (++dummyProgress))
-											//		.insertAfter(genProgress)
-											//		.show()
-											//		.appendTo(
-											//				$("#body"
-											//						+ dummyRoom));
 											$("#setSizeDetail0")
 													.clone()
 													.attr(
@@ -426,16 +416,24 @@ a {
 															$("#setHalfSizeTwo"
 																	+ dummySetHalfSizeTwo));
 										});
-								var yourPosition = $("#yourPosition").val();
 
-								if (yourPosition == "Software Development Trainee") {
-									//alert(yourPosition);
-									$(".committee")
-											.attr('disabled', 'disabled');
-								} else {
-									//alert(yourPosition);
-									$(".examiner").attr('disabled', 'disabled');
+								var count = 0;
+								var lengthOfMemberEachRoom = memberEachRoom.room.length;
+								var lengthOfAllroom = allRoom.room.length;
+								for (count; count < lengthOfMemberEachRoom; count++) {
+									var memberOfRoom = memberEachRoom.room[count].idRoom;
+
+									if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
+										$("#btnExaminer" + (memberOfRoom))
+												.removeAttr('disabled',
+														'disabled');
+									} else {
+										$("#btnCommitte" + (memberOfRoom))
+												.removeAttr('disabled',
+														'disabled');
+									}
 								}
+
 							});
 		});
 		function sendId(element) {

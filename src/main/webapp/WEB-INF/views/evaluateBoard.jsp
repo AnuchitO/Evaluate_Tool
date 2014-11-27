@@ -1178,8 +1178,7 @@ a {
 								roomId : roomId
 							},
 							success : function(data) {
-								var course = JSON.parse(data);
-								createCollapse(course);
+
 							},
 							error : function(data, status, er) {
 								alert("error: " + data + " status: " + status
