@@ -410,7 +410,7 @@
 					<artifactId>tomcat7-maven-plugin</artifactId>
 					<version>2.2</version>
 					<configuration>
-						<url>http://localhost:8084/manager/text</url>
+						<url>http://localhost:8083/manager/text</url>
 						<server>Apache_Tomcat_7_Softplus</server>
 						<path>/EvaluateTool</path> 
 					</configuration>
