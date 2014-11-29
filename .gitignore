@@ -5,7 +5,7 @@ target
 EvaluateTool.iml
 
 .idea/
-Database/
+Database/*
 EvaluateTool.ipr
 EvaluateTool.iws
 derby.log
