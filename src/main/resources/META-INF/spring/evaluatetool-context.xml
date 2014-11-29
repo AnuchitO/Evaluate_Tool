@@ -85,7 +85,7 @@
 
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-			<property name="url" value="jdbc:derby:/home/nong/KATA/Evaluate_Tool/Database/dbEvaluateTool"/>
+			<property name="url" value="jdbc:derby:/home/nong/KATA/Evaluate_Tool_Document/Database/dbEvaluateTool"/>
 			<property name="username" value="evt"/>
 			<property name="password" value="evt"/>
 		</bean>
