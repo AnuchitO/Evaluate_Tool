@@ -6,3 +6,6 @@ EvaluateTool.iml
 
 .idea/
 Database/
+EvaluateTool.ipr
+EvaluateTool.iws
+derby.log
