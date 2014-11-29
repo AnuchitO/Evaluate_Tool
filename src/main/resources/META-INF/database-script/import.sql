@@ -88,7 +88,17 @@ insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,u
 insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(13,'Ratthawit','Thanasansathien','Male','ratthawit_t@softsquaregroup.com','1992-01-29 00:00:00','0878114556','Assistance BA','ratthawit_t','ratthawit_t')
 insert into  Person (id,name,lastName,gender,email,birthDay,phone,positionName,userName,password) values(14,'Atittaya','Panchan','Female','atittaya_p@softsquaregroup.com','1992-05-31 00:00:00','0831362530','Assistance BA','atittaya_p','atittaya_p')
 
-insert into  Enroll (id,person,course)  values(1,2,1) 
+insert into  Enroll (id,person,course)  values(1,6,1)
+insert into  Enroll (id,person,course)  values(2,7,1)
+insert into  Enroll (id,person,course)  values(3,8,1)
+insert into  Enroll (id,person,course)  values(4,9,1)
+insert into  Enroll (id,person,course)  values(5,10,1)
+insert into  Enroll (id,person,course)  values(6,11,1)
+insert into  Enroll (id,person,course)  values(7,12,1)
+insert into  Enroll (id,person,course)  values(8,13,1)
+insert into  Enroll (id,person,course)  values(9,14,1)
+
+
 
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (1, 'First','Room Java',1,'2014-12-01 09:00:00','2014-12-01 10:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (2, 'Toto','Room Java',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Testing')
