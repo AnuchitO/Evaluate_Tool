@@ -34,11 +34,16 @@ public class ReportController {
 	public ModelAndView handleGetRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String yourId = request.getParameter("yourId");
+		String name = request.getParameter("yourName");
+		String lastName = request.getParameter("yourLastName");
+		String yourPosition = request.getParameter("yourPosition");
 		JSONObject completeRoomInformation = this.reportService.getAllScore();
 		Map model = new HashMap();
 		model.put("yourId", yourId);
+		model.put("name", name);
+		model.put("lastName", lastName);
+		model.put("yourPosition", yourPosition);
 		model.put("completeRoom", completeRoomInformation.toString());
-
 		return new ModelAndView("report",model);
 	}
 
