@@ -55,10 +55,10 @@ a {
 	</div>
 	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 	<div id="room0" class="panel panel-default"></div>
-	<div id="body0" class="panel-body" style="background-color:#fff7cc"></div>
+	<div id="body0" class="panel-body"></div>
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 	<div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
-	<div id="roomName0"></div>
+	<b><div id="roomName0" style="font-size:20pt;"></div></b>
 	<input type="hidden" id="roomId0" value="" />
 	<div id="courseName0"></div>
 	<input type="hidden" id="courseId0" value="" />
@@ -68,7 +68,7 @@ a {
 	<div id="examiner0"></div>
 	<input type="hidden" id="modulatorId0" value="" />
 	<div id="modulator0"></div>
-	<div id="roomStatus0"></div>
+	<div id="roomStatus0" class="checkStatus"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
 	<button id="btnExaminer0" type="button"  disabled="disabled"
@@ -131,6 +131,7 @@ a {
 			function notificationsubmitandcalcel(){
 				$("#loader").toggle();
 			}
+
 		$(function() {
 			$("#setSizeCard0").hide();
 			$("#room0").hide();
@@ -475,8 +476,20 @@ a {
 														'disabled');		
 									}
 								}
-
 							});
+				/*Check Status And AddColor Card*/
+				$("div[class=checkStatus]").each(function(index,element){
+					var status=$(this).html();
+					var indexbody=index+1;
+					//alert(indexbody);
+					if(status==("Status : Completed")){
+						$("div[id=body"+indexbody+"]").css("background-color","#d0f8a6");
+					}else if(status==("Status : Testing")){
+						$("div[id=body"+indexbody+"]").css("background-color","#b0e1df");
+					}else if(status==("Status : Waiting")){
+						$("div[id=body"+indexbody+"]").css("background-color","#ffc166");
+					}
+				});
 		});
 		function sendId(element) {
 			var count = (element.id).replace(/[^\d.]/g, '');
@@ -550,6 +563,7 @@ a {
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});
+		
 	</script>
 </body>
 </html>

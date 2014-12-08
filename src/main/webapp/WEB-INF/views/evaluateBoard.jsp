@@ -262,8 +262,8 @@ pageEncoding="UTF-8"%>
 			value="${idCommittee}">Committee : ${nameCommittee}
 			${lastNameCommittee}</label> <br> <label id="courseId"
 			value="${idCourse}">Course : ${nameCourse}</label> <br>
-			<button id="btnCompleteExamination" type="button"
-			class="btn btn-default" value="">Complete</button>
+<!-- 			<button id="btnCompleteExamination" type="button"
+			class="btn btn-default" value="">Complete</button> -->
 			<div id="formBoard">
 				<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 					id="submitTopic" style="margin: 2px;"></label> / <label
@@ -369,6 +369,9 @@ pageEncoding="UTF-8"%>
 	</div>
 
 	<script>
+		$("#menuleftbtnCompleteExamination").hide();
+		$("#showbtnCompleteExamination").hide();
+		$("#btnCompleteExamination").hide();
 		var yourPosition='${yourPosition}';
 		var fullname = '${nameCommittee}'+'${lastNameCommittee}';
 		$("#fullname").html(fullname);
@@ -376,6 +379,9 @@ pageEncoding="UTF-8"%>
 		var checkCommitteeId = $("#committeeId").attr('value');
 		if(checkModulatorId==checkCommitteeId){
 			if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
+				$("#menuleftbtnCompleteExamination").show();
+				$("#showbtnCompleteExamination").show();
+				$("#btnCompleteExamination").show();
 				$("#headdropdownapprovepermission").show();
 				$("#headdropdownsubmitandcancel").show();
 				$("#menuleft").show();
@@ -770,7 +776,7 @@ pageEncoding="UTF-8"%>
 			$("#btnOne0").hide();
 			$("#panelRealTime").hide();
 			$("#accordion").empty();
-			$("#btnCompleteExamination").hide();
+			//$("#btnCompleteExamination").hide();
 
 			var data = {};
 			data.roomId = $("#roomId").val();
@@ -1201,9 +1207,9 @@ $("#submitTopic").text(keepTopicOfSubmit);
 $("#totalTopic").text(numberOfTopic);
 var checkModulatorId = $("#modulatorId").val();
 var checkCommitteeId = $("#committeeId").attr('value');
-if (checkModulatorId == checkCommitteeId) {
-	$("#btnCompleteExamination").show();
-}
+/*if (checkModulatorId == checkCommitteeId) {
+	$("#btnCompleteExamination").hide();
+}*/
 }
 
 			//$("#topicList").click(function() {
@@ -1234,7 +1240,14 @@ $("#report").click(
 	function() {
 		var yourId = $("#committeeId").attr('value');
 		location.href = "/EvaluateTool/application/report"
-		+ "?yourId=" + encodeURIComponent(yourId);
+		+ "?yourId=" 
+		+ encodeURIComponent(yourId)
+		+ "&yourPosition="
+		+ encodeURIComponent(yourPosition)
+		+ "&yourName="
+		+ encodeURIComponent('${nameCommittee}')
+		+ "&yourLastName="
+		+ encodeURIComponent('${lastNameCommittee}');
 	});
 $("#notificationModulator").click(function() {
 	$("#notificationContainer").hide();
@@ -1311,7 +1324,6 @@ $("#btnCompleteExamination").click(
 	function() {
 		var data = {};
 		data.roomId = $("#roomId").val();
-
 		var roomId = JSON.stringify(data);
 		$.ajax({
 			url : "/EvaluateTool/application/setStatus",

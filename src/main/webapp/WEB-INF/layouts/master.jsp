@@ -127,7 +127,7 @@
 																</div>
 																<div class="content" hidden id="configreport">
 																	<div lass="summary">
-																		<a href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/report.png" width="35px" height="32px"/></p></a>
+																		<a id="report" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/report.png" width="35px" height="32px"/></p></a>
 																		Report
 																	</div>
 																</div>
@@ -182,17 +182,9 @@
 										<img class="glyphicon" src="${contextPath}/resources/images/002.png" width="32px" height="30px" />
 										Favorites
 									</a>
-									<a class="red item">
-										<img class="glyphicon" src="${contextPath}/resources/images/003.png" width="32px" height="30px" />
-										Mail
-									</a>
-									<a class="teal item">
-										<img class="glyphicon" src="${contextPath}/resources/images/003.png" width="32px" height="30px" />
-										Lab
-									</a>
-									<a class="green item">
-										<img class="glyphicon" src="${contextPath}/resources/images/003.png" width="32px" height="30px" />
-										Favorites
+									<a id="menuleftbtnCompleteExamination" class="green item">
+										<div id="showbtnCompleteExamination"><button id="btnCompleteExamination" type="button"
+			class="btn btn-default" value="">Complete</button></div>
 									</a>
 								</div>
 							</div>

@@ -247,8 +247,14 @@ table>tbody>tr>td {
 				function() {
 					var yourId = $("#yourId").attr('value');
 					location.href = "/EvaluateTool/application/examinationRoom"
-							+ "?yourId=" + encodeURIComponent(yourId);
-					;
+							+ "?yourId=" + encodeURIComponent(yourId)
+							+ "&yourPosition="
+							+ encodeURIComponent('${yourPosition}')
+							+ "&yourName="
+							+ encodeURIComponent('${name}')
+							+ "&yourLastName="
+							+ encodeURIComponent('${lastName}');
+							;
 				});
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
