@@ -41,43 +41,21 @@
 	background-color: #FF8C00;
 }
 
-.panel-body {
-	background-color: #FFD700;
-}
 
 a {
 	cursor: pointer;
 }
 </style>
 <body>
+
 	<input type="hidden" id="yourId" value="${yourId}" />
 	<input type="hidden" id="yourPosition" value="${yourPosition}" />
-	<div class="row">
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle"
-						data-target=".navbar-collapse" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">Evaluate Board</a>
-				</div>
-				<div id="bs-navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a id="logOut">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id="container" class="row">
 		<div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
 	</div>
-	<div id="setSizeCard0" class="col-sm-6 col-md-5"></div>
+	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 	<div id="room0" class="panel panel-default"></div>
-	<div id="body0" class="panel-body"></div>
+	<div id="body0" class="panel-body" style="background-color:#fff7cc"></div>
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 	<div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
 	<div id="roomName0"></div>
@@ -93,13 +71,66 @@ a {
 	<div id="roomStatus0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button" disabled="disabled"
-		class="btn btn-default examiner"
+	<button id="btnExaminer0" type="button"  disabled="disabled"
+		class="ui orange tiny disabled button"
 		onClick="javascript:sendIdExaminer(this)">Examiner</button>
-	<button id="btnCommittee0" type="button" disabled="disabled"
-		class="btn btn-default committee" onClick="javascript:sendId(this)">Committee</button>
-
+	<button id="btnCommittee0" type="button"  disabled="disabled"
+		class="ui orange tiny disabled button" onClick="javascript:sendId(this)">Committee</button>
+	<div id="loader" align="center" style="position:fixed;left:50%;top:50%">
+				<img src="resources/images/loading.gif" alt="" />
+			</div>
 	<script>
+		var yourPosition='${yourPosition}';
+		var name='${name}';
+		var lastname='${lastname}';
+		$("#fullname").html(name+" "+lastname);
+		$("#loader").hide();
+		if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
+				$("#btnnotificationsubmitandcalcel").show();
+				$("#headdropdownapprovepermission").hide();
+				$("#headdropdownsubmitandcancel").hide();
+				$("#menuleft").hide();
+				$("#imgmenuleft").hide();
+				$("#contenthead").removeClass("col-md-10 column");
+				$("#contenthead").addClass("col-md-12 column");
+			}else{
+				$("#btnnotificationsubmitandcalcel").hide();
+				$("#headdropdownapprovepermission").hide();
+				$("#headdropdownsubmitandcancel").hide();
+				$("#menuleft").hide();
+				$("#imgmenuleft").hide();
+				$("#contentcol2").hide();
+				$("#contenthead").removeClass("col-md-10 column");
+				$("#contenthead").addClass("col-md-12 column");
+			}
+			if(yourPosition=="Software Analyst"){
+				$("#confighome").show();
+				$("#configroom").show();
+				$("#configreport").show();
+				$("#confighistory").show();
+				$("#configmanager").show();
+			}else if(yourPosition=="Manager"){
+				$("#confighome").show();
+				$("#configroom").show();
+				$("#configreport").show();
+				$("#confighistory").show();
+				$("#configmanager").show();
+			}else if(yourPosition=="Software Development Trainee"){
+				$("#confighome").show();
+				$("#configroom").show();
+				$("#configreport").hide();
+				$("#confighistory").hide();
+				$("#configmanager").hide();
+			}else{
+				$("#confighome").show();
+				$("#configroom").show();
+				$("#configreport").show();
+				$("#confighistory").show();
+				$("#configmanager").hide();
+			}
+			function notificationsubmitandcalcel(){
+				$("#loader").toggle();
+			}
 		$(function() {
 			$("#setSizeCard0").hide();
 			$("#room0").hide();
@@ -166,7 +197,6 @@ a {
 					.each(
 							allRoom,
 							function(i, item) {
-
 								item
 										.forEach(function(room) {
 											var roomId = room.id;
@@ -425,12 +455,24 @@ a {
 
 									if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
 										$("#btnExaminer" + (memberOfRoom))
+												.removeClass('ui orange tiny disabled button'
+														);
+										$("#btnExaminer" + (memberOfRoom))
+												.addClass('ui orange tiny button'
+														);
+										$("#btnExaminer" + (memberOfRoom))
 												.removeAttr('disabled',
-														'disabled');
+														'disabled');		
 									} else {
 										$("#btnCommitte" + (memberOfRoom))
+												.removeClass('ui orange tiny disabled button'
+														);
+										$("#btnCommitte" + (memberOfRoom))
+												.addClass('ui orange tiny button'
+														);
+										$("#btnCommitte" + (memberOfRoom))
 												.removeAttr('disabled',
-														'disabled');
+														'disabled');		
 									}
 								}
 

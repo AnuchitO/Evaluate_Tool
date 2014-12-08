@@ -1,298 +1,252 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evaluate Board</title>
-<style>
-#formBoard {
-	margin: 40px;
-}
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Evaluate Board</title>
+	<style>
+		#formBoard {
+			margin: 40px;
+		}
 
-#require {
-	margin-top: 10px;
-}
+		#require {
+			margin-top: 10px;
+		}
 
-#message {
-	margin-top: 10px;
-}
+		#message {
+			margin-top: 10px;
+		}
 
-.navbar-default {
-	background-color: #FF8C00;
-}
+		.navbar-default {
+			background-color: #FF8C00;
+		}
 
-.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
-	color: black;
-}
+		.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+			color: black;
+		}
 
-.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
-	color: black;
-}
+		.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+			color: black;
+		}
 
-.panel-default>.panel-heading {
-	background-color: #FF8C00;
-	color: black;
-}
+		.panel-default>.panel-heading {
+			background-color: #FF8C00;
+			color: black;
+		}
 
-.panel-default>.panel-body {
-	
-}
+		.panel-default>.panel-body {
 
-.panel-collapse>.panel-body>.nav-pills>li>a {
-	background-color: #FFD700;
-}
+		}
 
-#btn0 {
-	margin-top: 10px;
-	margin-right: 100px;
-	box-shadow: 3px 5px 0px 0px #97c4fe;
-	border-radius: 30px;
-	cursor: pointer;
-	font-size: 20px;
-	padding: 15px 25px;
-}
+		.panel-collapse>.panel-body>.nav-pills>li>a {
+			background-color: #FFD700;
+		}
 
-#btn03 {
-	margin-top: 10px;
-	margin-right: 100px;
-	box-shadow: 3px 5px 0px 0px #97c4fe;
-	border-radius: 30px;
-	cursor: pointer;
-	font-size: 20px;
-	padding: 15px 16px;
-}
+		#btn0 {
+			margin-top: 10px;
+			margin-right: 100px;
+			box-shadow: 3px 5px 0px 0px #97c4fe;
+			border-radius: 30px;
+			cursor: pointer;
+			font-size: 20px;
+			padding: 15px 25px;
+		}
 
-#btn05 {
-	margin-top: 10px;
-	margin-right: 100px;
-	box-shadow: 3px 5px 0px 0px #97c4fe;
-	border-radius: 30px;
-	cursor: pointer;
-	font-size: 20px;
-	padding: 15px 16px;
-}
+		#btn03 {
+			margin-top: 10px;
+			margin-right: 100px;
+			box-shadow: 3px 5px 0px 0px #97c4fe;
+			border-radius: 30px;
+			cursor: pointer;
+			font-size: 20px;
+			padding: 15px 16px;
+		}
 
-#btn08 {
-	margin-top: 10px;
-	margin-right: 100px;
-	box-shadow: 3px 5px 0px 0px #97c4fe;
-	border-radius: 30px;
-	cursor: pointer;
-	font-size: 20px;
-	padding: 15px 16px;
-}
+		#btn05 {
+			margin-top: 10px;
+			margin-right: 100px;
+			box-shadow: 3px 5px 0px 0px #97c4fe;
+			border-radius: 30px;
+			cursor: pointer;
+			font-size: 20px;
+			padding: 15px 16px;
+		}
 
-#btn1 {
-	margin-top: 10px;
-	margin-right: 100px;
-	box-shadow: 3px 5px 0px 0px #97c4fe;
-	border-radius: 30px;
-	cursor: pointer;
-	font-size: 20px;
-	padding: 15px 25px;
-}
+		#btn08 {
+			margin-top: 10px;
+			margin-right: 100px;
+			box-shadow: 3px 5px 0px 0px #97c4fe;
+			border-radius: 30px;
+			cursor: pointer;
+			font-size: 20px;
+			padding: 15px 16px;
+		}
 
-.nav-pills>li {
-	border-radius: 5px;
-	background-color: #BDBDBD;
-}
+		#btn1 {
+			margin-top: 10px;
+			margin-right: 100px;
+			box-shadow: 3px 5px 0px 0px #97c4fe;
+			border-radius: 30px;
+			cursor: pointer;
+			font-size: 20px;
+			padding: 15px 25px;
+		}
 
-.nav-pills>li>a {
-	color: black;
-}
+		.nav-pills>li {
+			border-radius: 5px;
+			background-color: #BDBDBD;
+		}
 
-.panel-heading {
-	cursor: pointer;
-}
+		.nav-pills>li>a {
+			color: black;
+		}
 
-a {
-	cursor: pointer;
-}
+		.panel-heading {
+			cursor: pointer;
+		}
 
-.badge {
-	background-color: #585858;
-}
+		a {
+			cursor: pointer;
+		}
 
-#notificationModulator_li {
-	position: relative;
-}
+		.badge {
+			background-color: #585858;
+		}
 
-#notificationContainerModulator {
-	background-color: #fff;
-	border: 1px solid rgba(100, 100, 100, .4);
-	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-	overflow: visible;
-	position: absolute;
-	top: 30px;
-	margin-left: -170px;
-	width: 400px;
-	display: none;
-}
+		#notificationModulator_li {
+			position: relative;
+		}
 
-#notificationContainerModulator:before {
-	content: '';
-	display: block;
-	position: absolute;
-	width: 0;
-	height: 0;
-	color: transparent;
-	border: 10px solid black;
-	border-color: transparent transparent white;
-	margin-top: -20px;
-	margin-left: 188px;
-}
+		#notificationContainerModulator {
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 30px;
+			margin-left: -170px;
+			width: 400px;
+			display: none;
+		}
 
-#notificationTitleModulator {
-	font-weight: bold;
-	padding: 8px;
-	font-size: 13px;
-	background-color: #ffffff;
-	position: absolute;
-	z-index: 1000;
-	width: 384px;
-	border-bottom: 1px solid #dddddd;
-}
+		#notificationContainerModulator:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+		}
 
-#notificationsBodyModulator {
-	padding: 33px 0px 0px 0px !important;
-	min-height: 300px;
-}
+		#notificationTitleModulator {
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #ffffff;
+			position: absolute;
+			z-index: 1000;
+			width: 384px;
+			border-bottom: 1px solid #dddddd;
+		}
 
-#notificationFooterModulator {
-	background-color: #e9eaed;
-	text-align: center;
-	font-weight: bold;
-	padding: 8px;
-	font-size: 12px;
-	border-top: 1px solid #dddddd;
-}
+		#notificationsBodyModulator {
+			padding: 33px 0px 0px 0px !important;
+			min-height: 300px;
+		}
 
-#notification_li {
-	position: relative;
-}
+		#notificationFooterModulator {
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+		}
 
-#notificationContainer {
-	background-color: #fff;
-	border: 1px solid rgba(100, 100, 100, .4);
-	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-	overflow: visible;
-	position: absolute;
-	top: 30px;
-	margin-left: -170px;
-	width: 400px;
-	display: none;
-}
+		#notification_li {
+			position: relative;
+		}
 
-#notificationContainer:before {
-	content: '';
-	display: block;
-	position: absolute;
-	width: 0;
-	height: 0;
-	color: transparent;
-	border: 10px solid black;
-	border-color: transparent transparent white;
-	margin-top: -20px;
-	margin-left: 188px;
-}
+		#notificationContainer {
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 30px;
+			margin-left: -170px;
+			width: 400px;
+			display: none;
+		}
 
-#notificationTitle {
-	font-weight: bold;
-	padding: 8px;
-	font-size: 13px;
-	background-color: #ffffff;
-	position: absolute;
-	z-index: 1000;
-	width: 384px;
-	border-bottom: 1px solid #dddddd;
-}
+		#notificationContainer:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+		}
 
-#notificationsBody {
-	padding: 33px 0px 0px 0px !important;
-	min-height: 300px;
-}
+		#notificationTitle {
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #ffffff;
+			position: absolute;
+			z-index: 1000;
+			width: 384px;
+			border-bottom: 1px solid #dddddd;
+		}
 
-#notificationFooter {
-	background-color: #e9eaed;
-	text-align: center;
-	font-weight: bold;
-	padding: 8px;
-	font-size: 12px;
-	border-top: 1px solid #dddddd;
-}
+		#notificationsBody {
+			padding: 33px 0px 0px 0px !important;
+			min-height: 300px;
+		}
 
-#notification_count {
-	padding: 3px 7px 3px 7px;
-	background: #cc0000;
-	color: #ffffff;
-	font-weight: bold;
-	margin-left: 77px;
-	border-radius: 9px;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	position: absolute;
-	margin-top: -11px;
-	font-size: 11px;
-}
+		#notificationFooter {
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+		}
 
-.test {
-	border-bottom: 1px solid #ccc;
-}
+		#notification_count {
+			padding: 3px 7px 3px 7px;
+			background: #cc0000;
+			color: #ffffff;
+			font-weight: bold;
+			margin-left: 77px;
+			border-radius: 9px;
+			-moz-border-radius: 9px;
+			-webkit-border-radius: 9px;
+			position: absolute;
+			margin-top: -11px;
+			font-size: 11px;
+		}
 
-#btnCompleteExamination {
-	background-color: #FF8C00;
-}
-</style>
+		.test {
+			border-bottom: 1px solid #ccc;
+		}
+
+		#btnCompleteExamination {
+			background-color: #FF8C00;
+		}
+	</style>
 </head>
 
 <body>
-	<div id="container" class="container">
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle"
-						data-target=".navbar-collapse" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">Evaluate Board</a>
-				</div>
-				<div id="bs-navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<!-- <li><a id="presenting">Presenting</a></li>
-						<li><a id="topicList">Topic List</a></li> -->
-						<li><a id="room">Room</a></li>
-						<li><a id="report">Report</a></li>
-						<!-- <li id="notificationModulator_li">
-							 <span id="notification_count">3</span>  <a
-							id="notificationModulator" class="glyphicon glyphicon-user"></a>
-							<div id="notificationContainerModulator">
-								<div id="notificationTitleModulator">Depute to modulator</div>
-								<div id="notificationsBodyModulator"></div>
-								<div id="notificationFooterModulator">
-									<a href="#">See All</a>
-								</div>
-							</div>
-						</li>
-						<li id="notification_li">
-							 <span id="notification_count">3</span>  <a
-							id="notificationLink" class="glyphicon glyphicon-bell"></a>
-							<div id="notificationContainer">
-								<div id="notificationTitle">Request to join room</div>
-								<div id="notificationsBody"></div>
-								<div id="notificationFooter">
-									<a href="#">See All</a>
-								</div>
-							</div>
-						</li> -->
-
-						<li><a id="logOut">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
 		<div id="nameOfRequestToJoinRoom0" class="test"></div>
 		<button id="btnAccept" type="button" class="btn btn-default">Accept</button>
 		<button id="btnDecline" type="button" class="btn btn-default">Decline</button>
@@ -300,7 +254,7 @@ a {
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-		<input type="hidden" id="roomId" value="${idRoom}" /><input
+			<input type="hidden" id="roomId" value="${idRoom}" /><input
 			type="hidden" id="modulatorId" value="${idModulator}" /><input
 			type="hidden" id="yourPosition" value="${yourPosition}" /> <label
 			id="examinerId" value="${idExaminer}">Examiner :
@@ -308,106 +262,106 @@ a {
 			value="${idCommittee}">Committee : ${nameCommittee}
 			${lastNameCommittee}</label> <br> <label id="courseId"
 			value="${idCourse}">Course : ${nameCourse}</label> <br>
-		<button id="btnCompleteExamination" type="button"
+			<button id="btnCompleteExamination" type="button"
 			class="btn btn-default" value="">Complete</button>
-		<div id="formBoard">
-			<span id="submitOfAllTOpic" class="badge pull-right">Total <label
-				id="submitTopic" style="margin: 2px;"></label> / <label
-				id="totalTopic" style="margin: 2px;"></label></span> <br> <br>
-			<div class="panel-group" id="accordion"></div>
-		</div>
-
-		<div id="panelRealTime" class="panel panel-default">
-			<div class="panel-heading">
-				<label id="subject">${subject}</label> : <label id="title">${title}</label>
-			</div>
-			<div class="panel-body">
-				<label id="detail">${detail}</label>
-				<textarea id="message" class="form-control" rows="3"
-					placeholder="comment here"></textarea>
-
-				<div id="panelButtonScore" class="btn-group">
-					<button id="btn0" type="button" class="btn btn-default" value="0">0</button>
-					<button id="btn03" type="button" class="btn btn-default"
-						value="0.3">0.3</button>
-					<button id="btn05" type="button" class="btn btn-default"
-						value="0.5">0.5</button>
-					<button id="btn08" type="button" class="btn btn-default"
-						value="0.8">0.8</button>
-					<button id="btn1" type="button" class="btn btn-default" value="1">1</button>
+			<div id="formBoard">
+				<span id="submitOfAllTOpic" class="badge pull-right">Total <label
+					id="submitTopic" style="margin: 2px;"></label> / <label
+					id="totalTopic" style="margin: 2px;"></label></span> <br> <br>
+					<div class="panel-group" id="accordion"></div>
 				</div>
 
-				<button id="buttonSubmit" type="button" class="btn btn-default"
-					style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
-			</div>
-		</div>
+				<div id="panelRealTime" class="panel panel-default">
+					<div class="panel-heading">
+						<label id="subject">${subject}</label> : <label id="title">${title}</label>
+					</div>
+					<div class="panel-body">
+						<label id="detail">${detail}</label>
+						<textarea id="message" class="form-control" rows="3"
+						placeholder="comment here"></textarea>
 
-		<!----------------------Model Collapse---------------------->
-		<div id="panelCollapse0" class="panel panel-default"></div>
-		<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
-			data-parent="#accordion" href="#collapse0" data-target="#collapse0">
-		</div>
-		<h4 id="panelTitle0" class="panel-title"></h4>
-		<span id="spanTopic0" class="badge pull-right"
+						<div id="panelButtonScore" class="btn-group">
+							<button id="btn0" type="button" class="btn btn-default" value="0">0</button>
+							<button id="btn03" type="button" class="btn btn-default"
+							value="0.3">0.3</button>
+							<button id="btn05" type="button" class="btn btn-default"
+							value="0.5">0.5</button>
+							<button id="btn08" type="button" class="btn btn-default"
+							value="0.8">0.8</button>
+							<button id="btn1" type="button" class="btn btn-default" value="1">1</button>
+						</div>
+
+						<button id="buttonSubmit" type="button" class="btn btn-default"
+						style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
+					</div>
+				</div>
+
+				<!----------------------Model Collapse---------------------->
+				<div id="panelCollapse0" class="panel panel-default"></div>
+				<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
+				data-parent="#accordion" href="#collapse0" data-target="#collapse0">
+			</div>
+			<h4 id="panelTitle0" class="panel-title"></h4>
+			<span id="spanTopic0" class="badge pull-right"
 			style="background-color: #585858;"></span> <label
 			id="submitEachTopic0" style="margin: 2px;"></label> <label
 			id="totalEachTopic0" style="margin: 2px;"></label>
-		<div id="collapse0" class="panel-collapse collapse"></div>
-		<div id="panelBody0" class="panel-body"></div>
-		<ul id="navpills0" class="nav nav-pills nav-stacked">
-		</ul>
-		<li id="listNavpills0" onClick="javascript:showModal(this);"></li> <a
-			id="linkToScore0" href="#"></a> <span id="spanScore0"
+			<div id="collapse0" class="panel-collapse collapse"></div>
+			<div id="panelBody0" class="panel-body"></div>
+			<ul id="navpills0" class="nav nav-pills nav-stacked">
+			</ul>
+			<li id="listNavpills0" onClick="javascript:showModal(this);"></li> <a
+			id="linkToScore0" ></a> <span id="spanScore0"
 			class="badge pull-right"></span>
-		<!----------------------Model Collapse---------------------->
+			<!----------------------Model Collapse---------------------->
 
-		<!----------------------Model Panel in Modal---------------------->
-		<div id="panelScore0" class="panel panel-default"></div>
-		<div id="panelScoreHead0" class="panel-heading"></div>
-		<label id="panelScoreSubject0" class="textSubject"></label>
-		<button id="panelScoreBtnClose" type="button" class="close"
+			<!----------------------Model Panel in Modal---------------------->
+			<div id="panelScore0" class="panel panel-default"></div>
+			<div id="panelScoreHead0" class="panel-heading"></div>
+			<label id="panelScoreSubject0" class="textSubject"></label>
+			<button id="panelScoreBtnClose" type="button" class="close"
 			data-dismiss="modal" aria-hidden="true">&times;</button>
-		<div id="panelScoreBody0" class="panel-body"></div>
-		<span id="dummyKeepIdTopic0" class="textId"></span> <label
+			<div id="panelScoreBody0" class="panel-body"></div>
+			<span id="dummyKeepIdTopic0" class="textId"></span> <label
 			id="panelScoreDescription0" class="textDescription"></label>
-		<textarea id="panelScoreMessage0" class="form-control" rows="3"
+			<textarea id="panelScoreMessage0" class="form-control" rows="3"
 			placeholder="comment here"></textarea>
-		<div id="panelScoreBtnGroup0" class="btn-group">
-			<button id="btnZero0" type="button" class="btn btn-default" value="0"
+			<div id="panelScoreBtnGroup0" class="btn-group">
+				<button id="btnZero0" type="button" class="btn btn-default" value="0"
 				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">0</button>
-			<button id="btnThree0" type="button" class="btn btn-default"
+				<button id="btnThree0" type="button" class="btn btn-default"
 				value="0.3"
 				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.3</button>
-			<button id="btnFive0" type="button" class="btn btn-default"
+				<button id="btnFive0" type="button" class="btn btn-default"
 				value="0.5"
 				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.5</button>
-			<button id="btnEight0" type="button" class="btn btn-default"
+				<button id="btnEight0" type="button" class="btn btn-default"
 				value="0.8"
 				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 16px;">0.8</button>
-			<button id="btnOne0" type="button" class="btn btn-default" value="1"
+				<button id="btnOne0" type="button" class="btn btn-default" value="1"
 				onClick="javascript:setScore(this.id,$(this).parent().attr('id'))"
 				style="margin-top: 10px; margin-right: 20px; box-shadow: 3px 5px 0px 0px #97c4fe; border-radius: 30px; cursor: pointer; font-size: 20px; padding: 15px 25px;">1</button>
-		</div>
-		<button id="panelScoreBtnSubmit0" type="button"
+			</div>
+			<button id="panelScoreBtnSubmit0" type="button"
 			class="btn btn-default"
 			onClick="javascript:sendDetailScoreOfTopic(this,$(this).parent().attr('id'));"
 			style="margin: 20px; background-color: #FF8C00; color: #FFFFFF;">Submit</button>
-		<!----------------------Model Panel in Modal---------------------->
+			<!----------------------Model Panel in Modal---------------------->
 
-		<!----------------------Model Modal---------------------->
-		<div class="modal fade" id="modalScore0" tabindex="-1" role="dialog"
+			<!----------------------Model Modal---------------------->
+			<div class="modal" style="width:600px;height:350px" id="modalScore0" tabindex="-1" 
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
-		<div id="modalScoreDialog0" class="modal-dialog"></div>
-		<!----------------------Model Modal---------------------->
-		<div id="loader" align="center">
-			<img src="resources/images/ajax-loader.gif" alt="" width="10%"
-				height="10%"
-		</div>
-		<div id="alertChooseScore" class="alert alert-warning" role="alert"
+			<div id="modalScoreDialog0" class="modal-dialog"></div>
+			<!----------------------Model Modal---------------------->
+			<div id="loader" align="center">
+				<img src="resources/images/ajax-loader.gif" alt="" width="10%"
+				height="10%"/>
+			</div>
+			<div id="alertChooseScore" class="alert alert-warning" role="alert"
 			style="margin-top: 20px;">
 			<strong>Warning! </strong>Please choose Score.
 		</div>
@@ -415,8 +369,197 @@ a {
 	</div>
 
 	<script>
-		var keepId
+		var yourPosition='${yourPosition}';
+		var fullname = '${nameCommittee}'+'${lastNameCommittee}';
+		$("#fullname").html(fullname);
+		var checkModulatorId = $("#modulatorId").val();
+		var checkCommitteeId = $("#committeeId").attr('value');
+		if(checkModulatorId==checkCommitteeId){
+			if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
+				$("#headdropdownapprovepermission").show();
+				$("#headdropdownsubmitandcancel").show();
+				$("#menuleft").show();
+				$("#imgmenuleft").mouseover(function(){
+					$("#extendimgmenuleft").slideToggle(300);
+				});
+				$("#imgmenuleft").mouseout(function(){
+					$("#extendimgmenuleft").slideToggle(300);
+				});
+			}
+		}else{
+			$("#headdropdownapprovepermission").hide();
+			$("#headdropdownsubmitandcancel").hide();
+			$("#menuleft").slideToggle(800);
+			$("#imgmenuleft").mouseover(function(){
+				$("#extendimgmenuleft").slideToggle(300);
+			});
+			$("#imgmenuleft").mouseout(function(){
+				$("#extendimgmenuleft").slideToggle(300);
+			});
 
+		}
+		
+		if(yourPosition=="Software Analyst"){
+			$("#confighome").show();
+			$("#configroom").show();
+			$("#configreport").show();
+			$("#confighistory").show();
+			$("#configmanager").show();
+		}else if(yourPosition=="Manager"){
+			$("#confighome").show();
+			$("#configroom").show();
+			$("#configreport").show();
+			$("#confighistory").show();
+			$("#configmanager").show();
+		}else if(yourPosition=="Software Development Trainee"){
+			$("#confighome").show();
+			$("#configroom").show();
+			$("#configreport").hide();
+			$("#confighistory").hide();
+			$("#configmanager").hide();
+		}else{
+			$("#confighome").show();
+			$("#configroom").show();
+			$("#configreport").show();
+			$("#confighistory").show();
+			$("#configmanager").hide();
+		}
+		$("#showlistallapprove").mouseover(function(){
+			$("div[id=contentlistapprove]").each(function(index,element){
+				$(element).slideDown(1000);
+			});
+		});
+		$("#showlistallsbmitandcancel").mouseover(function(){
+			$("div[id=contentlistsubmitandcancel]").each(function(index,element){
+				$(element).slideDown(1000);
+			});
+		});
+		function approve(id,roomid){
+			swal({   title: "Are you sure?",     
+				 type: "warning",   
+				 showCancelButton: true,
+				 confirmButtonColor: "#DD6B55",   
+				 confirmButtonText: "Yes, approve it!",   
+				 cancelButtonText: "No, cancel pls!",   
+				 closeOnConfirm: false,   
+				 closeOnCancel: false 
+				 }, function(isConfirm){   
+					 if (isConfirm) {
+					 		swal({
+						 	      type:"success",
+						 		  title: "Approve Success....",
+						 		});
+					 	/*$.ajax({
+					 		url:"http://localhost:8084/SpringHibernateWebApp/DeleteCountry",
+					 		method:"GET",
+					 		data:{idcountry:idcountry},
+					 		success:function(){
+					 			window.location="http://localhost:8084/SpringHibernateWebApp/ListCountry";
+					 		}
+					 	});	*/
+						 	
+						 } else {
+							 swal({
+								  type:"error",
+						 		  title: "Cancelled",
+						 		  text:"Click OK for Cancel",
+						 		  closeOnConfirm:false,
+						 		  confirmButtonText:"OK"
+							 });
+						 } 
+			});
+			//alert("UserRequestID:"+id+"  "+"RoomId:"+roomid);
+		/*	$.ajax({
+				url:"http://localhost:8083/EvaluateTool/application/test1",
+				method:"GET",
+				success:function(data){
+					var modulator=JSON.parse(data).modulator;
+					if(modulator){
+						$("#headdropdownapprovepermission").show();
+						$("#headdropdownsubmitandcancel").show();
+					}else{
+						$("#headdropdownapprovepermission").hide();
+						$("#headdropdownsubmitandcancel").hide();
+					}
+				}
+			});*/
+		}
+		function submitnotificationsubmitandcalcel(index,yourid,roomid){
+				//alert(index+","+yourid+","+roomid);
+				$("div[value="+index+"]").fadeOut("slow",function(){
+					$("div[value="+index+"]").remove();
+				});
+				
+			}
+			function cancelnotificationsubmitandcalcel(index){
+				$("div[value="+index+"]").fadeOut("slow",function(){
+					$("div[value="+index+"]").remove();
+				});
+				
+			}
+
+			function notificationsubmitandcalcel(){
+				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
+				var youridrequest=1;
+				var namerequest="Anuchit";
+				var lastnamerequest="Prasertsang";
+				var title="เข้าเป็นผู้ประเมิน";
+				var modulator=false;
+				var roomidrequest=1;
+				var rolerequest="committee";
+				alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
+				var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
+				if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
+					$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+					$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+						'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
+						'</div>'+'<div class="content">'+'<div class="date">'+'<div class="ui tiny buttons" onclick="submitnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')">'+'<div class="ui green button">อนุญาต</div>'+
+						'<div class="or"></div>'+'<div class="ui red button" onclick="cancelnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+')">ปฎิเสธ</div>'+'</div>'+'</div>'+'<div class="summary">'+
+						'<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
+						'<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
+				}
+				$("div[id=contentlistsubmitandcancel]").each(function(index,element){
+					if(index<3){
+						$(element).show();
+					}else{
+						$(element).hide();
+					}
+
+				});						
+				if(countbadgenotificationsubmitandcalcel==""){
+					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+				}else{
+					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+				}
+			}
+			$("#anotificationapprove,#imgnotificationapprove,#badgenotificationapprove").click(function(){
+				$("#badgenotificationapprove").html("");
+				$("#dropdownsubmitandcancel").hide();
+			});
+			$("#imgnotificationsubmitandcalcel,#badgenotificationsubmitandcalcel").click(function(){
+				$("#badgenotificationsubmitandcalcel").html("");
+				$("#dropdownsubmitandcancel").slideToggle(800);
+			});
+			$("#anotificationconfig,#imgnotificationapprove,#imgnotificationconfig").click(function(){
+				$("#dropdownsubmitandcancel").hide();
+			});
+			var i=0
+			function openmenuleft(){
+				if(i==0){
+					$("#menuleft").hide();
+					$("#contenthead").removeClass("col-md-10 column");
+					$("#contenthead").addClass("col-md-12 column");
+					i++;
+				}else{
+					$("#menuleft").slideDown(800);
+					$("#contenthead").removeClass("col-md-12 column");
+					$("#contenthead").addClass("col-md-10 column");
+					i--;
+				}
+				
+			}
+		/*Pipe*/
+		var keepId		
 		function showModal(element) {
 			keepId = $('#' + element.id).parent().attr('id');
 			$("#alertChooseScore").hide();
@@ -465,10 +608,10 @@ a {
 			}
 			$("#modalScore" + count).modal("show");
 			var textSubject = $("#" + element.id).parent('ul').parent('div')
-					.parent('div').parent('div').children('div').children('h4')
-					.clone().children('span').remove().end().text();
+			.parent('div').parent('div').children('div').children('h4')
+			.clone().children('span').remove().end().text();
 			var textDescription = $("#" + element.id).children('a').clone()
-					.children('span').remove().end().text();
+			.children('span').remove().end().text();
 
 			$(".textSubject").text(textSubject);
 			$(".textDescription").text(textDescription);
@@ -479,18 +622,18 @@ a {
 			count = (buttonSubmit.id).replace(/[^\d.]/g, '');
 			var textMessage = $("textarea#panelScoreMessage" + count).val();
 			var textScore = $("#panelScoreBtnGroup" + count).find(
-					"button.active").prop('value');
+				"button.active").prop('value');
 			var textId = $("#dummyKeepIdTopic" + count).text();
 			if (textScore == null) {
 				$("#alertChooseScore").show().appendTo(
-						$("#panelScoreBody" + count));
+					$("#panelScoreBody" + count));
 			} else {
 
 				var detailScoreOfTopic = {};
 				detailScoreOfTopic.roomId = $("#roomId").val();
 				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
 				detailScoreOfTopic.committeeId = $("#committeeId")
-						.attr('value');
+				.attr('value');
 				detailScoreOfTopic.topicId = textId;
 				detailScoreOfTopic.score = textScore;
 				detailScoreOfTopic.comment = textMessage;
@@ -503,11 +646,11 @@ a {
 						dataDetailScoreOfTopic : dataDetailScoreOfTopic
 					},
 					success : function(data) {
-
+						$("#modalScore" + count).modal("hide");
 					},
 					error : function(data, status, er) {
 						alert("error: " + data + " status: " + status + " er:"
-								+ er);
+							+ er);
 					}
 				});
 
@@ -516,10 +659,10 @@ a {
 					keepOriginalSubmitTopic++;
 					$("#submitTopic").text(keepOriginalSubmitTopic);
 					var keepOriginalSubmitEachTopic = $(
-							"#submitEachTopic" + countOfId).text();
+						"#submitEachTopic" + countOfId).text();
 					keepOriginalSubmitEachTopic++;
 					$("#submitEachTopic" + countOfId).text(
-							keepOriginalSubmitEachTopic);
+						keepOriginalSubmitEachTopic);
 				}
 				$("#spanScore" + count).text(textScore);
 			}
@@ -546,27 +689,27 @@ a {
 			var genIdBtnEight = $("#btnEight" + dummyBtnEight);
 			var genIdBtnOne = $("#btnOne" + dummyBtnOne);
 			var genIdPanelScoreBtnSubmit = $("#panelScoreBtnSubmit"
-					+ dummyPanelScoreBtnSubmit);
+				+ dummyPanelScoreBtnSubmit);
 
 			$("#btnZero0").clone().attr('id', 'btnZero' + (++dummyBtnZero))
-					.insertAfter(genIdBtnZero).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
+			.insertAfter(genIdBtnZero).show().appendTo(
+				$("#panelScoreBtnGroup" + count));
 			$("#btnThree0").clone().attr('id', 'btnThree' + (++dummyBtnThree))
-					.insertAfter(genIdBtnThree).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
+			.insertAfter(genIdBtnThree).show().appendTo(
+				$("#panelScoreBtnGroup" + count));
 			$("#btnFive0").clone().attr('id', 'btnFive' + (++dummyBtnFive))
-					.insertAfter(genIdBtnFive).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
+			.insertAfter(genIdBtnFive).show().appendTo(
+				$("#panelScoreBtnGroup" + count));
 			$("#btnEight0").clone().attr('id', 'btnEight' + (++dummyBtnEight))
-					.insertAfter(genIdBtnEight).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
+			.insertAfter(genIdBtnEight).show().appendTo(
+				$("#panelScoreBtnGroup" + count));
 			$("#btnOne0").clone().attr('id', 'btnOne' + (++dummyBtnOne))
-					.insertAfter(genIdBtnOne).show().appendTo(
-							$("#panelScoreBtnGroup" + count));
+			.insertAfter(genIdBtnOne).show().appendTo(
+				$("#panelScoreBtnGroup" + count));
 			$("#panelScoreBtnSubmit0").clone().attr('id',
-					'panelScoreBtnSubmit' + (++dummyPanelScoreBtnSubmit))
-					.insertAfter(genIdPanelScoreBtnSubmit).show().appendTo(
-							$("#panelScoreBody" + count));
+				'panelScoreBtnSubmit' + (++dummyPanelScoreBtnSubmit))
+			.insertAfter(genIdPanelScoreBtnSubmit).show().appendTo(
+				$("#panelScoreBody" + count));
 
 			if (score == 0) {
 				$("#btnZero" + count).addClass('active');
@@ -590,7 +733,6 @@ a {
 		}
 
 		$(function() {
-
 			var $loading = $('#loader').hide();
 			$(document).ajaxStart(function() {
 				$loading.show();
@@ -638,21 +780,21 @@ a {
 
 			var dataSend = JSON.stringify(data);
 			$
-					.ajax({
-						url : "/EvaluateTool/application/evaluateBoardTopicList",
-						type : 'POST',
-						data : {
-							data : dataSend
-						},
-						success : function(data) {
-							var course = JSON.parse(data);
-							createCollapse(course);
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status
-									+ " er:" + er);
-						}
-					});
+			.ajax({
+				url : "/EvaluateTool/application/evaluateBoardTopicList",
+				type : 'POST',
+				data : {
+					data : dataSend
+				},
+				success : function(data) {
+					var course = JSON.parse(data);
+					createCollapse(course);
+				},
+				error : function(data, status, er) {
+					alert("error: " + data + " status: " + status
+						+ " er:" + er);
+				}
+			});
 
 			function createCollapse(course) {
 				var countOfSpanScore = 1;
@@ -685,11 +827,11 @@ a {
 				var genIdHead = $("#panelHeading" + dummyHead);
 				var genIdTitle = $("#panelTitle" + dummyTitle);
 				var genIdCountScoreEachTopic = $("#spanTopic"
-						+ dummyCountScoreEachTopic);
+					+ dummyCountScoreEachTopic);
 				var genIdSubmitEachTopic = $("#submitEachTopic"
-						+ dummySubmitEachTopic);
+					+ dummySubmitEachTopic);
 				var genIdTotalEachTopic = $("#totalEachTopic"
-						+ dummyTotalEachTopic);
+					+ dummyTotalEachTopic);
 				var genIdCollapse = $("#collapse" + dummyCollapse);
 				var genIdBody = $("#panelBody" + dummyBody);
 				var genIdNavpills = $("#navpills" + dummyNavpills);
@@ -698,371 +840,371 @@ a {
 				var genIdLink = $("#linkToScore" + dummyLink);
 				var genIdModalScore = $("#modalScore" + dummyModalScore);
 				var genIdModalScoreDialog = $("#modalScoreDialog"
-						+ dummyModalScoreDialog);
+					+ dummyModalScoreDialog);
 				var genIdModalScoreContent = $("#modalScoreContent"
-						+ dummyModalScoreContent);
+					+ dummyModalScoreContent);
 				var genIdPanelScore = $("#panelScore" + dummyPanelScore);
 				var genIdPanelScoreHead = $("#panelScoreHead"
-						+ dummyPanelScoreHead);
+					+ dummyPanelScoreHead);
 				var genIdPanelScoreSubject = $("#panelScoreSubject"
-						+ dummyPanelScoreSubject);
+					+ dummyPanelScoreSubject);
 				var genIdPanelScoreBody = $("#panelScoreBody"
-						+ dummyPanelScoreBody);
+					+ dummyPanelScoreBody);
 				var genIdPanelScoreId = $("#dummyKeepIdTopic"
-						+ dummyPanelScoreId);
+					+ dummyPanelScoreId);
 				var genIdPanelScoreDescription = $("#panelScoreDescription"
-						+ dummyPanelScoreDescription);
+					+ dummyPanelScoreDescription);
 				var genIdPanelScoreMessage = $("#panelScoreMessage"
-						+ dummyPanelScoreMessage);
+					+ dummyPanelScoreMessage);
 				var genIdPanelScoreBtnGroup = $("#panelScoreBtnGroup"
-						+ dummyPanelScoreBtnGroup);
+					+ dummyPanelScoreBtnGroup);
 
 				var sizeTopic = 0;
 				var numberOfTopic = 0;
 
 				$
-						.each(
-								course,
-								function(i, item) {
-									item
-											.forEach(function(subject) {
-												var sendNameOfSubject = subject.name;
-												$("#panelCollapse0")
-														.clone()
-														.attr(
-																'id',
-																'panelCollapse'
-																		+ (++dummyPanel))
-														.insertAfter(genIdPanel)
-														.fadeIn('slow')
-														.appendTo(
-																$("#accordion"));
-												$("#panelHeading0")
-														.clone()
-														.attr(
-																'id',
-																'panelHeading'
-																		+ (++dummyHead))
-														.attr(
-																'href',
-																'#collapse'
-																		+ dummyHead)
-														.attr(
-																'data-target',
-																'#collapse'
-																		+ dummyHead)
-														.insertAfter(genIdHead)
-														.show()
-														.appendTo(
-																$("#panelCollapse"
-																		+ dummyPanel));
-												$("#panelTitle0")
-														.clone()
-														.attr(
-																'id',
-																'panelTitle'
-																		+ (++dummyTitle))
-														.text(sendNameOfSubject)
-														.insertAfter(genIdTitle)
-														.show()
-														.appendTo(
-																$("#panelHeading"
-																		+ dummyHead));
-												$("#spanTopic0")
-														.clone()
-														.attr(
-																'id',
-																'spanTopic'
-																		+ (++dummyCountScoreEachTopic))
-														.insertAfter(
-																genIdCountScoreEachTopic)
-														.show()
-														.appendTo(
-																$("#panelTitle"
-																		+ dummyTitle));
-												$("#submitEachTopic0")
-														.clone()
-														.attr(
-																'id',
-																'submitEachTopic'
-																		+ (++dummySubmitEachTopic))
-														.insertAfter(
-																genIdSubmitEachTopic)
-														.show()
-														.appendTo(
-																$("#spanTopic"
-																		+ dummyCountScoreEachTopic));
-												$("#totalEachTopic0")
-														.clone()
-														.attr(
-																'id',
-																'totalEachTopic'
-																		+ (++dummyTotalEachTopic))
-														.insertAfter(
-																genIdTotalEachTopic)
-														.show()
-														.appendTo(
-																$("#spanTopic"
-																		+ dummyCountScoreEachTopic));
-												$("#collapse0")
-														.clone()
-														.attr(
-																'id',
-																'collapse'
-																		+ (++dummyCollapse))
-														.insertAfter(
-																genIdCollapse)
-														.appendTo(
-																$("#panelCollapse"
-																		+ dummyPanel));
-												$("#panelBody0")
-														.clone()
-														.attr(
-																'id',
-																'panelBody'
-																		+ (++dummyBody))
-														.show()
-														.appendTo(
-																$("#collapse"
-																		+ dummyCollapse));
-												$("#navpills0")
-														.clone()
-														.attr(
-																'id',
-																'navpills'
-																		+ (++dummyNavpills))
-														.insertAfter(
-																genIdNavpills)
-														.show()
-														.appendTo(
-																$("#panelBody"
-																		+ dummyBody));
+				.each(
+					course,
+					function(i, item) {
+						item
+						.forEach(function(subject) {
+							var sendNameOfSubject = subject.name;
+							$("#panelCollapse0")
+							.clone()
+							.attr(
+								'id',
+								'panelCollapse'
+								+ (++dummyPanel))
+							.insertAfter(genIdPanel)
+							.fadeIn('slow')
+							.appendTo(
+								$("#accordion"));
+							$("#panelHeading0")
+							.clone()
+							.attr(
+								'id',
+								'panelHeading'
+								+ (++dummyHead))
+							.attr(
+								'href',
+								'#collapse'
+								+ dummyHead)
+							.attr(
+								'data-target',
+								'#collapse'
+								+ dummyHead)
+							.insertAfter(genIdHead)
+							.show()
+							.appendTo(
+								$("#panelCollapse"
+									+ dummyPanel));
+							$("#panelTitle0")
+							.clone()
+							.attr(
+								'id',
+								'panelTitle'
+								+ (++dummyTitle))
+							.text(sendNameOfSubject)
+							.insertAfter(genIdTitle)
+							.show()
+							.appendTo(
+								$("#panelHeading"
+									+ dummyHead));
+							$("#spanTopic0")
+							.clone()
+							.attr(
+								'id',
+								'spanTopic'
+								+ (++dummyCountScoreEachTopic))
+							.insertAfter(
+								genIdCountScoreEachTopic)
+							.show()
+							.appendTo(
+								$("#panelTitle"
+									+ dummyTitle));
+							$("#submitEachTopic0")
+							.clone()
+							.attr(
+								'id',
+								'submitEachTopic'
+								+ (++dummySubmitEachTopic))
+							.insertAfter(
+								genIdSubmitEachTopic)
+							.show()
+							.appendTo(
+								$("#spanTopic"
+									+ dummyCountScoreEachTopic));
+							$("#totalEachTopic0")
+							.clone()
+							.attr(
+								'id',
+								'totalEachTopic'
+								+ (++dummyTotalEachTopic))
+							.insertAfter(
+								genIdTotalEachTopic)
+							.show()
+							.appendTo(
+								$("#spanTopic"
+									+ dummyCountScoreEachTopic));
+							$("#collapse0")
+							.clone()
+							.attr(
+								'id',
+								'collapse'
+								+ (++dummyCollapse))
+							.insertAfter(
+								genIdCollapse)
+							.appendTo(
+								$("#panelCollapse"
+									+ dummyPanel));
+							$("#panelBody0")
+							.clone()
+							.attr(
+								'id',
+								'panelBody'
+								+ (++dummyBody))
+							.show()
+							.appendTo(
+								$("#collapse"
+									+ dummyCollapse));
+							$("#navpills0")
+							.clone()
+							.attr(
+								'id',
+								'navpills'
+								+ (++dummyNavpills))
+							.insertAfter(
+								genIdNavpills)
+							.show()
+							.appendTo(
+								$("#panelBody"
+									+ dummyBody));
 
-												var numberEachOfTopic = 0;
-												var index = 0;
-												var keepTopic = item[sizeTopic].topic;
-												for (index; index < keepTopic.length; ++index) {
-													var sendId = keepTopic[index].id;
-													var sendTitle = keepTopic[index].name;
-													var sendDescription = keepTopic[index].description;
-													var sendComment = keepTopic[index].comment;
-													var sendScore = keepTopic[index].score;
+							var numberEachOfTopic = 0;
+							var index = 0;
+							var keepTopic = item[sizeTopic].topic;
+							for (index; index < keepTopic.length; ++index) {
+								var sendId = keepTopic[index].id;
+								var sendTitle = keepTopic[index].name;
+								var sendDescription = keepTopic[index].description;
+								var sendComment = keepTopic[index].comment;
+								var sendScore = keepTopic[index].score;
 
-													$("#listNavpills0")
-															.clone()
-															.attr(
-																	'id',
-																	'listNavpills'
-																			+ (++dummyList))
-															.insertAfter(
-																	genIdListNav)
-															.show()
-															.appendTo(
-																	$("#navpills"
-																			+ dummyNavpills));
-													$("#linkToScore0")
-															.clone()
-															.attr(
-																	'id',
-																	'linkToScore'
-																			+ (++dummyLink))
-															.text(
-																	sendTitle
-																			+ " : "
-																			+ sendDescription)
-															.insertAfter(
-																	genIdLink)
-															.show()
-															.appendTo(
-																	$("#listNavpills"
-																			+ dummyList));
-													$("#dummyKeepIdTopic0")
-															.clone()
-															.attr(
-																	'id',
-																	'dummyKeepIdTopic'
-																			+ (++dummyPanelScoreId))
-															.text(sendId)
-															.insertAfter(
-																	genIdPanelScoreId)
-															.hide()
-															.appendTo(
-																	$("#linkToScore"
-																			+ dummyLink));
-													$("#spanScore0")
-															.clone()
-															.attr(
-																	'id',
-																	'spanScore'
-																			+ (++dummyScore))
-															.text(sendScore)
-															.insertAfter(
-																	genIdLink)
-															.appendTo(
-																	$("#linkToScore"
-																			+ dummyLink));
+								$("#listNavpills0")
+								.clone()
+								.attr(
+									'id',
+									'listNavpills'
+									+ (++dummyList))
+								.insertAfter(
+									genIdListNav)
+								.show()
+								.appendTo(
+									$("#navpills"
+										+ dummyNavpills));
+								$("#linkToScore0")
+								.clone()
+								.attr(
+									'id',
+									'linkToScore'
+									+ (++dummyLink))
+								.text(
+									sendTitle
+									+ " : "
+									+ sendDescription)
+								.insertAfter(
+									genIdLink)
+								.show()
+								.appendTo(
+									$("#listNavpills"
+										+ dummyList));
+								$("#dummyKeepIdTopic0")
+								.clone()
+								.attr(
+									'id',
+									'dummyKeepIdTopic'
+									+ (++dummyPanelScoreId))
+								.text(sendId)
+								.insertAfter(
+									genIdPanelScoreId)
+								.hide()
+								.appendTo(
+									$("#linkToScore"
+										+ dummyLink));
+								$("#spanScore0")
+								.clone()
+								.attr(
+									'id',
+									'spanScore'
+									+ (++dummyScore))
+								.text(sendScore)
+								.insertAfter(
+									genIdLink)
+								.appendTo(
+									$("#linkToScore"
+										+ dummyLink));
 
-													$("#modalScore0")
-															.clone()
-															.attr(
-																	'id',
-																	'modalScore'
-																			+ (++dummyModalScore))
-															.insertAfter(
-																	genIdModalScore);
-													$("#modalScoreDialog0")
-															.clone()
-															.attr(
-																	'id',
-																	'modalScoreDialog'
-																			+ (++dummyModalScoreDialog))
-															.insertAfter(
-																	genIdModalScoreDialog)
-															.show()
-															.appendTo(
-																	$("#modalScore"
-																			+ dummyModalScore));
-													$("#panelScore0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScore'
-																			+ (++dummyPanelScore))
-															.insertAfter(
-																	genIdPanelScore)
-															.show()
-															.appendTo(
-																	$("#modalScoreDialog"
-																			+ dummyModalScoreDialog));
-													$("#panelScoreHead0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreHead'
-																			+ (++dummyPanelScoreHead))
-															.insertAfter(
-																	genIdPanelScoreHead)
-															.show()
-															.appendTo(
-																	$("#panelScore"
-																			+ dummyPanelScore));
-													$("#panelScoreSubject0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreSubject'
-																			+ (++dummyPanelScoreSubject))
-															.insertAfter(
-																	genIdPanelScoreSubject)
-															.show()
-															.appendTo(
-																	$("#panelScoreHead"
-																			+ dummyPanelScoreHead));
-													$("#panelScoreBtnClose")
-															.clone()
-															.show()
-															.appendTo(
-																	$("#panelScoreHead"
-																			+ dummyPanelScoreHead));
-													$("#panelScoreBody0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreBody'
-																			+ (++dummyPanelScoreBody))
-															.insertAfter(
-																	genIdPanelScoreBody)
-															.show()
-															.appendTo(
-																	$("#panelScore"
-																			+ dummyPanelScore));
-													$("#panelScoreDescription0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreDescription'
-																			+ (++dummyPanelScoreDescription))
-															.insertAfter(
-																	genIdPanelScoreDescription)
-															.show()
-															.appendTo(
-																	$("#panelScoreBody"
-																			+ dummyPanelScoreBody));
-													$("#panelScoreMessage0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreMessage'
-																			+ (++dummyPanelScoreMessage))
-															.text(sendComment)
-															.insertAfter(
-																	genIdPanelScoreMessage)
-															.show()
-															.appendTo(
-																	$("#panelScoreBody"
-																			+ dummyPanelScoreBody));
-													$("#panelScoreBtnGroup0")
-															.clone()
-															.attr(
-																	'id',
-																	'panelScoreBtnGroup'
-																			+ (++dummyPanelScoreBtnGroup))
-															.insertAfter(
-																	genIdPanelScoreBtnGroup)
-															.show()
-															.appendTo(
-																	$("#panelScoreBody"
-																			+ dummyPanelScoreBody));
+								$("#modalScore0")
+								.clone()
+								.attr(
+									'id',
+									'modalScore'
+									+ (++dummyModalScore))
+								.insertAfter(
+									genIdModalScore);
+								$("#modalScoreDialog0")
+								.clone()
+								.attr(
+									'id',
+									'modalScoreDialog'
+									+ (++dummyModalScoreDialog))
+								.insertAfter(
+									genIdModalScoreDialog)
+								.show()
+								.appendTo(
+									$("#modalScore"
+										+ dummyModalScore));
+								$("#panelScore0")
+								.clone()
+								.attr(
+									'id',
+									'panelScore'
+									+ (++dummyPanelScore))
+								.insertAfter(
+									genIdPanelScore)
+								.show()
+								.appendTo(
+									$("#modalScoreDialog"
+										+ dummyModalScoreDialog));
+								$("#panelScoreHead0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreHead'
+									+ (++dummyPanelScoreHead))
+								.insertAfter(
+									genIdPanelScoreHead)
+								.show()
+								.appendTo(
+									$("#panelScore"
+										+ dummyPanelScore));
+								$("#panelScoreSubject0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreSubject'
+									+ (++dummyPanelScoreSubject))
+								.insertAfter(
+									genIdPanelScoreSubject)
+								.show()
+								.appendTo(
+									$("#panelScoreHead"
+										+ dummyPanelScoreHead));
+								$("#panelScoreBtnClose")
+								.clone()
+								.show()
+								.appendTo(
+									$("#panelScoreHead"
+										+ dummyPanelScoreHead));
+								$("#panelScoreBody0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreBody'
+									+ (++dummyPanelScoreBody))
+								.insertAfter(
+									genIdPanelScoreBody)
+								.show()
+								.appendTo(
+									$("#panelScore"
+										+ dummyPanelScore));
+								$("#panelScoreDescription0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreDescription'
+									+ (++dummyPanelScoreDescription))
+								.insertAfter(
+									genIdPanelScoreDescription)
+								.show()
+								.appendTo(
+									$("#panelScoreBody"
+										+ dummyPanelScoreBody));
+								$("#panelScoreMessage0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreMessage'
+									+ (++dummyPanelScoreMessage))
+								.text(sendComment)
+								.insertAfter(
+									genIdPanelScoreMessage)
+								.show()
+								.appendTo(
+									$("#panelScoreBody"
+										+ dummyPanelScoreBody));
+								$("#panelScoreBtnGroup0")
+								.clone()
+								.attr(
+									'id',
+									'panelScoreBtnGroup'
+									+ (++dummyPanelScoreBtnGroup))
+								.insertAfter(
+									genIdPanelScoreBtnGroup)
+								.show()
+								.appendTo(
+									$("#panelScoreBody"
+										+ dummyPanelScoreBody));
 
-													checkScoreFromBase(
-															sendScore,
-															dummyPanelScoreBtnGroup);
+								checkScoreFromBase(
+									sendScore,
+									dummyPanelScoreBtnGroup);
 
-													numberOfTopic++;
-													numberEachOfTopic++;
-												}
-												sizeTopic++;
-												var indexCheckTopic = 0;
-												var keepEachTopicOfSubmit = 0;
-												for (indexCheckTopic; indexCheckTopic < numberEachOfTopic; indexCheckTopic++) {
-													if ($(
-															"#spanScore"
-																	+ countOfSpanScore)
-															.text() != '-') {
-														keepEachTopicOfSubmit++;
-													}
-													countOfSpanScore++;
-												}
+								numberOfTopic++;
+								numberEachOfTopic++;
+							}
+							sizeTopic++;
+							var indexCheckTopic = 0;
+							var keepEachTopicOfSubmit = 0;
+							for (indexCheckTopic; indexCheckTopic < numberEachOfTopic; indexCheckTopic++) {
+								if ($(
+									"#spanScore"
+									+ countOfSpanScore)
+									.text() != '-') {
+									keepEachTopicOfSubmit++;
+							}
+							countOfSpanScore++;
+						}
 
-												$(
-														"#submitEachTopic"
-																+ sizeTopic)
-														.text(
-																keepEachTopicOfSubmit);
-												$("#totalEachTopic" + sizeTopic)
-														.text(
-																"/"
-																		+ " "
-																		+ numberEachOfTopic);
-											});
+						$(
+							"#submitEachTopic"
+							+ sizeTopic)
+						.text(
+							keepEachTopicOfSubmit);
+						$("#totalEachTopic" + sizeTopic)
+						.text(
+							"/"
+							+ " "
+							+ numberEachOfTopic);
+					});
 
-								});
-				var keepTopicOfSubmit = 0;
-				$("#submitOfAllTOpic").show();
-				var indexCheck = 1
-				for (indexCheck; indexCheck <= numberOfTopic; indexCheck++) {
-					if ($("#spanScore" + indexCheck).text() != '-') {
-						keepTopicOfSubmit++;
-					}
-				}
-				$("#submitTopic").text(keepTopicOfSubmit);
-				$("#totalTopic").text(numberOfTopic);
-				var checkModulatorId = $("#modulatorId").val();
-				var checkCommitteeId = $("#committeeId").attr('value');
-				if (checkModulatorId == checkCommitteeId) {
-					$("#btnCompleteExamination").show();
-				}
-			}
+});
+var keepTopicOfSubmit = 0;
+$("#submitOfAllTOpic").show();
+var indexCheck = 1
+for (indexCheck; indexCheck <= numberOfTopic; indexCheck++) {
+	if ($("#spanScore" + indexCheck).text() != '-') {
+		keepTopicOfSubmit++;
+	}
+}
+$("#submitTopic").text(keepTopicOfSubmit);
+$("#totalTopic").text(numberOfTopic);
+var checkModulatorId = $("#modulatorId").val();
+var checkCommitteeId = $("#committeeId").attr('value');
+if (checkModulatorId == checkCommitteeId) {
+	$("#btnCompleteExamination").show();
+}
+}
 
 			//$("#topicList").click(function() {
 
@@ -1073,119 +1215,119 @@ a {
 			//	$("#panelRealTime").fadeIn('slow').appendTo($("#formBoard"));
 			//});
 
-			$("#room")
-					.click(
-							function() {
-								var yourId = $("#committeeId").attr('value');
-								var yourPosition = $("#yourPosition").val();
-								location.href = "/EvaluateTool/application/examinationRoom"
-										+ "?yourId="
-										+ encodeURIComponent(yourId)
-										+ "&yourPosition="
-										+ encodeURIComponent(yourPosition);
-								;
-							});
-			$("#logOut").click(function() {
-				location.href = "/EvaluateTool/application/logIn";
+$("#room")
+.click(
+	function() {
+		var yourId = $("#committeeId").attr('value');
+		var yourPosition = $("#yourPosition").val();
+		location.href = "/EvaluateTool/application/examinationRoom"
+		+ "?yourId="
+		+ encodeURIComponent(yourId)
+		+ "&yourPosition="
+		+ encodeURIComponent(yourPosition);
+		;
+	});
+$("#logOut").click(function() {
+	location.href = "/EvaluateTool/application/logIn";
+});
+$("#report").click(
+	function() {
+		var yourId = $("#committeeId").attr('value');
+		location.href = "/EvaluateTool/application/report"
+		+ "?yourId=" + encodeURIComponent(yourId);
+	});
+$("#notificationModulator").click(function() {
+	$("#notificationContainer").hide();
+	$("#notificationContainerModulator").fadeToggle(300);
+	return false;
+});
+
+$("#notificationLink")
+.click(
+	function() {
+		$("#notificationsBody").empty();
+		var person = {
+			"person" : [ {
+				"name" : "Anuchit",
+				"lastName" : "Prasertsang"
+			}, {
+				"name" : "Apichat",
+				"lastName" : "Eakwongsa"
+			}, {
+				"name" : "Sirirad",
+				"lastName" : "Chaiyaphom"
+			} ]
+		};
+		var dummyNameOfRequestToJoinRoom = 0;
+		var genNameOfRequestToJoinRoom = $("#nameOfRequestToJoinRoom"
+			+ dummyNameOfRequestToJoinRoom);
+
+		$
+		.each(
+			person,
+			function(i, item) {
+				item
+				.forEach(function(
+					person) {
+
+					var fullName = person.name
+					+ " "
+					+ person.lastName;
+					$(
+						"#nameOfRequestToJoinRoom0")
+					.clone()
+					.attr(
+						'id',
+						'nameOfRequestToJoinRoom'
+						+ (++dummyNameOfRequestToJoinRoom))
+					.text(
+						fullName)
+					.insertAfter(
+						genNameOfRequestToJoinRoom)
+					.show()
+					.appendTo(
+						$("#notificationsBody"));
+					$("#btnAccept")
+					.clone()
+					.show()
+					.appendTo(
+						$("#nameOfRequestToJoinRoom"
+							+ dummyNameOfRequestToJoinRoom));
+					$("#btnDecline")
+					.clone()
+					.show()
+					.appendTo(
+						$("#nameOfRequestToJoinRoom"
+							+ dummyNameOfRequestToJoinRoom));
+				});
 			});
-			$("#report").click(
-					function() {
-						var yourId = $("#committeeId").attr('value');
-						location.href = "/EvaluateTool/application/report"
-								+ "?yourId=" + encodeURIComponent(yourId);
-					});
-			$("#notificationModulator").click(function() {
-				$("#notificationContainer").hide();
-				$("#notificationContainerModulator").fadeToggle(300);
-				return false;
-			});
-
-			$("#notificationLink")
-					.click(
-							function() {
-								$("#notificationsBody").empty();
-								var person = {
-									"person" : [ {
-										"name" : "Anuchit",
-										"lastName" : "Prasertsang"
-									}, {
-										"name" : "Apichat",
-										"lastName" : "Eakwongsa"
-									}, {
-										"name" : "Sirirad",
-										"lastName" : "Chaiyaphom"
-									} ]
-								};
-								var dummyNameOfRequestToJoinRoom = 0;
-								var genNameOfRequestToJoinRoom = $("#nameOfRequestToJoinRoom"
-										+ dummyNameOfRequestToJoinRoom);
-
-								$
-										.each(
-												person,
-												function(i, item) {
-													item
-															.forEach(function(
-																	person) {
-
-																var fullName = person.name
-																		+ " "
-																		+ person.lastName;
-																$(
-																		"#nameOfRequestToJoinRoom0")
-																		.clone()
-																		.attr(
-																				'id',
-																				'nameOfRequestToJoinRoom'
-																						+ (++dummyNameOfRequestToJoinRoom))
-																		.text(
-																				fullName)
-																		.insertAfter(
-																				genNameOfRequestToJoinRoom)
-																		.show()
-																		.appendTo(
-																				$("#notificationsBody"));
-																$("#btnAccept")
-																		.clone()
-																		.show()
-																		.appendTo(
-																				$("#nameOfRequestToJoinRoom"
-																						+ dummyNameOfRequestToJoinRoom));
-																$("#btnDecline")
-																		.clone()
-																		.show()
-																		.appendTo(
-																				$("#nameOfRequestToJoinRoom"
-																						+ dummyNameOfRequestToJoinRoom));
-															});
-												});
-								$("#notificationContainerModulator").hide();
-								$("#notificationContainer").fadeToggle(300);
+		$("#notificationContainerModulator").hide();
+		$("#notificationContainer").fadeToggle(300);
 								//$("#notification_count").fadeOut("slow");
 								//return false;
 							});
 
-			$("#btnCompleteExamination").click(
-					function() {
-						var data = {};
-						data.roomId = $("#roomId").val();
+$("#btnCompleteExamination").click(
+	function() {
+		var data = {};
+		data.roomId = $("#roomId").val();
 
-						var roomId = JSON.stringify(data);
-						$.ajax({
-							url : "/EvaluateTool/application/setStatus",
-							type : 'POST',
-							data : {
-								roomId : roomId
-							},
-							success : function(data) {
+		var roomId = JSON.stringify(data);
+		$.ajax({
+			url : "/EvaluateTool/application/setStatus",
+			type : 'POST',
+			data : {
+				roomId : roomId
+			},
+			success : function(data) {
 
-							},
-							error : function(data, status, er) {
-								alert("error: " + data + " status: " + status
-										+ " er:" + er);
-							}
-						});
-					});
+			},
+			error : function(data, status, er) {
+				alert("error: " + data + " status: " + status
+					+ " er:" + er);
+			}
+		});
+	});
 			//Document Click hiding the popup 
 			$(document).click(function() {
 				$("#notificationContainerModulator").hide();
@@ -1227,13 +1369,13 @@ a {
 			});
 
 			$("#buttonSubmit").click(
-					function() {
-						var dataForm = {};
-						dataForm.message = $("textarea#message").val();
-						dataForm.btnGroup = $("#panelButtonScore").find(
-								"button.active").prop('value');
-						;
-						alert(dataForm.message + " " + dataForm.btnGroup);
+				function() {
+					var dataForm = {};
+					dataForm.message = $("textarea#message").val();
+					dataForm.btnGroup = $("#panelButtonScore").find(
+						"button.active").prop('value');
+					;
+					alert(dataForm.message + " " + dataForm.btnGroup);
 
 						//var dataSend = JSON.stringify(dataForm);
 
@@ -1253,8 +1395,8 @@ a {
 						//}
 						//});
 
-					});
 		});
-	</script>
+		});
+</script>
 </body>
 </html>

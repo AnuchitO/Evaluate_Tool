@@ -51,7 +51,7 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 		mockMvc.perform(get("/evaluateBoard").param("idCourse", courseId))
 		.andExpect(status().isOk())
 		.andExpect(view().name("evaluateBoard"))
-		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+		.andExpect(forwardedUrl("/WEB-INF/layouts/master.jsp"));
 	}  
 
 	@Test
