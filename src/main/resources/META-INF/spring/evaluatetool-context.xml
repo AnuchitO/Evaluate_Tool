@@ -82,13 +82,13 @@
 	<beans profile="evaluateTool">
 		<!-- Creates an in-memory HSQLDB Database -->
 		<!--jdbc:embedded-database id="dataSource" /-->
-
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<jdbc:embedded-database id="dataSource"/>
+		<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<property name="driverClassName" value="${database.driverClassName}"/>
 			<property name="url" value="${database.url}"/>
 			<property name="username" value="${database.username}"/>
 			<property name="password" value="${database.password}"/>
-		</bean>
+		</bean> -->
 
 		<bean id="dataSourceInitializer"
 			  class="org.springframework.jdbc.datasource.init.DataSourceInitializer">

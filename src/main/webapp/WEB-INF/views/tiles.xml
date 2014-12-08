@@ -35,11 +35,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/logIn.jsp" />
 	</definition>
 	
-	<definition name="examinationRoom" extends="standardLayout">
+	<definition name="examinationRoom" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/examinationRoom.jsp" />
 	</definition>
 	
-	<definition name="evaluateBoard" extends="standardLayout">
+	<definition name="evaluateBoard" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/evaluateBoard.jsp" />
 		<!--put-attribute name="body" value="/WEB-INF/views/socketDemo2.jsp" /-->
 	</definition>

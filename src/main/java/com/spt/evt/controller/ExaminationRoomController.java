@@ -37,12 +37,16 @@ public class ExaminationRoomController {
 
 		String yourId = request.getParameter("yourId");
 		String yourPosition = request.getParameter("yourPosition");
+		String yourName = request.getParameter("yourName");
+		String yourLastName = request.getParameter("yourLastName");
 		JSONObject roomInformation = this.examinationRoomService.getRoomInformation();
 		Long personId = Long.parseLong(yourId);
 		JSONObject memberEachRoom = this.examinationRoomService.findParticipantsByPersonId(personId);
 		Map model = new HashMap();
 		model.put("yourId", yourId);
 		model.put("yourPosition", yourPosition);
+		model.put("name", yourName);
+		model.put("lastname", yourLastName);
 		model.put("room", roomInformation.toString());
 		model.put("memberEachRoom", memberEachRoom.toString());
 		return new ModelAndView("examinationRoom", model);

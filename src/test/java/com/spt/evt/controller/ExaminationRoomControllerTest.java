@@ -47,7 +47,7 @@ public class ExaminationRoomControllerTest extends TemplateTestController {
 		mockMvc.perform(get("/examinationRoom").param("yourId", yourId))
 		.andExpect(status().isOk())
 		.andExpect(view().name("examinationRoom"))
-		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+		.andExpect(forwardedUrl("/WEB-INF/layouts/master.jsp"));
 	}  
 
 	@Test

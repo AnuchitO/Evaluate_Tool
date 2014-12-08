@@ -93,7 +93,11 @@
 													+ "?yourId="
 													+ encodeURIComponent(yourId)
 													+ "&yourPosition="
-													+ encodeURIComponent(yourPosition);
+													+ encodeURIComponent(yourPosition)
+													+ "&yourName="
+													+ encodeURIComponent(yourName)
+													+ "&yourLastName="
+													+ encodeURIComponent(yourLastName);
 										},
 										error : function(data, status, er) {
 											alert("Wrong Username or Password, Try Again");
