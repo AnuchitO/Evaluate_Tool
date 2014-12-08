@@ -83,7 +83,7 @@ a {
 		var yourPosition='${yourPosition}';
 		var name='${name}';
 		var lastname='${lastname}';
-		$("#fullname").html(name+" "+lastname);
+		$("#fullname").html(name+"  "+lastname);
 		$("#loader").hide();
 		if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
 				$("#btnnotificationsubmitandcalcel").show();

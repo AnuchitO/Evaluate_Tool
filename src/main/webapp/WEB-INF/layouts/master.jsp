@@ -36,6 +36,13 @@
 		.glyphicon:hover{
 			cursor: pointer;
 		}
+		@font-face {
+		   font-family: myFont;
+		   src: url(${contextPath}/resources/styles/fonts/fontawesome-webfont.woff);
+		}
+		body{
+			font-family: myFont;
+		}
 </style>
 <!--[if lt IE 8]>
 	        <link rel="stylesheet" href="<c:url value="/resources/blueprint/ie.css" />" type="text/css" media="screen, projection" />
@@ -122,7 +129,7 @@
 																</div>
 																<div class="content" hidden id="configroom">
 																	<div class="summary">
-																		<a href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/room.png" width="20px" height="32px"/></p></a>					Room
+																		<a id="room" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/room.png" width="20px" height="32px"/></p></a>					Room
 																	</div>
 																</div>
 																<div class="content" hidden id="configreport">

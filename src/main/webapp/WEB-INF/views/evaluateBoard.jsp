@@ -6,10 +6,6 @@ pageEncoding="UTF-8"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Evaluate Board</title>
 	<style>
-		#formBoard {
-			margin: 40px;
-		}
-
 		#require {
 			margin-top: 10px;
 		}
@@ -254,16 +250,40 @@ pageEncoding="UTF-8"%>
 			Panel</button>
 		<button id="buttonDelete" type="button" class="btn btn-primary">Delete
 			Panel</button> -->
-			<input type="hidden" id="roomId" value="${idRoom}" /><input
-			type="hidden" id="modulatorId" value="${idModulator}" /><input
-			type="hidden" id="yourPosition" value="${yourPosition}" /> <label
-			id="examinerId" value="${idExaminer}">Examiner :
-			${nameExaminer} ${lastNameExaminer}</label> <br> <label id="committeeId"
-			value="${idCommittee}">Committee : ${nameCommittee}
-			${lastNameCommittee}</label> <br> <label id="courseId"
-			value="${idCourse}">Course : ${nameCourse}</label> <br>
+
 <!-- 			<button id="btnCompleteExamination" type="button"
 			class="btn btn-default" value="">Complete</button> -->
+			<div class="ui list">
+				<div class="item">
+					<img class="ui top aligned avatar image" src="${contextPath}/resources/images/user.png">
+					<div class="content">
+						<div class="header"><input type="hidden" id="roomId" value="${idRoom}" /><input
+							type="hidden" id="modulatorId" value="${idModulator}" /><input
+							type="hidden" id="yourPosition" value="${yourPosition}" /> 
+							<a><label  id="examinerId" value="${idExaminer}">Examiner</div></label></a>
+							<b><span style="font-size:12pt">${nameExaminer} ${lastNameExaminer}</span></b>
+							<div class="list">
+								<div class="item">
+									<i class="top aligned right triangle icon"></i>
+									<div class="content">
+									<a class="header"><label id="committeeId"
+											value="${idCommittee}">Committee</label></a>
+											<div class="description">${nameCommittee}
+												${lastNameCommittee}</div>
+											</div>
+										</div>
+										<div class="item">
+											<i class="top aligned right triangle icon"></i>
+											<div class="content">
+												<a class="header"><label id="courseId"
+													value="${idCourse}">Course</label></a>
+													<div class="description">${nameCourse}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 			<div id="formBoard">
 				<span id="submitOfAllTOpic" class="badge pull-right">Total <label
 					id="submitTopic" style="margin: 2px;"></label> / <label
@@ -373,7 +393,7 @@ pageEncoding="UTF-8"%>
 		$("#showbtnCompleteExamination").hide();
 		$("#btnCompleteExamination").hide();
 		var yourPosition='${yourPosition}';
-		var fullname = '${nameCommittee}'+'${lastNameCommittee}';
+		var fullname = '${nameCommittee}'+'  '+'${lastNameCommittee}';
 		$("#fullname").html(fullname);
 		var checkModulatorId = $("#modulatorId").val();
 		var checkCommitteeId = $("#committeeId").attr('value');
@@ -450,45 +470,26 @@ pageEncoding="UTF-8"%>
 				 closeOnConfirm: false,   
 				 closeOnCancel: false 
 				 }, function(isConfirm){   
-					 if (isConfirm) {
-					 		swal({
-						 	      type:"success",
-						 		  title: "Approve Success....",
-						 		});
-					 	/*$.ajax({
-					 		url:"http://localhost:8084/SpringHibernateWebApp/DeleteCountry",
-					 		method:"GET",
-					 		data:{idcountry:idcountry},
-					 		success:function(){
-					 			window.location="http://localhost:8084/SpringHibernateWebApp/ListCountry";
-					 		}
-					 	});	*/
-						 	
-						 } else {
-							 swal({
-								  type:"error",
-						 		  title: "Cancelled",
-						 		  text:"Click OK for Cancel",
-						 		  closeOnConfirm:false,
-						 		  confirmButtonText:"OK"
-							 });
-						 } 
-			});
-			//alert("UserRequestID:"+id+"  "+"RoomId:"+roomid);
-		/*	$.ajax({
-				url:"http://localhost:8083/EvaluateTool/application/test1",
-				method:"GET",
-				success:function(data){
-					var modulator=JSON.parse(data).modulator;
-					if(modulator){
-						$("#headdropdownapprovepermission").show();
-						$("#headdropdownsubmitandcancel").show();
-					}else{
-						$("#headdropdownapprovepermission").hide();
-						$("#headdropdownsubmitandcancel").hide();
-					}
-				}
-			});*/
+				 	if (isConfirm) {
+				 		swal({
+				 			type:"success",
+				 			title: "Approve Success....",
+				 		}, function(isConfirm){ 
+				 			$("#headdropdownapprovepermission").hide();
+				 			$("#headdropdownsubmitandcancel").hide();
+				 			$("#btnCompleteExamination").hide();
+				 		});
+
+				 	} else {
+				 		swal({
+				 			type:"error",
+				 			title: "Cancelled",
+				 			text:"Click OK for Cancel",
+				 			closeOnConfirm:false,
+				 			confirmButtonText:"OK"
+				 		});
+				 	} 
+				 });
 		}
 		function submitnotificationsubmitandcalcel(index,yourid,roomid){
 				//alert(index+","+yourid+","+roomid);
@@ -1230,8 +1231,11 @@ $("#room")
 		+ "?yourId="
 		+ encodeURIComponent(yourId)
 		+ "&yourPosition="
-		+ encodeURIComponent(yourPosition);
-		;
+		+ encodeURIComponent(yourPosition)
+		+ "&yourName="
+		+ encodeURIComponent('${nameCommittee}')
+		+ "&yourLastName="
+		+ encodeURIComponent('${lastNameCommittee}');
 	});
 $("#logOut").click(function() {
 	location.href = "/EvaluateTool/application/logIn";
