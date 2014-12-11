@@ -68,19 +68,19 @@
 		</bean>
 	</mvc:interceptors>
 	
-	<bean id="localeChangeInterceptor"
+	<!-- <bean id="localeChangeInterceptor"
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="lang" />
-	</bean>
+	</bean> -->
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />
-		<property name="interceptors">
+		<!-- <property name="interceptors">
 			<list>
 				<ref local="localeChangeInterceptor" />
 			</list>
-		</property>
+		</property> -->
 	</bean>
 
 	<bean
