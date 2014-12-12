@@ -15,19 +15,8 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class PersonEntityManagerDaoImpl   implements PersonEntityManagerDao {
+public class PersonEntityManagerDaoImpl extends  TemplateEntityManagerDao  implements PersonEntityManagerDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersonEntityManagerDaoImpl.class);
-
-    private EntityManager entityManager;
-
-    @PersistenceContext
-    public void setEntityManager(EntityManager em) {
-        this.entityManager = em;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -69,8 +58,5 @@ public class PersonEntityManagerDaoImpl   implements PersonEntityManagerDao {
         this.getEntityManager().flush();
         return merged;
     }
-
-
-
 
 }
