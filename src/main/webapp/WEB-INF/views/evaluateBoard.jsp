@@ -236,9 +236,6 @@ pageEncoding="UTF-8"%>
 			border-bottom: 1px solid #ccc;
 		}
 
-		#btnCompleteExamination {
-			background-color: #FF8C00;
-		}
 	</style>
 </head>
 
@@ -389,6 +386,62 @@ pageEncoding="UTF-8"%>
 	</div>
 
 	<script>
+		var stompClient = null;
+        $(function(){
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+            stompClient = Stomp.over(socket);    
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                	accessMethod(JSON.parse(data.body));
+               });
+            });
+            function accessMethod(data){
+	        	var namefunction=JSON.parse(data).function;
+	        	//alert(namefunction);
+	        	if(namefunction=="notificationRequestCommittee"){
+	        		notificationRequestCommittee(data);
+	       		 }
+        	}
+        	function notificationRequestCommittee(data){
+				console.log(data);
+				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
+				var namerequest=JSON.parse(data).name;
+				var lastnamerequest=JSON.parse(data).lastname;
+				var youridrequest=JSON.parse(data).yourId;
+				var title=JSON.parse(data).title;
+				var modulator=JSON.parse(data).modualtor;
+				var roomidrequest=JSON.parse(data).roomId;
+				var rolerequest=JSON.parse(data).role;
+				alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
+				var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
+				if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
+					$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+					$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+						'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
+						'</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="submitnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
+						'<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
+						'<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
+						'<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
+				}
+				$("div[id=contentlistsubmitandcancel]").each(function(index,element){
+					if(index<3){
+						$(element).show();
+					}else{
+						$(element).hide();
+					}
+
+				});						
+				if(countbadgenotificationsubmitandcalcel==""){
+					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+				}else{
+					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+				}
+			}
+        });
+
+        
+		$("#menuleftplus").hide();
 		$("#menuleftbtnCompleteExamination").hide();
 		$("#showbtnCompleteExamination").hide();
 		$("#btnCompleteExamination").hide();
@@ -475,9 +528,11 @@ pageEncoding="UTF-8"%>
 				 			type:"success",
 				 			title: "Approve Success....",
 				 		}, function(isConfirm){ 
+				 			stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator'}));
 				 			$("#headdropdownapprovepermission").hide();
 				 			$("#headdropdownsubmitandcancel").hide();
 				 			$("#btnCompleteExamination").hide();
+
 				 		});
 
 				 	} else {
@@ -491,61 +546,31 @@ pageEncoding="UTF-8"%>
 				 	} 
 				 });
 		}
-		function submitnotificationsubmitandcalcel(index,yourid,roomid){
+			function submitnotificationsubmitandcalcel(index,yourid,roomid){
 				//alert(index+","+yourid+","+roomid);
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
+
 				});
 				
 			}
-			function cancelnotificationsubmitandcalcel(index){
+			function notApproveNotificationRequestCommittee(index){
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
+					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ'}));
 				});
-				
 			}
 
-			function notificationsubmitandcalcel(){
-				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
-				var youridrequest=1;
-				var namerequest="Anuchit";
-				var lastnamerequest="Prasertsang";
-				var title="เข้าเป็นผู้ประเมิน";
-				var modulator=false;
-				var roomidrequest=1;
-				var rolerequest="committee";
-				alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
-				var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
-				if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
-					$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-					$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
-						'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
-						'</div>'+'<div class="content">'+'<div class="date">'+'<div class="ui tiny buttons" onclick="submitnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')">'+'<div class="ui green button">อนุญาต</div>'+
-						'<div class="or"></div>'+'<div class="ui red button" onclick="cancelnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+')">ปฎิเสธ</div>'+'</div>'+'</div>'+'<div class="summary">'+
-						'<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
-						'<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
-				}
-				$("div[id=contentlistsubmitandcancel]").each(function(index,element){
-					if(index<3){
-						$(element).show();
-					}else{
-						$(element).hide();
-					}
-
-				});						
-				if(countbadgenotificationsubmitandcalcel==""){
-					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-				}else{
-					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-				}
-			}
+			
 			$("#anotificationapprove,#imgnotificationapprove,#badgenotificationapprove").click(function(){
 				$("#badgenotificationapprove").html("");
 				$("#dropdownsubmitandcancel").hide();
+				$("#dropdownconfig").hide();
 			});
 			$("#imgnotificationsubmitandcalcel,#badgenotificationsubmitandcalcel").click(function(){
 				$("#badgenotificationsubmitandcalcel").html("");
 				$("#dropdownsubmitandcancel").slideToggle(800);
+				$("#dropdownconfig").hide();
 			});
 			$("#anotificationconfig,#imgnotificationapprove,#imgnotificationconfig").click(function(){
 				$("#dropdownsubmitandcancel").hide();
@@ -1336,7 +1361,12 @@ $("#btnCompleteExamination").click(
 				roomId : roomId
 			},
 			success : function(data) {
-
+				swal({
+				 			type:"success",
+				 			title: "Success",
+				 			closeOnConfirm:false,
+				 			confirmButtonText:"OK"
+				 		});
 			},
 			error : function(data, status, er) {
 				alert("error: " + data + " status: " + status
