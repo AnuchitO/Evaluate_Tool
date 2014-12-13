@@ -15,6 +15,9 @@
 @IMPORT url("${contextPath}/resources/styles/css/alertify.core.css");
 @IMPORT url("${contextPath}/resources/styles/css/alertify.default.css");
 @IMPORT url("${contextPath}/resources/styles/css/sweet-alert.css");
+@IMPORT url("${contextPath}/resources/styles/css/custombox.min.css");
+@IMPORT url("${contextPath}/resources/styles/css/datepicker3.css");
+@IMPORT url("${contextPath}/resources/styles/css/bootstrap-timepicker.min.css");
 /*@IMPORT url("${contextPath}/resources/styles/css/alertify.bootstrap.css");*/
 		#menuindropdownlist{
 			margin:30px;
@@ -42,6 +45,10 @@
 		}
 		body{
 			font-family: myFont;
+		}
+		.input-group-addon{
+			color:white;
+			background-color:#5C6166;
 		}
 </style>
 <!--[if lt IE 8]>
@@ -114,8 +121,8 @@
 									</li>
 									<!-- End DropDown Submit And Cancel -->
 									<!-- DropDown Config -->
-									<li class="dropdown"> <a id="anotificationconfig" data-toggle="dropdown"><img id="imgnotificationconfig" class="glyphicon" src="${contextPath}/resources/images/config.png" width="32px" height="30px"/></a>
-										<ul class="dropdown-menu">
+									<li id="headdropdownconfig" class="dropdown"> <a id="anotificationconfig" ><img id="imgnotificationconfig" class="glyphicon" src="${contextPath}/resources/images/config.png" width="32px" height="30px"/></a>
+										<ul id="dropdownconfig" class="dropdown-menu">
 											<li class="dropdown-submenu">
 												<div id="dropdownoption">
 													<div >
@@ -163,7 +170,7 @@
 												</div>
 											</li>
 											<hr/>
-											<li><div style="margin-left:75%" tabindex="-1"><a href="logIn"><button class="ui orange tiny button">Logout</button></a></div></li>
+											<li><div style="margin-left:75%" tabindex="-1"><a ><button id="logOut" class="ui orange tiny button">Logout</button></a></div></li>
 										</ul>
 									</li>
 									<!-- End DropDown Config -->
@@ -172,6 +179,9 @@
 							</div>
 							<!-- /.nav-collapse -->
 						</nav>
+						<!-- Menu Left Plus -->
+						<div id="menuleftplus" style="width:100px;position:fixed;top:50%;left:0px;z-index:2"><img class="glyphicon" id="imgmenuleftplus" src="${contextPath}/resources/images/plus.png" width="32px" height="30px" onclick="openmenuplus()" /><b hidden id="extendimgmenuplus">Plus</b></div>
+						<!-- End Menu Left Plus -->
 						<!-- Menu Left -->
 						<div id="menulefthover" style="width:100px;position:fixed;top:50%;left:0px;z-index:2"><img class="glyphicon" id="imgmenuleft" src="${contextPath}/resources/images/menu.png" width="32px" height="30px" onclick="openmenuleft()" /><b hidden id="extendimgmenuleft">Menu</b></div>
 						<div id="menulefthead" style="position:fixed;z-index:1" >
@@ -190,23 +200,83 @@
 										Favorites
 									</a>
 									<a id="menuleftbtnCompleteExamination" class="green item">
-										<div id="showbtnCompleteExamination"><button id="btnCompleteExamination" type="button"
-			class="btn btn-default" value="">Complete</button></div>
+										<div id="showbtnCompleteExamination">
+										<img id="btnCompleteExamination" class="glyphicon" src="${contextPath}/resources/images/002.png" width="32px" height="30px" />
+										</div>
+										Complete
 									</a>
 								</div>
 							</div>
 						</div>
 						<!-- End Menu Left -->
 						<!-- Content Data -->
-						<div id="contentcol2" class="col-md-2 column"></div>
+						<div id="contentcol2" class="col-md-2 column">
+							<div hidden id="fromadd" style="height:700px;width:280px;margin-top:100px;z-index:5;margin-bottom:20px;position:fixed;background-color: rgb(176, 225, 223)" class="ui form segment">
+								<span>เพิ่มห้อง <div style="margin-bottom:10px;float:right"class="ui green huge submit button">เพิ่ม</div></span>
+								<div class="field">
+									<input placeholder="ชื่อห้อง" name="nameroom" type="text">
+								</div>
+								<div class="field">
+									<textarea placeholder="คำอธิบาย" name="description"></textarea>
+								</div>
+								<div class="field">
+									<div class="ui black button floating dropdown labeled icon" style="height:25px">
+										<i class="dropdown icon"></i>
+										<span id="nameExaminer" class="text" style="font-size:8pt">ผู้เข้าสอบ</span>
+										<p id="validExaminer" style="color:white;background-color:red"></p>
+										<div class="menu">
+											<div class="item">Arabic</div>
+											<div class="item">Chinese</div>
+											<div class="item">Danish</div>
+											<div class="item">Dutch</div>
+											<div class="item">English</div>
+										</div>
+									</div>
+								</div>
+								<div class="field">
+									<div id="dropdownaa" class="ui black button dropdown labeled  icon " style="height:25px">
+										<i class="dropdown icon"></i>
+										<span id="nameCommitti" class="text" style="font-size:8pt">หัวหน้าห้องสอบ</span>
+										<p id="validCommitti" style="color:white;background-color:red"></p>
+										<div class="menu">
+											<div class="item">Arabic</div>
+											<div class="item">Chinese</div>
+											<div class="item">Danish</div>
+											<div class="item">Dutch</div>
+											<div class="item">English</div>
+										</div>
+									</div>
+								</div>
+								<div class="field">
+									<div class="input-daterange input-group" id="datepicker">
+										<span class="input-group-addon" style="color:black">Start Date</span>
+										<input type="text" class="input-sm form-control" name="startDate" />
+									</div>
+								</div>
+								<div class="field">
+									<div class="bootstrap-timepicker pull-right">
+									<span class="input-group-addon" >Start Time</span>
+										<input id="timepicker3" type="text" class="input-sm form-control" name="startTime">
+									</div>
+								</div><br/>
+								<div class="field">
+									<div class="bootstrap-timepicker pull-right">
+									<span class="input-group-addon">End Time</span>
+										<input id="timepicker4" type="text" class="input-sm form-control" name="endTime">
+									</div>
+								</div>
+							
+						</div>
+						</div>
 						<div id="contenthead" class="col-md-10 column">
 							<div style="margin-top:100px;margin-bottom:10%;" class="panel panel-warning">
 								<div class="panel-heading" style="background-color:#ffa100;border-color:#ff8d00">
 								</div>
 								<div class="panel-body">
 									<!-- <button class="ui teal tiny button" onclick="notificationapprove()">notificationapprove</button> -->
-									<button id="btnnotificationsubmitandcalcel" class="ui orange tiny button"  onclick="notificationsubmitandcalcel()">notificationsubmitandcalcel</button>
-									<br/><hr/>
+				<!-- 					<button id="btnnotificationsubmitandcalcel" class="ui orange tiny button"  onclick="notificationsubmitandcalcel()">notificationsubmitandcalcel</button>
+									<button id="btnnotificationsubmitandcalcel" class="ui orange tiny button"  onclick="processPercent()">Percent</button> -->
+									<!-- <br/><hr/> -->
 									<tiles:insertAttribute name="body" />
 								</div>
 							</div>
@@ -233,8 +303,31 @@
 		src="${contextPath}/resources/styles/js/alertify.min.js"></script>
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/sweet-alert.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/custombox.min.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/bootstrap-timepicker.min.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/progressbar.min.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/stomp.js"></script>
 	<script type="text/javascript">
-			
-		</script>
+			$("#anotificationconfig").click(function(){
+				$("#dropdownconfig").slideToggle(400);			
+			});
+			//var stompClient = null;
+/*			function connectSocket(){
+				var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+	          	this.stompClient = Stomp.over(socket);    
+	            this.stompClient.connect({}, function(frame) {
+	                console.log('Connected: ' + frame);
+	            });
+				return this.stompClient;
+			}	*/
+	</script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,53 +40,162 @@
 .bg-default {
 	background-color: #FF8C00;
 }
-
-
 a {
 	cursor: pointer;
 }
-</style>
 
-<body>
-<!-- 	<span><a href="&lang=en_US">English</a> : </span>
-<span><a href="&lang=th_TH">Thai</a> : </span>
-<div>
-	<spring:message code="APP.name" />
-	<spring:message code="APP.lname" />
-</div>
- -->
+</style>
+<body> 
+	
 	<input type="hidden" id="yourId" value="${yourId}" />
 	<input type="hidden" id="yourPosition" value="${yourPosition}" />
 	<div id="container" class="row">
 		<div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
 	</div>
 	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
-	<div id="room0" class="panel panel-default"></div>
-	<div id="body0" class="panel-body"></div>
+	<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
+	<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div><div id="showprocess" style="position:relative;left:50px;width:100px;height:100px"></div></div>
 	<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 	<div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
-	<b><div id="roomName0" style="font-size:20pt;"></div></b>
+	<div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
 	<input type="hidden" id="roomId0" value="" />
-	<div id="courseName0"></div>
-	<input type="hidden" id="courseId0" value="" />
-	<div id="roomDescription0"></div>
-	<div id="roomTime0"></div>
 	<input type="hidden" id="examinerId0" value="" />
 	<div id="examiner0"></div>
 	<input type="hidden" id="modulatorId0" value="" />
 	<div id="modulator0"></div>
 	<div id="roomStatus0" class="checkStatus"></div>
+	<div id="courseName0"></div>
+	<input type="hidden" id="courseId0" value="" />
+	<div id="roomDescription0"></div>
+	<div id="roomTime0"></div>
 	<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 	<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-	<button id="btnExaminer0" type="button"  disabled="disabled"
-		class="ui orange tiny disabled button"
+	<button id="btnExaminer0" type="button" 
+		class="ui orange tiny  button"
 		onClick="javascript:sendIdExaminer(this)">Examiner</button>
-	<button id="btnCommittee0" type="button"  disabled="disabled"
-		class="ui orange tiny disabled button" onClick="javascript:sendId(this)">Committee</button>
+	<button id="btnCommittee0" type="button" 
+		class="ui orange tiny  button" onClick="javascript:sendId(this)">Committee</button>
 	<div id="loader" align="center" style="position:fixed;left:50%;top:50%">
 				<img src="resources/images/loading.gif" alt="" />
 			</div>
 	<script>
+		var totalprocessPercent=0;
+		var stompClient = null;
+	    $(function(){
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+            stompClient = Stomp.over(socket);    
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                 	accessMethod(JSON.parse(data.body));             
+               });
+            });
+           
+			$('.input-daterange').datepicker({
+				format: "yyyy-mm-dd",
+				keyboardNavigation: false,
+				forceParse: false,
+				autoclose: true
+			});
+			$('#timepicker3').timepicker({
+                minuteStep: 5,
+                secondStep:10,
+                showInputs: false,
+                disableFocus: true,
+                showMeridian:false,
+                defaultTime:'current',
+                showSeconds:true
+            });
+			$('#timepicker4').timepicker({
+                minuteStep: 5,
+                secondStep:10,
+                showInputs: false,
+                disableFocus: true,
+                showMeridian:false,
+                defaultTime:'current',
+                showSeconds:true
+            });
+			$('.ui.form')
+			.form({
+				description: {
+					identifier  : 'description',
+					rules: [
+					{
+						type   : 'empty',
+						prompt: "กรุณากรอกคำอธิบาย",
+					}
+					]
+				},
+				nameroom: {
+					identifier  : 'nameroom',
+					rules: [
+					{
+						type   : 'empty',
+						prompt: "กรุณากรอกชื่อห้อง",
+					}
+					]
+				},
+			}, {
+				inline : true,
+				on     : 'blur',
+				onSuccess : function(data){
+			        var roomName=$("input[name=nameroom]").val();
+			        var description=$("textarea[name=description]").val();
+			        var nameExaminer=$("#nameExaminer").text();
+			        var nameCommitti=$("#nameCommitti").text();
+			        var startDate=$("input[name=startDate]").val();
+			        var startTime=$("input[name=startTime]").val();
+			        var endTime=$("input[name=endTime]").val();
+			        if(nameExaminer=="ผู้เข้าสอบ"||nameCommitti=="หัวหน้าห้องสอบ"||startDate==""||startTime==""||endTime==""){
+			        	swal({
+				 			type:"error",
+				 			title: "แจ้งเตือน",
+				 			text:"กรุณากรอกข้อมูลให้ครบถ้วน",
+				 			closeOnConfirm:false,
+				 			confirmButtonText:"OK"
+				 		});
+			        }else{
+			        	$("input[name=nameroom]").val("");
+			        	$("textarea[name=description]").val("");
+			        	$("#nameExaminer").text("ผู้เข้าสอบ");
+			        	$("#nameCommitti").text("หัวหน้าห้องสอบ");
+			        	$("input[name=startDate]").val("");
+			        	$("input[name=startTime]").val("");
+			        	$("input[name=endTime]").val("");
+			        	swal({
+				 			type:"success",
+				 			title: "บันทึกสำเร็จ",
+				 			closeOnConfirm:false,
+				 			confirmButtonText:"OK"
+				 		});
+
+			        }
+
+			    }
+			});
+			$(".dropdown").dropdown();
+			function accessMethod(data){
+				var namefunction=JSON.parse(data).function;
+				//alert(namefunction);
+				if(namefunction=="removeProcess"){
+					removeProcess(data);
+				}else if(namefunction=="approveSubmitModulator"){
+					approveSubmitModulator(data);
+				}
+
+			}
+			function removeProcess(data){
+				$("#loader").hide();
+				var datamessage=JSON.parse(data).data;
+				sweetAlert("", datamessage,"error");
+			}
+			function approveSubmitModulator(data){
+				var datamessage=JSON.parse(data).data;
+				sweetAlert("", datamessage, "success");
+			}
+			
+		});
+		
 		var yourPosition='${yourPosition}';
 		var name='${name}';
 		var lastname='${lastname}';
@@ -107,7 +215,6 @@ a {
 				$("#headdropdownsubmitandcancel").hide();
 				$("#menuleft").hide();
 				$("#imgmenuleft").hide();
-				$("#contentcol2").hide();
 				$("#contenthead").removeClass("col-md-10 column");
 				$("#contenthead").addClass("col-md-12 column");
 			}
@@ -136,10 +243,31 @@ a {
 				$("#confighistory").show();
 				$("#configmanager").hide();
 			}
-			function notificationsubmitandcalcel(){
-				$("#loader").toggle();
+			
+		/*	function notificationsubmitandcalcel(){
+				$("#loader").show();
+				stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': 'Kritchanapak','lastname':'Jenchaiyapoom','yourId':3,'role':'commitee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':1}));
+			}*/
+			$("#imgmenuleftplus").mouseover(function(){
+				$("#extendimgmenuplus").slideToggle(800);
+			});
+			$("#imgmenuleftplus").mouseout(function(){
+				$("#extendimgmenuplus").slideToggle(800);
+			});
+			var i= 0;
+			function openmenuplus(){
+				if(i==0){
+					$("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
+					$("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
+					$("#fromadd").slideToggle(400);
+					i++;
+				}else{
+					$("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
+					$("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
+					$("#fromadd").hide();
+					i--;
+				}		
 			}
-
 		$(function() {
 			$("#setSizeCard0").hide();
 			$("#room0").hide();
@@ -312,34 +440,7 @@ a {
 													.appendTo(
 															$("#setSizeDetail"
 																	+ dummyDetail));
-											$("#roomDescription0")
-													.clone()
-													.attr(
-															'id',
-															'roomDescription'
-																	+ (++dummyRoomDescription))
-													.text(roomDescription)
-													.insertAfter(
-															genRoomDescription)
-													.show()
-													.appendTo(
-															$("#setSizeDetail"
-																	+ dummyDetail));
-											$("#roomTime0")
-													.clone()
-													.attr(
-															'id',
-															'roomTime'
-																	+ (++dummyTime))
-													.text(
-															roomStartTime
-																	+ " : "
-																	+ roomEndTime)
-													.insertAfter(genTime)
-													.show()
-													.appendTo(
-															$("#setSizeDetail"
-																	+ dummyDetail));
+											
 											$("#examinerId0")
 													.clone()
 													.attr(
@@ -406,6 +507,34 @@ a {
 													.appendTo(
 															$("#setSizeDetail"
 																	+ dummyDetail));
+											$("#roomDescription0")
+													.clone()
+													.attr(
+															'id',
+															'roomDescription'
+																	+ (++dummyRoomDescription))
+													.text(roomDescription)
+													.insertAfter(
+															genRoomDescription)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+											$("#roomTime0")
+													.clone()
+													.attr(
+															'id',
+															'roomTime'
+																	+ (++dummyTime))
+													.text(
+															roomStartTime
+																	+ " : "
+																	+ roomEndTime)
+													.insertAfter(genTime)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
 											$("#setHalfSizeOne0")
 													.clone()
 													.attr(
@@ -463,25 +592,25 @@ a {
 									var memberOfRoom = memberEachRoom.room[count].idRoom;
 
 									if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
-										$("#btnExaminer" + (memberOfRoom))
-												.removeClass('ui orange tiny disabled button'
-														);
-										$("#btnExaminer" + (memberOfRoom))
-												.addClass('ui orange tiny button'
-														);
-										$("#btnExaminer" + (memberOfRoom))
-												.removeAttr('disabled',
-														'disabled');		
+										$("#btnExaminer" + (memberOfRoom));
+										/*		.removeClass('ui orange tiny disabled button'
+														);*/
+										$("#btnExaminer" + (memberOfRoom));
+										/*		.addClass('ui orange tiny button'
+														);*/
+										$("#btnExaminer" + (memberOfRoom));
+										/*		.removeAttr('disabled',
+														'disabled');	*/	
 									} else {
-										$("#btnCommitte" + (memberOfRoom))
-												.removeClass('ui orange tiny disabled button'
-														);
-										$("#btnCommitte" + (memberOfRoom))
-												.addClass('ui orange tiny button'
-														);
-										$("#btnCommitte" + (memberOfRoom))
-												.removeAttr('disabled',
-														'disabled');		
+										$("#btnCommitte" + (memberOfRoom));
+											/*	.removeClass('ui orange tiny disabled button'
+														);*/
+										$("#btnCommitte" + (memberOfRoom));
+											/*	.addClass('ui orange tiny button'
+														);*/
+										$("#btnCommitte" + (memberOfRoom));
+											/*	.removeAttr('disabled',
+														'disabled');	*/	
 									}
 								}
 							});
@@ -496,9 +625,54 @@ a {
 						$("div[id=body"+indexbody+"]").css("background-color","#b0e1df");
 					}else if(status==("Status : Waiting")){
 						$("div[id=body"+indexbody+"]").css("background-color","#ffc166");
+					}else if(status==("Status : Ready")){
+						$("div[id=body"+indexbody+"]").css("background-color","#f3f34c");
+					}else if(status==("Status : Terminate")){
+						$("div[id=body"+indexbody+"]").css("background-color","#cdc5bf");
 					}
 				});
+					totalprocessPercent+=5;
+					$("div[id=showprocess]").each(function(index,element1){
+						var element = element1;
+						element.innerHTML = '<center><b><span id="clock-seconds" style="font-size:18pt"></span></b></center>';
+						var seconds = new ProgressBar.Circle(element, {
+						    duration: 200,
+						    color: "#7b1515",
+						    trailColor: "#ffffff",
+						    strokeWidth: 10,
+						    
+						});
+						seconds.animate((totalprocessPercent)/100, function() {
+						});
+					});
+					$("span[id=clock-seconds]").each(function(index,element2){
+						var textElement = element2;
+						var second = totalprocessPercent;
+						textElement.innerHTML = second;
+					});
+
 		});
+		function processPercent(idcard){
+			totalprocessPercent+=5;
+			$("div[id=showprocess]").each(function(index,element1){
+					var element = element1;
+					element.innerHTML = '<center ><b><span id="clock-seconds" style="font-size:18pt"></span></b></center>';
+					var seconds = new ProgressBar.Circle(element, {
+					    duration: 200,
+					    color: "#7b1515",
+					    trailColor: "#ffffff",
+					    strokeWidth: 10,
+					    
+					});
+					seconds.animate((totalprocessPercent)/100, function() {
+					});
+				});
+				$("span[id=clock-seconds]").each(function(index,element2){
+					var textElement = element2;
+					var second = totalprocessPercent;
+					textElement.innerHTML = second;
+				});
+		}
 		function sendId(element) {
 			var count = (element.id).replace(/[^\d.]/g, '');
 			var detailPerson = {};
@@ -507,6 +681,10 @@ a {
 			detailPerson.examinerId = $("#examinerId" + count).val();
 			detailPerson.modulatorId = $("#modulatorId" + count).val();
 			var dataPersonId = JSON.stringify(detailPerson);
+			//alert(dataPersonId);
+
+			/*$("#loader").show();
+				stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': 'Kritchanapak','lastname':'Jenchaiyapoom','yourId':3,'role':'commitee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':1}));*/
 			$
 					.ajax({
 						url : "/EvaluateTool/application/checkCommittee",

@@ -105,8 +105,8 @@ insert into Room (id,name,description,courseId,startTime,endTime,status) values 
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (3, 'A','Room Java',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Completed')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (4, 'Aui','Room Java',1,'2014-12-01 13:00:00','2014-12-01 14:00:00','Waiting')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (5, 'X','Room Assembly',1,'2014-12-01 09:00:00','2014-12-01 10:00:00','Testing')
-insert into Room (id,name,description,courseId,startTime,endTime,status) values (6, 'New','Room Assembly',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Testing')
-insert into Room (id,name,description,courseId,startTime,endTime,status) values (7, 'Non','Room Assembly',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
+insert into Room (id,name,description,courseId,startTime,endTime,status) values (6, 'New','Room Assembly',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Ready')
+insert into Room (id,name,description,courseId,startTime,endTime,status) values (7, 'Non','Room Assembly',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Terminate')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (8, 'Guy','Room Assembly',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (9, 'Jane','Room Assembly',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
 
