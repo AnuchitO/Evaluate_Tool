@@ -386,9 +386,11 @@ pageEncoding="UTF-8"%>
 	</div>
 
 	<script>
+
 		var stompClient = null;
+		var options = {protocols_whitelist: ["websocket", "xhr-streaming", "xdr-streaming", "xhr-polling", "xdr-polling", "iframe-htmlfile", "iframe-eventsource", "iframe-xhr-polling"], debug: true};
         $(function(){
-            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove', undefined, options);
             stompClient = Stomp.over(socket);    
             stompClient.connect({}, function(frame) {
                 console.log('Connected: ' + frame);
@@ -413,30 +415,37 @@ pageEncoding="UTF-8"%>
 				var modulator=JSON.parse(data).modualtor;
 				var roomidrequest=JSON.parse(data).roomId;
 				var rolerequest=JSON.parse(data).role;
-				alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
-				var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
-				if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
-					$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-					$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
-						'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
-						'</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="submitnotificationsubmitandcalcel('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
-						'<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
-						'<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
-						'<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
-				}
-				$("div[id=contentlistsubmitandcancel]").each(function(index,element){
-					if(index<3){
-						$(element).show();
-					}else{
-						$(element).hide();
-					}
+				var modulatorId=JSON.parse(data).modulatorId;
+				var count=JSON.parse(data).count;
+				var modualtorInRoom='${idModulator}';
+				var idRoomInRoom='${idRoom}';
+				if(modulatorId==modualtorInRoom&&roomidrequest==idRoomInRoom){
+						alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
+						var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
+						if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
+							$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+							$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+								'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
+								'</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+','+count+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
+								'<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
+								'<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
+								'<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
+						}
+						$("div[id=contentlistsubmitandcancel]").each(function(index,element){
+							if(index<3){
+								$(element).show();
+							}else{
+								$(element).hide();
+							}
 
-				});						
-				if(countbadgenotificationsubmitandcalcel==""){
-					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-				}else{
-					$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+						});						
+						if(countbadgenotificationsubmitandcalcel==""){
+							$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+						}else{
+							$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+						}
 				}
+			
 			}
         });
 
@@ -546,18 +555,19 @@ pageEncoding="UTF-8"%>
 				 	} 
 				 });
 		}
-			function submitnotificationsubmitandcalcel(index,yourid,roomid){
+			function approveNotificationRequestCommittee(index,yourid,roomid,count){
 				//alert(index+","+yourid+","+roomid);
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
+					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับแล้ว','yourId':yourid,'roomId':roomid,'count':count}));
 
 				});
 				
 			}
-			function notApproveNotificationRequestCommittee(index){
+			function notApproveNotificationRequestCommittee(index,yourid,roomid){
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
-					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ'}));
+					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ','yourId':yourid,'roomId':roomid}));
 				});
 			}
 

@@ -26,13 +26,33 @@ public class RequestAndApprove{
 	    	jsonData.put("role",map.get("role"));
 	    	jsonData.put("title",map.get("title"));
 	    	jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("count",map.get("count"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
 	    	jsonData.put("function","notificationRequestCommittee");
     	}else if(map.get("head").equals("removeProcess")){
     		jsonData.put("data",map.get("data"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
     		jsonData.put("function","removeProcess");
-    	}else if(map.get("head").equals("approveSubmitModulator")){
+    	}else if(map.get("head").equals("approveProcess")){
+            System.out.println("approveProcess");
+        }else if(map.get("head").equals("approveSubmitModulator")){
             jsonData.put("data",map.get("data"));
             jsonData.put("function","approveSubmitModulator");
+        }else if(map.get("head").equals("approveSubmitCommittee")){
+            jsonData.put("data",map.get("data"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("count",map.get("count"));
+            jsonData.put("function","approveSubmitCommittee");
+        }else if(map.get("head").equals("updateStatusCard")){
+            jsonData.put("name",map.get("name"));
+            jsonData.put("lastname",map.get("lastname"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("count",map.get("count"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
+            jsonData.put("function","updateStatusCard");
         }
 
     	System.out.println(jsonData.toString());

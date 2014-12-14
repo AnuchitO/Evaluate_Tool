@@ -32,9 +32,8 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 			roomDetail.put("status",room.getStatus());
 
 			Long roomId = room.getId();
-			findExaminerAndModulator(roomDetail, room);
+			findExaminerAndModulator(roomDetail, room);			
 			allRoom.append("room", roomDetail);
-
 		}
 		return allRoom;
 	}
@@ -48,7 +47,11 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		String personExaminerName;
 		String personExaminerLastName;
 		String personExaminer;
-		
+		Long personCommitteeId;
+		String personCommitteeName;
+		String personCommitteeLastName;
+		String personCommittee;
+		JSONObject personCommitteeInroom =null;
 		List<Participants> participantsList = this.getParticipantsService().findByRoom(room);
 		for(Participants participants : participantsList){
 			Boolean isModulator = participants.getModulator();
@@ -61,6 +64,16 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 				personExaminer = personExaminerName + " " + personExaminerLastName;
 				roomDetail.put("examinerId", personExaminerId.toString());
 				roomDetail.put("examiner", personExaminer);
+			}else if(!isModulator){
+				personCommitteeInroom=new JSONObject();
+				personCommitteeId = participants.getPerson().getId();
+				personCommitteeName = participants.getPerson().getName();
+				personCommitteeLastName = participants.getPerson().getLastName();
+				personCommittee = personCommitteeName +" "+ personCommitteeLastName;
+				personCommitteeInroom.put("committeeId", personCommitteeId);
+				personCommitteeInroom.put("committee", personCommittee);
+				roomDetail.append("committee",personCommitteeInroom);
+				//System.out.println("false"+participants.getRoom().getId());
 			}
 			else if(isModulator){
 				personModulatorId = participants.getPerson().getId();
@@ -71,6 +84,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 				roomDetail.put("modulator", personModulator);
 
 			}
+			
 
 		}
 	}

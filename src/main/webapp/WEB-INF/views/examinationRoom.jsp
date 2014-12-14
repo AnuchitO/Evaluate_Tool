@@ -60,6 +60,7 @@ a {
 	<div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
 	<input type="hidden" id="roomId0" value="" />
 	<input type="hidden" id="examinerId0" value="" />
+	<div id="committee0"></div>
 	<div id="examiner0"></div>
 	<input type="hidden" id="modulatorId0" value="" />
 	<div id="modulator0"></div>
@@ -81,8 +82,9 @@ a {
 	<script>
 		var totalprocessPercent=0;
 		var stompClient = null;
+		var options = {protocols_whitelist: ["websocket", "xhr-streaming", "xdr-streaming", "xhr-polling", "xdr-polling", "iframe-htmlfile", "iframe-eventsource", "iframe-xhr-polling"], debug: true};
 	    $(function(){
-            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove', undefined, options);
             stompClient = Stomp.over(socket);    
             stompClient.connect({}, function(frame) {
                 console.log('Connected: ' + frame);
@@ -181,17 +183,98 @@ a {
 					removeProcess(data);
 				}else if(namefunction=="approveSubmitModulator"){
 					approveSubmitModulator(data);
+				}else if(namefunction=="approveSubmitCommittee"){
+					approveSubmitCommittee(data);
+				}else if(namefunction=="updateStatusCard"){
+					updateStatusCard(data);
 				}
 
 			}
 			function removeProcess(data){
-				$("#loader").hide();
+				//$("#loader").hide();
 				var datamessage=JSON.parse(data).data;
-				sweetAlert("", datamessage,"error");
+				var yourId=JSON.parse(data).yourId;
+				var roomId=JSON.parse(data).roomId;
+				var yourIdInRoom='${yourId}';
+				if(yourId==yourIdInRoom){
+					sweetAlert("", datamessage,"error");
+				}
+				
 			}
 			function approveSubmitModulator(data){
 				var datamessage=JSON.parse(data).data;
 				sweetAlert("", datamessage, "success");
+			}
+			function approveSubmitCommittee(data){
+				var datamessage=JSON.parse(data).data;
+				var yourId=JSON.parse(data).yourId;
+				var roomId=JSON.parse(data).roomId;
+				var yourIdInRoom='${yourId}';
+				var count = JSON.parse(data).count;
+				var roomStatus=$("#roomStatus"+count).text();
+				var yourId='${yourId}';
+				var name='${name}';
+				var lastname='${lastname}';
+				var detailPerson = {};
+				detailPerson.roomId = $("#roomId" + count).val();
+				detailPerson.committeeId = $("#yourId").val();
+				detailPerson.examinerId = $("#examinerId" + count).val();
+				detailPerson.modulatorId = $("#modulatorId" + count).val();
+				var dataPersonId = JSON.stringify(detailPerson);
+				if(yourId==yourIdInRoom){
+					//sweetAlert("", datamessage, "success");
+					$
+							.ajax({
+								url : "/EvaluateTool/application/checkCommittee",
+								type : 'POST',
+								data : {
+									dataPersonId : dataPersonId
+								},
+								success : function(data) {
+									var idRoom = JSON.parse(data).idRoom;
+									var idCourse = JSON.parse(data).idCourse;
+									var idExaminer = JSON.parse(data).idExaminer;
+									var nameExaminer = JSON.parse(data).nameExaminer;
+									var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+									var idCommittee = JSON.parse(data).idCommittee;
+									var nameCommittee = JSON.parse(data).nameCommittee;
+									var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+									var idModulator = JSON.parse(data).idModulator;
+									var yourPosition = $("#yourPosition").val();
+									location.href = "/EvaluateTool/application/evaluateBoard"
+									+ "?idRoom="
+									+ encodeURIComponent(idRoom)
+									+ "&idCourse="
+									+ encodeURIComponent(idCourse)
+									+ "&idExaminer="
+									+ encodeURIComponent(idExaminer)
+									+ "&nameExaminer="
+									+ encodeURIComponent(nameExaminer)
+									+ "&lastNameExaminer="
+									+ encodeURIComponent(lastNameExaminer)
+									+ "&idCommittee="
+									+ +encodeURIComponent(idCommittee)
+									+ "&nameCommittee="
+									+ encodeURIComponent(nameCommittee)
+									+ "&lastNameCommittee="
+									+ encodeURIComponent(lastNameCommittee)
+									+ "&idModulator="
+									+ encodeURIComponent(idModulator)
+									+ "&yourPosition="
+									+ encodeURIComponent(yourPosition);
+								},
+								error : function(data, status, er) {
+									alert("error: " + data + " status: " + status
+										+ " er:" + er);
+								}
+							});
+				}
+				
+			}
+			function updateStatusCard(data){
+   				var count=JSON.parse(data).count;
+   				$("#body"+count+"").css("background-color","rgb(243, 243, 76");
+   				$("#roomStatus"+count+"").text("Status : Ready");
 			}
 			
 		});
@@ -244,10 +327,6 @@ a {
 				$("#configmanager").hide();
 			}
 			
-		/*	function notificationsubmitandcalcel(){
-				$("#loader").show();
-				stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': 'Kritchanapak','lastname':'Jenchaiyapoom','yourId':3,'role':'commitee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':1}));
-			}*/
 			$("#imgmenuleftplus").mouseover(function(){
 				$("#extendimgmenuplus").slideToggle(800);
 			});
@@ -285,6 +364,7 @@ a {
 			$("#setHalfSizeTwo0").hide();
 			$("#btnExaminer0").hide();
 			$("#btnCommittee0").hide();
+			$("#committee0").hide();
 
 			var allRoom = JSON.parse('${room}');
 			var memberEachRoom = JSON.parse('${memberEachRoom}');
@@ -308,6 +388,7 @@ a {
 			var dummySetHalfSizeTwo = 0;
 			var dummyBtnExaminer = 0;
 			var dummyBtnCommittee = 0;
+			var dummyCommittee = 0;
 
 			var genSetSizeCard = ("#setSizeCard" + dummySetSizeCard);
 			var genRoom = ("#room" + dummyRoom);
@@ -329,13 +410,14 @@ a {
 			var genSetHalfSizeTwo = ("#setHalfSizeTwo" + dummySetHalfSizeTwo);
 			var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
 			var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
+			var genCommittee = ("#committee" + dummyCommittee);
 
 			$
 					.each(
 							allRoom,
 							function(i, item) {
 								item
-										.forEach(function(room) {
+										.forEach(function(room) {	
 											var roomId = room.id;
 											var roomName = room.name;
 											var roomCourseId = room.courseId;
@@ -560,6 +642,26 @@ a {
 															$("#setSizeDetail"
 																	+ dummyDetail));
 
+											$("#committee0")
+													.clone()
+													.attr(
+															'id',
+															'committee'
+																	+ (++dummyCommittee))
+													.insertAfter(
+															genCommittee)
+													.show()
+													.appendTo(
+															$("#setSizeDetail"
+																	+ dummyDetail));
+
+											for(var i in room.committee){
+											var committeeEachRoom=room.committee[i].committee;
+											var committeeIdEachRoom=room.committee[i].committeeId;
+													$("#committee"+dummyCommittee+"").append("<input id='nameCommittee' type='hidden' value='"+committeeEachRoom+"'/>");
+													$("#committee"+dummyCommittee+"").append("<input id='idCommittee'  type='hidden' value='"+committeeIdEachRoom+"'/>");
+											}
+															
 											$("#btnExaminer0")
 													.clone()
 													.attr(
@@ -675,17 +777,28 @@ a {
 		}
 		function sendId(element) {
 			var count = (element.id).replace(/[^\d.]/g, '');
+			var roomStatus=$("#roomStatus"+count).text();
+			var yourId='${yourId}';
+			var name='${name}';
+			var lastname='${lastname}';
 			var detailPerson = {};
 			detailPerson.roomId = $("#roomId" + count).val();
 			detailPerson.committeeId = $("#yourId").val();
 			detailPerson.examinerId = $("#examinerId" + count).val();
 			detailPerson.modulatorId = $("#modulatorId" + count).val();
-			var dataPersonId = JSON.stringify(detailPerson);
-			//alert(dataPersonId);
 
-			/*$("#loader").show();
-				stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': 'Kritchanapak','lastname':'Jenchaiyapoom','yourId':3,'role':'commitee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':1}));*/
-			$
+			var dataPersonId = JSON.stringify(detailPerson);
+		
+			if(roomStatus=="Status : Completed"){
+				sweetAlert("", "การสอบสำเร็จแล้ว","success");
+			}
+			else if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"||(roomStatus=="Status : Waiting"&&yourId==detailPerson.modulatorId)){
+				
+				if(yourId==detailPerson.examinerId){
+					sweetAlert("คุณเป็น Examiner ห้องนี้แล้ว", "ไม่สามารถเป็น Modulator ได้","error");
+				}else if(yourId==detailPerson.modulatorId){
+					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','name': name,'lastname': lastname,'yourId':yourId,'roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+					$
 					.ajax({
 						url : "/EvaluateTool/application/checkCommittee",
 						type : 'POST',
@@ -704,6 +817,57 @@ a {
 							var idModulator = JSON.parse(data).idModulator;
 							var yourPosition = $("#yourPosition").val();
 							location.href = "/EvaluateTool/application/evaluateBoard"
+							+ "?idRoom="
+							+ encodeURIComponent(idRoom)
+							+ "&idCourse="
+							+ encodeURIComponent(idCourse)
+							+ "&idExaminer="
+							+ encodeURIComponent(idExaminer)
+							+ "&nameExaminer="
+							+ encodeURIComponent(nameExaminer)
+							+ "&lastNameExaminer="
+							+ encodeURIComponent(lastNameExaminer)
+							+ "&idCommittee="
+							+ +encodeURIComponent(idCommittee)
+							+ "&nameCommittee="
+							+ encodeURIComponent(nameCommittee)
+							+ "&lastNameCommittee="
+							+ encodeURIComponent(lastNameCommittee)
+							+ "&idModulator="
+							+ encodeURIComponent(idModulator)
+							+ "&yourPosition="
+							+ encodeURIComponent(yourPosition);
+						},
+						error : function(data, status, er) {
+							alert("error: " + data + " status: " + status
+								+ " er:" + er);
+						}
+					});
+				}else{
+					var committee=[];
+					$("#committee"+count+" input[id=idCommittee]").each(function(){
+							committee.push($(this).val());
+						});
+						if(yourId in committee){
+							$
+							.ajax({
+								url : "/EvaluateTool/application/checkCommittee",
+								type : 'POST',
+								data : {
+									dataPersonId : dataPersonId
+								},
+								success : function(data) {
+									var idRoom = JSON.parse(data).idRoom;
+									var idCourse = JSON.parse(data).idCourse;
+									var idExaminer = JSON.parse(data).idExaminer;
+									var nameExaminer = JSON.parse(data).nameExaminer;
+									var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+									var idCommittee = JSON.parse(data).idCommittee;
+									var nameCommittee = JSON.parse(data).nameCommittee;
+									var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+									var idModulator = JSON.parse(data).idModulator;
+									var yourPosition = $("#yourPosition").val();
+									location.href = "/EvaluateTool/application/evaluateBoard"
 									+ "?idRoom="
 									+ encodeURIComponent(idRoom)
 									+ "&idCourse="
@@ -724,12 +888,23 @@ a {
 									+ encodeURIComponent(idModulator)
 									+ "&yourPosition="
 									+ encodeURIComponent(yourPosition);
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status
-									+ " er:" + er);
-						}
-					});
+								},
+								error : function(data, status, er) {
+									alert("error: " + data + " status: " + status
+										+ " er:" + er);
+								}
+							});
+					}else{
+						swal({   title: "กรุณารอ Modulator Approve",   text: "Click OK for Cancel",   imageUrl: "resources/images/loading.gif" });
+						stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+					}
+				}
+
+			}else if(roomStatus=="Status : Terminate"){
+					sweetAlert("", "การสอบได็มีการยุติ","error");
+			}else if(roomStatus=="Status : Waiting"){
+				sweetAlert("", "Modulator ยังไม่เข้าห้อง","error");
+			}	
 		}
 		function sendIdExaminer(element) {
 			count = (element.id).replace(/[^\d.]/g, '');

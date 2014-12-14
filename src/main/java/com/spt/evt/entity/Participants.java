@@ -66,7 +66,7 @@ public class Participants extends BaseEntity implements Serializable {
 		return modulator;
 	}
 
-	public void setModulator(Boolean modulator) {
+	public void setModulator(Boolean flag) {
 		this.modulator = modulator;
 	}
 
