@@ -126,4 +126,19 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		this.getRoomService().setStatusRoom(room);
 	}
 
+	@Override
+	public JSONObject getAllPerson(){
+		JSONObject allPerson=new JSONObject();
+		JSONObject personEachRow=null;
+		List<Person> listPerson=this.getPersonService().findAll();
+		for(Person persons:listPerson){
+			personEachRow=new JSONObject();
+			personEachRow.put("id",persons.getId());
+			personEachRow.put("name",persons.getName());
+			personEachRow.put("lastname",persons.getLastName());
+			allPerson.append("person",personEachRow);
+		}
+		return allPerson;
+	}
+
 }

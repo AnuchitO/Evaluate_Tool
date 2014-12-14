@@ -85,11 +85,7 @@
 											<li class="dropdown-submenu">
 												<div id="dropdownoption">
 													<div id="listrequestapprove" value="">
-														<div id="contentlistapprove" class="ui feed"><div class="event"><div class="label">
-															<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>
-														</div><div class="content"><div class="date"><div onclick="approve()" class="ui teal tiny button">มอบสิทธิ</div></div><div class="summary">
-														<a><p id="fullnamerequestapprove">Anuchit Prasertsang</p></a>
-														<span id="titlereqeustapprove">เข้าเป็นผู้ประเมิน</span></div></div></div></div>
+														
 													</div>							
 												</div>
 											</li>
@@ -311,10 +307,10 @@
 		src="${contextPath}/resources/styles/js/bootstrap-timepicker.min.js"></script>
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/progressbar.min.js"></script>
-	<script type="text/javascript"
+<!--	<script type="text/javascript"
 		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 	<script type="text/javascript"
-		src="${contextPath}/resources/stomp.js"></script>
+		src="${contextPath}/resources/stomp.js"></script>-->
 	<script type="text/javascript">
 			$("#anotificationconfig").click(function(){
 				$("#dropdownconfig").slideToggle(400);			

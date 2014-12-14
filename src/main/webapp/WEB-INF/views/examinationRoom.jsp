@@ -79,12 +79,15 @@ a {
 	<div id="loader" align="center" style="position:fixed;left:50%;top:50%">
 				<img src="resources/images/loading.gif" alt="" />
 			</div>
+	<script type="text/javascript"
+		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/stomp.js"></script>		
 	<script>
 		var totalprocessPercent=0;
 		var stompClient = null;
-		var options = {protocols_whitelist: ["websocket", "xhr-streaming", "xdr-streaming", "xhr-polling", "xdr-polling", "iframe-htmlfile", "iframe-eventsource", "iframe-xhr-polling"], debug: true};
 	    $(function(){
-            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove', undefined, options);
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);    
             stompClient.connect({}, function(frame) {
                 console.log('Connected: ' + frame);
@@ -187,6 +190,8 @@ a {
 					approveSubmitCommittee(data);
 				}else if(namefunction=="updateStatusCard"){
 					updateStatusCard(data);
+				}else if(namefunction=="approveSubmitModulator"){
+					approveSubmitModulator(data);
 				}
 
 			}
@@ -203,7 +208,13 @@ a {
 			}
 			function approveSubmitModulator(data){
 				var datamessage=JSON.parse(data).data;
-				sweetAlert("", datamessage, "success");
+				var yourIdApprove=JSON.parse(data).yourId;
+				var roomIdApprove=JSON.parse(data).roomId;
+				var yourIdInRoom='${yourId}';
+				if(yourIdApprove==yourIdInRoom){
+					sweetAlert("", datamessage, "success");
+				}
+				
 			}
 			function approveSubmitCommittee(data){
 				var datamessage=JSON.parse(data).data;
@@ -212,9 +223,6 @@ a {
 				var yourIdInRoom='${yourId}';
 				var count = JSON.parse(data).count;
 				var roomStatus=$("#roomStatus"+count).text();
-				var yourId='${yourId}';
-				var name='${name}';
-				var lastname='${lastname}';
 				var detailPerson = {};
 				detailPerson.roomId = $("#roomId" + count).val();
 				detailPerson.committeeId = $("#yourId").val();
@@ -417,7 +425,8 @@ a {
 							allRoom,
 							function(i, item) {
 								item
-										.forEach(function(room) {	
+										.forEach(function(room) {
+
 											var roomId = room.id;
 											var roomName = room.name;
 											var roomCourseId = room.courseId;

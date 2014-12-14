@@ -29,4 +29,9 @@ public class PersonServiceImpl implements PersonService {
 		return this.personDao.findByUserNameAndPassword(userName, password);
 	}
 	
+	@Override
+	public List<Person> findAll() {
+		
+		return this.personDao.findAll();
+	}
 }
