@@ -7,5 +7,6 @@ public interface EvaluateBoardService {
 	public String scoring(Long roomId, Long committeeId,Long examinerId,Long topicId,Double score,String comment);
 	public String getCourseName(Long courseId);
 	public void setStatusRoom(Long roomId);
+	public JSONObject getAllPerson();
 }
 

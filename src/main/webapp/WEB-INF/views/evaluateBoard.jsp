@@ -384,13 +384,15 @@ pageEncoding="UTF-8"%>
 		</div>
 		<input type="hidden" id="score" value="" />
 	</div>
-
+	<script type="text/javascript"
+		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/stomp.js"></script>
 	<script>
 
 		var stompClient = null;
-		var options = {protocols_whitelist: ["websocket", "xhr-streaming", "xdr-streaming", "xhr-polling", "xdr-polling", "iframe-htmlfile", "iframe-eventsource", "iframe-xhr-polling"], debug: true};
         $(function(){
-            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove', undefined, options);
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);    
             stompClient.connect({}, function(frame) {
                 console.log('Connected: ' + frame);
@@ -522,6 +524,25 @@ pageEncoding="UTF-8"%>
 				$(element).slideDown(1000);
 			});
 		});
+
+		var allPerson=JSON.parse('${allPerson}');
+		var idRoomInRoom=JSON.parse('${idRoom}');
+		$.each(allPerson,function(index,item){
+			item.forEach(function(person){
+				var yourId=person.id;
+				var name=person.name;
+				var lastName=person.lastname;
+				$("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
+			});
+		});
+		$("div[id=contentlistapprove]").each(function(index,element){
+				if(index<3){
+					$(element).show();
+				}else{
+					$(element).hide();
+				}
+		});		
+
 		function approve(id,roomid){
 			swal({   title: "Are you sure?",     
 				 type: "warning",   
@@ -537,7 +558,7 @@ pageEncoding="UTF-8"%>
 				 			type:"success",
 				 			title: "Approve Success....",
 				 		}, function(isConfirm){ 
-				 			stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator'}));
+				 			stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id}));
 				 			$("#headdropdownapprovepermission").hide();
 				 			$("#headdropdownsubmitandcancel").hide();
 				 			$("#btnCompleteExamination").hide();
@@ -554,7 +575,7 @@ pageEncoding="UTF-8"%>
 				 		});
 				 	} 
 				 });
-		}
+			}
 			function approveNotificationRequestCommittee(index,yourid,roomid,count){
 				//alert(index+","+yourid+","+roomid);
 				$("div[value="+index+"]").fadeOut("slow",function(){

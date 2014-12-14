@@ -38,6 +38,8 @@ public class RequestAndApprove{
             System.out.println("approveProcess");
         }else if(map.get("head").equals("approveSubmitModulator")){
             jsonData.put("data",map.get("data"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
             jsonData.put("function","approveSubmitModulator");
         }else if(map.get("head").equals("approveSubmitCommittee")){
             jsonData.put("data",map.get("data"));

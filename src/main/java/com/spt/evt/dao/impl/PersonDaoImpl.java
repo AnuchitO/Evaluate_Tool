@@ -33,4 +33,11 @@ PersonDao {
 		return result;
 	}
 
+	@Override
+	public List<Person> findAll() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Person.class);
+		List<Person> result = (List<Person>) this.getHibernateTemplate().findByCriteria(criteria);
+		return result;
+	}
+
 }
