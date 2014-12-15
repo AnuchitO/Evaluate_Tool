@@ -385,9 +385,10 @@ pageEncoding="UTF-8"%>
 		<input type="hidden" id="score" value="" />
 	</div>
 	<script type="text/javascript"
-		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
-	<script type="text/javascript"
 		src="${contextPath}/resources/stomp.js"></script>
+	<script type="text/javascript"
+		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+
 	<script>
 
 		var stompClient = null;
@@ -606,6 +607,7 @@ pageEncoding="UTF-8"%>
 			$("#anotificationconfig,#imgnotificationapprove,#imgnotificationconfig").click(function(){
 				$("#dropdownsubmitandcancel").hide();
 			});
+
 			var i=0
 			function openmenuleft(){
 				if(i==0){

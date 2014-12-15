@@ -80,9 +80,10 @@ a {
 				<img src="resources/images/loading.gif" alt="" />
 			</div>
 	<script type="text/javascript"
-		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
-	<script type="text/javascript"
 		src="${contextPath}/resources/stomp.js"></script>		
+	<script type="text/javascript"
+		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+
 	<script>
 		var totalprocessPercent=0;
 		var stompClient = null;
@@ -910,7 +911,7 @@ a {
 				}
 
 			}else if(roomStatus=="Status : Terminate"){
-					sweetAlert("", "การสอบได็มีการยุติ","error");
+					sweetAlert("", "การสอบได้มีการยุติ","error");
 			}else if(roomStatus=="Status : Waiting"){
 				sweetAlert("", "Modulator ยังไม่เข้าห้อง","error");
 			}	
@@ -918,17 +919,43 @@ a {
 		function sendIdExaminer(element) {
 			count = (element.id).replace(/[^\d.]/g, '');
 			var roomId = $("#roomId" + count).val();
+			var name='${name}';
+			var lastname='${lastname}';
 			var yourId = $("#yourId").val();
 			var yourPosition = $("#yourPosition").val();
 			var examinerId = $("#examinerId" + count).val();
 			var courseId = $("#courseId" + count).val();
-
-			location.href = "/EvaluateTool/application/examinerDashBoard"
+			var modulatorId=$("#modulatorId" + count).val();
+			var roomStatus=$("#roomStatus"+count).text();
+			var committee=[];
+			$("#committee"+count+" input[id=idCommittee]").each(function(){
+				committee.push($(this).val());
+			});
+			if(roomStatus=="Status : Completed"){
+				sweetAlert("", "การสอบสำเร็จแล้ว","success");
+			}
+			else if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"){
+				if(yourId==examinerId){
+					location.href = "/EvaluateTool/application/examinerDashBoard"
 					+ "?idRoom=" + encodeURIComponent(roomId) + "&idExaminer="
 					+ encodeURIComponent(examinerId) + "&idCourse="
 					+ encodeURIComponent(courseId) + "&yourId="
 					+ encodeURIComponent(yourId) + "&yourPosition="
 					+ encodeURIComponent(yourPosition);
+				}else if(yourId==modulatorId){
+					sweetAlert("คุณเป็น Modulator ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
+				}else if(yourId in committee){
+					sweetAlert("คุณเป็น Comittee ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
+				}else{
+					sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
+				}
+				
+			}else if(roomStatus=="Status : Terminate"){
+				sweetAlert("", "การสอบได้มีการยุติ","error");
+			}else if(roomStatus=="Status : Waiting"){
+				sweetAlert("", "Modulator ยังไม่เข้าห้อง","error");
+			}	
+			
 		}
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
