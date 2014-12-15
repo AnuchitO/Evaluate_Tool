@@ -63,7 +63,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Person> findAll() {
 		return this.personDao.findAll();
 	}
