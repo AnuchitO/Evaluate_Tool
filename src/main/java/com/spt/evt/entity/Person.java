@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -17,18 +18,26 @@ public class Person extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String lastName;
 	private String gender;
 	private String email;
+	private String reenterEmail;
 	private Date birthDay;
 	private String phone;
 	private String positionName;
+	private String positionA;
 	private String userName;
 	private String password;
-
+	private String reenterPassword;
+	private String institute;
+	private String phoneNumber;
+	private String internship;
+	private String facebook;
+	
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -43,6 +52,14 @@ public class Person extends BaseEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getReenterPassword() {
+		return reenterPassword;
+	}
+
+	public void setReenterPassword(String reenterPassword) {
+		this.reenterPassword = reenterPassword;
 	}
 
 	public static long getSerialversionuid() {
@@ -60,7 +77,8 @@ public class Person extends BaseEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examiner")
 	private Set<ScoreBoard> examiner = new HashSet<ScoreBoard>();
-
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -100,6 +118,14 @@ public class Person extends BaseEntity implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getReenterEmail() {
+		return reenterEmail;
+	}
+
+	public void setReenterEmail(String reenterEmail) {
+		this.reenterEmail = reenterEmail;
+	}
 
 	public Date getBirthDay() {
 		return birthDay;
@@ -123,6 +149,14 @@ public class Person extends BaseEntity implements Serializable {
 
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
+	}
+	
+	public String getPositionA() {
+		return positionA;
+	}
+
+	public void setPositionA(String position) {
+		this.positionA = position;
 	}
 
 	public Set<Enroll> getEnrolls() {
@@ -156,6 +190,38 @@ public class Person extends BaseEntity implements Serializable {
 	public void setExaminer(Set<ScoreBoard> examiner) {
 		this.examiner = examiner;
 	}
+	
+	public String getInstitute() {
+		return institute;
+	}
+
+	public void setInstitute(String institute) {
+		this.institute = institute;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	public String getInternship() {
+		return internship;
+	}
+
+	public void setInternship(String internship) {
+		this.internship = internship;
+	}
+	
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
 
 	@Override
 	public String toString() {
@@ -163,7 +229,10 @@ public class Person extends BaseEntity implements Serializable {
 				+ ", gender=" + gender + ", email=" + email + ", birthDay="
 				+ birthDay + ", phone=" + phone + ", positionName="
 				+ positionName + ", enrolls=" + "[enrolls]" + ", participants="
-				+ "[participants]" + ", committee=" + "[committee]"+ ", examiner=" + "[examiner]" + "]";
+				+ "[participants]" + ", committee=" + "[committee]"+ ", examiner=" + "[examiner]" + "]"
+				+ " Re-Email=" + reenterEmail + " Re-Password=" + reenterPassword + " Position=" + positionA
+				+ " Institute=" + institute + " Phonenumber=" + phoneNumber
+				+ " Internship=" + internship + " Facebook=" + facebook + "]";
 	}
 
 }

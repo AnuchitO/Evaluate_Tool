@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spt.evt.entity.Person;
+import com.spt.evt.service.PersonService;
 import com.spt.evt.entity.MemberRegister;
-import com.spt.evt.service.MemberRegisterService;
 
 @Controller
 public class MemberRegisterController {
@@ -24,7 +25,7 @@ public class MemberRegisterController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberRegisterController.class);
 	
 	@Autowired
-	private MemberRegisterService memberRegisterService;
+	private PersonService personService;
 
 	@RequestMapping(value="/memberRegister",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest arg0,
@@ -36,9 +37,9 @@ public class MemberRegisterController {
 	
 	@RequestMapping(value="/memberRegister", method = RequestMethod.POST)
 	public @ResponseBody String register(@RequestParam(value="dataForm") String dataForm) {
-		memberRegisterService.setData(dataForm);
+		personService.setData(dataForm);
 		System.out.println("DATA"+dataForm);
-		List<MemberRegister> result = this.memberRegisterService.findAll();
+		List<Person> result = this.personService.findAll();
 		logger.info("Result  ::: " + result.toString());
 		
 		return "Seccessful";
