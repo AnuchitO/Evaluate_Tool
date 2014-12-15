@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+
+    version="3.0">
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/META-INF/spring/evaluatetool-context.xml</param-value>
@@ -44,6 +47,7 @@
 			<param-value>classpath:/META-INF/spring/evaluatetool/evaluatetool-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>2</load-on-startup>
+
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>evaluatetool</servlet-name>
@@ -65,7 +69,7 @@
                com.spt.evt.soket
             </param-value>
         </init-param>
-		<load-on-startup>3</load-on-startup>
+        <async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>webSocket</servlet-name>

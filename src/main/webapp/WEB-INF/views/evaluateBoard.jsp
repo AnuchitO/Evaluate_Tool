@@ -403,11 +403,27 @@ pageEncoding="UTF-8"%>
             });
             function accessMethod(data){
 	        	var namefunction=JSON.parse(data).function;
-	        	//alert(namefunction);
 	        	if(namefunction=="notificationRequestCommittee"){
 	        		notificationRequestCommittee(data);
-	       		 }
+	       		 }else if(namefunction=="removeNotificationRequestCommittee"){
+                    removeNotificationRequestCommittee(data);
+                }else if(JSON.parse(data).function=="notificationRequestUpdate"){
+                    notificationRequestUpdate(data);
+                }
         	}
+            function notificationRequestUpdate(data){
+                var yourIdRemove=JSON.parse(data).yourId;
+                $("div[title="+yourIdRemove+"]").fadeOut("slow",function() {
+                    $("div[title=" + yourIdRemove + "]").remove();
+                });
+            }
+            function removeNotificationRequestCommittee(data){
+                var yourIdRemove=JSON.parse(data).yourId;
+                $("div[title="+yourIdRemove+"]").fadeOut("slow",function() {
+                    $("div[title=" + yourIdRemove + "]").remove();
+                });
+
+            }
         	function notificationRequestCommittee(data){
 				console.log(data);
 				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
@@ -427,7 +443,7 @@ pageEncoding="UTF-8"%>
 						var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
 						if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
 							$("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-							$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+							$("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+youridrequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
 								'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
 								'</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+','+count+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
 								'<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+youridrequest+','+roomidrequest+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
@@ -582,14 +598,15 @@ pageEncoding="UTF-8"%>
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
 					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับแล้ว','yourId':yourid,'roomId':roomid,'count':count}));
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
 
 				});
-				
 			}
 			function notApproveNotificationRequestCommittee(index,yourid,roomid){
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
 					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ','yourId':yourid,'roomId':roomid}));
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
 				});
 			}
 

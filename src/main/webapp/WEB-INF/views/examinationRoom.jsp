@@ -204,7 +204,9 @@ a {
 				var yourIdInRoom='${yourId}';
 				if(yourId==yourIdInRoom){
 					sweetAlert("", datamessage,"error");
-				}
+				}else{
+
+                }
 				
 			}
 			function approveSubmitModulator(data){
@@ -212,9 +214,14 @@ a {
 				var yourIdApprove=JSON.parse(data).yourId;
 				var roomIdApprove=JSON.parse(data).roomId;
 				var yourIdInRoom='${yourId}';
+                var yourNameInRoom='${name}';
+                var yourLastNameInRoom='${lastname}';
+                alert(roomIdApprove);
 				if(yourIdApprove==yourIdInRoom){
 					sweetAlert("", datamessage, "success");
 				}
+                $("#modulatorId"+roomIdApprove).val(yourIdInRoom);
+                $("#modulator"+roomIdApprove).html("Modulator : "+yourNameInRoom+" "+yourLastNameInRoom+"");
 				
 			}
 			function approveSubmitCommittee(data){
@@ -905,7 +912,17 @@ a {
 								}
 							});
 					}else{
-						swal({   title: "กรุณารอ Modulator Approve",   text: "Click OK for Cancel",   imageUrl: "resources/images/loading.gif" });
+						//swal({   title: "กรุณารอ Modulator Approve",   text: "Click OK for Cancel",   imageUrl: "resources/images/loading.gif" });
+                            swal({   title: "กรุณารอ Modulator Approve",
+                                text:"Click OK for Cancel",
+                                confirmButtonColor: "#DD6B55",
+                                closeOnCancel: false,
+                                imageUrl: "resources/images/loading.gif"
+                            }, function(isCancel){
+                                if (isCancel) {
+                                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                                    }
+                            });
 						stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
 					}
 				}

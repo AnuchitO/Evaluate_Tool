@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.json.JSONObject;
 
+
 @Controller
 public class RequestAndApprove{
 	public RequestAndApprove(){
@@ -55,6 +56,21 @@ public class RequestAndApprove{
             jsonData.put("count",map.get("count"));
             jsonData.put("modulatorId",map.get("modulatorId"));
             jsonData.put("function","updateStatusCard");
+        }else if(map.get("head").equals("cancelRequestCommittee")){
+            jsonData.put("name",map.get("name"));
+            jsonData.put("lastname",map.get("lastname"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("modulator",map.get("moulator"));
+            jsonData.put("role",map.get("role"));
+            jsonData.put("title",map.get("title"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("count",map.get("count"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
+            jsonData.put("function","removeNotificationRequestCommittee");
+        }else if(map.get("head").equals("notificationRequestUpdate")){
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("function","notificationRequestUpdate");
         }
 
     	System.out.println(jsonData.toString());
