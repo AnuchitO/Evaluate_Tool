@@ -2,7 +2,9 @@ package com.spt.evt.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.criterion.DetachedCriteria;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -14,23 +16,27 @@ import com.spt.evt.dao.TopicDao;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Subject;
 import com.spt.evt.entity.Topic;
+import javax.persistence.EntityManager;
+import com.spt.evt.dao.impl.TemplateEntityManagerDao;
 
 @Repository
-public class TopicDaoImpl extends TemplateHibernateDaoSupport implements
+public class TopicDaoImpl extends TemplateEntityManagerDao implements
 		TopicDao {
 	private static final Logger logger = LoggerFactory.getLogger(TopicDaoImpl.class);
-
+	
 	@Override
+	@Transactional(readOnly = true)
 	public Topic findById(Long id) {
-		return (Topic) this.getHibernateTemplate().get(Topic.class, id);
+		return this.getEntityManager().find(Topic.class, id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Topic> findBySubject(Subject subject) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Topic.class);
+		Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(Topic.class);
 		criteria.add(Restrictions.eq("subject", subject));
 		criteria.addOrder(Order.asc("id"));
-		List<Topic> result = (List<Topic>) this.getHibernateTemplate().findByCriteria(criteria);
+		List<Topic> result = criteria.list();
 		
 		return result;
 	}

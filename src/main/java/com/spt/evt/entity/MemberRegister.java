@@ -10,29 +10,17 @@ import javax.persistence.Id;
 public class MemberRegister implements Serializable {
 
 	private Long id;
-
 	private String firstName;
-
 	private String lastName;
-
 	private String gender;
-
 	private String email;
-
 	private String reenterEmail;
-
 	private String password;
-
 	private String reenterPassword;
-
 	private String positionA;
-
 	private String institute;
-
 	private String phoneNumber;
-
 	private String internship;
-
 	private String facebook;
 
 	@Id

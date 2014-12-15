@@ -38,4 +38,29 @@ public class PersonDaoTest extends AbstractTestDao {
 		Assert.assertNotNull(persons);
 	}
 
+	@Test
+	public void testPersistShouldBeIdNotNull(){
+
+		Person person = new Person();
+
+		person.setName("nameadmin");
+		person.setLastName("lastnameadmin");
+		person.setGender("genderadmin");
+		person.setEmail("emailadmin");
+		person.setReenterEmail("reemailadmin");
+		person.setPassword("passwordadmin");
+		person.setReenterPassword("repasswordadmin");
+		person.setPositionA("positionadmin");
+		person.setInstitute("instituteadmin");
+		person.setPhoneNumber("phonenumberadmin");
+		person.setInternship("internshipadmin");
+		person.setFacebook("facebookadmin");
+		this.personDao.persist(person);
+
+		LOGGER.debug("{}",person.getId());
+	
+		Assert.assertNotNull(person.getId());
+
+	}
+
 }

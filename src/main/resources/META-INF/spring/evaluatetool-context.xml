@@ -25,7 +25,6 @@
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.spt.evt" />
 	<!--context:load-time-weaver / -->
-
 	<tx:annotation-driven />
 	<!-- Drives transactions using local JPA APIs -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -82,8 +81,8 @@
 	<beans profile="evaluateTool">
 		<!-- Creates an in-memory HSQLDB Database -->
 		<!--jdbc:embedded-database id="dataSource" /-->
-		<jdbc:embedded-database id="dataSource"/>
-		<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		 <jdbc:embedded-database id="dataSource"/> 
+		<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<property name="driverClassName" value="${database.driverClassName}"/>
 			<property name="url" value="${database.url}"/>
 			<property name="username" value="${database.username}"/>
@@ -94,8 +93,7 @@
 			  class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
 			<property name="dataSource" ref="dataSource" />
 			<property name="databasePopulator">
-				<bean
-						class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+				<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
 					<property name="ignoreFailedDrops" value="true" />
 					<property name="sqlScriptEncoding" value="UTF-8" />
 					<property name="scripts">
@@ -105,7 +103,7 @@
 					</property>
 				</bean>
 			</property>
-		</bean>
+		</bean> 
 	</beans>
 
 	<beans profile="test">
@@ -116,8 +114,7 @@
 			  class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
 			<property name="dataSource" ref="dataSource" />
 			<property name="databasePopulator">
-				<bean
-						class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+				<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
 					<property name="ignoreFailedDrops" value="true" />
 					<property name="sqlScriptEncoding" value="UTF-8" />
 					<property name="scripts">
@@ -129,7 +126,6 @@
 				</bean>
 			</property>
 		</bean>
-
 	</beans>
 
 </beans>

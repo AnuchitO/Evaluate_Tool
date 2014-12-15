@@ -71,4 +71,5 @@
 		<servlet-name>webSocket</servlet-name>
 		<url-pattern>/webSocket/*</url-pattern>
 	</servlet-mapping>
+
 </web-app>

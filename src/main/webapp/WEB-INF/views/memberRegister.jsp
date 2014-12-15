@@ -86,8 +86,11 @@ div {
 			<div class="col-md-6 col-md-offset-3">
 				<select id=position class="selectpicker" data-width="100%">
 					<option selected disabled>Position</option>
-					<option>1</option>
-					<option>2</option>
+					<option>Software Developer Trainee</option>
+					<option>Software Developer</option>
+					<option>Senior Software Developer</option>
+					<option>Software Analyst</option>
+					<option>Senior Software Analyst</option>
 				</select>
 			</div>
 		</div>
