@@ -1,5 +1,6 @@
 package com.spt.evt.dao.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -47,5 +48,24 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
 		List<Participants> result = criteria.list();
 		return result;
 	}
-	
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Participants> findPersonWithRequestCommittee(Room room) {
+        Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("room",room));
+        criteria.add(Restrictions.in("role", Arrays.asList("wait", "see")));
+        List<Participants> result = criteria.list();
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public void setRoleInPaticipants(Long paticipantId) {
+      Participants participants= (Participants) this.getEntityManager().find(Participants.class,paticipantId);
+      System.out.print("========================"+participants+"==========================");
+      participants.setRole("see");
+      this.getEntityManager().merge(participants);
+    }
+
 }

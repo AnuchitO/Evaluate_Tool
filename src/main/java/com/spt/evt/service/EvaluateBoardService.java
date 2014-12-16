@@ -8,5 +8,7 @@ public interface EvaluateBoardService {
 	public String getCourseName(Long courseId);
 	public void setStatusRoom(Long roomId);
 	public JSONObject getAllPerson();
+    public JSONObject getUserWithRequestCommittee(Long roomId);
+    public void setRoleInPaticipants(Long paticipantId);
 }
 

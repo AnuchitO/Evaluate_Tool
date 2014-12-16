@@ -10,4 +10,6 @@ public interface ParticipantsDao {
 	public List<Participants> findByExample(Participants participants);
 	public List<Participants> findByRoom(Room room);
 	public List<Participants> findByPerson(Person person);
+    public List<Participants> findPersonWithRequestCommittee(Room room);
+    public void setRoleInPaticipants(Long paticipantId);
 }

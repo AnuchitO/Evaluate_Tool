@@ -141,4 +141,44 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		return allPerson;
 	}
 
+    @Override
+    public JSONObject getUserWithRequestCommittee(Long roomId) {
+        Room room=new Room();
+        room.setId(roomId);
+        List<Participants> listPaticipant = this.getParticipantsService().findPersonWithRequestCommittee(room);
+        JSONObject allUserWithRequestCommittee=new JSONObject();
+        JSONObject userEachParticipant=null;
+        Integer roleWait=new Integer(0);
+        for(Participants participants:listPaticipant){
+            userEachParticipant=new JSONObject();
+            if(participants.getRole().equals("wait")){
+                roleWait+=1;
+                userEachParticipant.put("yourId",participants.getPerson().getId());
+                userEachParticipant.put("paticipantId",participants.getId());
+                userEachParticipant.put("name",participants.getPerson().getName());
+                userEachParticipant.put("lastname",participants.getPerson().getLastName());
+                userEachParticipant.put("roomId",participants.getRoom().getId());
+                userEachParticipant.put("role",participants.getRole());
+                allUserWithRequestCommittee.append("allUserWithRequestCommittee",userEachParticipant);
+
+            }else{
+                userEachParticipant.put("yourId",participants.getPerson().getId());
+                userEachParticipant.put("paticipantId",participants.getId());
+                userEachParticipant.put("name",participants.getPerson().getName());
+                userEachParticipant.put("lastname",participants.getPerson().getLastName());
+                userEachParticipant.put("roomId",participants.getRoom().getId());
+                userEachParticipant.put("role",participants.getRole());
+                allUserWithRequestCommittee.append("allUserWithRequestCommittee",userEachParticipant);
+            }
+        }
+        allUserWithRequestCommittee.append("countWait",roleWait);
+        return allUserWithRequestCommittee;
+    }
+
+    @Override
+    public void setRoleInPaticipants(Long paticipantId) {
+         this.getParticipantsService().setRoleInPaticipants(paticipantId);
+    }
+
+
 }

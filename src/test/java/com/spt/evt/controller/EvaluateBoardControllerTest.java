@@ -52,7 +52,7 @@ public class EvaluateBoardControllerTest extends TemplateTestController {
 		.andExpect(status().isOk())
 		.andExpect(view().name("evaluateBoard"))
 		.andExpect(forwardedUrl("/WEB-INF/layouts/master.jsp"));
-	}  
+	}
 
 	@Test
 	public void jsonSample() throws Exception {
