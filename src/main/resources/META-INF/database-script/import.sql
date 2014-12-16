@@ -146,3 +146,6 @@ insert into Participants (id,person,room,role,modulator) values (33,14,9,'examin
 insert into Participants (id,person,room,role,modulator) values (34,4,9,'committee',true)
 insert into Participants (id,person,room,role,modulator) values (35,5,9,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (36,1,9,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (37,4,1,'wait',false)
+insert into Participants (id,person,room,role,modulator) values (39,8,1,'wait',false)
+insert into Participants (id,person,room,role,modulator) values (38,5,1,'see',false)

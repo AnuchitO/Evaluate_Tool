@@ -191,8 +191,6 @@ a {
 					approveSubmitCommittee(data);
 				}else if(namefunction=="updateStatusCard"){
 					updateStatusCard(data);
-				}else if(namefunction=="approveSubmitModulator"){
-					approveSubmitModulator(data);
 				}
 
 			}
@@ -232,58 +230,69 @@ a {
 				var count = JSON.parse(data).count;
 				var roomStatus=$("#roomStatus"+count).text();
 				var detailPerson = {};
-				detailPerson.roomId = $("#roomId" + count).val();
-				detailPerson.committeeId = $("#yourId").val();
+				detailPerson.roomId =roomId;
+				detailPerson.committeeId = yourId;
 				detailPerson.examinerId = $("#examinerId" + count).val();
 				detailPerson.modulatorId = $("#modulatorId" + count).val();
 				var dataPersonId = JSON.stringify(detailPerson);
 				if(yourId==yourIdInRoom){
+                    swal({
+                        type:"success",
+                        title: datamessage,
+                        text:"Click OK for Go To EvaluateBoard",
+                        confirmButtonColor: "#DD6B55",
+                        closeOnCancel: false,
+                    }, function(isCancel) {
+                        if (isCancel) {
+                            $
+                                    .ajax({
+                                        url : "/EvaluateTool/application/checkCommittee",
+                                        type : 'POST',
+                                        data : {
+                                            dataPersonId : dataPersonId
+                                        },
+                                        success : function(data) {
+                                            var idRoom = JSON.parse(data).idRoom;
+                                            var idCourse = JSON.parse(data).idCourse;
+                                            var idExaminer = JSON.parse(data).idExaminer;
+                                            var nameExaminer = JSON.parse(data).nameExaminer;
+                                            var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+                                            var idCommittee = JSON.parse(data).idCommittee;
+                                            var nameCommittee = JSON.parse(data).nameCommittee;
+                                            var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+                                            var idModulator = JSON.parse(data).idModulator;
+                                            var yourPosition = $("#yourPosition").val();
+                                            location.href = "/EvaluateTool/application/evaluateBoard"
+                                                    + "?idRoom="
+                                                    + encodeURIComponent(idRoom)
+                                                    + "&idCourse="
+                                                    + encodeURIComponent(idCourse)
+                                                    + "&idExaminer="
+                                                    + encodeURIComponent(idExaminer)
+                                                    + "&nameExaminer="
+                                                    + encodeURIComponent(nameExaminer)
+                                                    + "&lastNameExaminer="
+                                                    + encodeURIComponent(lastNameExaminer)
+                                                    + "&idCommittee="
+                                                    + +encodeURIComponent(idCommittee)
+                                                    + "&nameCommittee="
+                                                    + encodeURIComponent(nameCommittee)
+                                                    + "&lastNameCommittee="
+                                                    + encodeURIComponent(lastNameCommittee)
+                                                    + "&idModulator="
+                                                    + encodeURIComponent(idModulator)
+                                                    + "&yourPosition="
+                                                    + encodeURIComponent(yourPosition);
+                                        },
+                                        error : function(data, status, er) {
+                                            alert("error: " + data + " status: " + status
+                                                    + " er:" + er);
+                                        }
+                                    });
+                        }
+                    });
 					//sweetAlert("", datamessage, "success");
-					$
-							.ajax({
-								url : "/EvaluateTool/application/checkCommittee",
-								type : 'POST',
-								data : {
-									dataPersonId : dataPersonId
-								},
-								success : function(data) {
-									var idRoom = JSON.parse(data).idRoom;
-									var idCourse = JSON.parse(data).idCourse;
-									var idExaminer = JSON.parse(data).idExaminer;
-									var nameExaminer = JSON.parse(data).nameExaminer;
-									var lastNameExaminer = JSON.parse(data).lastNameExaminer;
-									var idCommittee = JSON.parse(data).idCommittee;
-									var nameCommittee = JSON.parse(data).nameCommittee;
-									var lastNameCommittee = JSON.parse(data).lastNameCommittee;
-									var idModulator = JSON.parse(data).idModulator;
-									var yourPosition = $("#yourPosition").val();
-									location.href = "/EvaluateTool/application/evaluateBoard"
-									+ "?idRoom="
-									+ encodeURIComponent(idRoom)
-									+ "&idCourse="
-									+ encodeURIComponent(idCourse)
-									+ "&idExaminer="
-									+ encodeURIComponent(idExaminer)
-									+ "&nameExaminer="
-									+ encodeURIComponent(nameExaminer)
-									+ "&lastNameExaminer="
-									+ encodeURIComponent(lastNameExaminer)
-									+ "&idCommittee="
-									+ +encodeURIComponent(idCommittee)
-									+ "&nameCommittee="
-									+ encodeURIComponent(nameCommittee)
-									+ "&lastNameCommittee="
-									+ encodeURIComponent(lastNameCommittee)
-									+ "&idModulator="
-									+ encodeURIComponent(idModulator)
-									+ "&yourPosition="
-									+ encodeURIComponent(yourPosition);
-								},
-								error : function(data, status, er) {
-									alert("error: " + data + " status: " + status
-										+ " er:" + er);
-								}
-							});
+
 				}
 				
 			}
@@ -805,6 +814,7 @@ a {
 			detailPerson.modulatorId = $("#modulatorId" + count).val();
 
 			var dataPersonId = JSON.stringify(detailPerson);
+            var dataRoomId = JSON.stringify(detailPerson.roomId);
 		
 			if(roomStatus=="Status : Completed"){
 				sweetAlert("", "การสอบสำเร็จแล้ว","success");
@@ -814,52 +824,62 @@ a {
 				if(yourId==detailPerson.examinerId){
 					sweetAlert("คุณเป็น Examiner ห้องนี้แล้ว", "ไม่สามารถเป็น Modulator ได้","error");
 				}else if(yourId==detailPerson.modulatorId){
-					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','name': name,'lastname': lastname,'yourId':yourId,'roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
-					$
-					.ajax({
-						url : "/EvaluateTool/application/checkCommittee",
-						type : 'POST',
-						data : {
-							dataPersonId : dataPersonId
-						},
-						success : function(data) {
-							var idRoom = JSON.parse(data).idRoom;
-							var idCourse = JSON.parse(data).idCourse;
-							var idExaminer = JSON.parse(data).idExaminer;
-							var nameExaminer = JSON.parse(data).nameExaminer;
-							var lastNameExaminer = JSON.parse(data).lastNameExaminer;
-							var idCommittee = JSON.parse(data).idCommittee;
-							var nameCommittee = JSON.parse(data).nameCommittee;
-							var lastNameCommittee = JSON.parse(data).lastNameCommittee;
-							var idModulator = JSON.parse(data).idModulator;
-							var yourPosition = $("#yourPosition").val();
-							location.href = "/EvaluateTool/application/evaluateBoard"
-							+ "?idRoom="
-							+ encodeURIComponent(idRoom)
-							+ "&idCourse="
-							+ encodeURIComponent(idCourse)
-							+ "&idExaminer="
-							+ encodeURIComponent(idExaminer)
-							+ "&nameExaminer="
-							+ encodeURIComponent(nameExaminer)
-							+ "&lastNameExaminer="
-							+ encodeURIComponent(lastNameExaminer)
-							+ "&idCommittee="
-							+ +encodeURIComponent(idCommittee)
-							+ "&nameCommittee="
-							+ encodeURIComponent(nameCommittee)
-							+ "&lastNameCommittee="
-							+ encodeURIComponent(lastNameCommittee)
-							+ "&idModulator="
-							+ encodeURIComponent(idModulator)
-							+ "&yourPosition="
-							+ encodeURIComponent(yourPosition);
-						},
-						error : function(data, status, er) {
-							alert("error: " + data + " status: " + status
-								+ " er:" + er);
-						}
-					});
+                    $.ajax({
+                        url:"/EvaluateTool/application/setStatusRoom",
+                        type:"POST",
+                        data:{
+                            dataRoomId:dataRoomId
+                        },
+                        success:function(){
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','name': name,'lastname': lastname,'yourId':yourId,'roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                            $
+                                    .ajax({
+                                        url : "/EvaluateTool/application/checkCommittee",
+                                        type : 'POST',
+                                        data : {
+                                            dataPersonId : dataPersonId
+                                        },
+                                        success : function(data) {
+                                            var idRoom = JSON.parse(data).idRoom;
+                                            var idCourse = JSON.parse(data).idCourse;
+                                            var idExaminer = JSON.parse(data).idExaminer;
+                                            var nameExaminer = JSON.parse(data).nameExaminer;
+                                            var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+                                            var idCommittee = JSON.parse(data).idCommittee;
+                                            var nameCommittee = JSON.parse(data).nameCommittee;
+                                            var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+                                            var idModulator = JSON.parse(data).idModulator;
+                                            var yourPosition = $("#yourPosition").val();
+                                            location.href = "/EvaluateTool/application/evaluateBoard"
+                                                    + "?idRoom="
+                                                    + encodeURIComponent(idRoom)
+                                                    + "&idCourse="
+                                                    + encodeURIComponent(idCourse)
+                                                    + "&idExaminer="
+                                                    + encodeURIComponent(idExaminer)
+                                                    + "&nameExaminer="
+                                                    + encodeURIComponent(nameExaminer)
+                                                    + "&lastNameExaminer="
+                                                    + encodeURIComponent(lastNameExaminer)
+                                                    + "&idCommittee="
+                                                    + +encodeURIComponent(idCommittee)
+                                                    + "&nameCommittee="
+                                                    + encodeURIComponent(nameCommittee)
+                                                    + "&lastNameCommittee="
+                                                    + encodeURIComponent(lastNameCommittee)
+                                                    + "&idModulator="
+                                                    + encodeURIComponent(idModulator)
+                                                    + "&yourPosition="
+                                                    + encodeURIComponent(yourPosition);
+                                        },
+                                        error : function(data, status, er) {
+                                            alert("error: " + data + " status: " + status
+                                                    + " er:" + er);
+                                        }
+                                    });
+                        }
+                    });
+
 				}else{
 					var committee=[];
 					$("#committee"+count+" input[id=idCommittee]").each(function(){

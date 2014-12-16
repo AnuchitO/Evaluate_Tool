@@ -409,6 +409,8 @@ pageEncoding="UTF-8"%>
                     removeNotificationRequestCommittee(data);
                 }else if(JSON.parse(data).function=="notificationRequestUpdate"){
                     notificationRequestUpdate(data);
+                }else if(namefunction=="updateBadgeNotification"){
+                    updateBadgeNotification(data);
                 }
         	}
             function notificationRequestUpdate(data){
@@ -421,6 +423,72 @@ pageEncoding="UTF-8"%>
                 var yourIdRemove=JSON.parse(data).yourId;
                 $("div[title="+yourIdRemove+"]").fadeOut("slow",function() {
                     $("div[title=" + yourIdRemove + "]").remove();
+                });
+
+            }
+            function updateBadgeNotification(data){
+                if(JSON.parse(data).roomId=='${idRoom}'&&JSON.parse(data).modulatorId=='${idModulator}'&&'${idModulator}'=='${idCommittee}'){
+                    $("#badgenotificationsubmitandcalcel").html("");
+                    $("input[id=paticipantId]").each(function(){
+                        $(this).remove();
+                    });
+                }
+            }
+
+            var committiIdInRoom='${idCommittee}';
+            var modulatorIdInRoom='${idModulator}';
+            if(committiIdInRoom==modulatorIdInRoom){
+                var data={};
+                data.roomId='${idRoom}';
+                var roomId = JSON.stringify(data);
+                $.ajax({
+                    url:"/EvaluateTool/application/personWithRequestCommittee",
+                    type:"POST",
+                    data:{
+                        roomId:roomId
+                    },
+                    success:function(data){
+                        console.log(data);
+                        var countWait=JSON.parse(data).countWait;
+                        for(var i in JSON.parse(data).allUserWithRequestCommittee){
+                            var yourIdRequest=JSON.parse(data).allUserWithRequestCommittee[i].yourId;
+                            var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
+                            var namerequest=JSON.parse(data).allUserWithRequestCommittee[i].name;
+                            var lastnamerequest=JSON.parse(data).allUserWithRequestCommittee[i].lastname;
+                            var title="เข้าเป็นผู้ประเมิน";
+                            var roomidrequest=JSON.parse(data).allUserWithRequestCommittee[i].roomId;
+                            var modualtorInRoom='${idModulator}';
+                            var idRoomInRoom='${idRoom}';
+                            var rolerequest=JSON.parse(data).allUserWithRequestCommittee[i].role;
+                            var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
+                            if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
+                                $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+                                $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+                                        '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
+                                        '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
+                                        '<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
+                                        '<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
+                                        '<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
+                            }
+                            $("div[id=contentlistsubmitandcancel]").each(function(index,element){
+                                if(index<3){
+                                    $(element).show();
+                                }else{
+                                    $(element).hide();
+                                }
+
+                            });
+                            if(rolerequest=="wait"){
+                                $("body").append("<input type='hidden' id='paticipantId' value='"+JSON.parse(data).allUserWithRequestCommittee[i].paticipantId+"'/>")
+                                if(countbadgenotificationsubmitandcalcel==""){
+                                    $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                                }else{
+                                    $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                                }
+                            }
+                        }
+                        }
+
                 });
 
             }
@@ -464,7 +532,6 @@ pageEncoding="UTF-8"%>
 							$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
 						}
 				}
-			
 			}
         });
 
@@ -595,6 +662,7 @@ pageEncoding="UTF-8"%>
 			}
 			function approveNotificationRequestCommittee(index,yourid,roomid,count){
 				//alert(index+","+yourid+","+roomid);
+                $("#badgenotificationsubmitandcalcel").html("");
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
 					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับแล้ว','yourId':yourid,'roomId':roomid,'count':count}));
@@ -603,6 +671,7 @@ pageEncoding="UTF-8"%>
 				});
 			}
 			function notApproveNotificationRequestCommittee(index,yourid,roomid){
+                $("#badgenotificationsubmitandcalcel").html("");
 				$("div[value="+index+"]").fadeOut("slow",function(){
 					$("div[value="+index+"]").remove();
 					stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ','yourId':yourid,'roomId':roomid}));
@@ -620,6 +689,25 @@ pageEncoding="UTF-8"%>
 				$("#badgenotificationsubmitandcalcel").html("");
 				$("#dropdownsubmitandcancel").slideToggle(800);
 				$("#dropdownconfig").hide();
+                var roomId='${idRoom}';
+                var modulatorId='${idModulator}';
+
+                var data=[];
+                $("input[id=paticipantId]").each(function(){
+                       data.push($(this).val());
+                });
+                var paticipantId=JSON.stringify({"paticipantId":data});
+               $.ajax({
+                    url:"/EvaluateTool/application/setRoleInPaticipants",
+                    type:"POST",
+                    data:{
+                        paticipantId:paticipantId
+                    },
+                   success:function(){
+                       stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'updateBadgeNotification','roomId':roomId,'modulatorId':modulatorId}));
+                   }
+                });
+
 			});
 			$("#anotificationconfig,#imgnotificationapprove,#imgnotificationconfig").click(function(){
 				$("#dropdownsubmitandcancel").hide();

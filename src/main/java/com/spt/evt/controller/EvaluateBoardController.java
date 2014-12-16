@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,4 +102,22 @@ public class EvaluateBoardController {
 		return "Success";
 	}
 
+    @RequestMapping(value="/personWithRequestCommittee",method=RequestMethod.POST)
+    public @ResponseBody String personWithRequestCommittee(@RequestParam(value="roomId") String data ,HttpServletRequest request,HttpServletResponse response){
+        JSONObject room = new JSONObject(data);
+        Long roomId = room.getLong("roomId");
+        JSONObject allUserRequestCommittee=this.evaluateBoardService.getUserWithRequestCommittee(roomId);
+        return allUserRequestCommittee.toString();
+    }
+
+    @RequestMapping(value="/setRoleInPaticipants",method=RequestMethod.POST)
+    public @ResponseBody String setRoleInPaticipants(@RequestParam(value="paticipantId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject paticipants=new JSONObject(data);
+        JSONArray paticipantId=paticipants.getJSONArray("paticipantId");
+        for(int i=0;i<paticipantId.length();i++){
+            this.evaluateBoardService.setRoleInPaticipants(paticipantId.getLong(i));
+        }
+
+        return "success";
+    }
 }
