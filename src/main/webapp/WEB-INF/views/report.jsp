@@ -31,7 +31,7 @@ a {
 }
 
 div {
-	margin-right: 20px;
+	margin-right: 0px;
 }
 
 table>thead>tr>th {
@@ -48,7 +48,8 @@ table>tbody>tr>td {
 </style>
 </head>
 <body>
-	<div class="container">
+
+	<div class="container">	
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -70,46 +71,66 @@ table>tbody>tr>td {
 		</div>
 		<input type="hidden" id="yourId" value="${yourId}" />
 		<div id="formTable" class="row">
-			<div id="setSizeWordExaminer"
-				class="col-sm-1 col-md-1 col-sm-offset-3 col-md-offset-3">
-				<label>Examiner</label>
-			</div>
-			<div id="setSizeTable" class="col-sm-3 col-md-3">
-				<select id="pickExaminer" class="selectpicker" data-width="100%">
-					<option id="optionAll" value="null">ALL</option>
-				</select>
-			</div>
-			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
-				<button id="buttonSumary" type="button" class="btn btn-default"
-					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
-			</div>
-		</div>
-		<option id="option0"></option>
-		<input type="hidden" id="roomId0" value="" /> <br>
-		<div class="row">
-			<div class="col-sm-5 col-md-5 col-sm-offset-3 col-md-offset-3">
-				<table id="table" class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Examiner</th>
-							<th>Score</th>
-							<th>Percent</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody id="tableBody0" class="tableBody">
-						<tr id="tableRow0">
-							<td id="tableDataName" class="td"></td>
-							<td id="tableDataScore" class="td"></td>
-							<td id="tableDataPercent" class="td"></td>
-							<td id="tableDate" class="td"></td>
-						</tr>
-					</tbody>
-				</table>
+			<div id="menuReSize" class="col-md-2 column">
+				<div id="menuleft" class="panel panel-default" style="background-color: #eee">		
+					<a style="color: black ; text-decoration: none" id="summaryScore">
+						<div class="panel-body" >
+							Summary Score
+						</div>
+					</a>
+					<a style="color: black ; text-decoration: none" id="summaryByTopic">
+						<div class="panel-body" >
+							Summary By Topic
+						</div>
+					</a>
+				</div>
+			</div>		
+
+			<div id="menuReSize2" class="col-md-10 column">
+				<div id="setSizeWordExaminer"
+					class="col-sm-1 col-md-1 col-md-offset-1">
+					<label>Examiner</label>
+				</div>
+				<div id="setSizeTable" class="col-sm-3 col-md-5">
+					<select id="pickExaminer" class="selectpicker" data-width="100%">
+						<option id="optionAll" value="null">ALL</option>
+					</select>
+				</div>
+				<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
+					<button id="buttonSumary" type="button" class="btn btn-default"
+						onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
+				</div>
+			
+				<option id="option0"></option>
+				<input type="hidden" id="roomId0" value="" /> <br>
+				<div id="menuReSize3" class="col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0" style="margin-top: 30px";>
+					<table id="table" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Examiner</th>
+								<th>Score</th>
+								<th>Percent</th>
+								<th>Room</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody0" class="tableBody">
+							<tr id="tableRow0">
+								<td id="tableDataName" class="td"></td>
+								<td id="tableDataScore" class="td"></td>
+								<td id="tableDataPercent" class="td"></td>
+								<td id="tableNameRoom" class="td"></td>
+								<td id="tableDate" class="td"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-
+	<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover"><img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
+		<b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
+	</div>
 
 	<script>
 		$(function() {
@@ -120,6 +141,7 @@ table>tbody>tr>td {
 			$("#tableDataScore").hide();
 			$("#tableDataPercent").hide();
 			$("#tableDate").hide();
+			$("#tableNameRoom").hide();
 			$("#option0").hide();
 			var completedRoom = JSON.parse('${completeRoom}');
 			var dummyOption = 0;
@@ -201,7 +223,7 @@ table>tbody>tr>td {
 															$("#tableDataScore")
 																	.clone()
 																	.text(
-																			report.score
+																			report.score.toFixed(2)
 																					+ " of "
 																					+ report.topicTotal)
 																	.show()
@@ -213,13 +235,22 @@ table>tbody>tr>td {
 																report.topicTotal = 1;
 															}
 															var percent = (report.score / report.topicTotal) * 100;
-
+															
 															$(
 																	"#tableDataPercent")
 																	.clone()
 																	.text(
 																			percent
+																				.toFixed(2)
 																					+ "%")
+																	.show()
+																	.appendTo(
+																			$("#tableRow"
+																					+ dummyTableRow));
+															$("#tableNameRoom")
+																	.clone()
+																	.text(
+																			report.nameRoom)
 																	.show()
 																	.appendTo(
 																			$("#tableRow"
@@ -243,6 +274,9 @@ table>tbody>tr>td {
 						}
 					});
 		}
+
+
+		
 		$("#room").click(
 				function() {
 					var yourId = $("#yourId").attr('value');
@@ -259,6 +293,52 @@ table>tbody>tr>td {
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});
+
+		$("#summaryScore").click(
+				function() {
+					//var yourId = $("#committeeId").attr('value');
+						location.href = "/EvaluateTool/application/report"
+						+ "?yourId=" 
+						+ encodeURIComponent('${yourId}')
+						+ "&yourPosition="
+						+ encodeURIComponent('${yourPosition}')
+						+ "&yourName="
+						+ encodeURIComponent('${nameCommittee}')
+						+ "&yourLastName="
+						+ encodeURIComponent('${lastNameCommittee}');
+				});
+
+		var i=0
+			function openmenuleft(){
+				if(i==0){
+					$("#menuleft").hide();
+					// $("#menuReSize").removeClass("col-md-2 column");
+					$("#menuReSize2").removeClass("col-md-10 column");
+					$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
+					// $("#menuReSize	").addClass("col-md-0 column");					
+					$("#menuReSize2").addClass("col-md-12 column");
+					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");	
+					i++;
+				}else{
+					$("#menuleft").slideDown(800);
+					// $("#menuR	eSize").removeClass("col-md-0 column");					
+					$("#menuReSize2").removeClass("col-md-12 column");
+					$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
+					// $("#menuReSiz	e").addClass("col-md-2 column");
+					$("#menuReSize2").addClass("col-md-10 column");
+					$("#menuReSize3").addClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
+					i--;
+				}
+				
+			}
+
+			$("#imgmenuleft").mouseover(function(){
+					$("#extendimgmenuleft").slideToggle(300);
+				});
+			$("#imgmenuleft").mouseout(function(){
+				$("#extendimgmenuleft").slideToggle(300);
+			});
+
 	</script>
 </body>
 </html>

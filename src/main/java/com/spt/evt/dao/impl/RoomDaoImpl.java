@@ -49,7 +49,7 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 	@Transactional
 	public void setStatusByRoom(Room room) {
 		room.setStatus("Completed");
-		this.getEntityManager().persist(room);
+		this.getEntityManager().merge(room);
 	}
 
     @Override

@@ -37,7 +37,7 @@ public class ReportController {
 		String name = request.getParameter("yourName");
 		String lastName = request.getParameter("yourLastName");
 		String yourPosition = request.getParameter("yourPosition");
-		JSONObject completeRoomInformation = this.reportService.getAllScore();
+		JSONObject completeRoomInformation = this.reportService.getAllExaminerCompleted();
 		Map model = new HashMap();
 		model.put("yourId", yourId);
 		model.put("name", name);

@@ -10,6 +10,7 @@ import java.util.Map;
 
 public interface ReportService {
 	public JSONObject getAllScore();
+	public JSONObject getAllExaminerCompleted();
 	public JSONObject getScoreByExaminer(Person examiner);
 	public Map<Room,Map<Topic, List<Double>>> prepareDataScoreBoard(List<Room> rooms);
 	public Person getPersonByExaminerId(Long examinerId);
