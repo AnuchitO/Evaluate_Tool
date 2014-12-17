@@ -71,6 +71,21 @@ table>tbody>tr>td {
 		</div>
 		<input type="hidden" id="yourId" value="${yourId}" />
 		
+		<div id="menuReSize" class="col-md-2 column">
+				<div id="menuleft" class="panel panel-default" style="background-color: #eee">		
+					<a style="color: black ; text-decoration: none" id="summaryScore">
+						<div class="panel-body" >
+							Summary Score
+						</div>
+					</a>
+					<a style="color: black ; text-decoration: none" id="summaryByTopic">
+						<div class="panel-body" >
+							Summary By Topic
+						</div>
+					</a>
+				</div>
+			</div>	
+
 		<div id="formTable" class="row">
 			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-2 col-md-offset-1">
 				<label>Examiner</label>
@@ -139,6 +154,10 @@ table>tbody>tr>td {
 			<div id="modalScore0" class="modal" style="width:600px;height:350px;"  tabindex="-1" 
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
 			<div id="modalScoreDialog0" class="modal-dialog"></div>	
+	</div>
+
+	<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover"><img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
+		<b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
 	</div>
 
 
@@ -738,6 +757,65 @@ table>tbody>tr>td {
 				$(".textSubject").text(textSubject);
 				$(".textDescription").text(textDescription);
 	}
+
+	$("#summaryScore").click(
+				function() {
+					//var yourId = $("#committeeId").attr('value');
+						location.href = "/EvaluateTool/application/report"
+						+ "?yourId=" 
+						+ encodeURIComponent('${yourId}')
+						+ "&yourPosition="
+						+ encodeURIComponent('${yourPosition}')
+						+ "&yourName="
+						+ encodeURIComponent('${nameCommittee}')
+						+ "&yourLastName="
+						+ encodeURIComponent('${lastNameCommittee}');
+				});
+
+		$("#summaryByTopic").click(
+				function() {
+					//var yourId = $("#committeeId").attr('value');
+						location.href = "/EvaluateTool/application/summaryByTopic"
+						+ "?yourId=" 
+						+ encodeURIComponent('${yourId}')
+						+ "&yourPosition="
+						+ encodeURIComponent('${yourPosition}')
+						+ "&yourName="
+						+ encodeURIComponent('${nameCommittee}')
+						+ "&yourLastName="
+						+ encodeURIComponent('${lastNameCommittee}');
+				});
+
+		var i=0
+			function openmenuleft(){
+				if(i==0){
+					$("#menuleft").hide();
+					// $("#menuReSize").removeClass("col-md-2 column");
+					$("#menuReSize2").removeClass("col-md-10 column");
+					$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
+					// $("#menuReSize	").addClass("col-md-0 column");					
+					$("#menuReSize2").addClass("col-md-12 column");
+					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");	
+					i++;
+				}else{
+					$("#menuleft").slideDown(800);
+					// $("#menuR	eSize").removeClass("col-md-0 column");					
+					$("#menuReSize2").removeClass("col-md-12 column");
+					$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
+					// $("#menuReSiz	e").addClass("col-md-2 column");
+					$("#menuReSize2").addClass("col-md-10 column");
+					$("#menuReSize3").addClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
+					i--;
+				}
+				
+			}
+
+			$("#imgmenuleft").mouseover(function(){
+					$("#extendimgmenuleft").slideToggle(300);
+				});
+			$("#imgmenuleft").mouseout(function(){
+				$("#extendimgmenuleft").slideToggle(300);
+			});
 
 	</script>
 </body>
