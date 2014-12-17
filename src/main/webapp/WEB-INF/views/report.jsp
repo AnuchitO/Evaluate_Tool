@@ -308,6 +308,20 @@ table>tbody>tr>td {
 						+ encodeURIComponent('${lastNameCommittee}');
 				});
 
+		$("#summaryByTopic").click(
+				function() {
+					//var yourId = $("#committeeId").attr('value');
+						location.href = "/EvaluateTool/application/summaryByTopic"
+						+ "?yourId=" 
+						+ encodeURIComponent('${yourId}')
+						+ "&yourPosition="
+						+ encodeURIComponent('${yourPosition}')
+						+ "&yourName="
+						+ encodeURIComponent('${nameCommittee}')
+						+ "&yourLastName="
+						+ encodeURIComponent('${lastNameCommittee}');
+				});
+
 		var i=0
 			function openmenuleft(){
 				if(i==0){
