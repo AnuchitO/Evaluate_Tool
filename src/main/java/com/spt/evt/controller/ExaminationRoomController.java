@@ -82,13 +82,13 @@ public class ExaminationRoomController {
     }
 
     @RequestMapping(value="/removeRequestCommittee",method=RequestMethod.POST)
-    public @ResponseBody String removeRequestCommitee(@RequestParam(value="dataPersonId") String data,HttpServletRequest request,HttpServletResponse response){
+    public @ResponseBody Long removeRequestCommitee(@RequestParam(value="dataPersonId") String data,HttpServletRequest request,HttpServletResponse response){
         JSONObject dataPerson=new JSONObject(data);
         Long personId=dataPerson.getLong("yourId");
         Long roomId=dataPerson.getLong("roomId");
-        this.examinationRoomService.removeRequestCommittee(roomId,personId);
+
         System.out.println("==============="+roomId+":"+personId+"==================");
-        return "success";
+        return this.examinationRoomService.removeRequestCommittee(roomId,personId);
     }
 
 }

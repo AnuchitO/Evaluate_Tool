@@ -176,13 +176,18 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
     }
 
     @Override
-    public void setRoleInPaticipants(Long paticipantId) {
-         this.getParticipantsService().setRoleInPaticipants(paticipantId);
+    public void setRoleInPaticipants(Long paticipantId,String role) {
+         this.getParticipantsService().setRoleInPaticipants(paticipantId,role);
     }
 
     @Override
     public void addModulatorAndUpdateCommittee(Long roomIdApprove, Long yourIdApprove, Long yourIdInRoom) {
         this.getParticipantsService().addModulatorAndUpdateCommittee(roomIdApprove,yourIdApprove,yourIdInRoom);
+    }
+
+    @Override
+    public Long findParticipantId(Long roomId, Long personId) {
+        return this.getParticipantsService().findParticipantId(roomId,personId);
     }
 
 

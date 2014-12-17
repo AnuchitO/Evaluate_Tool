@@ -63,9 +63,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 				personExaminer = personExaminerName + " " + personExaminerLastName;
 				roomDetail.put("examinerId", personExaminerId.toString());
 				roomDetail.put("examiner", personExaminer);
-			}else if(isModulator==null){
-
-            }else if(isModulator){
+			}else if(isModulator){
 				personModulatorId = participants.getPerson().getId();
 				personModulatorName = participants.getPerson().getName();
 				personModulatorLastName = participants.getPerson().getLastName();
@@ -74,16 +72,15 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 				roomDetail.put("modulator", personModulator);
 			}else if(!isModulator){
                 personCommitteeInroom=new JSONObject();
-                personCommitteeId = participants.getPerson().getId();
-                personCommitteeName = participants.getPerson().getName();
-                personCommitteeLastName = participants.getPerson().getLastName();
-                personCommittee = personCommitteeName +" "+ personCommitteeLastName;
-                personCommitteeInroom.put("committeeId", personCommitteeId);
-                personCommitteeInroom.put("committee", personCommittee);
-                roomDetail.append("committee",personCommitteeInroom);
-                //System.out.println("false"+participants.getRoom().getId());
-            }else if(role.equals("wait")){
-                roomDetail.append("committeewait","wait");
+                if(!participants.getRole().equals("wait")&&!participants.getRole().equals("see")){
+                    personCommitteeId = participants.getPerson().getId();
+                    personCommitteeName = participants.getPerson().getName();
+                    personCommitteeLastName = participants.getPerson().getLastName();
+                    personCommittee = personCommitteeName +" "+ personCommitteeLastName;
+                    personCommitteeInroom.put("committeeId", personCommitteeId);
+                    personCommitteeInroom.put("committee", personCommittee);
+                    roomDetail.append("committee",personCommitteeInroom);
+                }
             }
 		}
 	}
@@ -145,12 +142,12 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
     }
 
     @Override
-    public void removeRequestCommittee(Long roomId, Long personId) {
+    public Long removeRequestCommittee(Long roomId, Long personId) {
          Room room=new Room();
          room.setId(roomId);
          Person person=new Person();
          person.setId(personId);
-        this.getParticipantsService().removeRequestCommittee(room,person);
+        return this.getParticipantsService().removeRequestCommittee(room,person);
     }
 
     public List<Participants> findParticipantsByPerson(Person person) {

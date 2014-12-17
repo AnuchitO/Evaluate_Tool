@@ -46,7 +46,9 @@ public class RequestAndApprove{
             jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
-            jsonData.put("count",map.get("count"));
+            jsonData.put("examinerId",map.get("examinerId"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
+            //jsonData.put("count",map.get("count"));
             jsonData.put("function","approveSubmitCommittee");
         }else if(map.get("head").equals("updateStatusCard")){
             jsonData.put("name",map.get("name"));
@@ -65,6 +67,7 @@ public class RequestAndApprove{
             jsonData.put("title",map.get("title"));
             jsonData.put("roomId",map.get("roomId"));
             jsonData.put("count",map.get("count"));
+            jsonData.put("participantId",map.get("participantId"));
             jsonData.put("modulatorId",map.get("modulatorId"));
             jsonData.put("function","removeNotificationRequestCommittee");
         }else if(map.get("head").equals("notificationRequestUpdate")){

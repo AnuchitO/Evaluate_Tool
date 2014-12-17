@@ -15,8 +15,7 @@ import com.spt.evt.dao.ParticipantsDao;
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
-import com.spt.evt.dao.impl.TemplateEntityManagerDao;
-import javax.persistence.EntityManager;
+
 import javax.persistence.Query;
 
 @Repository
@@ -61,10 +60,15 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
 
     @Override
     @Transactional
-    public void setRoleInPaticipants(Long paticipantId) {
+    public void setRoleInPaticipants(Long paticipantId,String role) {
       Participants participants= (Participants) this.getEntityManager().find(Participants.class,paticipantId);
-      System.out.print("========================"+participants+"==========================");
-      participants.setRole("see");
+        if(role.equals("wait")){
+            System.out.print("==========SetRole Wait for See=============="+participants+"==========================");
+            participants.setRole("see");
+        }else if(role.equals("committee")){
+            System.out.print("==========SetRole Wait Or See for Committee=============="+participants+"==========================");
+            participants.setRole("committee");
+        }
       this.getEntityManager().merge(participants);
     }
 
@@ -91,12 +95,15 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
 
     @Override
     @Transactional
-    public void removeRequestCommittee(Room room, Person person) {
-        Participants participants= new Participants();
-        participants.setPerson(person);
-        participants.setRoom(room);
-        System.out.print("========================================+++++++++++++++"+participants);
-        this.getEntityManager().remove(participants);
+    public Long removeRequestCommittee(Room room, Person person) {
+        Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("room",room));
+        criteria.add(Restrictions.eq("person",person));
+        Participants participantsRemove= (Participants) criteria.uniqueResult();
+        Long paticipantId=participantsRemove.getId();
+        System.out.print("=====================Remove===================+++++++++++++++"+participantsRemove.getPerson().getUserName());
+        this.getEntityManager().remove(participantsRemove);
+        return paticipantId;
     }
 
     @Override
@@ -127,6 +134,16 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
     public Participants findById(Long id) {
         Participants participants= (Participants) this.getEntityManager().find(Participants.class,id);
         return participants;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long findParticipantId(Room room, Person person) {
+        Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("room",room));
+        criteria.add(Restrictions.eq("person",person));
+        Participants participants= (Participants) criteria.uniqueResult();
+        return participants.getId();
     }
 
 }
