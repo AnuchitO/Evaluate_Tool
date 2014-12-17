@@ -951,16 +951,16 @@ a {
                                     //stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count }));
                                 }
                             });
-                           $.ajax({
-                               url:"/EvaluateTool/application/addRequestCommittee",
+/*                           $.ajax({
+                               url:"/EvaluateTool/application/asddRequestCommittee",
                                 type:"POST",
                                 data:{
                                     dataPersonId:dataPersonId
-                                },s
-//                                success:function(){
+                                },
+                                success:function(){*/
                                     stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
-                                }
-                            });
+                           /*     }
+                            });*/
 					}
 				}
 
