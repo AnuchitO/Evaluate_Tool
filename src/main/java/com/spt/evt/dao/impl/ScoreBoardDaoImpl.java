@@ -2,6 +2,8 @@ package com.spt.evt.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -52,7 +54,7 @@ public class ScoreBoardDaoImpl extends TemplateEntityManagerDao implements
 		}
 		return scoreBoard;
 	}
-	
+
 	@Override
 	@Transactional
 	public void save(ScoreBoard scoreBoard) {

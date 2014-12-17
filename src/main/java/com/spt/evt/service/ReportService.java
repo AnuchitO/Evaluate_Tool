@@ -14,4 +14,5 @@ public interface ReportService {
 	public JSONObject getScoreByExaminer(Person examiner);
 	public Map<Room,Map<Topic, List<Double>>> prepareDataScoreBoard(List<Room> rooms);
 	public Person getPersonByExaminerId(Long examinerId);
+	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId);
 }
