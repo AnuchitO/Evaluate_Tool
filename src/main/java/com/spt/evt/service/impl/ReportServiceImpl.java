@@ -153,4 +153,72 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		return examiner;
 	}
 
+	@Override
+	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId) {
+
+		JSONObject courseInformation = new JSONObject();
+		Room room			= this.getRoomService().findById(roomId);
+		Person committee 	= this.getPersonService().findById(committeeId);
+		Person examiner 	= this.getPersonService().findById(examinerId);
+		Course course 		= this.getCourseService().findById(courseId);
+
+		List<Subject> subjects = this.getSubjectService().findByCourse(course);
+
+		JSONObject subjectElement = null;
+		for (Subject subject : subjects) {
+			subjectElement = new JSONObject();
+			subjectElement.put("id", subject.getId());
+			subjectElement.put("name",subject.getName());
+
+			List<Topic> topics = this.getTopicService().findBySubject(subject);
+			findScoreAddIntoJsonOfTopicSummary(room, committee,examiner, subjectElement, topics);
+			courseInformation.append("subject", subjectElement);
+		}
+		return courseInformation;
+	}
+
+	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
+		float sumScore = 0;
+		int allTopic = 0;
+		for (Topic topic : topics) {
+			JSONObject topicElement = new JSONObject();
+			topicElement.put("id", topic.getId());
+			topicElement.put("name",topic.getName());
+			topicElement.put("description",topic.getDescription());
+
+			ScoreBoard scoreBoard = this.getScoreBoardService().findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
+
+			System.out.println("====================>>"+scoreBoard);
+
+
+			if(null!=scoreBoard){
+				topicElement.put("score",scoreBoard.getScore());
+				topicElement.put("comment","- "+scoreBoard.getComment());
+
+				sumScore += scoreBoard.getScore();
+				
+
+			}else{
+				topicElement.put("score","-");
+				topicElement.put("comment","");
+			}
+			allTopic++;
+			subjectElement.append("topic", topicElement);
+
+		}
+			if (sumScore != 0) {
+				subjectElement.append("averageScore", averageScore(sumScore, allTopic));
+			}else{
+				subjectElement.append("averageScore", "0");
+			}
+
+	}
+
+	public float averageScore(float score,int allTopic){
+		float averageScore = 0;
+		averageScore = (score/allTopic)*100;
+
+//		System.out.println(averageScore);
+		return  averageScore;
+	}
 }

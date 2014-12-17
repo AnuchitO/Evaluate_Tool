@@ -17,4 +17,5 @@ public interface ScoreBoardService {
 
 	public List<ScoreBoard> findByRoom(Room room);
 
+
 }

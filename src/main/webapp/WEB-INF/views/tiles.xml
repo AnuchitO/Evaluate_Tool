@@ -51,5 +51,9 @@
 	<definition name="report" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/report.jsp" />
 	</definition>
+
+	<definition name="summaryByTopic" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/summaryByTopic.jsp" />
+	</definition>
 		
 </tiles-definitions>
