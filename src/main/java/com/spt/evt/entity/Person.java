@@ -24,14 +24,11 @@ public class Person extends BaseEntity implements Serializable {
 	private String lastName;
 	private String gender;
 	private String email;
-	private String reenterEmail;
 	private Date birthDay;
 	private String phone;
 	private String positionName;
-	private String positionA;
 	private String userName;
 	private String password;
-	private String reenterPassword;
 	private String institute;
 	private String phoneNumber;
 	private String internship;
@@ -52,14 +49,6 @@ public class Person extends BaseEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public String getReenterPassword() {
-		return reenterPassword;
-	}
-
-	public void setReenterPassword(String reenterPassword) {
-		this.reenterPassword = reenterPassword;
 	}
 
 	public static long getSerialversionuid() {
@@ -118,14 +107,6 @@ public class Person extends BaseEntity implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getReenterEmail() {
-		return reenterEmail;
-	}
-
-	public void setReenterEmail(String reenterEmail) {
-		this.reenterEmail = reenterEmail;
-	}
 
 	public Date getBirthDay() {
 		return birthDay;
@@ -149,14 +130,6 @@ public class Person extends BaseEntity implements Serializable {
 
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
-	}
-	
-	public String getPositionA() {
-		return positionA;
-	}
-
-	public void setPositionA(String position) {
-		this.positionA = position;
 	}
 
 	public Set<Enroll> getEnrolls() {
@@ -230,7 +203,6 @@ public class Person extends BaseEntity implements Serializable {
 				+ birthDay + ", phone=" + phone + ", positionName="
 				+ positionName + ", enrolls=" + "[enrolls]" + ", participants="
 				+ "[participants]" + ", committee=" + "[committee]"+ ", examiner=" + "[examiner]" + "]"
-				+ " Re-Email=" + reenterEmail + " Re-Password=" + reenterPassword + " Position=" + positionA
 				+ " Institute=" + institute + " Phonenumber=" + phoneNumber
 				+ " Internship=" + internship + " Facebook=" + facebook + "]";
 	}

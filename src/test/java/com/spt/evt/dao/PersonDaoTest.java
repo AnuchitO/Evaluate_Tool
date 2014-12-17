@@ -47,10 +47,7 @@ public class PersonDaoTest extends AbstractTestDao {
 		person.setLastName("lastnameadmin");
 		person.setGender("genderadmin");
 		person.setEmail("emailadmin");
-		person.setReenterEmail("reemailadmin");
 		person.setPassword("passwordadmin");
-		person.setReenterPassword("repasswordadmin");
-		person.setPositionA("positionadmin");
 		person.setInstitute("instituteadmin");
 		person.setPhoneNumber("phonenumberadmin");
 		person.setInternship("internshipadmin");
