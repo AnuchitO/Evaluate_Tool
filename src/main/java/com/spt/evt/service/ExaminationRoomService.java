@@ -8,7 +8,7 @@ public interface ExaminationRoomService {
 	public JSONObject findParticipantsByPersonId(Long personId);
     public void setStatusRoom(Long roomId);
     public void setStatusRoomReady(Long roomId);
-    public void addRequestCommittee(Long roomId,Long personId);
+    public String addRequestCommittee(Long roomId,Long personId);
     public void removeRequestCommittee(Long roomId,Long personId);
 
 }

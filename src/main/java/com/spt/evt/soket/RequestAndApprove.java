@@ -75,6 +75,9 @@ public class RequestAndApprove{
             jsonData.put("roomId",map.get("roomId"));
             jsonData.put("modulatorId",map.get("modulatorId"));
             jsonData.put("function","updateBadgeNotification");
+        }else if(map.get("head").equals("alertRequestSame")){
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("function","alertRequestSame");
         }
 
     	System.out.println(jsonData.toString());

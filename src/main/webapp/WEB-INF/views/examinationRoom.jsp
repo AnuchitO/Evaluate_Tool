@@ -191,7 +191,9 @@ a {
 					approveSubmitCommittee(data);
 				}else if(namefunction=="updateStatusCard"){
 					updateStatusCard(data);
-				}
+				}else if(namefunction=="alertRequestSame"){
+                    alertRequestSame(data);
+                }
 
 			}
 			function removeProcess(data){
@@ -235,7 +237,6 @@ a {
 				detailPerson.examinerId = $("#examinerId" + count).val();
 				detailPerson.modulatorId = $("#modulatorId" + count).val();
 				var dataPersonId = JSON.stringify(detailPerson);
-                alert(dataPersonId);
 				if(yourId==yourIdInRoom){
                     swal({
                         type:"success",
@@ -302,6 +303,11 @@ a {
    				$("#body"+count+"").css("background-color","rgb(243, 243, 76");
    				$("#roomStatus"+count+"").text("Status : Ready");
 			}
+            function alertRequestSame(data){
+                if(JSON.parse(data).yourId=='${yourId}'){
+                    sweetAlert("กรุณารอ", "คุณได้ทำการส่งไปแล้ว", "warning");
+                }
+            }
 			
 		});
 		
@@ -951,16 +957,21 @@ a {
                                     //stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count }));
                                 }
                             });
-/*                           $.ajax({
-                               url:"/EvaluateTool/application/asddRequestCommittee",
+                           $.ajax({
+                               url:"/EvaluateTool/application/addRequestCommittee",
                                 type:"POST",
                                 data:{
                                     dataPersonId:dataPersonId
                                 },
-                                success:function(){*/
-                                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
-                           /*     }
-                            });*/
+                                success:function(data){
+                                    if(data=="success"){
+                                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                                    }else{
+                                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}'}));
+                                    }
+
+                                }
+                            });
 					}
 				}
 

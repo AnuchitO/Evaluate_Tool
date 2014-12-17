@@ -41,5 +41,18 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 		List<Participants> participantsList = participantsDao.findByPerson(person);
 		Assert.assertNotNull(participantsList);
 	}
+/*
+    @Test
+    public  void testAddPaticipants(){
+        Room room=new Room();
+        room.setId(2L);
+        Person person=new Person();
+        person.setId(6L);
+        this.participantsDao.addRequestCommittee(room,person);
+        Participants participants = participantsDao.findById(1L);
+        LOGGER.error("************************ {}",participants.getModulator());
+        //Assert.assertEquals(null,participants.getModulator());
+    }*/
+
 
 }
