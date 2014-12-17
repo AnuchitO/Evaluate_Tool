@@ -61,6 +61,9 @@ body {
 	            <div class="form-group">
 	              <button id="buttonLogIn" type="submit" class="btn btn-primary btn-lg btn-block"><spring:message code="APP.lname" /></button>
 	            </div>
+	            <div class="form-group" align="right">
+				 	<a href="memberRegister"><button type="button" class="btn btn-info">Sign Up</button></a>
+				</div>
 	          </div>
 	      </div>
 	  </div>

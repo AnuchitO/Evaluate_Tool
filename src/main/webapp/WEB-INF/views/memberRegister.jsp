@@ -21,10 +21,14 @@ div {
 .selectpicker {
 	margin: -3px;
 }
+#confirmEmail-error, #email-error, #confirmPassword-error, #password-error, #phoneNumber-error, #phoneNumber-error, #firstName-error, #lastName-error { 
+	color: red; 
+}
+
 </style>
 </head>
 <body>
-	
+<form id="myform" novalidate="novalidate">
 	<div id="divSignUp">
 
 		<div class="row" id="head">
@@ -35,12 +39,12 @@ div {
 
 		<div class="row">
 			<div class="col-sm-6 col-md-3 col-md-offset-3">
-				<input type="text" class="form-control" id="firstName"
-					placeholder="First Name">
+				<input type="text" class="form-control" id="firstName" name="firstName" 
+					placeholder="Firstname">
 			</div>
 			<div class="col-sm-6 col-md-3">
-				<input type="text" class="form-control" id="lastName"
-					placeholder="Last Name">
+				<input type="text" class="form-control" id="lastName" name="lastname" 
+					placeholder="Lastname">
 			</div>
 		</div>
 
@@ -50,68 +54,75 @@ div {
 			</div>
 			<div class="col-md-3">
 				<label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="female" value="female">Female
+					name="inlineRadioOptions" id="female" name="radiobox" value="female">Female
 				</label> <label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="male" value="male">Male
+					name="inlineRadioOptions" id="male" name="radiobox" value="male">Male
 				</label>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<input type="email" class="form-control" id="email"
+				<input type="email" class="form-control" id="email" name="email" 
 					placeholder="Enter email">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<input type="email" class="form-control" id="confirmEmail"
+				<input type="email" class="form-control" id="confirmEmail" name="confirmEmail" 
 					placeholder="Re-enter email">
 			</div>
 		</div>
 
 		<div class="row">
+			<div class="col-sm-6 col-md-offset-3">
+				<input type="text" class="form-control" id="username" name="username" 
+					placeholder="Username">
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-sm-6 col-md-3 col-md-offset-3">
-				<input type="password" class="form-control" id="password"
+				<input type="password" class="form-control" id="password" name="password" 
 					placeholder="Password">
 			</div>
 			<div class="col-sm-6 col-md-3">
-				<input type="password" class="form-control" id="confirmPassword"
+				<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" 
 					placeholder="Re-enter Password">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<select id=position class="selectpicker" data-width="100%">
-					<option selected disabled>Position</option>
-					<option>Software Developer Trainee</option>
-					<option>Software Developer</option>
-					<option>Senior Software Developer</option>
-					<option>Software Analyst</option>
-					<option>Senior Software Analyst</option>
+				<select id="position" class="selectpicker" name="position" data-width="100%">
+					<option selected disabled value="-1">Position</option>
+					<option value="1">Software Developer Trainee</option>
+					<option value="2">Software Developer</option>
+					<option value="3">Senior Software Developer</option>
+					<option value="4">Software Analyst</option>
+					<option value="5">Senior Software Analyst</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<input type="text" class="form-control" id="institute"
+				<input type="text" class="form-control" id="institute" name="institute" 
 					placeholder="Institute">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-sm-6 col-md-3 col-md-offset-3">
-				<input type="text" class="form-control" id="phoneNumber"
+				<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" 
 					placeholder="Phone number">
 			</div>
 			<div class="col-sm-6 col-md-3">
-				<select id=internship class="selectpicker" data-width="100%">
-					<option selected disabled>Internship or Co-operative</option>
-					<option>Internship</option>
-					<option>Co-operative</option>
+				<select id="internship" class="selectpicker" name="internship" data-width="100%">
+					<option selected disabled value="-1">Internship or Co-operative</option>
+					<option value="1">Internship</option>
+					<option value="2">Co-operative</option>
 				</select>
 			</div>
 		</div>
@@ -125,13 +136,16 @@ div {
 
 		<div class="row">
 			<div class="col-md-2 col-md-offset-3">
-				<button id="buttonSignUp" type="button" class="btn btn-primary">Sign
+				<button id="buttonSignUp" type="submit" class="btn btn-primary">Sign
 					Up</button>
 			</div>
 		</div>
 
 	</div>
-
+</form>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 	<script>
 		$(function() {
 			$("#buttonSignUp").click(
@@ -143,6 +157,7 @@ div {
 						dataForm.gender = $("input:radio:checked").val();
 						dataForm.email = $("#email").val();
 						dataForm.reemail = $("#confirmEmail").val();
+						dataForm.username = $("#username").val();
 						dataForm.password = $("#password").val();
 						dataForm.repassword = $("#confirmPassword").val();
 						dataForm.position = $("#position").val();
@@ -153,21 +168,26 @@ div {
 
 						var dataSend = JSON.stringify(dataForm);
 
-						console.info(dataSend);
-						$.ajax({
-							url : "/EvaluateTool/application/memberRegister",
-							type : 'POST',
-							data : {
-								dataForm : dataSend
-							},
-							success : function(data) {
-								alert(data);
-							},
-							error : function(data, status, er) {
-								alert("error: " + data + " status: " + status
-										+ " er:" + er);
-							}
-						});
+
+							console.info(dataSend);
+							$.ajax({
+								url : "/EvaluateTool/application/memberRegister",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+								success : function(data) {
+									//alert(data);
+									alert("Congratulations! You have successfully register");
+									window.location.href = "http://localhost:8083/EvaluateTool/application/";
+								},
+								error : function(data, status, er) {
+									// alert("error: " + data + " status: " + status
+									// 		+ " er:" + er);
+									alert("Please fill out this form!!");
+								}
+							});
+						
 					});
 			$("#buttonLogIn").click(function(){
 				var dataLogIn = {};
@@ -193,6 +213,73 @@ div {
 				});
 			});
 		});
+	//Validate
+	jQuery.validator.setDefaults({
+	  debug: true,
+	  validClass: "success",
+	  errorClass: "error"
+	});
+	$("#myform").validate({
+	  	rules: {
+	  		firstName: {
+	  			required: true,
+	  			rangelength : [4, 16]
+	  		},
+	  		lastname: {
+	  			required: true,
+	  			rangelength : [4, 16]
+	  		},
+	    	email: {
+	      		required: true,
+	      		email: true
+	    	},
+		    confirmEmail: {
+		      	equalTo: "#email"
+		    },
+		    username: {
+		    	required: true,
+		    	rangelength: [4, 16]
+		    },
+		    password: "required",
+		    confirmPassword: {
+		    	equalTo: "#password"
+		    },
+		    phoneNumber: {
+		    	required: true,
+		    	number: true,
+                rangelength : [10, 10]
+		    },
+		    position: {
+		    	required: function(){
+			        if($("select[name=position]").val() == -1){
+			            return true;
+			        }
+			        else
+			        {
+			            return false;
+			        }
+			    }
+		    },
+		    internship: {
+		    	required: function(){
+			        if($("select[name=internship]").val() == -1){
+			            return true;
+			        }
+			        else
+			        {
+			            return false;
+			        }
+			    }
+		    },
+		  
+		    agree: "required"
+	  	},
+	  	submitHandler: function(form) {
+	  		$(form).ajaxSubmit();
+	    }
+	});
+
+
 	</script>
 </body>
 </html>

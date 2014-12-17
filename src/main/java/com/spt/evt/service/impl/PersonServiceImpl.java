@@ -46,10 +46,8 @@ public class PersonServiceImpl implements PersonService {
 		person.setLastName(jsonObj.getString("lastname"));
 		person.setGender(jsonObj.getString("gender"));
 		person.setEmail(jsonObj.getString("email"));
-		person.setReenterEmail(jsonObj.getString("reemail"));
+		person.setUserName(jsonObj.getString("username"));
 		person.setPassword(jsonObj.getString("password"));
-		person.setReenterPassword(jsonObj.getString("repassword"));
-		person.setPositionA(jsonObj.getString("position").toString());
 		person.setInstitute(jsonObj.getString("institute"));
 		person.setPhoneNumber(jsonObj.getString("phonenumber"));
 		person.setInternship(jsonObj.getString("internship"));
