@@ -76,9 +76,9 @@ public class ExaminationRoomController {
         JSONObject dataPerson=new JSONObject(data);
         Long personId=dataPerson.getLong("yourId");
         Long roomId=dataPerson.getLong("roomId");
-        this.examinationRoomService.addRequestCommittee(roomId,personId);
+        String message=this.examinationRoomService.addRequestCommittee(roomId,personId);
         System.out.println("==============="+roomId+":"+personId+"==================");
-        return "success";
+        return message;
     }
 
     @RequestMapping(value="/removeRequestCommittee",method=RequestMethod.POST)

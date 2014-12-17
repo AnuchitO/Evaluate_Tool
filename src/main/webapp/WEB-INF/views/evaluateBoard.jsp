@@ -494,7 +494,7 @@ pageEncoding="UTF-8"%>
             }
         	function notificationRequestCommittee(data){
 				console.log(data);
-				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
+				/*var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
 				var namerequest=JSON.parse(data).name;
 				var lastnamerequest=JSON.parse(data).lastname;
 				var youridrequest=JSON.parse(data).yourId;
@@ -531,12 +531,12 @@ pageEncoding="UTF-8"%>
 						}else{
 							$("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
 						}
-				}
-               /* var committiIdInRoom='${idCommittee}';
+				}*/
+                var committiIdInRoom='${idCommittee}';
                 var modulatorIdInRoom='${idModulator}';
                 var idRoomInRoom='${idRoom}';
                 var roomidrequest=JSON.parse(data).roomId;
-                var namerequest=JSON.parse(data).name;
+                var namerequestWithExaminationRoom=JSON.parse(data).name;
                 var lastnamerequest=JSON.parse(data).lastname;
                 if(committiIdInRoom==modulatorIdInRoom&&roomidrequest==idRoomInRoom){
                     var data={};
@@ -565,38 +565,40 @@ pageEncoding="UTF-8"%>
                                 var idRoomInRoom='${idRoom}';
                                 var rolerequest=JSON.parse(data).allUserWithRequestCommittee[i].role;
                                 var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
-                                if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
-                                    $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-                                    $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
-                                            '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
-                                            '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
-                                            '<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
-                                            '<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
-                                            '<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
-                                }
-                                $("div[id=contentlistsubmitandcancel]").each(function(index,element){
-                                    if(index<3){
-                                        $(element).show();
-                                    }else{
-                                        $(element).hide();
+                                //if(namerequest==namerequestWithExaminationRoom){
+                                   // stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':yourIdRequest}));
+                               // }else{
+                                    if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
+                                        $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+                                        $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+                                                '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
+                                                '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
+                                                '<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
+                                                '<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
+                                                '<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
                                     }
+                                    $("div[id=contentlistsubmitandcancel]").each(function(index,element){
+                                        if(index<3){
+                                            $(element).show();
+                                        }else{
+                                            $(element).hide();
+                                        }
 
-                                });
-                                if(rolerequest=="wait"){
-                                    alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
-                                    $("body").append("<input type='hidden' id='paticipantId' value='"+JSON.parse(data).allUserWithRequestCommittee[i].paticipantId+"'/>")
-                                    if(countbadgenotificationsubmitandcalcel==""){
-                                        $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-                                    }else{
-                                        $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                                    });
+                                    if(rolerequest=="wait"){
+                                        alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
+                                        $("body").append("<input type='hidden' id='paticipantId' value='"+JSON.parse(data).allUserWithRequestCommittee[i].paticipantId+"'/>")
+                                        if(countbadgenotificationsubmitandcalcel==""){
+                                            $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                                        }else{
+                                            $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                                        }
                                     }
-                                }
+                               // }
                             }
                         }
-
-                    });
-
-                }*/
+                    });s
+                }
 			}
         });
 

@@ -59,8 +59,8 @@ public class ParticipantServiceImpl implements ParticipantsService {
     }
 
     @Override
-    public void addRequestCommittee(Room room, Person person) {
-        this.participantsDao.addRequestCommittee(room,person);
+    public String addRequestCommittee(Room room, Person person) {
+        return this.participantsDao.addRequestCommittee(room,person);
     }
 
     @Override

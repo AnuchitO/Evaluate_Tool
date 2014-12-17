@@ -42,4 +42,6 @@ public class ParticipantsDaoTest extends AbstractTestDao {
 		Assert.assertNotNull(participantsList);
 	}
 
+
+
 }

@@ -70,19 +70,22 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
 
     @Override
     @Transactional
-    public void addRequestCommittee(Room room, Person person) {
+    public String addRequestCommittee(Room room, Person person) {
         Criteria criteriaAdd=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
         criteriaAdd.add(Restrictions.eq("room",room));
         criteriaAdd.add(Restrictions.eq("person",person));
         Participants add= (Participants) criteriaAdd.uniqueResult();
-
+        if(add==null){
             Participants participants=new Participants();
             participants.setRole("wait");
             participants.setModulator(false);
             participants.setPerson(person);
             participants.setRoom(room);
-            this.getEntityManager().persist(participants);
-
+            this.getEntityManager().merge(participants);
+            return "success";
+        }else{
+            return "fail";
+        }
 
     }
 
@@ -117,6 +120,13 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         this.getEntityManager().merge(update);
         Participants participantsup=this.getEntityManager().find(Participants.class,2L);
         System.out.println("========Add======"+participantsup.getModulator());*/
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Participants findById(Long id) {
+        Participants participants= (Participants) this.getEntityManager().find(Participants.class,id);
+        return participants;
     }
 
 }
