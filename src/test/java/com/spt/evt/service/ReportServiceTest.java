@@ -59,4 +59,11 @@ public class ReportServiceTest extends AbstractTestService {
 		Assert.assertTrue(result.has("report"));
 	}
 
+	@Test
+	public void testgetAllExaminerCompletedShouldBeJsonObject() throws Exception {
+		JSONObject result = this.reportService.getAllExaminerCompleted();
+		LOGGER.debug(" ",result.toString());
+		Assert.assertTrue(result.has("report"));
+	}
+
 }
