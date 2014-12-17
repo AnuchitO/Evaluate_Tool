@@ -117,7 +117,17 @@ public class EvaluateBoardController {
         for(int i=0;i<paticipantId.length();i++){
             this.evaluateBoardService.setRoleInPaticipants(paticipantId.getLong(i));
         }
+        return "success";
+    }
 
+    @RequestMapping(value="/addModulatorAndUpdateCommittee",method=RequestMethod.POST)
+    public @ResponseBody String addModulator(@RequestParam(value="dataApprove") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject paticipants=new JSONObject(data);
+        Long roomIdApprove=paticipants.getLong("roomIdApprove");
+        Long yourIdApprove=paticipants.getLong("yourIdApprove");
+        Long yourIdInRoom=paticipants.getLong("yourIdInRoom");
+        System.out.println("======addModulatorAndUpdateCommittee======"+roomIdApprove+":"+yourIdApprove+":"+yourIdInRoom);
+        this.evaluateBoardService.addModulatorAndUpdateCommittee(roomIdApprove,yourIdApprove,yourIdInRoom);
         return "success";
     }
 }

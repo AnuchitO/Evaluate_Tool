@@ -42,4 +42,9 @@ public class RoomServiceImpl implements RoomService{
 		
 	}
 
+    @Override
+    public void setStatusRoomReady(Long roomId) {
+           this.roomDao.setStatusRoomReady(roomId);
+    }
+
 }

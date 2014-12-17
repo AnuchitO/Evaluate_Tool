@@ -180,5 +180,10 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
          this.getParticipantsService().setRoleInPaticipants(paticipantId);
     }
 
+    @Override
+    public void addModulatorAndUpdateCommittee(Long roomIdApprove, Long yourIdApprove, Long yourIdInRoom) {
+        this.getParticipantsService().addModulatorAndUpdateCommittee(roomIdApprove,yourIdApprove,yourIdInRoom);
+    }
+
 
 }

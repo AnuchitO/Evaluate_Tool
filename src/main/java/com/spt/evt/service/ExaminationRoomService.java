@@ -6,4 +6,9 @@ public interface ExaminationRoomService {
 	public JSONObject getRoomInformation();
 	public JSONObject getPersonInRoomInformation(Long roomId, Long examinerId, Long committeeId, Long modulatorId);
 	public JSONObject findParticipantsByPersonId(Long personId);
+    public void setStatusRoom(Long roomId);
+    public void setStatusRoomReady(Long roomId);
+    public void addRequestCommittee(Long roomId,Long personId);
+    public void removeRequestCommittee(Long roomId,Long personId);
+
 }

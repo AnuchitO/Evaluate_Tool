@@ -68,4 +68,55 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
       this.getEntityManager().merge(participants);
     }
 
+    @Override
+    @Transactional
+    public void addRequestCommittee(Room room, Person person) {
+        Criteria criteriaAdd=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteriaAdd.add(Restrictions.eq("room",room));
+        criteriaAdd.add(Restrictions.eq("person",person));
+        Participants add= (Participants) criteriaAdd.uniqueResult();
+
+            Participants participants=new Participants();
+            participants.setRole("wait");
+            participants.setModulator(false);
+            participants.setPerson(person);
+            participants.setRoom(room);
+            this.getEntityManager().persist(participants);
+
+
+    }
+
+    @Override
+    @Transactional
+    public void removeRequestCommittee(Room room, Person person) {
+        Participants participants= new Participants();
+        participants.setPerson(person);
+        participants.setRoom(room);
+        System.out.print("========================================+++++++++++++++"+participants);
+        this.getEntityManager().remove(participants);
+    }
+
+    @Override
+    @Transactional
+    public void addModulatorAndUpdateCommittee(Room roomApprove, Person personApprove, Person personInRoom) {
+        Criteria criteriaAdd=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteriaAdd.add(Restrictions.eq("room",roomApprove));
+        criteriaAdd.add(Restrictions.eq("person",personApprove));
+        Participants add= (Participants) criteriaAdd.uniqueResult();
+        //this.getEntityManager().merge(add);
+        //Participants participantsa= (Participants) this.getEntityManager().find(Participants.class,2L);
+      System.out.println("========Add======"+add.getRole());
+       /* Criteria criteriaUpdate=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteriaUpdate.add(Restrictions.eq("room",roomApprove));
+        criteriaUpdate.add(Restrictions.eq("person",personInRoom));
+        Participants update= (Participants) criteriaUpdate.uniqueResult();
+        update.setRole("committee");
+        update.setModulator(false);
+        add.setRoom(roomApprove);
+        add.setPerson(personInRoom);
+        this.getEntityManager().merge(update);
+        Participants participantsup=this.getEntityManager().find(Participants.class,2L);
+        System.out.println("========Add======"+participantsup.getModulator());*/
+    }
+
 }
