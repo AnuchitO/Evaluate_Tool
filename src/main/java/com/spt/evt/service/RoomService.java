@@ -10,4 +10,6 @@ public interface RoomService {
 	public Room findById(Long id);
 	public List<Room> findByStatus(String status);
 	public void setStatusRoom(Room room);
+    public void setStatusRoomReady(Long roomId);
+
 }

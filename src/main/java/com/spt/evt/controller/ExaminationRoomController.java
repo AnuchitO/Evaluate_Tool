@@ -55,12 +55,40 @@ public class ExaminationRoomController {
 	@RequestMapping(value="/checkCommittee",method=RequestMethod.POST)
 	public @ResponseBody String getCommitteeInformation(@RequestParam(value="dataPersonId") String dataPersonId ,HttpServletRequest arg0,HttpServletResponse arg1) {
 		JSONObject personDetail = new JSONObject(dataPersonId);
-		Long roomId		 	= Long.parseLong(personDetail.getString("roomId"));
-		Long examinerId 	= Long.parseLong(personDetail.getString("examinerId"));
-		Long committeeId 	= Long.parseLong(personDetail.getString("committeeId"));
-		Long modulatorId	= Long.parseLong(personDetail.getString("modulatorId"));
+		Long roomId		 	=personDetail.getLong("roomId");
+		Long examinerId 	= personDetail.getLong("examinerId");
+		Long committeeId 	= personDetail.getLong("committeeId");
+		Long modulatorId	= personDetail.getLong("modulatorId");
 		JSONObject committeeInformation = this.examinationRoomService.getPersonInRoomInformation(roomId,examinerId,committeeId,modulatorId);
 		return committeeInformation.toString();
 	}
+
+    @RequestMapping(value="/setStatusRoomReady",method = RequestMethod.POST)
+    public @ResponseBody String setStatusRoom(@RequestParam(value = "roomId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject dataRoom=new JSONObject(data);
+        Long idRoom=dataRoom.getLong("roomId");
+        this.examinationRoomService.setStatusRoomReady(idRoom);
+        return "success";
+    }
+
+    @RequestMapping(value="/addRequestCommittee",method=RequestMethod.POST)
+    public @ResponseBody String addRequestCommitee(@RequestParam(value="dataPersonId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject dataPerson=new JSONObject(data);
+        Long personId=dataPerson.getLong("yourId");
+        Long roomId=dataPerson.getLong("roomId");
+        this.examinationRoomService.addRequestCommittee(roomId,personId);
+        System.out.println("==============="+roomId+":"+personId+"==================");
+        return "success";
+    }
+
+    @RequestMapping(value="/removeRequestCommittee",method=RequestMethod.POST)
+    public @ResponseBody String removeRequestCommitee(@RequestParam(value="dataPersonId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject dataPerson=new JSONObject(data);
+        Long personId=dataPerson.getLong("yourId");
+        Long roomId=dataPerson.getLong("roomId");
+        this.examinationRoomService.removeRequestCommittee(roomId,personId);
+        System.out.println("==============="+roomId+":"+personId+"==================");
+        return "success";
+    }
 
 }

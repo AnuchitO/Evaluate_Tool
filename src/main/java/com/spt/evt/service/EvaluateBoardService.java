@@ -10,5 +10,6 @@ public interface EvaluateBoardService {
 	public JSONObject getAllPerson();
     public JSONObject getUserWithRequestCommittee(Long roomId);
     public void setRoleInPaticipants(Long paticipantId);
+    public void addModulatorAndUpdateCommittee(Long roomIdApprove,Long yourIdApprove,Long yourIdInRoom);
 }
 

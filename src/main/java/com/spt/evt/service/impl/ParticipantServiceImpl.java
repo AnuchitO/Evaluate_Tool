@@ -58,5 +58,26 @@ public class ParticipantServiceImpl implements ParticipantsService {
         this.participantsDao.setRoleInPaticipants(paticipantId);
     }
 
+    @Override
+    public void addRequestCommittee(Room room, Person person) {
+        this.participantsDao.addRequestCommittee(room,person);
+    }
+
+    @Override
+    public void removeRequestCommittee(Room room, Person person) {
+        this.participantsDao.removeRequestCommittee(room,person);
+    }
+
+    @Override
+    public void addModulatorAndUpdateCommittee(Long roomIdApprove, Long yourIdApprove, Long yourIdInRoom) {
+        Room roomApprove=new Room();
+        roomApprove.setId(roomIdApprove);
+        Person personApprove=new Person();
+        personApprove.setId(yourIdApprove);
+        Person personInRoom=new Person();
+        personInRoom.setId(yourIdInRoom);
+        this.participantsDao.addModulatorAndUpdateCommittee(roomApprove,personApprove,personInRoom);
+    }
+
 
 }

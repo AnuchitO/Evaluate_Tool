@@ -12,4 +12,7 @@ public interface ParticipantsDao {
 	public List<Participants> findByPerson(Person person);
     public List<Participants> findPersonWithRequestCommittee(Room room);
     public void setRoleInPaticipants(Long paticipantId);
+    public void addRequestCommittee(Room room,Person person);
+    public void removeRequestCommittee(Room room,Person person);
+    public void addModulatorAndUpdateCommittee(Room roomApprove, Person personApprove, Person personInRoom);
 }

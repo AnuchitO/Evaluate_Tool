@@ -9,4 +9,5 @@ public interface RoomDao {
 	public Room findById(Long id);
 	public List<Room> findByStatus(String status);
 	public void setStatusByRoom(Room room);
+    public void setStatusRoomReady(Long roomId);
 }
