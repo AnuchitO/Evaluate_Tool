@@ -228,14 +228,14 @@ a {
 				var datamessage=JSON.parse(data).data;
 				var yourId=JSON.parse(data).yourId;
 				var roomId=JSON.parse(data).roomId;
+                var examinerId=JSON.parse(data).examinerId;
+                var modulatorId=JSON.parse(data).modulatorId;
 				var yourIdInRoom='${yourId}';
-				var count = JSON.parse(data).count;
-				var roomStatus=$("#roomStatus"+count).text();
 				var detailPerson = {};
 				detailPerson.roomId =roomId;
 				detailPerson.committeeId = yourId;
-				detailPerson.examinerId = $("#examinerId" + count).val();
-				detailPerson.modulatorId = $("#modulatorId" + count).val();
+				detailPerson.examinerId = examinerId;
+				detailPerson.modulatorId = modulatorId;
 				var dataPersonId = JSON.stringify(detailPerson);
 				if(yourId==yourIdInRoom){
                     swal({
@@ -821,14 +821,15 @@ a {
 			detailPerson.modulatorId = $("#modulatorId" + count).val();
             detailPerson.yourId=yourId;
 			var dataPersonId = JSON.stringify(detailPerson);
-			if(roomStatus=="Status : Completed"){
+		/*	if(roomStatus=="Status : Completed"){
 				sweetAlert("", "การสอบสำเร็จแล้ว","success");
-			}
-			else if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"||(roomStatus=="Status : Waiting"&&yourId==detailPerson.modulatorId)){
+			}*/
+			if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"||(roomStatus=="Status : Waiting"&&yourId==detailPerson.modulatorId)||roomStatus=="Status : Completed"){
 				
 				if(yourId==detailPerson.examinerId){
 					sweetAlert("คุณเป็น Examiner ห้องนี้แล้ว", "ไม่สามารถเป็น Modulator ได้","error");
 				}else if(yourId==detailPerson.modulatorId){
+                    if(roomStatus!="Status : Completed"){
                     $.ajax({
                         url:"/EvaluateTool/application/setStatusRoomReady",
                         type:"POST",
@@ -884,13 +885,59 @@ a {
                                     });
                         }
                     });
-
+                    }else{
+                        $
+                                .ajax({
+                                    url : "/EvaluateTool/application/checkCommittee",
+                                    type : 'POST',
+                                    data : {
+                                        dataPersonId : dataPersonId
+                                    },
+                                    success : function(data) {
+                                        var idRoom = JSON.parse(data).idRoom;
+                                        var idCourse = JSON.parse(data).idCourse;
+                                        var idExaminer = JSON.parse(data).idExaminer;
+                                        var nameExaminer = JSON.parse(data).nameExaminer;
+                                        var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+                                        var idCommittee = JSON.parse(data).idCommittee;
+                                        var nameCommittee = JSON.parse(data).nameCommittee;
+                                        var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+                                        var idModulator = JSON.parse(data).idModulator;
+                                        var yourPosition = $("#yourPosition").val();
+                                        location.href = "/EvaluateTool/application/evaluateBoard"
+                                                + "?idRoom="
+                                                + encodeURIComponent(idRoom)
+                                                + "&idCourse="
+                                                + encodeURIComponent(idCourse)
+                                                + "&idExaminer="
+                                                + encodeURIComponent(idExaminer)
+                                                + "&nameExaminer="
+                                                + encodeURIComponent(nameExaminer)
+                                                + "&lastNameExaminer="
+                                                + encodeURIComponent(lastNameExaminer)
+                                                + "&idCommittee="
+                                                + +encodeURIComponent(idCommittee)
+                                                + "&nameCommittee="
+                                                + encodeURIComponent(nameCommittee)
+                                                + "&lastNameCommittee="
+                                                + encodeURIComponent(lastNameCommittee)
+                                                + "&idModulator="
+                                                + encodeURIComponent(idModulator)
+                                                + "&yourPosition="
+                                                + encodeURIComponent(yourPosition);
+                                    },
+                                    error : function(data, status, er) {
+                                        alert("error: " + data + " status: " + status
+                                                + " er:" + er);
+                                    }
+                                });
+                    }
 				}else{
-					var committee=[];
-					$("#committee"+count+" input[id=idCommittee]").each(function(){
-							committee.push($(this).val());
-						});
-						if(yourId in committee){
+                    var committee=[];
+                    $("#committee"+count+" input[id=idCommittee]").each(function(){
+                        committee.push($(this).val());
+                    });
+						if(committee.indexOf(yourId)!=-1){
 							$
 							.ajax({
 								url : "/EvaluateTool/application/checkCommittee",
@@ -937,41 +984,50 @@ a {
 								}
 							});
 					}else{
+                            if(roomStatus!="Status : Completed"){
+                                $.ajax({
+                                    url:"/EvaluateTool/application/addRequestCommittee",
+                                    type:"POST",
+                                    data:{
+                                        dataPersonId:dataPersonId
+                                    },
+                                    success:function(data){
+                                        if(data=="success"){
+                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                                            swal({   title: "ระบบได้ส่ง Request ไปแล้วกรุณารอ Modulator Approve",
+                                                text:"Click Yes for Wait Behind OR Click Cancel for Cancel",
+                                                confirmButtonColor: "#8ACBE5",
+                                                confirmButtonText: "Yes",
+                                                cancelButtonText: "Cancel",
+                                                closeOnCancel: true,
+                                                closeOnConfirm: true,
+                                                showCancelButton: true,
+                                                imageUrl: "resources/images/loading.gif"
+                                            }, function(isConfirm){
 
-                            swal({   title: "ระบบได้ส่ง Request ไปแล้วกรุณารอ Modulator Approve",
-                                text:"Click OK for Not Wait",
-                                confirmButtonColor: "#DD6B55",
-                                closeOnCancel: false,
-                                imageUrl: "resources/images/loading.gif"
-                            }, function(isCancel){
-                                if (isCancel) {
-                                    /*$.ajax({
-                                        url: "/EvaluateTool/application/removeRequestCommittee",
-                                        type: "POST",
-                                        data: {
-                                            dataPersonId:dataPersonId
-                                        },
-                                        success: function () {
+                                                if (isConfirm) {
+
+                                                }else{
+                                                    $.ajax({
+                                                        url: "/EvaluateTool/application/removeRequestCommittee",
+                                                        type: "POST",
+                                                        data: {
+                                                            dataPersonId:dataPersonId
+                                                        },
+                                                        success: function (data) {
+                                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count,'participantId':data }));
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }else{
+                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}'}));
                                         }
-                                    });*/
-                                    //stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count }));
-                                }
-                            });
-                           $.ajax({
-                               url:"/EvaluateTool/application/addRequestCommittee",
-                                type:"POST",
-                                data:{
-                                    dataPersonId:dataPersonId
-                                },
-                                success:function(data){
-                                    if(data=="success"){
-                                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
-                                    }else{
-                                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}'}));
                                     }
-
-                                }
-                            });
+                                });
+                            }else{
+                                sweetAlert("การสอบได้สำเร็จแล้ว", "ไม่สามารถสมัครเป็น Committee ได้","error");
+                            }
 					}
 				}
 

@@ -113,10 +113,20 @@ public class EvaluateBoardController {
     @RequestMapping(value="/setRoleInPaticipants",method=RequestMethod.POST)
     public @ResponseBody String setRoleInPaticipants(@RequestParam(value="paticipantId") String data,HttpServletRequest request,HttpServletResponse response){
         JSONObject paticipants=new JSONObject(data);
-        JSONArray paticipantId=paticipants.getJSONArray("paticipantId");
-        for(int i=0;i<paticipantId.length();i++){
-            this.evaluateBoardService.setRoleInPaticipants(paticipantId.getLong(i));
+        String role=paticipants.getString("role");
+        if(role.equals("wait")){
+            JSONArray paticipantId=paticipants.getJSONArray("paticipantId");
+            for(int i=0;i<paticipantId.length();i++){
+                this.evaluateBoardService.setRoleInPaticipants(paticipantId.getLong(i),role);
+            }
+        }else if(role.equals("committee")){
+            Long roomId=paticipants.getLong("roomId");
+            Long yourId=paticipants.getLong("yourId");
+            Long participantId=this.evaluateBoardService.findParticipantId(roomId,yourId);
+            System.out.print("=======Add Committee=============="+participantId);
+            this.evaluateBoardService.setRoleInPaticipants(participantId,role);
         }
+
         return "success";
     }
 

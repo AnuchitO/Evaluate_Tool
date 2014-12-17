@@ -54,8 +54,8 @@ public class ParticipantServiceImpl implements ParticipantsService {
     }
 
     @Override
-    public void setRoleInPaticipants(Long paticipantId) {
-        this.participantsDao.setRoleInPaticipants(paticipantId);
+    public void setRoleInPaticipants(Long paticipantId,String role) {
+        this.participantsDao.setRoleInPaticipants(paticipantId,role);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class ParticipantServiceImpl implements ParticipantsService {
     }
 
     @Override
-    public void removeRequestCommittee(Room room, Person person) {
-        this.participantsDao.removeRequestCommittee(room,person);
+    public Long removeRequestCommittee(Room room, Person person) {
+       return this.participantsDao.removeRequestCommittee(room,person);
     }
 
     @Override
@@ -77,6 +77,15 @@ public class ParticipantServiceImpl implements ParticipantsService {
         Person personInRoom=new Person();
         personInRoom.setId(yourIdInRoom);
         this.participantsDao.addModulatorAndUpdateCommittee(roomApprove,personApprove,personInRoom);
+    }
+
+    @Override
+    public Long findParticipantId(Long roomId, Long personId) {
+        Room room=new Room();
+        room.setId(roomId);
+        Person person=new Person();
+        person.setId(personId);
+        return  this.participantsDao.findParticipantId(room,person);
     }
 
 

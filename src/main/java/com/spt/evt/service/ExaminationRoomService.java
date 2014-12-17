@@ -9,6 +9,6 @@ public interface ExaminationRoomService {
     public void setStatusRoom(Long roomId);
     public void setStatusRoomReady(Long roomId);
     public String addRequestCommittee(Long roomId,Long personId);
-    public void removeRequestCommittee(Long roomId,Long personId);
+    public Long removeRequestCommittee(Long roomId,Long personId);
 
 }
