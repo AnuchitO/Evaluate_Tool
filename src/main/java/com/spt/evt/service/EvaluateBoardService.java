@@ -12,5 +12,7 @@ public interface EvaluateBoardService {
     public void setRoleInPaticipants(Long paticipantId,String role);
     public void addModulatorAndUpdateCommittee(Long roomIdApprove,Long yourIdApprove,Long yourIdInRoom);
     public Long findParticipantId(Long roomId,Long personId);
+
+    public JSONObject getallPersonToApprove(Long aLong);
 }
 

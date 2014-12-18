@@ -17,4 +17,5 @@ public interface ParticipantsDao {
     public void addModulatorAndUpdateCommittee(Room roomApprove, Person personApprove, Person personInRoom);
     public Participants findById(Long id);
     public Long findParticipantId(Room room,Person person);
+    public List<Participants> allPersonToApprove(Room room);
 }

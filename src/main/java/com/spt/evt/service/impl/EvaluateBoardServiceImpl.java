@@ -5,10 +5,8 @@ import java.util.List;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.RoomDao;
 import com.spt.evt.entity.Course;
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
@@ -188,6 +186,11 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
     @Override
     public Long findParticipantId(Long roomId, Long personId) {
         return this.getParticipantsService().findParticipantId(roomId,personId);
+    }
+
+    @Override
+    public JSONObject getallPersonToApprove(Long aLong) {
+        return this.getParticipantsService().allPersonToApprove(aLong);
     }
 
 

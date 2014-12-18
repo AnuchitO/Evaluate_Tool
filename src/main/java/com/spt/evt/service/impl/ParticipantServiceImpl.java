@@ -3,13 +3,13 @@ package com.spt.evt.service.impl;
 import java.util.List;
 
 import com.spt.evt.entity.Person;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spt.evt.dao.ParticipantsDao;
-import com.spt.evt.dao.PersonDao;
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Room;
 import com.spt.evt.service.ParticipantsService;
@@ -86,6 +86,23 @@ public class ParticipantServiceImpl implements ParticipantsService {
         Person person=new Person();
         person.setId(personId);
         return  this.participantsDao.findParticipantId(room,person);
+    }
+
+    @Override
+    public JSONObject allPersonToApprove(Long aLong) {
+        Room room=new Room();
+        room.setId(aLong);
+        List<Participants> listParticipants=this.participantsDao.allPersonToApprove(room);
+        JSONObject allPersonToApprove=new JSONObject();
+        JSONObject personEachRow=null;
+        for(Participants participants:listParticipants){
+                personEachRow=new JSONObject();
+                personEachRow.put("id",participants.getPerson().getId());
+                personEachRow.put("name",participants.getPerson().getName());
+                personEachRow.put("lastname",participants.getPerson().getLastName());
+                allPersonToApprove.append("person",personEachRow);
+        }
+        return allPersonToApprove;
     }
 
 

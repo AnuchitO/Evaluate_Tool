@@ -401,6 +401,67 @@ pageEncoding="UTF-8"%>
                 	accessMethod(JSON.parse(data.body));
                });
             });
+
+            function accessMethod(data){
+	        	var namefunction=JSON.parse(data).function;
+	        	if(namefunction=="notificationRequestCommittee"){
+	        		notificationRequestCommittee(data);
+	       		 }else if(namefunction=="removeNotificationRequestCommittee"){
+                    removeNotificationRequestCommittee(data);
+                }else if(JSON.parse(data).function=="notificationRequestUpdate"){
+                    notificationRequestUpdate(data);
+                }else if(namefunction=="updateBadgeNotification"){
+                    updateBadgeNotification(data);
+                }else if(namefunction=="updateMenuApproveAfterSubmit"){
+                    updateMenuApproveAfterSubmit(data);
+                }else if(namefunction=="approveSubmitModulator"){
+                    approveSubmitModulator(data);
+                }else if(namefunction=="updateMenuApproveModulatorAfterSubmitCommittee"){
+                    updateMenuApproveModulatorAfterSubmitCommittee(data);
+                }
+        	}
+
+            function updateMenuApproveModulatorAfterSubmitCommittee(data){
+                $("div[id=contentlistapprove]").each( function() {
+                        $(this).remove();
+                 });
+                if('${idCommittee}'=='${idModulator}'&&JSON.parse(data).roomId=='${idRoom}'){
+                    var idRoomInRoom=JSON.parse('${idRoom}');
+                    var data={};
+                    data.roomId=JSON.parse('${idRoom}');
+                    var roomId=JSON.stringify(data);
+                    $.ajax({
+                        url:"/EvaluateTool/application/getallPersonToApprove",
+                        type:"POST",
+                        data:{
+                            roomId:roomId
+                        },
+                        success:function(data){
+                            $.each(JSON.parse(data),function(index,item){
+                                item.forEach(function(person){
+                                    var yourId=person.id;
+                                    var name=person.name;
+                                    var lastName=person.lastname;
+                                    if(yourId!='${idCommittee}'){
+                                        $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
+                                    }
+                                });
+                            });
+                        },error:function() {
+                            swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                type: "error",
+                                confirmButtonColor: "#8ACBE5",
+                                confirmButtonText: "OK",
+                                closeOnConfirm: true
+                            }, function (isConfirm) {
+                                if (isConfirm) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
             function approveSubmitModulator(data){
                 if(JSON.parse(data).yourId=='${idCommittee}'&&JSON.parse(data).roomId=='${idRoom}'){
                     swal({
@@ -452,22 +513,6 @@ pageEncoding="UTF-8"%>
                     });
                 }
             }
-            function accessMethod(data){
-	        	var namefunction=JSON.parse(data).function;
-	        	if(namefunction=="notificationRequestCommittee"){
-	        		notificationRequestCommittee(data);
-	       		 }else if(namefunction=="removeNotificationRequestCommittee"){
-                    removeNotificationRequestCommittee(data);
-                }else if(JSON.parse(data).function=="notificationRequestUpdate"){
-                    notificationRequestUpdate(data);
-                }else if(namefunction=="updateBadgeNotification"){
-                    updateBadgeNotification(data);
-                }else if(namefunction=="updateMenuApproveAfterSubmit"){
-                    updateMenuApproveAfterSubmit(data);
-                }else if(namefunction=="approveSubmitModulator"){
-                    approveSubmitModulator(data);
-                }
-        	}
             function notificationRequestUpdate(data){
                 var yourIdRemove=JSON.parse(data).yourId;
                 $("div[title="+yourIdRemove+"]").fadeOut("slow",function() {
@@ -800,19 +845,42 @@ pageEncoding="UTF-8"%>
 			});
 		});
 
-		var allPerson=JSON.parse('${allPerson}');
-		var idRoomInRoom=JSON.parse('${idRoom}');
-		$.each(allPerson,function(index,item){
-			item.forEach(function(person){
-				var yourId=person.id;
-				var name=person.name;
-				var lastName=person.lastname;
-                if(yourId!='${idCommittee}'){
-                    $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
-                }
+        var idRoomInRoom=JSON.parse('${idRoom}');
+        var data={};
+        data.roomId=JSON.parse('${idRoom}');
+        var roomId=JSON.stringify(data);
+        $.ajax({
+            url:"/EvaluateTool/application/getallPersonToApprove",
+            type:"POST",
+            data:{
+                roomId:roomId
+            },
+            success:function(data){
+                $.each(JSON.parse(data),function(index,item){
+                    item.forEach(function(person){
+                        var yourId=person.id;
+                        var name=person.name;
+                        var lastName=person.lastname;
+                        if(yourId!='${idCommittee}'){
+                            $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
+                        }
+                    });
+                });
 
-			});
-		});
+            },error:function() {
+                swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                    type: "error",
+                    confirmButtonColor: "#8ACBE5",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        //location.reload();
+                    }
+                });
+            }
+        });
+
 		$("div[id=contentlistapprove]").each(function(index,element){
 				if(index<3){
 					$(element).show();
