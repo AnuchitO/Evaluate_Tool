@@ -302,4 +302,3 @@ insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (
 insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (171,1,1,55,6,1,'good')
 insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (172,1,1,56,6,1,'good')
 insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (173,1,1,57,6,1,'good')
-insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (174,1,1,58,6,1,'good')

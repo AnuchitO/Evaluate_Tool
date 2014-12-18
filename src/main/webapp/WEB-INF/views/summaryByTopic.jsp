@@ -125,7 +125,7 @@ table>tbody>tr>td {
 				data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 			</div>
 			<h4 id="panelTitle0" class="panel-title"></h4>
-			<span id="spanTopic0" class="badge " style="background-color: #585858;"></span> 
+			<span id="spanTopic0" class="badge " style="background-color: #585858;"></span>
 			<span id="spanAverage0" class="badge pull-right" style="background-color: #585858;"></span>
 			<label id="submitEachTopic0" style="margin: 2px;"></label> 
 			<label id="totalEachTopic0" style="margin: 2px;"></label>
@@ -133,8 +133,8 @@ table>tbody>tr>td {
 			<div id="collapse0" class="panel-collapse collapse"></div>
 			<div id="panelBody0" class="panel-body"></div>
 			<ul id="navpills0" class="nav nav-pills nav-stacked"></ul>
-			<li id="listNavpills0" onClick="javascript:showModal(this);"></li> 
-			<a id="linkToScore0" ></a> 
+			<li id="listNavpills0" onClick="javascript:showModal(this);"></li>
+			<a id="linkToScore0" ></a>
 			<span id="spanScore0" class="badge pull-right"></span>
 
 
@@ -144,16 +144,16 @@ table>tbody>tr>td {
 			<label id="panelScoreSubject0" class="textSubject"></label>
 			<button id="panelScoreBtnClose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			<div id="panelScoreBody0" class="panel-body"></div>
-			<span id="dummyKeepIdTopic0" class="textId"></span> 
+			<span id="dummyKeepIdTopic0" class="textId"></span>
 			<label id="panelScoreDescription0" class="textDescription"></label>
 			<textarea id="panelScoreMessage0" class="form-control" rows="3" placeholder="No comment."></textarea>
 			
 			<!----------------------Model Panel in Modal---------------------->
 
 			<!----------------------Model Modal---------------------->
-			<div id="modalScore0" class="modal" style="width:600px;height:350px;"  tabindex="-1" 
+			<div id="modalScore0" class="modal" style="width:600px;height:450px;"  tabindex="-1"
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
-			<div id="modalScoreDialog0" class="modal-dialog"></div>	
+			<div id="modalScoreDialog0" class="modal-dialog"></div>
 	</div>
 
 	<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover"><img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
@@ -725,9 +725,6 @@ table>tbody>tr>td {
 									+ countOfSpanScore)
 									.text() != '-') {
 									keepEachTopicOfSubmit++;
-
-								// alert($("#spanScore" + countOfSpanScore).text());
-								// alert(keepEachTopicOfSubmit);
 									}
 							countOfSpanScore++;
 							}
