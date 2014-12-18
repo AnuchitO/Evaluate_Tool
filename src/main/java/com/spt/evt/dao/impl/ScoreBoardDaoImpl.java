@@ -54,6 +54,27 @@ public class ScoreBoardDaoImpl extends TemplateEntityManagerDao implements
 		}
 		return scoreBoard;
 	}
+	@Override
+	@Transactional(readOnly = true)
+	public List<ScoreBoard> findByRoomAndTopicAndExaminer(Room room,Topic topic,Person examiner){
+
+		// System.out.println(room+"========="+topic+"========="+examiner);
+
+		Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(ScoreBoard.class);
+		criteria.add(Restrictions.eq("room", room));
+		criteria.add(Restrictions.eq("topic", topic));
+		criteria.add(Restrictions.eq("examiner", examiner));
+		criteria.addOrder(Order.asc("id"));
+
+		ScoreBoard sample = new ScoreBoard();
+		sample.setRoom(room);
+		sample.setTopic(topic);
+		sample.setExaminer(examiner);
+
+		List<ScoreBoard> result = criteria.list();
+
+		return result;
+	}
 
 	@Override
 	@Transactional

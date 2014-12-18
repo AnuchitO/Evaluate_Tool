@@ -30,6 +30,12 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	}
 
 	@Override
+	public List<ScoreBoard> findByRoomAndTopicAndExaminer(Room room, Topic topic, Person examiner){
+		return scoreBoardDao.findByRoomAndTopicAndExaminer(room, topic, examiner);
+	}
+
+
+	@Override
 	public void save(ScoreBoard scoreBoard) {
 		scoreBoardDao.save(scoreBoard);		
 	}

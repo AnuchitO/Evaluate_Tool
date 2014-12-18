@@ -3,6 +3,7 @@ package com.spt.evt.dao;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+import com.spt.evt.service.TopicService;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,9 @@ import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
 import com.spt.evt.entity.ScoreBoard;
 import com.spt.evt.entity.Topic;
+
+import com.spt.evt.service.PersonService;
+import com.spt.evt.service.RoomService;
 
 import java.util.List;
 
@@ -29,6 +33,14 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 	private MemberRegisterDao memberRegisterDao;
 	@Autowired
 	private RoomDao roomDao;
+	@Autowired
+	private RoomService roomService;
+	@Autowired
+	private PersonService personService;
+	@Autowired
+	private TopicService topicService;
+
+
 
 	@Test
 	public void testFindScoreBoardByCommiteeAndTopicBeNotNull() {
@@ -97,5 +109,21 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		Assert.assertNotNull(resultScoreBoard);
 	}
 
+
+	@Test
+	public void testFindByRoomAndTopicAndExaminerShoudBe() {
+		Long roomId = 1L;
+		Long examinerId = 6L;
+		Long topicId = 58L;
+
+		Room room			= this.roomService.findById(roomId);
+		Person examiner 	= this.personService.findById(examinerId);
+
+		Topic topic = this.topicService.findById(topicId);
+
+
+		List<ScoreBoard> resultScoreBoard = (List<ScoreBoard>) this.scoreBoardDao.findByRoomAndTopicAndExaminer(room,topic,examiner);
+		Assert.assertNotNull(resultScoreBoard);
+	}
 
 }

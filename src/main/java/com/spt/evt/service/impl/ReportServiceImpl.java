@@ -1,5 +1,6 @@
 package com.spt.evt.service.impl;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -178,47 +179,75 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	}
 
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
-		float sumScore = 0;
+		float allScore = 0;
 		int allTopic = 0;
+		float changeMeanScore;
+
 		for (Topic topic : topics) {
 			JSONObject topicElement = new JSONObject();
 			topicElement.put("id", topic.getId());
 			topicElement.put("name",topic.getName());
 			topicElement.put("description",topic.getDescription());
 
-			ScoreBoard scoreBoard = this.getScoreBoardService().findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
+			List<ScoreBoard> scoreBoard = this.getScoreBoardService().findByRoomAndTopicAndExaminer( room, topic, examiner);
 
-			System.out.println("====================>>"+scoreBoard);
+			JSONObject scoreAndComment = sumScoreAndComment(scoreBoard);
 
-
-			if(null!=scoreBoard){
-				topicElement.put("score",scoreBoard.getScore());
-				topicElement.put("comment","- "+scoreBoard.getComment());
-
-				sumScore += scoreBoard.getScore();
-				
+			if(scoreBoard != null){
+				topicElement.put("score",scoreAndComment.get("meanScore"));
+				topicElement.put("comment",scoreAndComment.get("sumComment"));
 
 			}else{
 				topicElement.put("score","-");
 				topicElement.put("comment","");
 			}
+
+			String ss = scoreAndComment.get("meanScore").toString();
+			changeMeanScore = Float.valueOf(ss);
+
+			allScore += changeMeanScore;
 			allTopic++;
+
 			subjectElement.append("topic", topicElement);
 
 		}
-			if (sumScore != 0) {
-				subjectElement.append("averageScore", averageScore(sumScore, allTopic));
-			}else{
-				subjectElement.append("averageScore", "0");
-			}
+
+		if (allScore != 0) {
+			subjectElement.append("averageScore", averageScoreAllSubject(allScore, allTopic));
+		}else{
+			subjectElement.append("averageScore", "0");
+		}
 
 	}
 
-	public float averageScore(float score,int allTopic){
+	public float averageScoreAllSubject(float score,int allTopic){
 		float averageScore = 0;
 		averageScore = (score/allTopic)*100;
 
-//		System.out.println(averageScore);
 		return  averageScore;
+	}
+
+
+	public JSONObject sumScoreAndComment(List<ScoreBoard> scoreBoard) {
+		float sumScore = 0.0f;
+		int sumTopic = 0;
+		String sumComment = "";
+		JSONObject result = new JSONObject();
+		for (int i = 0; i < scoreBoard.size(); i++) {
+			if (scoreBoard != null) {
+
+				sumScore += scoreBoard.get(i).getScore();
+				sumComment += "- "+scoreBoard.get(i).getComment() + "\n";
+				sumTopic++;
+
+			}
+		}
+		float returnScore = sumScore/sumTopic;
+		BigDecimal ScoreTopic = new BigDecimal(returnScore).setScale(1,BigDecimal.ROUND_HALF_UP);
+
+		result.put("meanScore",ScoreTopic);
+		result.put("sumComment",sumComment);
+
+		return	result;
 	}
 }

@@ -25,5 +25,8 @@ public class TopicServiceImpl implements TopicService {
 		return this.topicDao.findBySubject(subject);
 	}
 
-
+	@Override
+	public Topic findById(Long id){
+		return this.topicDao.findById(id);
+	}
 }
