@@ -203,7 +203,8 @@ a {
 				var roomId=JSON.parse(data).roomId;
 				var yourIdInRoom='${yourId}';
 				if(yourId==yourIdInRoom){
-					sweetAlert("", datamessage,"error");
+
+					sweetAlert(JSON.parse(data).roomName+":"+JSON.parse(data).roomDescription, datamessage,"error");
 				}else{
 
                 }
@@ -240,8 +241,8 @@ a {
 				if(yourId==yourIdInRoom){
                     swal({
                         type:"success",
-                        title: datamessage,
-                        text:"Click OK for Go To EvaluateBoard",
+                        title: JSON.parse(data).roomName+":"+JSON.parse(data).roomDescription,
+                        text:datamessage+"  "+"Click OK for Go To EvaluateBoard",
                         confirmButtonColor: "#DD6B55",
                         closeOnCancel: false,
                     }, function(isCancel) {
@@ -285,11 +286,22 @@ a {
                                                     + encodeURIComponent(idModulator)
                                                     + "&yourPosition="
                                                     + encodeURIComponent(yourPosition);
-                                        },
+                                        },error:function() {
+                                            swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                                type: "error",
+                                                confirmButtonColor: "#8ACBE5",
+                                                confirmButtonText: "OK",
+                                                closeOnConfirm: false
+                                            }, function (isConfirm) {
+                                                if (isConfirm) {
+                                                    location.reload();
+                                                }
+                                            });
+                                        }/*,
                                         error : function(data, status, er) {
                                             alert("error: " + data + " status: " + status
                                                     + " er:" + er);
-                                        }
+                                        }*/
                                     });
                         }
                     });
@@ -305,7 +317,7 @@ a {
 			}
             function alertRequestSame(data){
                 if(JSON.parse(data).yourId=='${yourId}'){
-                    sweetAlert("กรุณารอ", "คุณได้ทำการส่งไปแล้ว", "warning");
+                    sweetAlert(JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName, "กรุณารอ คุณได้ทำการส่งไปแล้ว", "warning");
                 }
             }
 			
@@ -811,6 +823,8 @@ a {
 		function sendId(element) {
 			var count = (element.id).replace(/[^\d.]/g, '');
 			var roomStatus=$("#roomStatus"+count).text();
+            var roomName=$("#roomName"+count).text();
+            var roomDescription=$("#roomDescription"+count).text();
 			var yourId='${yourId}';
 			var name='${name}';
 			var lastname='${lastname}';
@@ -820,6 +834,7 @@ a {
 			detailPerson.examinerId = $("#examinerId" + count).val();
 			detailPerson.modulatorId = $("#modulatorId" + count).val();
             detailPerson.yourId=yourId;
+
 			var dataPersonId = JSON.stringify(detailPerson);
 		/*	if(roomStatus=="Status : Completed"){
 				sweetAlert("", "การสอบสำเร็จแล้ว","success");
@@ -876,12 +891,27 @@ a {
                                                     + "&idModulator="
                                                     + encodeURIComponent(idModulator)
                                                     + "&yourPosition="
-                                                    + encodeURIComponent(yourPosition);
-                                        },
+                                                    + encodeURIComponent(yourPosition)
+                                                    + "&roomDescription="
+                                                    + encodeURIComponent(roomDescription)
+                                                    + "&roomName="
+                                                    + encodeURIComponent(roomName);
+                                        },error:function() {
+                                            swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                                type: "error",
+                                                confirmButtonColor: "#8ACBE5",
+                                                confirmButtonText: "OK",
+                                                closeOnConfirm: false
+                                            }, function (isConfirm) {
+                                                if (isConfirm) {
+                                                    location.reload();
+                                                }
+                                            });
+                                        }/*,
                                         error : function(data, status, er) {
                                             alert("error: " + data + " status: " + status
                                                     + " er:" + er);
-                                        }
+                                        }*/
                                     });
                         }
                     });
@@ -924,12 +954,27 @@ a {
                                                 + "&idModulator="
                                                 + encodeURIComponent(idModulator)
                                                 + "&yourPosition="
-                                                + encodeURIComponent(yourPosition);
-                                    },
+                                                + encodeURIComponent(yourPosition)
+                                                + "&roomDescription="
+                                                + encodeURIComponent(roomDescription)
+                                                + "&roomName="
+                                                + encodeURIComponent(roomName);
+                                    },error:function() {
+                                        swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                            type: "error",
+                                            confirmButtonColor: "#8ACBE5",
+                                            confirmButtonText: "OK",
+                                            closeOnConfirm: false
+                                        }, function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload();
+                                            }
+                                        });
+                                    }/*,
                                     error : function(data, status, er) {
                                         alert("error: " + data + " status: " + status
                                                 + " er:" + er);
-                                    }
+                                    }*/
                                 });
                     }
 				}else{
@@ -976,12 +1021,28 @@ a {
 									+ "&idModulator="
 									+ encodeURIComponent(idModulator)
 									+ "&yourPosition="
-									+ encodeURIComponent(yourPosition);
-								},
+									+ encodeURIComponent(yourPosition)
+                                    + "&roomDescription="
+                                    + encodeURIComponent(roomDescription)
+                                    + "&roomName="
+                                    + encodeURIComponent(roomName);
+								},error:function() {
+                                            swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                                type: "error",
+                                                confirmButtonColor: "#8ACBE5",
+                                                confirmButtonText: "OK",
+                                                closeOnConfirm: false,
+                                            }, function (isConfirm) {
+                                                if (isConfirm) {
+                                                    location.reload();
+                                                }
+                                            });
+                                  }
+								/*,
 								error : function(data, status, er) {
-									alert("error: " + data + " status: " + status
-										+ " er:" + er);
-								}
+									*//*alert("error: " + data + " status: " + status
+										+ " er:" + er);*//*
+								}*/
 							});
 					}else{
                             if(roomStatus!="Status : Completed"){
@@ -993,7 +1054,7 @@ a {
                                     },
                                     success:function(data){
                                         if(data=="success"){
-                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
                                             swal({   title: "ระบบได้ส่ง Request ไปแล้วกรุณารอ Modulator Approve",
                                                 text:"Click Yes for Wait Behind OR Click Cancel for Cancel",
                                                 confirmButtonColor: "#8ACBE5",
@@ -1021,8 +1082,19 @@ a {
                                                 }
                                             });
                                         }else{
-                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}'}));
+                                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}','roomName':roomName,'roomDescription':roomDescription}));
                                         }
+                                    },error:function(){
+                                        swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                            type:"error",
+                                            confirmButtonColor: "#8ACBE5",
+                                            confirmButtonText: "OK",
+                                            closeOnConfirm: false,
+                                        }, function(isConfirm) {
+                                                if(isConfirm){
+                                                    location.reload();
+                                                }
+                                        });
                                     }
                                 });
                             }else{

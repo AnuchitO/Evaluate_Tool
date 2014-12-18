@@ -27,6 +27,8 @@ public class RequestAndApprove{
 	    	jsonData.put("role",map.get("role"));
 	    	jsonData.put("title",map.get("title"));
 	    	jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
             jsonData.put("count",map.get("count"));
             jsonData.put("modulatorId",map.get("modulatorId"));
 	    	jsonData.put("function","notificationRequestCommittee");
@@ -34,6 +36,8 @@ public class RequestAndApprove{
     		jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
     		jsonData.put("function","removeProcess");
     	}else if(map.get("head").equals("approveProcess")){
             System.out.println("approveProcess");
@@ -41,11 +45,15 @@ public class RequestAndApprove{
             jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
             jsonData.put("function","approveSubmitModulator");
         }else if(map.get("head").equals("approveSubmitCommittee")){
             jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
             jsonData.put("examinerId",map.get("examinerId"));
             jsonData.put("modulatorId",map.get("modulatorId"));
             //jsonData.put("count",map.get("count"));
@@ -80,6 +88,8 @@ public class RequestAndApprove{
             jsonData.put("function","updateBadgeNotification");
         }else if(map.get("head").equals("alertRequestSame")){
             jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
             jsonData.put("function","alertRequestSame");
         }
 

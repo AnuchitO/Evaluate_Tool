@@ -38,6 +38,8 @@ public class EvaluateBoardController {
 		String lastNameCommittee = request.getParameter("lastNameCommittee");
 		String idModulator = request.getParameter("idModulator");
 		String yourPosition = request.getParameter("yourPosition");
+        String roomName=request.getParameter("roomName");
+        String roomDescription=request.getParameter("roomDescription");
 		String idCourseName = getCourseName(idCourse);
 		JSONObject allPerson=this.evaluateBoardService.getAllPerson();
 		Map model = new HashMap();
@@ -52,6 +54,8 @@ public class EvaluateBoardController {
 		model.put("lastNameCommittee", lastNameCommittee);
 		model.put("idModulator", idModulator);
 		model.put("yourPosition", yourPosition);
+        model.put("roomName", roomName);
+        model.put("roomDescription", roomDescription);
 		model.put("allPerson", allPerson.toString());
 		
 		return new ModelAndView("evaluateBoard",model);
