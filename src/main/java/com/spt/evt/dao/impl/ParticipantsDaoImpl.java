@@ -148,4 +148,15 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         return participants.getId();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Participants> allPersonToApprove(Room room) {
+        Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("room",room));
+        criteria.add(Restrictions.eq("modulator",false));
+        criteria.add(Restrictions.eq("role","committee"));
+        List<Participants>  allPersonToApprove=criteria.list();
+        return allPersonToApprove;
+    }
+
 }

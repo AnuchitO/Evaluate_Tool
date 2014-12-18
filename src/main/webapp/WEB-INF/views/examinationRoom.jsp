@@ -232,6 +232,7 @@ a {
                 var modulatorId=JSON.parse(data).modulatorId;
 				var yourIdInRoom='${yourId}';
 				var detailPerson = {};
+                detailPerson.yourId=yourId;
 				detailPerson.roomId =roomId;
 				detailPerson.committeeId = yourId;
 				detailPerson.examinerId = examinerId;
@@ -241,11 +242,16 @@ a {
                     swal({
                         type:"success",
                         title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
-                        text:datamessage+"  "+"Click OK for Go To EvaluateBoard",
+                        text:datamessage,
                         confirmButtonColor: "#DD6B55",
-                        closeOnCancel: false,
-                    }, function(isCancel) {
-                        if (isCancel) {
+                        cancelButtonText: "Cancel for Decline",
+                        confirmButtonText: "OK for Go To EvaluateBoard",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    }, function(isConfirm) {
+                        if (isConfirm) {
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
                             $
                                     .ajax({
                                         url : "/EvaluateTool/application/checkCommittee",
@@ -306,12 +312,20 @@ a {
                                                     + " er:" + er);
                                         }*/
                                     });
+                        }else{
+                            $.ajax({
+                                url: "/EvaluateTool/application/removeRequestCommittee",
+                                type: "POST",
+                                data: {
+                                    dataPersonId:dataPersonId
+                                },
+                                success: function (data) {
+
+                                }
+                            });
                         }
                     });
-					//sweetAlert("", datamessage, "success");
-
 				}
-				
 			}
 			function updateStatusCard(data){
    				var count=JSON.parse(data).count;

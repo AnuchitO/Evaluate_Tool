@@ -41,7 +41,6 @@ public class EvaluateBoardController {
         String roomName=request.getParameter("roomName");
         String roomDescription=request.getParameter("roomDescription");
 		String idCourseName = getCourseName(idCourse);
-		JSONObject allPerson=this.evaluateBoardService.getAllPerson();
 		Map model = new HashMap();
 		model.put("idRoom", idRoom);
 		model.put("idCourse", idCourse);
@@ -56,8 +55,6 @@ public class EvaluateBoardController {
 		model.put("yourPosition", yourPosition);
         model.put("roomName", roomName);
         model.put("roomDescription", roomDescription);
-		model.put("allPerson", allPerson.toString());
-		
 		return new ModelAndView("evaluateBoard",model);
 
 	}
@@ -127,7 +124,6 @@ public class EvaluateBoardController {
             Long roomId=paticipants.getLong("roomId");
             Long yourId=paticipants.getLong("yourId");
             Long participantId=this.evaluateBoardService.findParticipantId(roomId,yourId);
-            System.out.print("=======Add Committee=============="+participantId);
             this.evaluateBoardService.setRoleInPaticipants(participantId,role);
         }
 
@@ -140,8 +136,16 @@ public class EvaluateBoardController {
         Long roomIdApprove=paticipants.getLong("roomIdApprove");
         Long yourIdApprove=paticipants.getLong("yourIdApprove");
         Long yourIdInRoom=paticipants.getLong("yourIdInRoom");
-        System.out.println("======addModulatorAndUpdateCommittee======"+roomIdApprove+":"+yourIdApprove+":"+yourIdInRoom);
         this.evaluateBoardService.addModulatorAndUpdateCommittee(roomIdApprove,yourIdApprove,yourIdInRoom);
         return "success";
     }
+
+    @RequestMapping(value="/getallPersonToApprove",method=RequestMethod.POST)
+    public @ResponseBody String getallPersonToApprove(@RequestParam(value="roomId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject paticipants=new JSONObject(data);
+        Long roomId=paticipants.getLong("roomId");
+        JSONObject allPersonToApprove=this.evaluateBoardService.getallPersonToApprove(roomId);
+        return allPersonToApprove.toString();
+    }
+
 }

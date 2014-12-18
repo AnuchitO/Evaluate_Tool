@@ -77,7 +77,6 @@ public class ExaminationRoomController {
         Long personId=dataPerson.getLong("yourId");
         Long roomId=dataPerson.getLong("roomId");
         String message=this.examinationRoomService.addRequestCommittee(roomId,personId);
-        System.out.println("==============="+roomId+":"+personId+"==================");
         return message;
     }
 
@@ -86,8 +85,6 @@ public class ExaminationRoomController {
         JSONObject dataPerson=new JSONObject(data);
         Long personId=dataPerson.getLong("yourId");
         Long roomId=dataPerson.getLong("roomId");
-
-        System.out.println("==============="+roomId+":"+personId+"==================");
         return this.examinationRoomService.removeRequestCommittee(roomId,personId);
     }
 

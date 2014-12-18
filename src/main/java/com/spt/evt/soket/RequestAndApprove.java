@@ -95,6 +95,9 @@ public class RequestAndApprove{
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
             jsonData.put("function","updateMenuApproveAfterSubmit");
+        }else if(map.get("head").equals("updateMenuApproveModulatorAfterSubmitCommittee")){
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("function","updateMenuApproveModulatorAfterSubmitCommittee");
         }
 
     	System.out.println(jsonData.toString());

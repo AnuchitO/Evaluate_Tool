@@ -5,6 +5,7 @@ import java.util.List;
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
+import org.json.JSONObject;
 
 public interface ParticipantsService {
 	public List<Participants> findByRoom(Room room);
@@ -16,4 +17,6 @@ public interface ParticipantsService {
     public Long removeRequestCommittee(Room room,Person person);
     public void addModulatorAndUpdateCommittee(Long roomIdApprove, Long yourIdApprove, Long yourIdInRoom);
     public Long findParticipantId(Long roomId,Long personId);
+
+    public JSONObject allPersonToApprove(Long aLong);
 }
