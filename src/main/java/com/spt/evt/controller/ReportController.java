@@ -111,7 +111,6 @@ public class ReportController {
 			personJsonResult.append("data",personJson);
 		}
 
-		// System.out.println(personJsonResult.toString());
 		return personJsonResult.toString();
 	}
 

@@ -58,8 +58,6 @@ public class ScoreBoardDaoImpl extends TemplateEntityManagerDao implements
 	@Transactional(readOnly = true)
 	public List<ScoreBoard> findByRoomAndTopicAndExaminer(Room room,Topic topic,Person examiner){
 
-		// System.out.println(room+"========="+topic+"========="+examiner);
-
 		Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(ScoreBoard.class);
 		criteria.add(Restrictions.eq("room", room));
 		criteria.add(Restrictions.eq("topic", topic));
