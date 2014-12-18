@@ -16,7 +16,7 @@ public class Enroll extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)

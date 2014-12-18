@@ -57,7 +57,7 @@ public class PersonDaoTest extends AbstractTestDao {
 		person.setFacebook("facebookadmin");
 		this.personDao.persist(person);
 
-		LOGGER.debug("{}",person.getId());
+		LOGGER.debug("++++++++++++++++++++++++++++++++++++++++++++++++++ ++++++++++++++++++++++++ \n\n\n {}",person.getId());
 	
 		Assert.assertNotNull(person.getId());
 

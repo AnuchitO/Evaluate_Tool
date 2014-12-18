@@ -19,9 +19,10 @@ import java.util.List;
 public class TemplateEntityManagerDao  {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TemplateEntityManagerDao.class);
 
+    @PersistenceContext
     private EntityManager entityManager;
 
-    @PersistenceContext
+
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

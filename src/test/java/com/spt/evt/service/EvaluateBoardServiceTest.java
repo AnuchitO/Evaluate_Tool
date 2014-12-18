@@ -38,45 +38,45 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Assert.assertTrue(0!=courseInformation.length());
 	}
 
-	@Test
-	public void testScoring() throws Exception {
-		Long roomId = 1L;
-		Long examinerId= 2L;
-		Long committeeId  = 3L;		
-		Long topicId = 2L;
-		Double score = 0.5;
-		String comment = "Test Comment";
-		String statusSave = this.committeeService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
-		Assert.assertThat(statusSave, is("Success"));
-	}
-	
-	@Test
-	public void testUpdateScoringShouldBeNewScore() throws Exception {
-		Long roomId = 1L;
-		Long examinerId= 2L;
-		Long committeeId  = 3L;		
-		Long topicId = 1L;
-		Double score = 0.5;
-		String comment = "Test Comment AA";
-		
-		String statusSave = this.committeeService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
-		Room room = new Room();
-		room.setId(1L);
-		
-		Person committee = new Person();
-		committee.setId(committeeId);
-
-		Topic topic = new Topic();
-		topic.setId(topicId);
-
-		Person examiner = new Person();
-		examiner.setId(examinerId);
-		
-		ScoreBoard scoreBoard = this.scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
-		LOGGER.error("***************** scoreBoard [Score:{},Comment:{}]",scoreBoard.getScore(),scoreBoard.getComment());
-		Assert.assertEquals(score, scoreBoard.getScore());
-		Assert.assertEquals(comment, scoreBoard.getComment());
-	}
+//	@Test
+//	public void testScoring() throws Exception {
+//		Long roomId = 1L;
+//		Long examinerId= 2L;
+//		Long committeeId  = 3L;
+//		Long topicId = 2L;
+//		Double score = 0.5;
+//		String comment = "Test Comment";
+//		String statusSave = this.committeeService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
+//		Assert.assertThat(statusSave, is("Success"));
+//	}
+//
+//	@Test
+//	public void testUpdateScoringShouldBeNewScore() throws Exception {
+//		Long roomId = 1L;
+//		Long examinerId= 2L;
+//		Long committeeId  = 3L;
+//		Long topicId = 1L;
+//		Double score = 0.5;
+//		String comment = "Test Comment AA";
+//
+//		String statusSave = this.committeeService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
+//		Room room = new Room();
+//		room.setId(1L);
+//
+//		Person committee = new Person();
+//		committee.setId(committeeId);
+//
+//		Topic topic = new Topic();
+//		topic.setId(topicId);
+//
+//		Person examiner = new Person();
+//		examiner.setId(examinerId);
+//
+//		ScoreBoard scoreBoard = this.scoreBoardService.findByRoomAndCommiteeAndTopicAndExaminer(room, committee, topic, examiner);
+//		LOGGER.error("***************** scoreBoard [Score:{},Comment:{}]",scoreBoard.getScore(),scoreBoard.getComment());
+//		Assert.assertEquals(score, scoreBoard.getScore());
+//		Assert.assertEquals(comment, scoreBoard.getComment());
+//	}
 	
 	@Test
 	public void testGetCourseNameByCourseIdShouldBeNotNull() {
