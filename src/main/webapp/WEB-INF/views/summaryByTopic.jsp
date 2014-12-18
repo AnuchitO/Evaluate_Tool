@@ -70,9 +70,9 @@ table>tbody>tr>td {
 			</div>
 		</div>
 		<input type="hidden" id="yourId" value="${yourId}" />
-		
+
 		<div id="menuReSize" class="col-md-2 column">
-				<div id="menuleft" class="panel panel-default" style="background-color: #eee">		
+				<div id="menuleft" class="panel panel-default" style="background-color: #eee">
 					<a style="color: black ; text-decoration: none" id="summaryScore">
 						<div class="panel-body" >
 							Summary Score
@@ -84,10 +84,10 @@ table>tbody>tr>td {
 						</div>
 					</a>
 				</div>
-			</div>	
+			</div>
 
 		<div id="formTable" class="row">
-			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-2 col-md-offset-1">
+			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-0">
 				<label>Examiner</label>
 			</div>
 			<div id="setSizeTable" class="col-sm-2 col-md-2">
@@ -96,11 +96,11 @@ table>tbody>tr>td {
 				</select>
 			</div>
 
-			<div id="setRoom" class="col-sm-1 col-md-1 col-sm-offset-2 col-md-offset-1">
-				<label>Room</label>
+			<div id="setRoom" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
+				<label style="margin-left: -20px">Room</label>
 			</div>
 			<div id="setSizeRoom" class="col-sm-2 col-md-2">
-				<select id="pickRoom"  data-width="100%">
+				<select id="pickRoom"  data-width="100%" style="margin-left: -50px">
 					<option>Please Select</option>
 				</select>
 			</div>
@@ -114,22 +114,22 @@ table>tbody>tr>td {
 		<option id="optionPickRoom"></option>
 
 <!-- ========================================================================== -->
-	
+
 	<div class="ui list">
 			<div id="formBoard">
 					<div class="panel-group" id="accordion"></div>
 			</div>
 			<!----------------------Model Collapse---------------------->
 			<div id="panelCollapse0" class="panel panel-default"></div>
-			<div id="panelHeading0" class="panel-heading" data-toggle="collapse" 
+			<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
 				data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 			</div>
 			<h4 id="panelTitle0" class="panel-title"></h4>
 			<span id="spanTopic0" class="badge " style="background-color: #585858;"></span>
 			<span id="spanAverage0" class="badge pull-right" style="background-color: #585858;"></span>
-			<label id="submitEachTopic0" style="margin: 2px;"></label> 
+			<label id="submitEachTopic0" style="margin: 2px;"></label>
 			<label id="totalEachTopic0" style="margin: 2px;"></label>
-			
+
 			<div id="collapse0" class="panel-collapse collapse"></div>
 			<div id="panelBody0" class="panel-body"></div>
 			<ul id="navpills0" class="nav nav-pills nav-stacked"></ul>
@@ -147,7 +147,7 @@ table>tbody>tr>td {
 			<span id="dummyKeepIdTopic0" class="textId"></span>
 			<label id="panelScoreDescription0" class="textDescription"></label>
 			<textarea id="panelScoreMessage0" class="form-control" rows="3" placeholder="No comment."></textarea>
-			
+
 			<!----------------------Model Panel in Modal---------------------->
 
 			<!----------------------Model Modal---------------------->
@@ -216,7 +216,7 @@ table>tbody>tr>td {
 						var roomId = data.roomId;
 						var name = data.roomName;
 						var startTime = data.startTime;
-						
+
 							$("#optionPickRoom").clone()
 									.attr('id', 'option' + (dummyOption++)).text(
 											name+" : "+startTime).val(roomId)
@@ -232,7 +232,7 @@ table>tbody>tr>td {
 
 		$("#setSizeTable").change(function(index,element) {
 			var personId = $("#pickExaminer").val();
-	
+
 				$.ajax({
 					url:"/EvaluateTool/application/getRoomName",
 					type:"POST",
@@ -254,7 +254,7 @@ table>tbody>tr>td {
 						var name = data.roomName;
 						var courseId = data.courseId;
 						var startTime = data.startTime;
-						
+
 							$("#optionPickRoom").clone()
 									.attr('id', 'option' + (dummyOption++)).text(
 											name+" : "+startTime).val(roomId).attr('class',courseId)
@@ -285,7 +285,7 @@ table>tbody>tr>td {
 							// alert(data);
 
 							var course = JSON.parse(data);
-							createCollapse(course);		
+							createCollapse(course);
 						},
 						error : function(data, status, er) {
 							alert("error: " + data + " status: " + status
@@ -307,7 +307,7 @@ table>tbody>tr>td {
 							+ encodeURIComponent('${name}')
 							+ "&yourLastName="
 							+ encodeURIComponent('${lastName}');
-							
+
 		});
 
 		$("#logOut").click(function() {
@@ -315,7 +315,7 @@ table>tbody>tr>td {
 		});
 
 // =============================================================
-			
+
 		function createCollapse(course) {
 			$("#panelCollapse0").empty();
 			$("#panelHeading0").empty();
@@ -739,7 +739,7 @@ table>tbody>tr>td {
 								+ numberEachOfTopic);
 					});
 
-});		
+});
 }
 
 	function showModal(element) {
@@ -759,7 +759,7 @@ table>tbody>tr>td {
 				function() {
 					//var yourId = $("#committeeId").attr('value');
 						location.href = "/EvaluateTool/application/report"
-						+ "?yourId=" 
+						+ "?yourId="
 						+ encodeURIComponent('${yourId}')
 						+ "&yourPosition="
 						+ encodeURIComponent('${yourPosition}')
@@ -773,7 +773,7 @@ table>tbody>tr>td {
 				function() {
 					//var yourId = $("#committeeId").attr('value');
 						location.href = "/EvaluateTool/application/summaryByTopic"
-						+ "?yourId=" 
+						+ "?yourId="
 						+ encodeURIComponent('${yourId}')
 						+ "&yourPosition="
 						+ encodeURIComponent('${yourPosition}')
@@ -790,13 +790,13 @@ table>tbody>tr>td {
 					// $("#menuReSize").removeClass("col-md-2 column");
 					$("#menuReSize2").removeClass("col-md-10 column");
 					$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
-					// $("#menuReSize	").addClass("col-md-0 column");					
+					// $("#menuReSize	").addClass("col-md-0 column");
 					$("#menuReSize2").addClass("col-md-12 column");
-					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");	
+					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
 					i++;
 				}else{
 					$("#menuleft").slideDown(800);
-					// $("#menuR	eSize").removeClass("col-md-0 column");					
+					// $("#menuR	eSize").removeClass("col-md-0 column");
 					$("#menuReSize2").removeClass("col-md-12 column");
 					$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
 					// $("#menuReSiz	e").addClass("col-md-2 column");
@@ -804,7 +804,7 @@ table>tbody>tr>td {
 					$("#menuReSize3").addClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
 					i--;
 				}
-				
+
 			}
 
 			$("#imgmenuleft").mouseover(function(){

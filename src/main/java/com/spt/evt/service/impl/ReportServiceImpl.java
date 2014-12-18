@@ -1,6 +1,5 @@
 package com.spt.evt.service.impl;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.spt.evt.service.ReportService;
+import sun.rmi.runtime.Log;
 
 @Service
 public class ReportServiceImpl extends ProviderService implements ReportService{
@@ -175,14 +175,36 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			findScoreAddIntoJsonOfTopicSummary(room, committee,examiner, subjectElement, topics);
 			courseInformation.append("subject", subjectElement);
 		}
+
+//		JSONArray reportNoSortArray = new JSONArray(""+courseInformation.get("subject"));
+//
+//		LOGGER.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXX:: "+reportNoSortArray);
+//
+//		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
+//		for(int n = 0; n < reportNoSortArray.length(); n++)
+//		{
+//			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("sumTopic"))) {
+//				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
+//				listObject.add(reportNoSortArray.getJSONObject(n));
+//				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("sumTopic"),listObject);
+//
+//			}
+//			else{
+//				List<JSONObject> listObject = new ArrayList<JSONObject>();
+//				listObject.add(reportNoSortArray.getJSONObject(n));
+//				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("sumTopic"),listObject);
+//			}
+//		}
+
+//		LOGGER.debug("Topic===================::: "+courseInformation);
 		return courseInformation;
 	}
 
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
 		float allScore = 0;
 		int allTopic = 0;
+		int sumTopic = 0;
 		float changeMeanScore;
-
 		for (Topic topic : topics) {
 			JSONObject topicElement = new JSONObject();
 			topicElement.put("id", topic.getId());
@@ -191,26 +213,29 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 			List<ScoreBoard> scoreBoard = this.getScoreBoardService().findByRoomAndTopicAndExaminer( room, topic, examiner);
 
-			JSONObject scoreAndComment = sumScoreAndComment(scoreBoard);
+			if(scoreBoard.size() != 0  ){
+				JSONObject scoreAndComment = sumScoreAndComment(scoreBoard);
 
-			if(scoreBoard != null){
+				String coverFloat = scoreAndComment.get("meanScore").toString();
+				changeMeanScore = Float.valueOf(coverFloat);
+
 				topicElement.put("score",scoreAndComment.get("meanScore"));
 				topicElement.put("comment",scoreAndComment.get("sumComment"));
+
+				allScore += changeMeanScore;
+
 
 			}else{
 				topicElement.put("score","-");
 				topicElement.put("comment","");
 			}
-
-			String ss = scoreAndComment.get("meanScore").toString();
-			changeMeanScore = Float.valueOf(ss);
-
-			allScore += changeMeanScore;
 			allTopic++;
-
+			sumTopic++;
+			subjectElement.put("sumTopic",sumTopic);
 			subjectElement.append("topic", topicElement);
 
 		}
+
 
 		if (allScore != 0) {
 			subjectElement.append("averageScore", averageScoreAllSubject(allScore, allTopic));
@@ -235,7 +260,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		JSONObject result = new JSONObject();
 		for (int i = 0; i < scoreBoard.size(); i++) {
 			if (scoreBoard != null) {
-
 				sumScore += scoreBoard.get(i).getScore();
 				sumComment += "- "+scoreBoard.get(i).getComment() + "\n";
 				sumTopic++;
@@ -243,7 +267,9 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			}
 		}
 		float returnScore = sumScore/sumTopic;
-		BigDecimal ScoreTopic = new BigDecimal(returnScore).setScale(1,BigDecimal.ROUND_HALF_UP);
+		String stringCoverFloat = String.format("%.1f", returnScore);
+//		BigDecimal cach = new BigDecimal(returnScore).setScale(1,BigDecimal.ROUND_HALF_UP);
+		Float ScoreTopic = Float.parseFloat(stringCoverFloat);
 
 		result.put("meanScore",ScoreTopic);
 		result.put("sumComment",sumComment);
