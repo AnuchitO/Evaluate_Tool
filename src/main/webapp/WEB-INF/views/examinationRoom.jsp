@@ -216,13 +216,13 @@ a {
 				var yourIdApprove=JSON.parse(data).yourId;
 				var roomIdApprove=JSON.parse(data).roomId;
 				var yourIdInRoom='${yourId}';
-                var yourNameInRoom='${name}';
-                var yourLastNameInRoom='${lastname}';
+                var yourNameModulator=JSON.parse(data).name;
+                var yourLastNameModulator=JSON.parse(data).lastname;
 				if(yourIdApprove==yourIdInRoom){
 					sweetAlert(JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName, datamessage, "success");
-                    $("#modulatorId"+roomIdApprove).val(yourIdInRoom);
-                    $("#modulator"+roomIdApprove).html("Modulator : "+yourNameInRoom+" "+yourLastNameInRoom+"");
 				}
+                $("#modulatorId"+roomIdApprove).val(yourIdApprove);
+                $("#modulator"+roomIdApprove).html("Modulator : "+yourNameModulator+" "+yourLastNameModulator+"");
 			}
 			function approveSubmitCommittee(data){
 				var datamessage=JSON.parse(data).data;
@@ -231,6 +231,8 @@ a {
                 var examinerId=JSON.parse(data).examinerId;
                 var modulatorId=JSON.parse(data).modulatorId;
 				var yourIdInRoom='${yourId}';
+                var roomDescription=JSON.parse(data).roomDescription;
+                var roomName=JSON.parse(data).roomName;
 				var detailPerson = {};
                 detailPerson.yourId=yourId;
 				detailPerson.roomId =roomId;
@@ -292,9 +294,9 @@ a {
                                                     + "&yourPosition="
                                                     + encodeURIComponent(yourPosition)
                                                     + "&roomDescription="
-                                                    + encodeURIComponent(JSON.parse(data).roomDescription)
+                                                    + encodeURIComponent(roomDescription)
                                                     + "&roomName="
-                                                    + encodeURIComponent(JSON.parse(data).roomName);
+                                                    + encodeURIComponent(roomName);
                                         },error:function() {
                                             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                                                 type: "error",

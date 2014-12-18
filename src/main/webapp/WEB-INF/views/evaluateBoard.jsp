@@ -443,7 +443,7 @@ pageEncoding="UTF-8"%>
                                     var name=person.name;
                                     var lastName=person.lastname;
                                     if(yourId!='${idCommittee}'){
-                                        $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
+                                        $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick=\'(approve("'+yourId+'","'+idRoomInRoom+'","'+name+'","'+lastName+'"))\' class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
                                     }
                                 });
                             });
@@ -862,7 +862,7 @@ pageEncoding="UTF-8"%>
                         var name=person.name;
                         var lastName=person.lastname;
                         if(yourId!='${idCommittee}'){
-                            $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick="approve('+yourId+','+idRoomInRoom+')" class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
+                            $("#listrequestapprove").append('<div id="contentlistapprove" class="ui feed">'+'<div class="event"><div class="label">'+'<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+'</div><div class="content"><div class="date">'+'<div onclick=\'(approve("'+yourId+'","'+idRoomInRoom+'","'+name+'","'+lastName+'"))\' class="ui teal tiny button">มอบสิทธิ</div>'+'</div><div class="summary">'+'<a><p id="fullnamerequestapprove">'+name+' '+lastName+'</p></a>'+'<span id="titlereqeustapprove">เข้าเป็นผู้ดูแลห้อง</span></div></div></div></div>');
                         }
                     });
                 });
@@ -889,7 +889,7 @@ pageEncoding="UTF-8"%>
 				}
 		});		
 
-		function approve(id,roomid){
+		function approve(id,roomid,name,lastname){
                var data={};
                data.roomIdApprove=roomid;
                data.yourIdApprove=id;
@@ -919,7 +919,7 @@ pageEncoding="UTF-8"%>
                                 type:"POST",
                                 success:function(){
                                     //location.reload();
-                                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id,'roomName':roomName,'roomDescription':roomDescription}));
+                                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id,'roomName':roomName,'roomDescription':roomDescription,'name':name,'lastname':lastname}));
                                     stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'updateMenuApproveAfterSubmit','roomId':roomid,'yourId':id}));
                                }
                             });
