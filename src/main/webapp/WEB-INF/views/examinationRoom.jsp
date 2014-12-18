@@ -262,7 +262,7 @@ a {
                                             var idCommittee = JSON.parse(data).idCommittee;
                                             var nameCommittee = JSON.parse(data).nameCommittee;
                                             var lastNameCommittee = JSON.parse(data).lastNameCommittee;
-                                            var idModulator = yourIdInRoom;
+                                            var idModulator = modulatorId;
                                             var yourPosition = $("#yourPosition").val();
                                             location.href = "/EvaluateTool/application/evaluateBoard"
                                                     + "?idRoom="
