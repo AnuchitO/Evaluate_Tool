@@ -210,6 +210,7 @@ a {
                 }
 				
 			}
+
 			function approveSubmitModulator(data){
 				var datamessage=JSON.parse(data).data;
 				var yourIdApprove=JSON.parse(data).yourId;
@@ -217,13 +218,11 @@ a {
 				var yourIdInRoom='${yourId}';
                 var yourNameInRoom='${name}';
                 var yourLastNameInRoom='${lastname}';
-                //alert(roomIdApprove);
 				if(yourIdApprove==yourIdInRoom){
-					sweetAlert("", datamessage, "success");
+					sweetAlert(JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName, datamessage, "success");
+                    $("#modulatorId"+roomIdApprove).val(yourIdInRoom);
+                    $("#modulator"+roomIdApprove).html("Modulator : "+yourNameInRoom+" "+yourLastNameInRoom+"");
 				}
-                $("#modulatorId"+roomIdApprove).val(yourIdInRoom);
-                $("#modulator"+roomIdApprove).html("Modulator : "+yourNameInRoom+" "+yourLastNameInRoom+"");
-				
 			}
 			function approveSubmitCommittee(data){
 				var datamessage=JSON.parse(data).data;
@@ -241,7 +240,7 @@ a {
 				if(yourId==yourIdInRoom){
                     swal({
                         type:"success",
-                        title: JSON.parse(data).roomName+":"+JSON.parse(data).roomDescription,
+                        title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
                         text:datamessage+"  "+"Click OK for Go To EvaluateBoard",
                         confirmButtonColor: "#DD6B55",
                         closeOnCancel: false,
@@ -263,7 +262,7 @@ a {
                                             var idCommittee = JSON.parse(data).idCommittee;
                                             var nameCommittee = JSON.parse(data).nameCommittee;
                                             var lastNameCommittee = JSON.parse(data).lastNameCommittee;
-                                            var idModulator = JSON.parse(data).idModulator;
+                                            var idModulator = yourIdInRoom;
                                             var yourPosition = $("#yourPosition").val();
                                             location.href = "/EvaluateTool/application/evaluateBoard"
                                                     + "?idRoom="
@@ -285,7 +284,11 @@ a {
                                                     + "&idModulator="
                                                     + encodeURIComponent(idModulator)
                                                     + "&yourPosition="
-                                                    + encodeURIComponent(yourPosition);
+                                                    + encodeURIComponent(yourPosition)
+                                                    + "&roomDescription="
+                                                    + encodeURIComponent(JSON.parse(data).roomDescription)
+                                                    + "&roomName="
+                                                    + encodeURIComponent(JSON.parse(data).roomName);
                                         },error:function() {
                                             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                                                 type: "error",
@@ -1154,7 +1157,7 @@ a {
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});
-		
+
 	</script>
 </body>
 </html>

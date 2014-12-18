@@ -113,20 +113,22 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         criteriaAdd.add(Restrictions.eq("room",roomApprove));
         criteriaAdd.add(Restrictions.eq("person",personApprove));
         Participants add= (Participants) criteriaAdd.uniqueResult();
-        //this.getEntityManager().merge(add);
-        //Participants participantsa= (Participants) this.getEntityManager().find(Participants.class,2L);
-      System.out.println("========Add======"+add.getRole());
-       /* Criteria criteriaUpdate=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+            add.setModulator(true);
+            add.setRole("committee");
+            add.setRoom(roomApprove);
+            add.setPerson(personApprove);
+            this.getEntityManager().merge(add);
+        System.out.println("========Add======");
+       Criteria criteriaUpdate=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
         criteriaUpdate.add(Restrictions.eq("room",roomApprove));
         criteriaUpdate.add(Restrictions.eq("person",personInRoom));
         Participants update= (Participants) criteriaUpdate.uniqueResult();
         update.setRole("committee");
         update.setModulator(false);
-        add.setRoom(roomApprove);
-        add.setPerson(personInRoom);
+        update.setRoom(roomApprove);
+        update.setPerson(personInRoom);
         this.getEntityManager().merge(update);
-        Participants participantsup=this.getEntityManager().find(Participants.class,2L);
-        System.out.println("========Add======"+participantsup.getModulator());*/
+        System.out.println("========update======");
     }
 
     @Override
