@@ -401,6 +401,57 @@ pageEncoding="UTF-8"%>
                 	accessMethod(JSON.parse(data.body));
                });
             });
+            function approveSubmitModulator(data){
+                if(JSON.parse(data).yourId=='${idCommittee}'&&JSON.parse(data).roomId=='${idRoom}'){
+                    swal({
+                        type:"success",
+                        title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
+                        text:JSON.parse(data).data,
+                        confirmButtonColor: "#DD6B55",
+                        closeOnCancel: false
+                    }, function(isCancel) {
+                        if (isCancel) {
+                            var idRoom = '${idRoom}';
+                            var idCourse = '${idCourse}';
+                            var idExaminer = '${idExaminer}';
+                            var nameExaminer = '${nameExaminer}';
+                            var lastNameExaminer = '${lastNameExaminer}';
+                            var idCommittee = '${idCommittee}';
+                            var nameCommittee = '${nameCommittee}';
+                            var lastNameCommittee = '${lastNameCommittee}';
+                            var idModulator = JSON.parse(data).yourId;
+                            var yourPosition = '${yourPosition}';
+                            var roomName='${roomName}';
+                            var roomDescription='${roomDescription}';
+                            location.href = "/EvaluateTool/application/evaluateBoard"
+                                    + "?idRoom="
+                                    + encodeURIComponent(idRoom)
+                                    + "&idCourse="
+                                    + encodeURIComponent(idCourse)
+                                    + "&idExaminer="
+                                    + encodeURIComponent(idExaminer)
+                                    + "&nameExaminer="
+                                    + encodeURIComponent(nameExaminer)
+                                    + "&lastNameExaminer="
+                                    + encodeURIComponent(lastNameExaminer)
+                                    + "&idCommittee="
+                                    + +encodeURIComponent(idCommittee)
+                                    + "&nameCommittee="
+                                    + encodeURIComponent(nameCommittee)
+                                    + "&lastNameCommittee="
+                                    + encodeURIComponent(lastNameCommittee)
+                                    + "&idModulator="
+                                    + encodeURIComponent(idModulator)
+                                    + "&yourPosition="
+                                    + encodeURIComponent(yourPosition)
+                                    + "&roomDescription="
+                                    + encodeURIComponent(roomDescription)
+                                    + "&roomName="
+                                    + encodeURIComponent(roomName);
+                        }
+                    });
+                }
+            }
             function accessMethod(data){
 	        	var namefunction=JSON.parse(data).function;
 	        	if(namefunction=="notificationRequestCommittee"){
@@ -413,6 +464,8 @@ pageEncoding="UTF-8"%>
                     updateBadgeNotification(data);
                 }else if(namefunction=="updateMenuApproveAfterSubmit"){
                     updateMenuApproveAfterSubmit(data);
+                }else if(namefunction=="approveSubmitModulator"){
+                    approveSubmitModulator(data);
                 }
         	}
             function notificationRequestUpdate(data){
