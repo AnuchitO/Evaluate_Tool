@@ -313,17 +313,8 @@
 		src="${contextPath}/resources/stomp.js"></script>-->
 	<script type="text/javascript">
 			$("#anotificationconfig").click(function(){
-				$("#dropdownconfig").slideToggle(400);			
+				$("#dropdownconfig").slideToggle(400);
 			});
-			//var stompClient = null;
-/*			function connectSocket(){
-				var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
-	          	this.stompClient = Stomp.over(socket);    
-	            this.stompClient.connect({}, function(frame) {
-	                console.log('Connected: ' + frame);
-	            });
-				return this.stompClient;
-			}	*/
 	</script>
 </body>
 </html>

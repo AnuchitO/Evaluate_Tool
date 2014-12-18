@@ -91,6 +91,10 @@ public class RequestAndApprove{
             jsonData.put("roomDescription",map.get("roomDescription"));
             jsonData.put("roomName",map.get("roomName"));
             jsonData.put("function","alertRequestSame");
+        }else if(map.get("head").equals("updateMenuApproveAfterSubmit")){
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("function","updateMenuApproveAfterSubmit");
         }
 
     	System.out.println(jsonData.toString());

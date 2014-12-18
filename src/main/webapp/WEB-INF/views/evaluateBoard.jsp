@@ -411,6 +411,8 @@ pageEncoding="UTF-8"%>
                     notificationRequestUpdate(data);
                 }else if(namefunction=="updateBadgeNotification"){
                     updateBadgeNotification(data);
+                }else if(namefunction=="updateMenuApproveAfterSubmit"){
+                    updateMenuApproveAfterSubmit(data);
                 }
         	}
             function notificationRequestUpdate(data){
@@ -440,6 +442,52 @@ pageEncoding="UTF-8"%>
                         $(this).remove();
                     });
                 }
+            }
+            function updateMenuApproveAfterSubmit(data){
+                if('${idModulator}'=='${idCommittee}'&&JSON.parse(data).roomId=='${idRoom}'){
+                    var idRoom = '${idRoom}';
+                    var idCourse = '${idCourse}';
+                    var idExaminer = '${idExaminer}';
+                    var nameExaminer = '${nameExaminer}';
+                    var lastNameExaminer = '${lastNameExaminer}';
+                    var idCommittee = '${idCommittee}';
+                    var nameCommittee = '${nameCommittee}';
+                    var lastNameCommittee = '${lastNameCommittee}';
+                    var idModulator = JSON.parse(data).yourId;
+                    var yourPosition = '${yourPosition}';
+                    var roomName='${roomName}';
+                    var roomDescription='${roomDescription}';
+                    location.href = "/EvaluateTool/application/evaluateBoard"
+                            + "?idRoom="
+                            + encodeURIComponent(idRoom)
+                            + "&idCourse="
+                            + encodeURIComponent(idCourse)
+                            + "&idExaminer="
+                            + encodeURIComponent(idExaminer)
+                            + "&nameExaminer="
+                            + encodeURIComponent(nameExaminer)
+                            + "&lastNameExaminer="
+                            + encodeURIComponent(lastNameExaminer)
+                            + "&idCommittee="
+                            + +encodeURIComponent(idCommittee)
+                            + "&nameCommittee="
+                            + encodeURIComponent(nameCommittee)
+                            + "&lastNameCommittee="
+                            + encodeURIComponent(lastNameCommittee)
+                            + "&idModulator="
+                            + encodeURIComponent(idModulator)
+                            + "&yourPosition="
+                            + encodeURIComponent(yourPosition)
+                            + "&roomDescription="
+                            + encodeURIComponent(roomDescription)
+                            + "&roomName="
+                            + encodeURIComponent(roomName);
+
+                  /*  $("#headdropdownapprovepermission").hide();
+                    $("#headdropdownsubmitandcancel").hide();
+                    $("#btnCompleteExamination").hide();*/
+                }
+
             }
 
             var committiIdInRoom='${idCommittee}';
@@ -636,7 +684,7 @@ pageEncoding="UTF-8"%>
 		var checkModulatorId = $("#modulatorId").val();
 		var checkCommitteeId = $("#committeeId").attr('value');
 		if(checkModulatorId==checkCommitteeId){
-			if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
+			//if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
 				$("#menuleftbtnCompleteExamination").show();
 				$("#showbtnCompleteExamination").show();
 				$("#btnCompleteExamination").show();
@@ -649,7 +697,7 @@ pageEncoding="UTF-8"%>
 				$("#imgmenuleft").mouseout(function(){
 					$("#extendimgmenuleft").slideToggle(300);
 				});
-			}
+			//}
 		}else{
 			$("#headdropdownapprovepermission").hide();
 			$("#headdropdownsubmitandcancel").hide();
@@ -749,10 +797,9 @@ pageEncoding="UTF-8"%>
                                 },
                                 type:"POST",
                                 success:function(){
+                                    //location.reload();
                                     stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id,'roomName':roomName,'roomDescription':roomDescription}));
-                                    $("#headdropdownapprovepermission").hide();
-                                    $("#headdropdownsubmitandcancel").hide();
-                                    $("#btnCompleteExamination").hide();
+                                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'updateMenuApproveAfterSubmit','roomId':roomid,'yourId':id}));
                                }
                             });
 				 		});
