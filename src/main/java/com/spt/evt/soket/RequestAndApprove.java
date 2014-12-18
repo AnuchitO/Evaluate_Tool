@@ -45,6 +45,8 @@ public class RequestAndApprove{
             jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("name",map.get("name"));
+            jsonData.put("lastname",map.get("lastname"));
             jsonData.put("roomDescription",map.get("roomDescription"));
             jsonData.put("roomName",map.get("roomName"));
             jsonData.put("function","approveSubmitModulator");
