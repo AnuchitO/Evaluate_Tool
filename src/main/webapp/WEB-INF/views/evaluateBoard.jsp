@@ -674,7 +674,7 @@ pageEncoding="UTF-8"%>
 				var idRoomInRoom='${idRoom}';
                 var roomDescription=JSON.parse(data).roomDescription;
                 var roomName=JSON.parse(data).roomName;
-				if(modulatorId==modualtorInRoom&&roomidrequest==idRoomInRoom){
+				if('${idCommittee}'==modualtorInRoom&&roomidrequest==idRoomInRoom){
 						alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequest+" "+lastnamerequest+"</button></center>");
 						var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
 						if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
