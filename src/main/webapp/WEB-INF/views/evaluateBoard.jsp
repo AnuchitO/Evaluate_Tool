@@ -418,6 +418,8 @@ pageEncoding="UTF-8"%>
                     approveSubmitModulator(data);
                 }else if(namefunction=="updateMenuApproveModulatorAfterSubmitCommittee"){
                     updateMenuApproveModulatorAfterSubmitCommittee(data);
+                }else if(namefunction=="notificationRequestExaminer"){
+                    notificationRequestExaminer(data);
                 }
         	}
 
@@ -769,9 +771,49 @@ pageEncoding="UTF-8"%>
                     });
                 }*/
 			}
+            function notificationRequestExaminer(data) {
+                var countbadgenotificationsubmitandcalcel = $("#badgenotificationsubmitandcalcel").text();
+                var namerequest = JSON.parse(data).name;
+                var lastnamerequest = JSON.parse(data).lastname;
+                var youridrequest = JSON.parse(data).yourId;
+                var title = JSON.parse(data).title;
+                var modulator = JSON.parse(data).modualtor;
+                var roomidrequest = JSON.parse(data).roomId;
+                var rolerequest = JSON.parse(data).role;
+                var modulatorId = JSON.parse(data).modulatorId;
+                var modulatorInRoom = '${idModulator}';
+                var idRoomInRoom = '${idRoom}';
+                var roomDescription = JSON.parse(data).roomDescription;
+                var roomName = JSON.parse(data).roomName;
+                if ('${idCommittee}' == modulatorInRoom && roomidrequest == idRoomInRoom) {
+                    alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>" + namerequest + " " + lastnamerequest + "</button></center>");
+                    var countlistrequestsubmitandcancel = $("#listrequestsubmitandcancel").val();
+                    if (countlistrequestsubmitandcancel == "" || countlistrequestsubmitandcancel >= 0) {
+                        $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
+                        $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="' + youridrequest + '" value="' + countlistrequestsubmitandcancel + '" class="ui feed">' + '<div class="event">' + '<div class="label">' +
+                                '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>' +
+                                '</div>' + '<div class="content">' + '<div class="date">' + '<a onclick=\'(approveNotificationRequestExaminer("' + countlistrequestsubmitandcancel + '","' + youridrequest + '","' + roomidrequest + '","' + roomDescription + '","' + roomName + '"))\'><div class="ui tiny buttons">' + '<div class="ui green button">อนุญาต</div></a>' +
+                                '<div class="or"></div>' + '<a onclick=\'(notApproveNotificationRequestExaminer("' + countlistrequestsubmitandcancel + '","' + youridrequest + '","' + roomidrequest + '","' + roomDescription + '","' + roomName + '"))\'><div class="ui red button">ปฎิเสธ</div></a>' + '</div>' + '</div>' + '<div class="summary">' +
+                                '<a><p id="fullnamerequestapprove">' + namerequest + ' ' + lastnamerequest + '</p></a>' +
+                                '<span id="titlereqeustapprove">' + title + '</span>' + '</div>' + '</div>' + '</div>' + '</div>');
+                    }
+                    $("div[id=contentlistsubmitandcancel]").each(function (index, element) {
+                        if (index < 3) {
+                            $(element).show();
+                        } else {
+                            $(element).hide();
+                        }
+
+                    });
+                    if (countbadgenotificationsubmitandcalcel == "") {
+                        $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                    } else {
+                        $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
+                    }
+                }
+            }
         });
 
-        
 		$("#menuleftplus").hide();
 		$("#menuleftbtnCompleteExamination").hide();
 		$("#showbtnCompleteExamination").hide();
@@ -951,7 +993,7 @@ pageEncoding="UTF-8"%>
                     success:function(){
                         $("div[value="+index+"]").fadeOut("slow",function(){
                             $("div[value="+index+"]").remove();
-                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับแล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับให้คุณเป็น Committee แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
                             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
                         });
                     },error:function() {
@@ -983,7 +1025,7 @@ pageEncoding="UTF-8"%>
                             $("div[value="+index+"]").fadeOut("slow",function(){
                                         $("div[value="+index+"]").remove();
                             });
-                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ การร้องขอเป็น Comittee','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
                             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
                         },error:function() {
                             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -999,7 +1041,69 @@ pageEncoding="UTF-8"%>
                         }
                     });
 			}
-
+        function approveNotificationRequestExaminer(index,yourid,roomid,roomDescription,roomName){
+            var data={};
+            data.yourId=yourid;
+            data.roomId=roomid;
+            data.role="committee";
+            var paticipantId=JSON.stringify(data);
+     /*       $.ajax({
+                url:"/EvaluateTool/application/setRoleInPaticipants",
+                type:"POST",
+                data:{
+                    paticipantId:paticipantId,
+                },
+                success:function(){*/
+                    $("div[value="+index+"]").fadeOut("slow",function(){
+                        $("div[value="+index+"]").remove();
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitExaminer','data': 'Modulator ได้ยอมรับให้คุณเป็น Examiner แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+                    });
+      /*          },error:function() {
+                    swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                        type: "error",
+                        confirmButtonColor: "#8ACBE5",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+                    });
+                }
+            });*/
+        }
+        function notApproveNotificationRequestExaminer(index,yourid,roomid,roomDescription,roomName){
+            var data={};
+            data.yourId=yourid;
+            data.roomId=roomid;
+            var dataPersonId=JSON.stringify(data);
+            /*$.ajax({
+                url:"/EvaluateTool/application/removeRequestCommittee",
+                type:"POST",
+                data:{
+                    dataPersonId:dataPersonId,
+                },
+                success:function(){*/
+                    $("div[value="+index+"]").fadeOut("slow",function(){
+                        $("div[value="+index+"]").remove();
+                    });
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธการร้องขอเป็น Examiner','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+             /*   },error:function() {
+                    swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                        type: "error",
+                        confirmButtonColor: "#8ACBE5",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+                    });
+                }
+            });*/
+        }
 			
 			$("#anotificationapprove,#imgnotificationapprove,#badgenotificationapprove").click(function(){
 				$("#badgenotificationapprove").html("");

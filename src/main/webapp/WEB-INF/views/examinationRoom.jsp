@@ -193,6 +193,8 @@ a {
 					updateStatusCard(data);
 				}else if(namefunction=="alertRequestSame"){
                     alertRequestSame(data);
+                }else if(namefunction=="approveSubmitExaminer"){
+                    approveSubmitExaminer(data);
                 }
 
 			}
@@ -329,6 +331,111 @@ a {
                     });
 				}
 			}
+            function approveSubmitExaminer(data){
+                var datamessage=JSON.parse(data).data;
+                var yourId=JSON.parse(data).yourId;
+                var roomId=JSON.parse(data).roomId;
+                var examinerId=JSON.parse(data).examinerId;
+                var modulatorId=JSON.parse(data).modulatorId;
+                var yourIdInRoom='${yourId}';
+                var roomDescription=JSON.parse(data).roomDescription;
+                var roomName=JSON.parse(data).roomName;
+                var detailPerson = {};
+                detailPerson.yourId=yourId;
+                detailPerson.roomId =roomId;
+                detailPerson.committeeId = yourId;
+                detailPerson.examinerId = examinerId;
+                detailPerson.modulatorId = modulatorId;
+                var dataPersonId = JSON.stringify(detailPerson);
+                if(yourId==yourIdInRoom){
+                    swal({
+                        type:"success",
+                        title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
+                        text:datamessage,
+                        confirmButtonColor: "#DD6B55",
+                        cancelButtonText: "Cancel for Decline",
+                        confirmButtonText: "OK for Go To EvaluateBoard",
+                        showCancelButton: true,
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    }, function(isConfirm) {
+                        if (isConfirm) {
+                            /*stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
+                            $
+                                    .ajax({
+                                        url : "/EvaluateTool/application/checkCommittee",
+                                        type : 'POST',
+                                        data : {
+                                            dataPersonId : dataPersonId
+                                        },
+                                        success : function(data) {
+                                            var idRoom = JSON.parse(data).idRoom;
+                                            var idCourse = JSON.parse(data).idCourse;
+                                            var idExaminer = JSON.parse(data).idExaminer;
+                                            var nameExaminer = JSON.parse(data).nameExaminer;
+                                            var lastNameExaminer = JSON.parse(data).lastNameExaminer;
+                                            var idCommittee = JSON.parse(data).idCommittee;
+                                            var nameCommittee = JSON.parse(data).nameCommittee;
+                                            var lastNameCommittee = JSON.parse(data).lastNameCommittee;
+                                            var idModulator = modulatorId;
+                                            var yourPosition = $("#yourPosition").val();
+                                            location.href = "/EvaluateTool/application/evaluateBoard"
+                                                    + "?idRoom="
+                                                    + encodeURIComponent(idRoom)
+                                                    + "&idCourse="
+                                                    + encodeURIComponent(idCourse)
+                                                    + "&idExaminer="
+                                                    + encodeURIComponent(idExaminer)
+                                                    + "&nameExaminer="
+                                                    + encodeURIComponent(nameExaminer)
+                                                    + "&lastNameExaminer="
+                                                    + encodeURIComponent(lastNameExaminer)
+                                                    + "&idCommittee="
+                                                    + +encodeURIComponent(idCommittee)
+                                                    + "&nameCommittee="
+                                                    + encodeURIComponent(nameCommittee)
+                                                    + "&lastNameCommittee="
+                                                    + encodeURIComponent(lastNameCommittee)
+                                                    + "&idModulator="
+                                                    + encodeURIComponent(idModulator)
+                                                    + "&yourPosition="
+                                                    + encodeURIComponent(yourPosition)
+                                                    + "&roomDescription="
+                                                    + encodeURIComponent(roomDescription)
+                                                    + "&roomName="
+                                                    + encodeURIComponent(roomName);
+                                        },error:function() {
+                                            swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                                                type: "error",
+                                                confirmButtonColor: "#8ACBE5",
+                                                confirmButtonText: "OK",
+                                                closeOnConfirm: false
+                                            }, function (isConfirm) {
+                                                if (isConfirm) {
+                                                    location.reload();
+                                                }
+                                            });
+                                        }*//*,
+                                         error : function(data, status, er) {
+                                         alert("error: " + data + " status: " + status
+                                         + " er:" + er);
+                                         }*//*
+                                    });*/
+                        }else{
+                         /*   $.ajax({
+                                url: "/EvaluateTool/application/removeRequestCommittee",
+                                type: "POST",
+                                data: {
+                                    dataPersonId:dataPersonId
+                                },
+                                success: function (data) {
+
+                                }
+                            });*/
+                        }
+                    });
+                }
+            }
 			function updateStatusCard(data){
    				var count=JSON.parse(data).count;
    				$("#body"+count+"").css("background-color","rgb(243, 243, 76");
@@ -1140,10 +1247,20 @@ a {
 			var courseId = $("#courseId" + count).val();
 			var modulatorId=$("#modulatorId" + count).val();
 			var roomStatus=$("#roomStatus"+count).text();
+            var roomName=$("#roomName"+count).text();
+            var roomDescription=$("#roomDescription"+count).text();
 			var committee=[];
 			$("#committee"+count+" input[id=idCommittee]").each(function(){
 				committee.push($(this).val());
 			});
+/*            var detailPerson = {};
+            detailPerson.roomId = $("#roomId" + count).val();
+            detailPerson.committeeId = $("#yourId").val();
+            detailPerson.examinerId = $("#examinerId" + count).val();
+            detailPerson.modulatorId = $("#modulatorId" + count).val();
+            detailPerson.yourId=yourId;
+
+            var dataPersonId = JSON.stringify(detailPerson);*/
 			if(roomStatus=="Status : Completed"){
 				sweetAlert("", "การสอบสำเร็จแล้ว","success");
 			}
@@ -1157,10 +1274,11 @@ a {
 					+ encodeURIComponent(yourPosition);
 				}else if(yourId==modulatorId){
 					sweetAlert("คุณเป็น Modulator ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
-				}else if(yourId in committee){
+				}else if(committee.indexOf(yourId)!=-1){
 					sweetAlert("คุณเป็น Comittee ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
 				}else{
-					sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestExaminer','name': name,'lastname': lastname,'yourId':yourId,'role':'examiner','modulator':false,'title':'เข้าเป็นผู้เข้าสอบ','roomId':roomId,'modulatorId':modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
+					//sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
 				}
 				
 			}else if(roomStatus=="Status : Terminate"){

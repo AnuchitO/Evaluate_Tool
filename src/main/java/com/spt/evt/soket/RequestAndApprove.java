@@ -32,7 +32,20 @@ public class RequestAndApprove{
             jsonData.put("count",map.get("count"));
             jsonData.put("modulatorId",map.get("modulatorId"));
 	    	jsonData.put("function","notificationRequestCommittee");
-    	}else if(map.get("head").equals("removeProcess")){
+    	}else if(map.get("head").equals("sendRequestExaminer")){
+            jsonData.put("name",map.get("name"));
+            jsonData.put("lastname",map.get("lastname"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("modulator",map.get("moulator"));
+            jsonData.put("role",map.get("role"));
+            jsonData.put("title",map.get("title"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
+            jsonData.put("count",map.get("count"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
+            jsonData.put("function","notificationRequestExaminer");
+        }else if(map.get("head").equals("removeProcess")){
     		jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
@@ -60,6 +73,16 @@ public class RequestAndApprove{
             jsonData.put("modulatorId",map.get("modulatorId"));
             //jsonData.put("count",map.get("count"));
             jsonData.put("function","approveSubmitCommittee");
+        }else if(map.get("head").equals("approveSubmitExaminer")){
+            jsonData.put("data",map.get("data"));
+            jsonData.put("yourId",map.get("yourId"));
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("roomDescription",map.get("roomDescription"));
+            jsonData.put("roomName",map.get("roomName"));
+            jsonData.put("examinerId",map.get("examinerId"));
+            jsonData.put("modulatorId",map.get("modulatorId"));
+            //jsonData.put("count",map.get("count"));
+            jsonData.put("function","approveSubmitExaminer");
         }else if(map.get("head").equals("updateStatusCard")){
             jsonData.put("name",map.get("name"));
             jsonData.put("lastname",map.get("lastname"));
