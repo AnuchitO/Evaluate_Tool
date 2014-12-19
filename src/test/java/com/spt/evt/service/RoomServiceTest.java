@@ -41,4 +41,12 @@ public class RoomServiceTest extends AbstractTestService {
 		Assert.assertNotNull(rooms);
 		Assert.assertThat(rooms.get(0).getStatus(),is("Completed"));
 	}
+
+    @Test
+    public void testSetStatusRoomShouldBeRoomId8(){
+        this.roomService.setStatusRoomReady(new Long(8));
+        Room room=this.roomService.findById(8L);
+        Assert.assertNotNull(room);
+        Assert.assertThat(room.getStatus(),is("Ready"));
+    }
 }

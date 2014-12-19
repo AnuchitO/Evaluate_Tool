@@ -97,6 +97,7 @@ insert into Room (id,name,description,courseId,startTime,endTime,status) values 
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (5, 'Aphirat','Room Assembly',1,'2014-12-01 09:00:00','2014-12-01 10:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (6, 'Pathawee','Room Assembly',1,'2014-12-01 10:00:00','2014-12-01 11:00:00','Testing')
 insert into Room (id,name,description,courseId,startTime,endTime,status) values (7, 'Chagrapong','Room Assembly',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
+insert into Room (id,name,description,courseId,startTime,endTime,status) values (8, 'Chagrapong','Room Java',1,'2014-12-01 11:00:00','2014-12-01 12:00:00','Testing')
 
 insert into Participants (id,person,room,role,modulator) values (1,6,1,'examiner',false)
 insert into Participants (id,person,room,role,modulator) values (2,2,1,'committee',true)
@@ -126,6 +127,10 @@ insert into Participants (id,person,room,role,modulator) values (25,12,7,'examin
 insert into Participants (id,person,room,role,modulator) values (26,4,7,'committee',true)
 insert into Participants (id,person,room,role,modulator) values (27,5,7,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (28,1,7,'committee',false)
+insert into Participants (id,person,room,role,modulator) values (29,4,1,'wait',false)
+insert into Participants (id,person,room,role,modulator) values (30,5,1,'see',false)
+insert into Participants (id,person,room,role,modulator) values (31,8,1,'wait',false)
+insert into Participants (id,person,room,role,modulator) values (32,7,1,'committee',false)
 
 insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (1,1,2,1,6,1,'good')
 insert into ScoreBoard (id,room,committee,topic,examiner,score,comment) values (2,1,2,2,6,1,'good')
