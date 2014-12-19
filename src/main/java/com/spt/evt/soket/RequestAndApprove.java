@@ -106,6 +106,7 @@ public class RequestAndApprove{
         }else if(map.get("head").equals("notificationRequestUpdate")){
             jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("value",map.get("value"));
             jsonData.put("function","notificationRequestUpdate");
         }else if(map.get("head").equals("updateBadgeNotification")){
             jsonData.put("roomId",map.get("roomId"));

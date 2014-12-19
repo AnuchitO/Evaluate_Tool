@@ -52,17 +52,22 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		String personCommitteeLastName;
 		String personCommittee;
 		JSONObject personCommitteeInroom =null;
+        JSONObject personExaminerInroom =null;
 		List<Participants> participantsList = this.getParticipantsService().findByRoom(room);
 		for(Participants participants : participantsList){
 			Boolean isModulator = participants.getModulator();
 			String role = participants.getRole();
 			if(role.equals("examiner")){
+                personExaminerInroom=new JSONObject();
 				personExaminerId = participants.getPerson().getId();
 				personExaminerName = participants.getPerson().getName();
 				personExaminerLastName = participants.getPerson().getLastName();
 				personExaminer = personExaminerName + " " + personExaminerLastName;
-				roomDetail.put("examinerId", personExaminerId.toString());
-				roomDetail.put("examiner", personExaminer);
+                roomDetail.put("examinerId", personExaminerId.toString());
+                roomDetail.put("examiner", personExaminer);
+                //personExaminerInroom.put("examinerId", personExaminerId.toString());
+               // personExaminerInroom.put("examiner", personExaminer);
+                //roomDetail.append("examiner",personExaminerInroom);
 			}else if(isModulator){
 				personModulatorId = participants.getPerson().getId();
 				personModulatorName = participants.getPerson().getName();

@@ -40,4 +40,6 @@ public class ExaminationRoomServiceTest extends AbstractTestService {
 		Assert.assertTrue(0!=personInRoomInformation.length());
 	}
 
+
+
 }

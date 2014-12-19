@@ -84,5 +84,7 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		String courseName = this.committeeService.getCourseName(courseId);
 		Assert.assertNotNull(courseName);
 	}
+
+
 	
 }

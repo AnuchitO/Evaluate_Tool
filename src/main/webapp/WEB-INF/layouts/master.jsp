@@ -17,6 +17,7 @@
 @IMPORT url("${contextPath}/resources/styles/css/sweet-alert.css");
 @IMPORT url("${contextPath}/resources/styles/css/custombox.min.css");
 @IMPORT url("${contextPath}/resources/styles/css/datepicker3.css");
+@IMPORT url("${contextPath}/resources/styles/css/progress.css");
 @IMPORT url("${contextPath}/resources/styles/css/bootstrap-timepicker.min.css");
 /*@IMPORT url("${contextPath}/resources/styles/css/alertify.bootstrap.css");*/
 		#menuindropdownlist{
@@ -305,8 +306,10 @@
 		src="${contextPath}/resources/styles/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/bootstrap-timepicker.min.js"></script>
-	<script type="text/javascript"
+    <script type="text/javascript"
 		src="${contextPath}/resources/styles/js/progressbar.min.js"></script>
+    <script type="text/javascript"
+            src="${contextPath}/resources/styles/js/progress.js"></script>
 <!--	<script type="text/javascript"
 		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 	<script type="text/javascript"
