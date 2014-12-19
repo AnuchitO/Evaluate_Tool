@@ -63,10 +63,8 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
     public void setRoleInPaticipants(Long paticipantId,String role) {
       Participants participants= (Participants) this.getEntityManager().find(Participants.class,paticipantId);
         if(role.equals("wait")){
-            System.out.print("==========SetRole Wait for See=============="+participants+"==========================");
             participants.setRole("see");
         }else if(role.equals("committee")){
-            System.out.print("==========SetRole Wait Or See for Committee=============="+participants+"==========================");
             participants.setRole("committee");
         }
       this.getEntityManager().merge(participants);
@@ -101,7 +99,6 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         criteria.add(Restrictions.eq("person",person));
         Participants participantsRemove= (Participants) criteria.uniqueResult();
         Long paticipantId=participantsRemove.getId();
-        System.out.print("=====================Remove===================+++++++++++++++"+participantsRemove.getPerson().getUserName());
         this.getEntityManager().remove(participantsRemove);
         return paticipantId;
     }
@@ -113,13 +110,12 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         criteriaAdd.add(Restrictions.eq("room",roomApprove));
         criteriaAdd.add(Restrictions.eq("person",personApprove));
         Participants add= (Participants) criteriaAdd.uniqueResult();
-            add.setModulator(true);
-            add.setRole("committee");
-            add.setRoom(roomApprove);
-            add.setPerson(personApprove);
-            this.getEntityManager().merge(add);
-        System.out.println("========Add======");
-       Criteria criteriaUpdate=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        add.setModulator(true);
+        add.setRole("committee");
+        add.setRoom(roomApprove);
+        add.setPerson(personApprove);
+        this.getEntityManager().merge(add);
+        Criteria criteriaUpdate=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
         criteriaUpdate.add(Restrictions.eq("room",roomApprove));
         criteriaUpdate.add(Restrictions.eq("person",personInRoom));
         Participants update= (Participants) criteriaUpdate.uniqueResult();
@@ -128,7 +124,6 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         update.setRoom(roomApprove);
         update.setPerson(personInRoom);
         this.getEntityManager().merge(update);
-        System.out.println("========update======");
     }
 
     @Override

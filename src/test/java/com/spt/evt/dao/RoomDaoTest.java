@@ -43,4 +43,12 @@ public class RoomDaoTest extends AbstractTestDao {
 		Assert.assertThat(rooms.get(0).getStatus(),is("Completed"));
 	}
 
+    @Test
+    public void testSetStatusRoomReadyShouldBeRoomId1(){
+        this.roomDao.setStatusRoomReady(8L);
+        Room room=this.roomDao.findById(8L);
+        Assert.assertNotNull(room);
+        Assert.assertThat(room.getStatus(),is("Ready"));
+    }
+
 }
