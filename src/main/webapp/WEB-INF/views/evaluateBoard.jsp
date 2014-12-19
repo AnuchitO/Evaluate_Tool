@@ -516,10 +516,12 @@ pageEncoding="UTF-8"%>
                 }
             }
             function notificationRequestUpdate(data){
-                var yourIdRemove=JSON.parse(data).yourId;
-                $("div[title="+yourIdRemove+"]").fadeOut("slow",function() {
-                    $("div[title=" + yourIdRemove + "]").remove();
-                });
+                if('${idModulator}'=='${idCommittee}'){
+                    $("div[value="+JSON.parse(data).value+"]").fadeOut("slow",function() {
+                        $("div[value=" + JSON.parse(data).value + "]").remove();
+                    });
+                }
+
             }
             function removeNotificationRequestCommittee(data){
                 var yourIdRemove=JSON.parse(data).yourId;
@@ -702,74 +704,6 @@ pageEncoding="UTF-8"%>
                         $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
                     }
 				}
-
-                /*var committiIdInRoom='${idCommittee}';
-                var modulatorIdInRoom='${idModulator}';
-                var idRoomInRoom='${idRoom}';
-                var roomidrequest=JSON.parse(data).roomId;
-                var namerequestWithExaminationRoom=JSON.parse(data).name;
-                var lastnamerequest=JSON.parse(data).lastname;
-                if(committiIdInRoom==modulatorIdInRoom&&roomidrequest==idRoomInRoom){
-                    alertify.log("<center><button class='ui orange tiny button'>Approve Notification</br>"+namerequestWithExaminationRoom+" "+lastnamerequest+"</button></center>");
-                    var data={};
-                    data.roomId='${idRoom}';
-                    var roomId = JSON.stringify(data);
-                    $.ajax({
-                        url:"/EvaluateTool/application/personWithRequestCommittee",
-                        type:"POST",
-                        data:{
-                            roomId:roomId
-                        },
-                        success:function(data){
-                            $("div[id=contentlistsubmitandcancel]").each(function(){
-                               $(this).remove();
-                            });
-                            console.log(data);
-                            var countWait=JSON.parse(data).countWait;
-                            for(var i in JSON.parse(data).allUserWithRequestCommittee){
-                                var yourIdRequest=JSON.parse(data).allUserWithRequestCommittee[i].yourId;
-                                var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
-                                var namerequest=JSON.parse(data).allUserWithRequestCommittee[i].name;
-                                var lastnamerequest=JSON.parse(data).allUserWithRequestCommittee[i].lastname;
-                                var title="เข้าเป็นผู้ประเมิน";
-                                var roomidrequest=JSON.parse(data).allUserWithRequestCommittee[i].roomId;
-                                var modualtorInRoom='${idModulator}';
-                                var idRoomInRoom='${idRoom}';
-                                var rolerequest=JSON.parse(data).allUserWithRequestCommittee[i].role;
-                                var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
-                                //if(namerequest==namerequestWithExaminationRoom){
-                                   // stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':yourIdRequest}));
-                               // }else{
-                                    if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
-                                        $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-                                        $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
-                                                '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
-                                                '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick="approveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
-                                                '<div class="or"></div>'+'<a onclick="notApproveNotificationRequestCommittee('+countlistrequestsubmitandcancel+','+yourIdRequest+','+idRoomInRoom+')"><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
-                                                '<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
-                                                '<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
-                                    }
-                                    $("div[id=contentlistsubmitandcancel]").each(function(index,element){
-                                        if(index<3){
-                                            $(element).show();
-                                        }else{
-                                            $(element).hide();
-                                        }
-
-                                    });
-                                    if(rolerequest=="wait"){
-                                        $("body").append("<input type='hidden' id='paticipantId' value='"+JSON.parse(data).allUserWithRequestCommittee[i].paticipantId+"'/>")
-                                        if(countbadgenotificationsubmitandcalcel==""){
-                                            $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-                                        }else{
-                                            $("#badgenotificationsubmitandcalcel").html(++countbadgenotificationsubmitandcalcel);
-                                        }
-                                    }
-                               // }
-                            }
-                        }
-                    });
-                }*/
 			}
             function notificationRequestExaminer(data) {
                 var countbadgenotificationsubmitandcalcel = $("#badgenotificationsubmitandcalcel").text();
@@ -994,7 +928,7 @@ pageEncoding="UTF-8"%>
                         $("div[value="+index+"]").fadeOut("slow",function(){
                             $("div[value="+index+"]").remove();
                             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับให้คุณเป็น Committee แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
-                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','value':index,'yourId':yourid,'roomId':roomid}));
                         });
                     },error:function() {
                         swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -1026,7 +960,7 @@ pageEncoding="UTF-8"%>
                                         $("div[value="+index+"]").remove();
                             });
                             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ การร้องขอเป็น Comittee','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
-                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+                            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','value':index,'yourId':yourid,'roomId':roomid}));
                         },error:function() {
                             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                                 type: "error",
@@ -1057,7 +991,7 @@ pageEncoding="UTF-8"%>
                     $("div[value="+index+"]").fadeOut("slow",function(){
                         $("div[value="+index+"]").remove();
                         stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitExaminer','data': 'Modulator ได้ยอมรับให้คุณเป็น Examiner แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','value':index,'yourId':yourid,'roomId':roomid}));
                     });
       /*          },error:function() {
                     swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -1089,7 +1023,7 @@ pageEncoding="UTF-8"%>
                         $("div[value="+index+"]").remove();
                     });
                     stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธการร้องขอเป็น Examiner','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
-                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','yourId':yourid,'roomId':roomid}));
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','value':index,'yourId':yourid,'roomId':roomid}));
              /*   },error:function() {
                     swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                         type: "error",
