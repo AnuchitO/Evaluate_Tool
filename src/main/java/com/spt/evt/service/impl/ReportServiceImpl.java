@@ -24,7 +24,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);						
 		JSONObject reportNoSort = generateScoreJsonObjectByRoom(rooms);
 		JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
-			
 		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
 		for(int n = 0; n < reportNoSortArray.length(); n++)
 			{
@@ -48,7 +47,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				reportArray.put(jsList);
 			}
 		}
-		report.put("report",reportArray);	
+		report.put("report",reportArray);
 		return report;
 	}
 
@@ -158,6 +157,8 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId) {
 
 		JSONObject courseInformation = new JSONObject();
+		JSONObject resultcourseInformation = new JSONObject();
+
 		Room room			= this.getRoomService().findById(roomId);
 		Person committee 	= this.getPersonService().findById(committeeId);
 		Person examiner 	= this.getPersonService().findById(examinerId);
@@ -176,28 +177,39 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			courseInformation.append("subject", subjectElement);
 		}
 
-//		JSONArray reportNoSortArray = new JSONArray(""+courseInformation.get("subject"));
-//
-//		LOGGER.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXX:: "+reportNoSortArray);
-//
-//		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
-//		for(int n = 0; n < reportNoSortArray.length(); n++)
-//		{
-//			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("sumTopic"))) {
-//				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
-//				listObject.add(reportNoSortArray.getJSONObject(n));
-//				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("sumTopic"),listObject);
-//
-//			}
-//			else{
-//				List<JSONObject> listObject = new ArrayList<JSONObject>();
-//				listObject.add(reportNoSortArray.getJSONObject(n));
-//				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("sumTopic"),listObject);
-//			}
-//		}
+		JSONArray summaryNoSortArray = new JSONArray(""+courseInformation.get("subject")) ;
+		TreeMap<String,List<JSONObject>> summaryTreeMap = new TreeMap<String,List<JSONObject>>(Collections.reverseOrder());
 
-//		LOGGER.debug("Topic===================::: "+courseInformation);
-		return courseInformation;
+		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ){
+			if (summaryTreeMap.containsKey(summaryNoSortArray.getJSONObject(i).getString("sumTopic"))) {
+				List<JSONObject> listObject = summaryTreeMap.get(summaryNoSortArray.getJSONObject(i).getString("sumTopic"));
+
+				float beforeList = Float.parseFloat(summaryNoSortArray.getJSONObject(i).getString("averageScore"));
+				float afterList = Float.parseFloat(listObject.get(0).getString("averageScore"));
+
+				if (beforeList >= afterList){
+					listObject.add(0, summaryNoSortArray.getJSONObject(i));
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}
+			}else{
+
+				List<JSONObject> listObject = new ArrayList<JSONObject>();
+				listObject.add(summaryNoSortArray.getJSONObject(i));
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+
+			}
+
+		}
+		JSONArray summaryArray = new JSONArray() ;
+		JSONObject summary = new JSONObject();
+		for(String key: summaryTreeMap.keySet()) {
+			for (JSONObject jsList : summaryTreeMap.get(key)) {
+				summaryArray.put(jsList);
+			}
+		}
+		summary.put("subject",summaryArray);
+
+		return summary;
 	}
 
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
@@ -230,26 +242,24 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				topicElement.put("comment","");
 			}
 			allTopic++;
-			sumTopic++;
-			subjectElement.put("sumTopic",sumTopic);
 			subjectElement.append("topic", topicElement);
 
 		}
-
+		subjectElement.put("sumTopic", ""+topics.size());
 
 		if (allScore != 0) {
-			subjectElement.append("averageScore", averageScoreAllSubject(allScore, allTopic));
+			subjectElement.put("averageScore", ""+averageScoreAllSubject(allScore, allTopic));
 		}else{
-			subjectElement.append("averageScore", "0");
+			subjectElement.put("averageScore", "0");
 		}
-
 	}
 
 	public float averageScoreAllSubject(float score,int allTopic){
 		float averageScore = 0;
 		averageScore = (score/allTopic)*100;
-
-		return  averageScore;
+		String stringCoverFloat = String.format("%.1f", averageScore);
+		Float ScoreAverage = Float.parseFloat(stringCoverFloat);
+		return  ScoreAverage;
 	}
 
 
