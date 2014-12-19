@@ -32,4 +32,22 @@ public class SubjectDaoImpl extends TemplateEntityManagerDao implements
 		List<Subject> result = criteria.list();
 		return result;
 	}
+
+	@Override
+	@Transactional
+	public void persist(Subject subject){
+		this.getEntityManager().persist(subject);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Subject findById(Long id) {
+		return this.getEntityManager().find(Subject.class, id);
+	}
+
+	@Override
+	@Transactional
+	public void removeSubject(Subject subject){
+		this.getEntityManager().remove(subject);
+	}
 }

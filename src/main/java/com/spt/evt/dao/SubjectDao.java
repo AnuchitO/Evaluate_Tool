@@ -7,4 +7,7 @@ import com.spt.evt.entity.Subject;
 
 public interface SubjectDao {
 	public List<Subject> findByCourse(Course course);
+	public void persist(Subject subject);
+	public Subject findById(Long id);
+	public void removeSubject(Subject subject);
 }

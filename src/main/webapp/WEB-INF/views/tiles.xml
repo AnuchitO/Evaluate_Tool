@@ -55,5 +55,9 @@
 	<definition name="summaryByTopic" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/summaryByTopic.jsp" />
 	</definition>
+
+	<definition name="managerCourse" extends="standardLayout">
+		<put-attribute name="body" value="/WEB-INF/views/managerCourse.jsp" />
+	</definition>
 		
 </tiles-definitions>

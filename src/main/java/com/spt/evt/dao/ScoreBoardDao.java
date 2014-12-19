@@ -13,4 +13,6 @@ public interface ScoreBoardDao {
 	public void saveOrUpdate(ScoreBoard scoreBoard);
 	public List<ScoreBoard> findByRoom(Room room);
 	public List<ScoreBoard> findByRoomAndTopicAndExaminer(Room room,Topic topic,Person examiner);
+	public List<ScoreBoard> findByTopic(Topic topic) ;
+
 }
