@@ -41,5 +41,16 @@ public class TopicDaoImpl extends TemplateEntityManagerDao implements
 		return result;
 	}
 
+	@Override
+	@Transactional
+	public void persist(Topic topic){
+		this.getEntityManager().persist(topic);
+	}
+
+	@Override
+	@Transactional
+	public void removeTopic(Topic topic){
+		this.getEntityManager().remove(topic);
+	}
 
 }

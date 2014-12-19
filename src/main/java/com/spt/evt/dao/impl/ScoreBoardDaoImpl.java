@@ -97,4 +97,14 @@ public class ScoreBoardDaoImpl extends TemplateEntityManagerDao implements
 		return resultScoreBoard;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<ScoreBoard> findByTopic(Topic topic) {
+		Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(ScoreBoard.class);
+		criteria.add(Restrictions.eq("topic", topic));
+		criteria.addOrder(Order.asc("id"));
+		List<ScoreBoard> result = criteria.list();		
+		return result;
+	}
+
 }

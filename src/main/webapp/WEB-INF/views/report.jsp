@@ -168,7 +168,7 @@ table>tbody>tr>td {
 			$("#tableBody1").remove();
 			var examiner = {};
 			examiner.id = examinerId;
-			var examinerId = JSON.stringify(examiner);
+			var examinerId = JSON.stringify(examiner);			
 			$
 					.ajax({
 						url : "/EvaluateTool/application/getroomscore",

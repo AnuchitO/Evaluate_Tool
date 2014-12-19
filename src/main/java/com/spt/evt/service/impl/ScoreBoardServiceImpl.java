@@ -50,5 +50,10 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 		return this.scoreBoardDao.findByRoom(room);
 	}
 
+	@Override
+	public List<ScoreBoard> findByTopic(Topic topic) {
+		return this.scoreBoardDao.findByTopic(topic);
+	}
+
 
 }
