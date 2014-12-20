@@ -149,7 +149,7 @@ public class ManagerCourseController {
 			JSONObject listAfterLoop = new JSONObject();
 			listAfterLoop.put("topicName",it.getName());
 			listAfterLoop.put("topicid",it.getId());
-			report.append("data",listAfterLoop);					
+			report.append("data",listAfterLoop);
 		}
 		return report.toString();
 	}

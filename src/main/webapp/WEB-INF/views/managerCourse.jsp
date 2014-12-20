@@ -57,7 +57,7 @@ table>tbody>tr>td {
 	outline: none; 
 	height:25px; 
 	width: 200px; 
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-left: 50px;
 } 
 h3{
@@ -95,17 +95,26 @@ h3{
 				border-color: #FF8C00">
 				<form>
 					<div>
-						<h3>Course</h3>
+						<h2 style="text-align: center">Course</h2>
+						<h4 style="margin-left: 50px">Add Course</h4>
 						<input class="textbox"type="text" placeholder="Cource" id="courseName">
 						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescription">
 						<button type="button" class="btn" id="btnSaveCourse">Add</button>
 					</div>
 				</form>
 				<form>
+					<h4 style="margin-left: 50px">Remove Course</h4>
 					<div style="margin-bottom: 20px">
-						<select id="courseAll">
-							<option id="option0"></option>
+						<select id="courseAllRemove">
 						</select>										
+						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
+					</div>
+				</form>
+				<form>
+					<h4 style="margin-left: 50px">Edit Course</h4>
+					<div style="margin-bottom: 20px">
+						<select id="courseAllEdit">
+						</select>
 						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
 					</div>
 				</form>
@@ -114,9 +123,9 @@ h3{
 				border-color: #FF8C00" >
 				<form>
 					<div>
-					<h3>Subject</h3>
-					<select id="courseAllInSubject">
-						<option id="option1"></option>
+					<h2 style="text-align: center">Subject</h2>
+					<h4 style="margin-left: 50px">Add Subject</h4>
+					<select id="courseAllAddInSubject">
 					</select>	
 					<input class="textbox"type="text" placeholder="Subject" id="SubjectName">
 					<input class="textbox"type="text" placeholder="Subject : Description" id="SubjectDescription">
@@ -125,11 +134,10 @@ h3{
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-					<select id="courseAllInSubject2">
-						<option id="option2"></option>
+					<h4 style="margin-left: 50px">Remove Subject</h4>
+					<select id="courseAllRemoveInSubject">
 					</select>	
-					<select id="courseAllInSubject3">
-						
+					<select id="subjectAllRemoveInSubject">
 					</select>											
 					<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
 				</div>
@@ -140,12 +148,11 @@ h3{
 				border-color: #FF8C00">
 				<form>
 					<div>
-					<h3>Topic</h3>
-					<select id="courseAllInSubject4">
-						<option id="option4"></option>
+					<h2 style="text-align: center">Topic</h2>
+					<h4 style="margin-left: 50px">Add Topic</h4>
+					<select id="courseAllAddInTopic">
 					</select>	
-					<select id="courseAllInSubject5">
-
+					<select id="subjectAllAddInTopic">
 					</select>	
 					<br></br>
 					<input class="textbox"type="text" placeholder="Topic" id="TopictName">
@@ -155,14 +162,12 @@ h3{
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-					<select id="courseAllInSubject6">
-						<option id="option6"></option>
+					<h4 style="margin-left: 50px">Remove Topic</h4>
+					<select id="courseAllRemoveInTopic">
 					</select>		
-					<select id="courseAllInSubject7">
-						<option id="option7"></option>
-					</select>	
-					<select id="courseAllInSubject8">
-						<option id="option8"></option>
+					<select id="subjectAllRemoveInTopic">
+					</select>
+					<select id="topicAllRemoveInTopic">
 					</select>									
 					<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
 				</div>
@@ -170,111 +175,280 @@ h3{
 				
 			</div>
 			<option id="option"></option>
+			<option id="option0"></option>
 		</div>
 	</div>
 
 	<script>
 	$(function() {
 
-			var completedRoom = JSON.parse('${allCourse}');
-			var dummyOption = 0;
-			var dummyRoomId = 0;
-			var genOptionId = ("#option" + dummyOption);
-			var genRoomId = ("#roomId" + dummyRoomId);
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
 
-			$.each(completedRoom, function(i, item) {
+		$.each(completedRoom, function(i, item) {
 
-				item.forEach(function(course) {
+			item.forEach(function(course) {
 
-					var nameAndLastName = course.courseName;
-					var examinerId = course.courseId;
-					$("#option0").clone()
-							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(examinerId)
-							.insertAfter(genOptionId).show().appendTo(
-									$("#courseAll"));
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+								nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+								$("#courseAllRemove"));
+			});
+		});
+
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+						nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+						$("#courseAllEdit"));
+			});
+		});
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+								nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+								$("#courseAllAddInSubject"));
+			});
+		});
+
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option2").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+								nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+								$("#courseAllRemoveInSubject"));
+			});
+		});
+
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+								nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+								$("#courseAllAddInTopic"));
+			});
+		});
+
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+								nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+								$("#courseAllRemoveInTopic"));
+			});
+		});
+
+		var dataForm = {};
+		dataForm.id = $("#courseAllRemoveInTopic").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+
+		$
+				.ajax({
+					url : "/EvaluateTool/application/courseGetSubject",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						$("#subjectAllRemoveInTopic").empty();
+
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var dummyRoomId = 0;
+						var genOptionId = ("#option" + dummyOption);
+
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllRemoveInTopic"));
+							});
+						});
+
+						var dataForm = {};
+						dataForm.id = $("#subjectAllRemoveInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetTopic",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										$("#topicAllRemoveInTopic").empty();
+
+										var addTopic = JSON.parse(data);
+										var dummyOption = 0;
+										var dummyRoomId = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addTopic, function(i, item) {
+											item.forEach(function(data) {
+												var topicId = data.topicid;
+												var name = data.topicName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(topicId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#topicAllRemoveInTopic"));
+											});
+										});
+
+									},
+									error : function(data) {
+										$("#topicAllRemoveInTopic").empty();
+									}
+								});
+
+					},
+					error : function(data) {
+
+					}
 				});
+
+
+			$("#subjectAllRemoveInSubject option").each(
+					function(){
+						$(this).remove();
+					});
+
+			var dataForm = {};
+			dataForm.id = $("#courseAllRemoveInSubject").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
+
+			$
+					.ajax({
+						url : "/EvaluateTool/application/courseGetSubject",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+
+							var addSubject = JSON.parse(data);
+							var dummyOption = 0;
+							var genOptionId = ("#option" + dummyOption);
+
+
+							$.each(addSubject, function(i, item) {
+								item.forEach(function(data) {
+									var subjectId = data.subjectid;
+									var name = data.subjectName;
+
+									$("#option").clone()
+											.attr('id', 'option' + (++dummyOption)).text(
+											name).val(subjectId)
+											.insertAfter(genOptionId).show().appendTo(
+											$("#subjectAllRemoveInSubject"));
+								});
+							});
+
+						},
+						error : function(data) {
+
+						}
 			});
 
-			var completedRoom = JSON.parse('${allCourse}');
-			var dummyOption = 0;
-			var dummyRoomId = 0;
-			var genOptionId = ("#option" + dummyOption);
-			var genRoomId = ("#roomId" + dummyRoomId);
+		var dataForm = {};
+		dataForm.id = $("#courseAllAddInTopic").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
 
-			$.each(completedRoom, function(i, item) {
+		$
+				.ajax({
+					url : "/EvaluateTool/application/courseGetSubject",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						$("#subjectAllAddInTopic").empty();
+						$("#subjectAllAddInTopic option").each(
+								function(){
+									$(this).empty();
+								});
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var dummyRoomId = 0;
+						var genOptionId = ("#option" + dummyOption);
 
-				item.forEach(function(course) {
 
-					var nameAndLastName = course.courseName;
-					var examinerId = course.courseId;
-					$("#option1").clone()
-							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(examinerId)
-							.insertAfter(genOptionId).show().appendTo(
-									$("#courseAllInSubject"));
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllAddInTopic"));
+							});
+						});
+
+					},
+					error : function(data) {
+
+					}
 				});
-			});	
-
-			var completedRoom = JSON.parse('${allCourse}');
-			var dummyOption = 0;
-			var dummyRoomId = 0;
-			var genOptionId = ("#option" + dummyOption);
-			var genRoomId = ("#roomId" + dummyRoomId);
-
-			$.each(completedRoom, function(i, item) {
-
-				item.forEach(function(course) {
-
-					var nameAndLastName = course.courseName;
-					var examinerId = course.courseId;
-					$("#option2").clone()
-							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(examinerId)
-							.insertAfter(genOptionId).show().appendTo(
-									$("#courseAllInSubject2"));
-				});
-			});
-
-			var completedRoom = JSON.parse('${allCourse}');
-			var dummyOption = 0;
-			var dummyRoomId = 0;
-			var genOptionId = ("#option" + dummyOption);
-			var genRoomId = ("#roomId" + dummyRoomId);
-
-			$.each(completedRoom, function(i, item) {
-
-				item.forEach(function(course) {
-
-					var nameAndLastName = course.courseName;
-					var examinerId = course.courseId;
-					$("#option4").clone()
-							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(examinerId)
-							.insertAfter(genOptionId).show().appendTo(
-									$("#courseAllInSubject4"));
-				});
-			});
-
-			var completedRoom = JSON.parse('${allCourse}');
-			var dummyOption = 0;
-			var dummyRoomId = 0;
-			var genOptionId = ("#option" + dummyOption);
-			var genRoomId = ("#roomId" + dummyRoomId);
-
-			$.each(completedRoom, function(i, item) {
-
-				item.forEach(function(course) {
-
-					var nameAndLastName = course.courseName;
-					var examinerId = course.courseId;
-					$("#option6").clone()
-							.attr('id', 'option' + (++dummyOption)).text(
-									nameAndLastName).val(examinerId)
-							.insertAfter(genOptionId).show().appendTo(
-									$("#courseAllInSubject6"));
-				});
-			});
 
 			$("#btnSaveCourse").click(
 					function() {
@@ -306,7 +480,7 @@ h3{
 											data : {
 												dataForm : dataSend
 											},
-											success : function(data) {													
+											success : function(data) {
 												$('#courseName').val('');
 												$('#courseDescription').val('');
 												swal({
@@ -343,7 +517,7 @@ h3{
 			$("#btnRemoveCourse").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#courseAll").val();
+						dataForm.id = $("#courseAllRemove").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);	
 
@@ -413,7 +587,7 @@ h3{
 						var dataForm = {};
 						dataForm.SubjectName = $("#SubjectName").val();
 						dataForm.SubjectDescription = $("#SubjectDescription").val();
-						dataForm.id = $("#courseAllInSubject").val();
+						dataForm.id = $("#courseAllAddInSubject").val();
 						if (dataForm.SubjectName == "") {
 							var dataSend = JSON.stringify(null);
 
@@ -470,15 +644,15 @@ h3{
 							 });
 			});
 
-			$("#courseAllInSubject2").change(
+			$("#courseAllRemoveInSubject").change(
 					function() {
-							$("#courseAllInSubject3 option").each(
+							$("#subjectAllRemoveInSubject option").each(
 								function(){
 									$(this).remove();
 							});
 
 						var dataForm = {};						
-						dataForm.id = $("#courseAllInSubject2").val();
+						dataForm.id = $("#courseAllRemoveInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);	
 
@@ -491,22 +665,21 @@ h3{
 						},
 						success : function(data) {
 
-							var addRoom = JSON.parse(data);
+							var addSubject = JSON.parse(data);
 							var dummyOption = 0;
-							var dummyRoomId = 0;
-							var genOptionId = ("#option" + dummyOption);	
+							var genOptionId = ("#option" + dummyOption);
 
 
-							$.each(addRoom, function(i, item) {
+							$.each(addSubject, function(i, item) {
 								item.forEach(function(data) {
-								var roomId = data.subjectid;
+								var subjectId = data.subjectid;
 								var name = data.subjectName;
 								
 							$("#option").clone()
 								.attr('id', 'option' + (++dummyOption)).text(
-										name).val(roomId)
+										name).val(subjectId)
 								.insertAfter(genOptionId).show().appendTo(
-										$("#courseAllInSubject3"));
+										$("#subjectAllRemoveInSubject"));
 							});
 						});
 
@@ -521,7 +694,7 @@ h3{
 			$("#btnRemoveSubject").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#courseAllInSubject3").val();
+						dataForm.id = $("#subjectAllRemoveInSubject").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);
 
@@ -582,10 +755,10 @@ h3{
 								 });
 			});
 
-			$("#courseAllInSubject4").change(
+			$("#courseAllAddInTopic").change(
 					function() {
 						var dataForm = {};						
-						dataForm.id = $("#courseAllInSubject4").val();
+						dataForm.id = $("#courseAllAddInTopic").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);	
 
@@ -597,27 +770,26 @@ h3{
 							dataForm : dataSend
 						},
 						success : function(data) {
-							$("#courseAllInSubject5").empty();
-							$("#courseAllInSubject5 option").each(
+							$("#subjectAllAddInTopic").empty();
+							$("#subjectAllAddInTopic option").each(
 								function(){
 									$(this).empty();
 							});
-							var addRoom = JSON.parse(data);
+							var addSubject = JSON.parse(data);
 							var dummyOption = 0;
-							var dummyRoomId = 0;
-							var genOptionId = ("#option" + dummyOption);	
+							var genOptionId = ("#option" + dummyOption);
 
 
-							$.each(addRoom, function(i, item) {
+							$.each(addSubject, function(i, item) {
 								item.forEach(function(data) {
-								var roomId = data.subjectid;
+								var subjectId = data.subjectid;
 								var name = data.subjectName;
 								
 							$("#option").clone()
 								.attr('id', 'option' + (++dummyOption)).text(
-										name).val(roomId)
+										name).val(subjectId)
 								.insertAfter(genOptionId).show().appendTo(
-										$("#courseAllInSubject5"));
+										$("#subjectAllAddInTopic"));
 							});
 						});
 
@@ -629,10 +801,10 @@ h3{
 
 			});
 
-			$("#courseAllInSubject6").change(
+			$("#courseAllRemoveInTopic").change(
 					function() {
 						var dataForm = {};						
-						dataForm.id = $("#courseAllInSubject6").val();
+						dataForm.id = $("#courseAllRemoveInTopic").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
 
@@ -644,29 +816,28 @@ h3{
 							dataForm : dataSend
 						},
 						success : function(data) {
-							$("#courseAllInSubject7").empty();
+							$("#subjectAllRemoveInTopic").empty();
 
-							var addRoom = JSON.parse(data);
+							var addSubject = JSON.parse(data);
 							var dummyOption = 0;
-							var dummyRoomId = 0;
 							var genOptionId = ("#option" + dummyOption);
 
-							$.each(addRoom, function(i, item) {
+							$.each(addSubject, function(i, item) {
 								item.forEach(function(data) {
-								var roomId = data.subjectid;
+								var subjectId = data.subjectid;
 								var name = data.subjectName;
 
 								
 								$("#option").clone()
 									.attr('id', 'option' + (++dummyOption)).text(
-											name).val(roomId)
+											name).val(subjectId)
 									.insertAfter(genOptionId).show().appendTo(
-											$("#courseAllInSubject7"));
+											$("#subjectAllRemoveInTopic"));
 							});
 						});
 
 							var dataForm = {};						
-						dataForm.id = $("#courseAllInSubject7").val();
+						dataForm.id = $("#subjectAllRemoveInTopic").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
 
@@ -678,30 +849,30 @@ h3{
 										dataForm : dataSend
 									},
 									success : function(data) {
-										$("#courseAllInSubject8").empty();
+										$("#topicAllRemoveInTopic").empty();
 
-										var addRoom = JSON.parse(data);
+										var addTopic = JSON.parse(data);
 										var dummyOption = 0;
 										var dummyRoomId = 0;
 										var genOptionId = ("#option" + dummyOption);
 
-										$.each(addRoom, function(i, item) {
+										$.each(addTopic, function(i, item) {
 											item.forEach(function(data) {
-											var roomId = data.topicid;
+											var topicId = data.topicid;
 											var name = data.topicName;
 
 											
 											$("#option").clone()
 												.attr('id', 'option' + (++dummyOption)).text(
-														name).val(roomId)
+														name).val(topicId)
 												.insertAfter(genOptionId).show().appendTo(
-														$("#courseAllInSubject8"));
+														$("#topicAllRemoveInTopic"));
 										});
 									});
 
 									},
 									error : function(data) {
-										
+										$("#topicAllRemoveInTopic").empty();
 									}
 								});
 
@@ -718,7 +889,7 @@ h3{
 						var dataForm = {};
 						dataForm.TopictName = $("#TopictName").val();
 						dataForm.TopicDescription = $("#TopicDescription").val();
-						dataForm.id = $("#courseAllInSubject5").val();
+						dataForm.id = $("#subjectAllAddInTopic").val();
 						if (dataForm.TopictName == "") {
 							var dataSend = JSON.stringify(null);
 
@@ -779,10 +950,10 @@ h3{
 							 });
 			});
 
-			$("#courseAllInSubject7").change(
+			$("#subjectAllRemoveInTopic").change(
 					function() {
 						var dataForm = {};						
-						dataForm.id = $("#courseAllInSubject7").val();
+						dataForm.id = $("#subjectAllRemoveInTopic").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
 
@@ -794,24 +965,23 @@ h3{
 							dataForm : dataSend
 						},
 						success : function(data) {
-							$("#courseAllInSubject8").empty();
+							$("#topicAllRemoveInTopic").empty();
 
-							var addRoom = JSON.parse(data);
+							var addTopic = JSON.parse(data);
 							var dummyOption = 0;
-							var dummyRoomId = 0;
 							var genOptionId = ("#option" + dummyOption);
 
-							$.each(addRoom, function(i, item) {
+							$.each(addTopic, function(i, item) {
 								item.forEach(function(data) {
-								var roomId = data.topicid;
+								var topicId = data.topicid;
 								var name = data.topicName;
 
 								
 								$("#option").clone()
 									.attr('id', 'option' + (++dummyOption)).text(
-											name).val(roomId)
+											name).val(topicId)
 									.insertAfter(genOptionId).show().appendTo(
-											$("#courseAllInSubject8"));
+											$("#topicAllRemoveInTopic"));
 							});
 						});
 
@@ -826,7 +996,7 @@ h3{
 			$("#btnRemoveTopic").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#courseAllInSubject8").val();
+						dataForm.id = $("#topicAllRemoveInTopic").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);		
 
@@ -871,7 +1041,7 @@ h3{
 													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
-								                       
+
 												 		});
 												}
 										});
