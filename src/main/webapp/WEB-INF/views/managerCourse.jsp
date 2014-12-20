@@ -319,7 +319,7 @@ h3{
 											},
 											error : function(data) {
 												swal({
-												 			type:"warning",
+												 			type:"error",
 												 			title: "Can't Add...",
 											 		}, function(isConfirm){
 							                       
@@ -376,7 +376,7 @@ h3{
 												 		});
 													}else{
 														swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -386,7 +386,7 @@ h3{
 												},
 												error : function(data) {
 													swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -451,7 +451,7 @@ h3{
 										},
 										error : function(data) {
 													swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Add...",
 												 		}, function(isConfirm){
 								                       
@@ -467,22 +467,7 @@ h3{
 							 			confirmButtonText:"OK"
 							 		});
 							 	} 
-							 });				
-			// $
-			// 		.ajax({
-			// 			url : "/EvaluateTool/application/saveSubject",
-			// 			type : 'POST',
-			// 			data : {
-			// 				dataForm : dataSend
-			// 			},
-			// 			success : function(data) {
-			// 				alert(data);
-			// 			},
-			// 			error : function(data) {
-			// 				alert("Fail");
-			// 			}
-			// 		});
-
+							 });
 			});
 
 			$("#courseAllInSubject2").change(
@@ -568,7 +553,7 @@ h3{
 												 		});
 													}else{
 														swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -578,7 +563,7 @@ h3{
 												},
 												error : function(data) {
 													swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -595,22 +580,6 @@ h3{
 								 		});
 								 	} 
 								 });
-
-			// $
-					// .ajax({
-					// 	url : "/EvaluateTool/application/deleteSubject",
-					// 	type : 'POST',
-					// 	data : {
-					// 		dataForm : dataSend
-					// 	},
-			// 			success : function(data) {
-			// 				location.reload();
-			// 			},
-			// 			error : function(data) {
-			// 				alert("Fail");
-			// 			}
-			// 		});
-
 			});
 
 			$("#courseAllInSubject4").change(
@@ -791,7 +760,7 @@ h3{
 										},
 										error : function(data) {
 													swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Add...",
 												 		}, function(isConfirm){
 								                       
@@ -807,22 +776,7 @@ h3{
 							 			confirmButtonText:"OK"
 							 		});
 							 	} 
-							 });				
-			// $
-			// 		.ajax({
-			// 			url : "/EvaluateTool/application/saveTopic",
-			// 			type : 'POST',
-			// 			data : {
-			// 				dataForm : dataSend
-			// 			},
-			// 			success : function(data) {
-			// 				alert(data);
-			// 			},
-			// 			error : function(data) {
-			// 				alert("Fail");
-			// 			}
-			// 		});
-
+							 });
 			});
 
 			$("#courseAllInSubject7").change(
@@ -904,7 +858,7 @@ h3{
 												 		});
 													}else{
 														swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -914,7 +868,7 @@ h3{
 												},
 												error : function(data) {
 													swal({
-													 			type:"warning",
+													 			type:"error",
 													 			title: "Can't Delete...",
 												 		}, function(isConfirm){
 								                       
@@ -931,22 +885,6 @@ h3{
 								 		});
 								 	} 
 								 });
-
-			// $
-			// 		.ajax({
-			// 			url : "/EvaluateTool/application/deleteTopic",
-			// 			type : 'POST',
-			// 			data : {
-			// 				dataForm : dataSend
-			// 			},
-			// 			success : function(data) {
-			// 				alert(data);
-			// 			},
-			// 			error : function(data) {
-			// 				alert("Fail");
-			// 			}
-			// 		});
-
 			});
 
 	});
