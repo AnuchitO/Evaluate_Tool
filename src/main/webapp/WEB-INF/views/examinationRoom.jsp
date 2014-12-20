@@ -1290,8 +1290,8 @@ a {
           }else if(committee.indexOf(yourId)!=-1){
               sweetAlert("คุณเป็น Comittee ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
           }else{
-             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestExaminer','name': name,'lastname': lastname,'yourId':yourId,'role':'examiner','modulator':false,'title':'เข้าเป็นผู้เข้าสอบ','roomId':roomId,'modulatorId':modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
-              //sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
+             //stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestExaminer','name': name,'lastname': lastname,'yourId':yourId,'role':'examiner','modulator':false,'title':'เข้าเป็นผู้เข้าสอบ','roomId':roomId,'modulatorId':modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
+              sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
           }
 
       }else if(roomStatus=="Status : Terminate"){
