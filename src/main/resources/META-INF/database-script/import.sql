@@ -113,7 +113,6 @@ insert into Room (id,name,description,courseId,startTime,endTime,status) values 
 insert into Participants (id,person,room,role,modulator) values (1,6,1,'examiner',false)
 insert into Participants (id,person,room,role,modulator) values (2,2,1,'committee',true)
 insert into Participants (id,person,room,role,modulator) values (3,3,1,'committee',false)
-insert into Participants (id,person,room,role,modulator) values (40,7,1,'examiner',false)
 insert into Participants (id,person,room,role,modulator) values (4,1,1,'committee',false)
 insert into Participants (id,person,room,role,modulator) values (5,7,2,'examiner',false)
 insert into Participants (id,person,room,role,modulator) values (6,2,2,'committee',true)
