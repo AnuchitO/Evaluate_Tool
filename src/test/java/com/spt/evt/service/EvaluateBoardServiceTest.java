@@ -85,6 +85,31 @@ public class EvaluateBoardServiceTest extends AbstractTestService {
 		Assert.assertNotNull(courseName);
 	}
 
+    @Test
+    public void testGetUserWithRequestCommitteeShouldBeRoomId1(){
+        Long roomId=1L;
+        JSONObject userWithRequestCommittee=this.committeeService.getUserWithRequestCommittee(roomId);
+        Assert.assertTrue(userWithRequestCommittee.has("allUserWithRequestCommittee"));
+        Assert.assertTrue(userWithRequestCommittee.has("countWait"));
+        Assert.assertTrue(userWithRequestCommittee.length()!=0);
+        Assert.assertNotNull(userWithRequestCommittee.getJSONArray("allUserWithRequestCommittee"));
+    }
 
-	
+    @Test
+    public void testFindParticipantIdShouldBeRoomId1AndPersonId1(){
+        Long roomId=1L;
+        Long personId=1L;
+        Long participantId=this.committeeService.findParticipantId(roomId,personId);
+        Assert.assertNotNull(participantId);
+        Assert.assertEquals(new Long(4),participantId);
+    }
+
+    @Test
+    public void testGetAllPersonToApproveShouldBeRoomId2(){
+        Long roomId=2L;
+        JSONObject getAllPersonToApprove=this.committeeService.getallPersonToApprove(roomId);
+        Assert.assertTrue(getAllPersonToApprove.has("person"));
+        Assert.assertTrue(getAllPersonToApprove.length()!=0);
+        Assert.assertNotNull(getAllPersonToApprove.getJSONArray("person"));
+    }
 }
