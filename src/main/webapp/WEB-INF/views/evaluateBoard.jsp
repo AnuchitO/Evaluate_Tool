@@ -469,50 +469,51 @@ pageEncoding="UTF-8"%>
                     swal({
                         type:"success",
                         title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
-                        text:JSON.parse(data).data,
+                        text:JSON.parse(data).data+" : Please Click OK",
                         confirmButtonColor: "#DD6B55",
-                        closeOnCancel: false
-                    }, function(isCancel) {
-                        if (isCancel) {
-                            var idRoom = '${idRoom}';
-                            var idCourse = '${idCourse}';
-                            var idExaminer = '${idExaminer}';
-                            var nameExaminer = '${nameExaminer}';
-                            var lastNameExaminer = '${lastNameExaminer}';
-                            var idCommittee = '${idCommittee}';
-                            var nameCommittee = '${nameCommittee}';
-                            var lastNameCommittee = '${lastNameCommittee}';
-                            var idModulator = JSON.parse(data).yourId;
-                            var yourPosition = '${yourPosition}';
-                            var roomName='${roomName}';
-                            var roomDescription='${roomDescription}';
-                            location.href = "/EvaluateTool/application/evaluateBoard"
-                                    + "?idRoom="
-                                    + encodeURIComponent(idRoom)
-                                    + "&idCourse="
-                                    + encodeURIComponent(idCourse)
-                                    + "&idExaminer="
-                                    + encodeURIComponent(idExaminer)
-                                    + "&nameExaminer="
-                                    + encodeURIComponent(nameExaminer)
-                                    + "&lastNameExaminer="
-                                    + encodeURIComponent(lastNameExaminer)
-                                    + "&idCommittee="
-                                    + +encodeURIComponent(idCommittee)
-                                    + "&nameCommittee="
-                                    + encodeURIComponent(nameCommittee)
-                                    + "&lastNameCommittee="
-                                    + encodeURIComponent(lastNameCommittee)
-                                    + "&idModulator="
-                                    + encodeURIComponent(idModulator)
-                                    + "&yourPosition="
-                                    + encodeURIComponent(yourPosition)
-                                    + "&roomDescription="
-                                    + encodeURIComponent(roomDescription)
-                                    + "&roomName="
-                                    + encodeURIComponent(roomName);
+                        closeOnCancel: true,
+                    }, function(isConfirm) {
+                        if (isConfirm) {
+
                         }
                     });
+                    var idRoom = '${idRoom}';
+                    var idCourse = '${idCourse}';
+                    var idExaminer = '${idExaminer}';
+                    var nameExaminer = '${nameExaminer}';
+                    var lastNameExaminer = '${lastNameExaminer}';
+                    var idCommittee = '${idCommittee}';
+                    var nameCommittee = '${nameCommittee}';
+                    var lastNameCommittee = '${lastNameCommittee}';
+                    var idModulator = JSON.parse(data).yourId;
+                    var yourPosition = '${yourPosition}';
+                    var roomName='${roomName}';
+                    var roomDescription='${roomDescription}';
+                    location.href = "/EvaluateTool/application/evaluateBoard"
+                            + "?idRoom="
+                            + encodeURIComponent(idRoom)
+                            + "&idCourse="
+                            + encodeURIComponent(idCourse)
+                            + "&idExaminer="
+                            + encodeURIComponent(idExaminer)
+                            + "&nameExaminer="
+                            + encodeURIComponent(nameExaminer)
+                            + "&lastNameExaminer="
+                            + encodeURIComponent(lastNameExaminer)
+                            + "&idCommittee="
+                            + +encodeURIComponent(idCommittee)
+                            + "&nameCommittee="
+                            + encodeURIComponent(nameCommittee)
+                            + "&lastNameCommittee="
+                            + encodeURIComponent(lastNameCommittee)
+                            + "&idModulator="
+                            + encodeURIComponent(idModulator)
+                            + "&yourPosition="
+                            + encodeURIComponent(yourPosition)
+                            + "&roomDescription="
+                            + encodeURIComponent(roomDescription)
+                            + "&roomName="
+                            + encodeURIComponent(roomName);
                 }
             }
             function notificationRequestUpdate(data){
@@ -674,7 +675,6 @@ pageEncoding="UTF-8"%>
 				var roomidrequest=JSON.parse(data).roomId;
 				var rolerequest=JSON.parse(data).role;
 				var modulatorId=JSON.parse(data).modulatorId;
-				//var count=JSON.parse(data).count;
 				var modualtorInRoom='${idModulator}';
 				var idRoomInRoom='${idRoom}';
                 var roomDescription=JSON.parse(data).roomDescription;

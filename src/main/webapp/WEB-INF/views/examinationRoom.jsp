@@ -213,7 +213,6 @@ a {
           var roomId=JSON.parse(data).roomId;
           var yourIdInRoom='${yourId}';
           if(yourId==yourIdInRoom){
-
               sweetAlert(JSON.parse(data).roomName+":"+JSON.parse(data).roomDescription, datamessage,"error");
           }else{
 
@@ -318,11 +317,7 @@ a {
                                               location.reload();
                                           }
                                       });
-                                  }/*,
-                                  error : function(data, status, er) {
-                                      alert("error: " + data + " status: " + status
-                                              + " er:" + er);
-                                  }*/
+                                  }
                               });
                   }else{
                       $.ajax({
@@ -974,13 +969,8 @@ a {
       detailPerson.examinerId = $("#examinerId" + count).val();
       detailPerson.modulatorId = $("#modulatorId" + count).val();
       detailPerson.yourId=yourId;
-
       var dataPersonId = JSON.stringify(detailPerson);
-  /*	if(roomStatus=="Status : Completed"){
-          sweetAlert("", "การสอบสำเร็จแล้ว","success");
-      }*/
       if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"||(roomStatus=="Status : Waiting"&&yourId==detailPerson.modulatorId)||roomStatus=="Status : Completed"){
-
           if(yourId==detailPerson.examinerId){
               sweetAlert("คุณเป็น Examiner ห้องนี้แล้ว", "ไม่สามารถเป็น Modulator ได้","error");
           }else if(yourId==detailPerson.modulatorId){
@@ -1047,17 +1037,12 @@ a {
                                               location.reload();
                                           }
                                       });
-                                  }/*,
-                                  error : function(data, status, er) {
-                                      alert("error: " + data + " status: " + status
-                                              + " er:" + er);
-                                  }*/
+                                  }
                               });
                   }
               });
               }else{
-                  $
-                          .ajax({
+                  $ .ajax({
                               url : "/EvaluateTool/application/checkCommittee",
                               type : 'POST',
                               data : {
@@ -1104,17 +1089,13 @@ a {
                                       type: "error",
                                       confirmButtonColor: "#8ACBE5",
                                       confirmButtonText: "OK",
-                                      closeOnConfirm: false
+                                      closeOnConfirm: true
                                   }, function (isConfirm) {
                                       if (isConfirm) {
                                           location.reload();
                                       }
                                   });
-                              }/*,
-                              error : function(data, status, er) {
-                                  alert("error: " + data + " status: " + status
-                                          + " er:" + er);
-                              }*/
+                              }
                           });
               }
           }else{
@@ -1171,18 +1152,13 @@ a {
                                           type: "error",
                                           confirmButtonColor: "#8ACBE5",
                                           confirmButtonText: "OK",
-                                          closeOnConfirm: false,
+                                          closeOnConfirm: true
                                       }, function (isConfirm) {
                                           if (isConfirm) {
                                               location.reload();
                                           }
                                       });
                             }
-                          /*,
-                          error : function(data, status, er) {
-                              *//*alert("error: " + data + " status: " + status
-                                  + " er:" + er);*//*
-                          }*/
                       });
               }else{
                       if(roomStatus!="Status : Completed"){
@@ -1205,9 +1181,7 @@ a {
                                           showCancelButton: true,
                                           imageUrl: "resources/images/loading.gif"
                                       }, function(isConfirm){
-
                                           if (isConfirm) {
-
                                           }else{
                                               $.ajax({
                                                   url: "/EvaluateTool/application/removeRequestCommittee",
@@ -1229,7 +1203,7 @@ a {
                                       type:"error",
                                       confirmButtonColor: "#8ACBE5",
                                       confirmButtonText: "OK",
-                                      closeOnConfirm: false,
+                                      closeOnConfirm: true
                                   }, function(isConfirm) {
                                           if(isConfirm){
                                               location.reload();
