@@ -101,7 +101,6 @@ public class ManagerCourseController {
 
 	@RequestMapping(value="/editSubject", method = RequestMethod.POST)
 	public @ResponseBody String editSubject(@RequestParam(value="dataForm") String dataForm) {
-		System.out.print("Test ===============================================>"+dataForm);
 		subjectService.editData(dataForm);
 
 		return "Seccessful";
@@ -126,7 +125,6 @@ public class ManagerCourseController {
 		}else{
 			returnMessage = "0";
 		}
-
 		
 		return returnMessage;
 	}

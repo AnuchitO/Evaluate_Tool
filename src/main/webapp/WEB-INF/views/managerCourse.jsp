@@ -929,7 +929,74 @@ h3{
 						});
 
 
+			});
+
+		$("#btnEditTopic").click(
+				function() {
+					var dataForm = {};
+					dataForm.subjectNameEdit = $("#topicNameEdit").val();
+					dataForm.subjectDescriptionEdit = $("#topicDescriptionEdit").val();
+					dataForm.idTopic = $("#topicAllEditInTopic").val();
+					dataForm.idSubject = $("#subjectAllEditInTopic").val();
+
+					if (dataForm.subjectNameEdit == "") {
+						var dataSend = JSON.stringify(null);
+
+					}else{
+						var dataSend = JSON.stringify(dataForm);
+					};
+					console.info(dataSend);
+
+					swal({   title: "Are you sure?",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "Yes, approve it!",
+						cancelButtonText: "No, cancel pls!",
+						closeOnConfirm: false,
+						closeOnCancel: false
+					}, function(isConfirm){
+						if (isConfirm) {
+							$
+									.ajax({
+										url : "/EvaluateTool/application/editSubject",
+										type : 'POST',
+										data : {
+											dataForm : dataSend
+										},
+										success : function(data) {
+											$('#courseNameEdit').val('');
+											$('#courseDescriptionEdit').val('');
+											swal({
+												type:"success",
+												title: "Approve Success....",
+												confirmButtonText: "Yes",
+											}, function(isConfirm){
+												location.reload();
+											});
+										},
+										error : function(data) {
+											swal({
+												type:"error",
+												title: "Can't Add...",
+											}, function(isConfirm){
+
+											});
+										}
+									});
+						} else {
+							swal({
+								type:"error",
+								title: "Cancelled",
+								text:"Click OK for Cancel",
+								closeOnConfirm:false,
+								confirmButtonText:"OK"
+							});
+						}
 					});
+
+
+				});
 
 			$("#btnSaveSubject").click(
 					function() {
