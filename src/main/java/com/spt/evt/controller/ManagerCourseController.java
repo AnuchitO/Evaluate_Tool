@@ -172,4 +172,32 @@ public class ManagerCourseController {
 		}
 		return report.toString();
 	}
+
+	@RequestMapping(value="/courseGetDetail", method = RequestMethod.POST)
+	public @ResponseBody String courseGetDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
+		Course course = courseService.findById(passToLong);
+
+		JSONObject report = new JSONObject();
+			JSONObject listAfterLoop = new JSONObject();
+			listAfterLoop.put("courseName",course.getName());
+			listAfterLoop.put("courseDescription",course.getDescription());
+			report.append("data",listAfterLoop);
+		return report.toString();
+	}
+
+	@RequestMapping(value="/subjectGetDetail", method = RequestMethod.POST)
+	public @ResponseBody String subjectGetDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
+		Subject subject = subjectService.findById(passToLong);
+
+		JSONObject report = new JSONObject();
+		JSONObject listAfterLoop = new JSONObject();
+		listAfterLoop.put("subjectName",subject.getName());
+		listAfterLoop.put("subjectDescription",subject.getDescription());
+		report.append("data",listAfterLoop);
+		return report.toString();
+	}
 }
