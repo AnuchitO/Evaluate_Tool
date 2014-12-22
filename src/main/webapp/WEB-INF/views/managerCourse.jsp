@@ -391,8 +391,8 @@ h3{
 										dataForm : dataSend
 									},
 									success : function(data) {
-										var addTopic = JSON.parse(data);
-										$.each(addTopic, function(i, item) {
+										var addSubject = JSON.parse(data);
+										$.each(addSubject, function(i, item) {
 											item.forEach(function(data) {
 												var name = data.subjectName;
 												var description = data.subjectDescription;
@@ -403,7 +403,7 @@ h3{
 
 									},
 									error : function(data) {
-										alert("Fail");
+
 									}
 								});
 					}
@@ -559,6 +559,35 @@ h3{
 											});
 										});
 
+										var dataForm = {};
+										dataForm.id = $("#topicAllEditInTopic").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/topicGetDetail",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														var addTopic = JSON.parse(data);
+														$.each(addTopic, function(i, item) {
+															item.forEach(function(data) {
+																var name = data.topicName;
+																var description = data.topicDescription;
+																document.getElementById("topicNameEdit").value = name;
+																document.getElementById("topicDescriptionEdit").value = description;
+															});
+														});
+
+													},
+													error : function(data) {
+
+													}
+												});
+
 									},
 									error : function(data) {
 										$("#topicAllEditInTopic").empty();
@@ -585,12 +614,8 @@ h3{
 						},
 						success : function(data) {
 							$("#topicAllRemoveInTopic").empty();
-
-							var addTopic = JSON.parse(data);
-							var dummyOption = 0;
-							var genOptionId = ("#option" + dummyOption);
-
-							$.each(addTopic, function(i, item) {
+							var addCourse = JSON.parse(data);
+							$.each(addCourse, function(i, item) {
 								item.forEach(function(data) {
 									var name = data.courseName;
 									var description = data.courseDescription;
@@ -601,16 +626,12 @@ h3{
 
 						},
 						error : function(data) {
-							alert("Fail");
+
 						}
 					});
 
 
-			$("#subjectAllRemoveInSubject option").each(
-					function(){
-						$(this).remove();
-					});
-
+			$("#subjectAllRemoveInSubject").empty();
 			var dataForm = {};
 			dataForm.id = $("#courseAllRemoveInSubject").val();
 			var dataSend = JSON.stringify(dataForm);
@@ -1120,11 +1141,7 @@ h3{
 
 			$("#courseAllRemoveInSubject").change(
 					function() {
-							$("#subjectAllRemoveInSubject option").each(
-								function(){
-									$(this).remove();
-							});
-
+						$("#subjectAllRemoveInSubject").empty();
 						var dataForm = {};						
 						dataForm.id = $("#courseAllRemoveInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
@@ -1245,10 +1262,6 @@ h3{
 						},
 						success : function(data) {
 							$("#subjectAllAddInTopic").empty();
-							$("#subjectAllAddInTopic option").each(
-								function(){
-									$(this).empty();
-							});
 							var addSubject = JSON.parse(data);
 							var dummyOption = 0;
 							var genOptionId = ("#option" + dummyOption);
@@ -1323,8 +1336,8 @@ h3{
 														dataForm : dataSend
 													},
 													success : function(data) {
-														var addTopic = JSON.parse(data);
-														$.each(addTopic, function(i, item) {
+														var addSubject = JSON.parse(data);
+														$.each(addSubject, function(i, item) {
 															item.forEach(function(data) {
 																var name = data.subjectName;
 																var description = data.subjectDescription;
@@ -1335,7 +1348,7 @@ h3{
 
 													},
 													error : function(data) {
-														alert("Fail");
+
 													}
 												});
 									});
@@ -1495,9 +1508,41 @@ h3{
 														});
 													});
 
+													var dataForm = {};
+													dataForm.id = $("#topicAllEditInTopic").val();
+													var dataSend = JSON.stringify(dataForm);
+													console.info(dataSend);
+
+													$
+															.ajax({
+																url : "/EvaluateTool/application/topicGetDetail",
+																type : 'POST',
+																data : {
+																	dataForm : dataSend
+																},
+																success : function(data) {
+																	var addTopic = JSON.parse(data);
+																	$.each(addTopic, function(i, item) {
+																		item.forEach(function(data) {
+																			var name = data.topicName;
+																			var description = data.topicDescription;
+																			document.getElementById("topicNameEdit").value = name;
+																			document.getElementById("topicDescriptionEdit").value = description;
+																		});
+																	});
+
+																},
+																error : function(data) {
+																	$('#topicNameEdit').val('');
+																	$('#topicDescriptionEdit').val('');
+																}
+															});
+
 												},
 												error : function(data) {
 													$("#topicAllEditInTopic").empty();
+													$('#topicNameEdit').val('');
+													$('#topicDescriptionEdit').val('');
 												}
 									});
 
@@ -1612,7 +1657,7 @@ h3{
 
 									},
 									error : function(data) {
-										alert("Fail");
+
 									}
 						});
 
@@ -1653,9 +1698,38 @@ h3{
 									});
 								});
 
+								var dataForm = {};
+								dataForm.id = $("#topicAllEditInTopic").val();
+								var dataSend = JSON.stringify(dataForm);
+								console.info(dataSend);
+
+								$
+										.ajax({
+											url : "/EvaluateTool/application/topicGetDetail",
+											type : 'POST',
+											data : {
+												dataForm : dataSend
+											},
+											success : function(data) {
+												var addTopic = JSON.parse(data);
+												$.each(addTopic, function(i, item) {
+													item.forEach(function(data) {
+														var name = data.topicName;
+														var description = data.topicDescription;
+														document.getElementById("topicNameEdit").value = name;
+														document.getElementById("topicDescriptionEdit").value = description;
+													});
+												});
+
+											},
+											error : function(data) {
+
+											}
+										});
+
 							},
 							error : function(data) {
-								alert("Fail");
+
 							}
 						});
 
@@ -1740,8 +1814,8 @@ h3{
 										dataForm : dataSend
 									},
 									success : function(data) {
-										var addTopic = JSON.parse(data);
-										$.each(addTopic, function(i, item) {
+										var addCourse = JSON.parse(data);
+										$.each(addCourse, function(i, item) {
 											item.forEach(function(data) {
 												var name = data.courseName;
 												var description = data.courseDescription;
@@ -1752,7 +1826,7 @@ h3{
 
 									},
 									error : function(data) {
-										alert("Fail");
+
 									}
 						});
 
@@ -1773,8 +1847,8 @@ h3{
 										dataForm : dataSend
 									},
 									success : function(data) {
-										var addTopic = JSON.parse(data);
-										$.each(addTopic, function(i, item) {
+										var addSubject = JSON.parse(data);
+										$.each(addSubject, function(i, item) {
 											item.forEach(function(data) {
 												var name = data.subjectName;
 												var description = data.subjectDescription;
@@ -1785,11 +1859,44 @@ h3{
 
 									},
 									error : function(data) {
-										alert("Fail");
+
 									}
 						});
 
 			});
+
+			$("#topicAllEditInTopic").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#topicAllEditInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/topicGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addTopic = JSON.parse(data);
+										$.each(addTopic, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.topicName;
+												var description = data.topicDescription;
+												document.getElementById("topicNameEdit").value = name;
+												document.getElementById("topicDescriptionEdit").value = description;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+								});
+
+					});
 
 	});
 
