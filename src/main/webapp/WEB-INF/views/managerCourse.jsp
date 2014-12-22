@@ -91,11 +91,17 @@ h3{
 			</div>
 		</div>
 		<div class="col-sm-3 col-md-12 col-md-offset-0">
+			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
+				<a onclick="showRoom()" style="text-decoration: none ; color: #000000">
+					<div style="text-align: center">
+						<h2>Course</h2>
+					</div>
+				</a>
+			</div>
 			<div id="courseDiv" style="border-style: solid ; margin-bottom: 20px ; background-color: #FFFFFF ;
-				border-color: #FF8C00">
+				border-color: #FF8C00 ">
 				<form>
 					<div>
-						<h2 style="text-align: center">Course</h2>
 						<h4 style="margin-left: 50px">Add Course</h4>
 						<input class="textbox"type="text" placeholder="Cource" id="courseName">
 						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescription">
@@ -121,11 +127,17 @@ h3{
 					</div>
 				</form>
 			</div>
+			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
+				<a onclick="showSubject()" style="text-decoration: none ; color: #000000"">
+					<div style="text-align: center">
+						<h2>Subject</h2>
+					</div>
+				</a>
+			</div>
 			<div id="subjectDiv" style="border-style: solid ; margin-bottom: 20px ; background-color: #FFFFFF ;
 				border-color: #FF8C00" >
 				<form>
 					<div>
-						<h2 style="text-align: center">Subject</h2>
 						<h4 style="margin-left: 50px">Add Subject</h4>
 						<select id="courseAllAddInSubject">
 						</select>
@@ -159,11 +171,17 @@ h3{
 				</form>
 				
 			</div>
+			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
+				<a onclick="showTopic()" style="text-decoration: none ; color: #000000"">
+					<div style="text-align: center">
+						<h2>Topic</h2>
+					</div>
+				</a>
+			</div>
 			<div id="topicDiv" style="border-style: solid ; margin-bottom: 20px ; background-color: #FFFFFF ;
 				border-color: #FF8C00">
 				<form>
 					<div>
-						<h2 style="text-align: center">Topic</h2>
 						<h4 style="margin-left: 50px">Add Topic</h4>
 						<select id="courseAllAddInTopic">
 						</select>
@@ -207,7 +225,9 @@ h3{
 			<option id="option"></option>
 			<option id="option0"></option>
 		</div>
+
 	</div>
+
 
 	<script>
 	$(function() {
@@ -1899,6 +1919,47 @@ h3{
 					});
 
 	});
+
+	var i =2;
+	var j =2;
+	var k =2;
+	$("#courseDiv").hide();
+	$("#subjectDiv").hide();
+	$("#topicDiv").hide();
+
+		function showRoom(){
+			if(i == 1){
+				$("#courseDiv").hide();
+				i++;
+			}else{
+				$("#courseDiv").slideDown(800);
+				i--;
+			}
+
+		}
+
+		function showSubject(){
+			if(j == 1){
+				$("#subjectDiv").hide();
+				j++;
+			}else{
+				$("#subjectDiv").slideDown(800);
+				j--;
+			}
+
+		}
+
+		function showTopic(){
+			if(k == 1){
+				$("#topicDiv").hide();
+				k++;
+			}else{
+				$("#topicDiv").slideDown(800);
+				k--;
+			}
+
+		}
+
 
 	</script>
 </body>
