@@ -28,14 +28,12 @@ public class CourseDaoImpl extends TemplateEntityManagerDao implements CourseDao
 	@Transactional
 	public void persist(Course course){
 		this.getEntityManager().persist(course);
-		System.out.println("Save Suscess");
 	}
 
 	@Override
 	@Transactional
 	public void removeCourse(Course course){
 		this.getEntityManager().remove(course);
-		System.out.println("Remove Suscess");
 	}
 
 	@Override
@@ -43,5 +41,11 @@ public class CourseDaoImpl extends TemplateEntityManagerDao implements CourseDao
 	public List<Course> findAll() {
 		Query query = this.getEntityManager().createQuery("from Course");
 		return query.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public void update(Course course) {
+		this.getEntityManager().merge(course);
 	}
 }

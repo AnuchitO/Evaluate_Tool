@@ -10,4 +10,5 @@ public interface CourseDao {
 	public void persist(Course course);
 	public List<Course> findAll();
 	public void removeCourse(Course course);
+	public void update(Course course);
 }
