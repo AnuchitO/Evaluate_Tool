@@ -129,6 +129,13 @@ public class ManagerCourseController {
 		return returnMessage;
 	}
 
+	@RequestMapping(value="/editTopic", method = RequestMethod.POST)
+	public @ResponseBody String editTopic(@RequestParam(value="dataForm") String dataForm) {
+		topicService.editData(dataForm);
+
+		return "Seccessful";
+	}
+
 	@RequestMapping(value="/courseGetSubject", method = RequestMethod.POST)
 	public @ResponseBody String getSubjectInCourse(@RequestParam(value="dataForm") String dataForm) {
 		JSONObject idJsonDelete = new JSONObject(dataForm);		

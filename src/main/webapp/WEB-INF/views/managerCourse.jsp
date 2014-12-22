@@ -934,12 +934,12 @@ h3{
 		$("#btnEditTopic").click(
 				function() {
 					var dataForm = {};
-					dataForm.subjectNameEdit = $("#topicNameEdit").val();
-					dataForm.subjectDescriptionEdit = $("#topicDescriptionEdit").val();
+					dataForm.topicNameEdit = $("#topicNameEdit").val();
+					dataForm.topicDescriptionEdit = $("#topicDescriptionEdit").val();
 					dataForm.idTopic = $("#topicAllEditInTopic").val();
 					dataForm.idSubject = $("#subjectAllEditInTopic").val();
 
-					if (dataForm.subjectNameEdit == "") {
+					if (dataForm.topicNameEdit == "") {
 						var dataSend = JSON.stringify(null);
 
 					}else{
@@ -959,7 +959,7 @@ h3{
 						if (isConfirm) {
 							$
 									.ajax({
-										url : "/EvaluateTool/application/editSubject",
+										url : "/EvaluateTool/application/editTopic",
 										type : 'POST',
 										data : {
 											dataForm : dataSend
