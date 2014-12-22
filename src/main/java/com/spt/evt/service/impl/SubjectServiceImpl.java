@@ -38,8 +38,8 @@ public class SubjectServiceImpl implements SubjectService {
 		Subject subject = new Subject();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("id"));
 		Course course = courseService.findById(passIdToLong);
-		subject.setName(jsonObj.getString("SubjectName"));
-		subject.setDescription(jsonObj.getString("SubjectDescription"));
+		subject.setName(jsonObj.getString("subjectName"));
+		subject.setDescription(jsonObj.getString("subjectDescription"));
 		subject.setCourse(course);	
 		subjectDao.persist(subject);
 		return null;

@@ -9,4 +9,5 @@ public interface CourseService {
 	public String setData(String dataForm);
 	public JSONObject getAllCourse();
 	public Long deleteDataById(Long id);
+	public String editData(String dataForm);
 }

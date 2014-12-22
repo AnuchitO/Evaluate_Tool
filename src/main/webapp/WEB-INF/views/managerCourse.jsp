@@ -115,7 +115,9 @@ h3{
 					<div style="margin-bottom: 20px">
 						<select id="courseAllEdit">
 						</select>
-						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
+						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit">
+						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit">
+						<button type="button" class="btn" id="btnEditCourse">Edit</button>
 					</div>
 				</form>
 			</div>
@@ -123,24 +125,37 @@ h3{
 				border-color: #FF8C00" >
 				<form>
 					<div>
-					<h2 style="text-align: center">Subject</h2>
-					<h4 style="margin-left: 50px">Add Subject</h4>
-					<select id="courseAllAddInSubject">
-					</select>	
-					<input class="textbox"type="text" placeholder="Subject" id="SubjectName">
-					<input class="textbox"type="text" placeholder="Subject : Description" id="SubjectDescription">
-					<button type="button" class="btn" id="btnSaveSubject">Add</button>
-				</div>
+						<h2 style="text-align: center">Subject</h2>
+						<h4 style="margin-left: 50px">Add Subject</h4>
+						<select id="courseAllAddInSubject">
+						</select>
+						<input class="textbox"type="text" placeholder="Subject" id="subjectName">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescription">
+						<button type="button" class="btn" id="btnSaveSubject">Add</button>
+					</div>
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-					<h4 style="margin-left: 50px">Remove Subject</h4>
-					<select id="courseAllRemoveInSubject">
-					</select>	
-					<select id="subjectAllRemoveInSubject">
-					</select>											
-					<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
-				</div>
+						<h4 style="margin-left: 50px">Remove Subject</h4>
+						<select id="courseAllRemoveInSubject">
+						</select>
+						<select id="subjectAllRemoveInSubject">
+						</select>
+						<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
+					</div>
+				</form>
+				<form>
+					<div style="margin-bottom: 20px">
+						<h4 style="margin-left: 50px">Edit Subject</h4>
+						<select id="courseAllEditInSubject">
+						</select>
+						<select id="subjectAllEditInSubject">
+						</select>
+						<br></br>
+						<input class="textbox"type="text" placeholder="Subject" id="subjectNameEdit">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescriptionEdit">
+						<button type="button" class="btn" id="btnEditSubject">Edit</button>
+					</div>
 				</form>
 				
 			</div>
@@ -148,29 +163,44 @@ h3{
 				border-color: #FF8C00">
 				<form>
 					<div>
-					<h2 style="text-align: center">Topic</h2>
-					<h4 style="margin-left: 50px">Add Topic</h4>
-					<select id="courseAllAddInTopic">
-					</select>	
-					<select id="subjectAllAddInTopic">
-					</select>	
-					<br></br>
-					<input class="textbox"type="text" placeholder="Topic" id="TopictName">
-					<input class="textbox"type="text" placeholder="Topic : Description" id="TopicDescription">
-					<button type="button" class="btn" id="btnSaveTopic">Add</button>
-				</div>
+						<h2 style="text-align: center">Topic</h2>
+						<h4 style="margin-left: 50px">Add Topic</h4>
+						<select id="courseAllAddInTopic">
+						</select>
+						<select id="subjectAllAddInTopic">
+						</select>
+						<br></br>
+						<input class="textbox"type="text" placeholder="Topic" id="topicName">
+						<input class="textbox"type="text" placeholder="Topic : Description" id="topicDescription">
+						<button type="button" class="btn" id="btnSaveTopic">Add</button>
+					</div>
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-					<h4 style="margin-left: 50px">Remove Topic</h4>
-					<select id="courseAllRemoveInTopic">
-					</select>		
-					<select id="subjectAllRemoveInTopic">
-					</select>
-					<select id="topicAllRemoveInTopic">
-					</select>									
-					<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
-				</div>
+						<h4 style="margin-left: 50px">Remove Topic</h4>
+						<select id="courseAllRemoveInTopic">
+						</select>
+						<select id="subjectAllRemoveInTopic">
+						</select>
+						<select id="topicAllRemoveInTopic">
+						</select>
+						<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
+					</div>
+				</form>
+				<form>
+					<div style="margin-bottom: 20px">
+						<h4 style="margin-left: 50px">Edit Topic</h4>
+						<select id="courseAllEditInTopic">
+						</select>
+						<select id="subjectAllEditInTopic">
+						</select>
+						<select id="topicAllEditInTopic">
+						</select>
+						<br></br>
+						<input class="textbox"type="text" placeholder="Subject" id="topicNameEdit">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="topicDescriptionEdit">
+						<button type="button" class="btn" id="btnEditTopic">Edit</button>
+					</div>
 				</form>
 				
 			</div>
@@ -212,6 +242,20 @@ h3{
 						nameAndLastName).val(examinerId)
 						.insertAfter(genOptionId).show().appendTo(
 						$("#courseAllEdit"));
+			});
+		});
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+						nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+						$("#courseAllEditInSubject"));
 			});
 		});
 
@@ -282,6 +326,59 @@ h3{
 								$("#courseAllRemoveInTopic"));
 			});
 		});
+
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+						nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+						$("#courseAllEditInTopic"));
+			});
+		});
+
+		var dataForm = {};
+		dataForm.id = $("#courseAllEditInSubject").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+
+		$
+				.ajax({
+					url: "/EvaluateTool/application/courseGetSubject",
+					type: 'POST',
+					data: {
+						dataForm: dataSend
+					},
+					success: function (data) {
+						$("#subjectAllEditInSubject").empty();
+
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var genOptionId = ("#option" + dummyOption);
+
+						$.each(addSubject, function (i, item) {
+							item.forEach(function (data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllEditInSubject"));
+							});
+						});
+					}
+				});
 
 		var dataForm = {};
 		dataForm.id = $("#courseAllRemoveInTopic").val();
@@ -363,6 +460,86 @@ h3{
 					}
 				});
 
+		var dataForm = {};
+		dataForm.id = $("#courseAllEditInTopic").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+
+		$
+				.ajax({
+					url : "/EvaluateTool/application/courseGetSubject",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						$("#subjectAllEditInTopic").empty();
+
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var dummyRoomId = 0;
+						var genOptionId = ("#option" + dummyOption);
+
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllEditInTopic"));
+							});
+						});
+
+						var dataForm = {};
+						dataForm.id = $("#subjectAllEditInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetTopic",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										$("#topicAllEditInTopic").empty();
+
+										var addTopic = JSON.parse(data);
+										var dummyOption = 0;
+										var dummyRoomId = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addTopic, function(i, item) {
+											item.forEach(function(data) {
+												var topicId = data.topicid;
+												var name = data.topicName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(topicId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#topicAllEditInTopic"));
+											});
+										});
+
+									},
+									error : function(data) {
+										$("#topicAllEditInTopic").empty();
+									}
+								});
+
+					},
+					error : function(data) {
+
+					}
+				});
+
 
 			$("#subjectAllRemoveInSubject option").each(
 					function(){
@@ -421,10 +598,7 @@ h3{
 					},
 					success : function(data) {
 						$("#subjectAllAddInTopic").empty();
-						$("#subjectAllAddInTopic option").each(
-								function(){
-									$(this).empty();
-								});
+
 						var addSubject = JSON.parse(data);
 						var dummyOption = 0;
 						var dummyRoomId = 0;
@@ -450,8 +624,50 @@ h3{
 					}
 				});
 
-			$("#btnSaveCourse").click(
-					function() {
+		var dataForm = {};
+		dataForm.id = $("#courseAllEditInSubject").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+
+		$
+				.ajax({
+					url : "/EvaluateTool/application/courseGetSubject",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						$("#subjectAllAddInTopic").empty();
+
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var dummyRoomId = 0;
+						var genOptionId = ("#option" + dummyOption);
+
+
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllAddInTopic"));
+							});
+						});
+
+					},
+					error : function(data) {
+
+					}
+				});
+
+
+
+		$("#btnSaveCourse").click(
+				function() {
 						var dataForm = {};
 						dataForm.courseName = $("#courseName").val();
 						dataForm.courseDescription = $("#courseDescription").val();
@@ -580,15 +796,82 @@ h3{
 
 			
 
-			});		
+			});
+
+			$("#btnEditCourse").click(
+					function() {
+						var dataForm = {};
+						dataForm.courseNameEdit = $("#courseNameEdit").val();
+						dataForm.courseDescriptionEdit = $("#courseDescriptionEdit").val();
+						dataForm.id = $("#courseAllEdit").val();
+
+						if (dataForm.courseNameEdit == "") {
+							var dataSend = JSON.stringify(null);
+
+						}else{
+							var dataSend = JSON.stringify(dataForm);
+						};
+						console.info(dataSend);
+
+						console.info(dataSend);
+						swal({   title: "Are you sure?",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "Yes, approve it!",
+							cancelButtonText: "No, cancel pls!",
+							closeOnConfirm: false,
+							closeOnCancel: false
+						}, function(isConfirm){
+							if (isConfirm) {
+								$
+										.ajax({
+											url : "/EvaluateTool/application/editCourse",
+											type : 'POST',
+											data : {
+												dataForm : dataSend
+											},
+											success : function(data) {
+												$('#courseNameEdit').val('');
+												$('#courseDescriptionEdit').val('');
+												swal({
+													type:"success",
+													title: "Approve Success....",
+													confirmButtonText: "Yes",
+												}, function(isConfirm){
+													location.reload();
+												});
+											},
+											error : function(data) {
+												swal({
+													type:"error",
+													title: "Can't Add...",
+												}, function(isConfirm){
+
+												});
+											}
+										});
+							} else {
+								swal({
+									type:"error",
+									title: "Cancelled",
+									text:"Click OK for Cancel",
+									closeOnConfirm:false,
+									confirmButtonText:"OK"
+								});
+							}
+						});
+
+
+					});
 
 			$("#btnSaveSubject").click(
 					function() {
 						var dataForm = {};
-						dataForm.SubjectName = $("#SubjectName").val();
-						dataForm.SubjectDescription = $("#SubjectDescription").val();
+						dataForm.subjectName = $("#subjectName").val();
+						dataForm.subjectDescription = $("#subjectDescription").val();
 						dataForm.id = $("#courseAllAddInSubject").val();
-						if (dataForm.SubjectName == "") {
+						if (dataForm.subjectName == "") {
 							var dataSend = JSON.stringify(null);
 
 						}else{
@@ -613,8 +896,8 @@ h3{
 												dataForm : dataSend
 											},
 										success : function(data) {													
-												$('#SubjectName').val('');
-												$('#SubjectDescription').val('');
+												$('#subjectName').val('');
+												$('#subjectDescription').val('');
 												swal({
 									 			type:"success",
 									 			title: "Approve Success....",
@@ -801,6 +1084,44 @@ h3{
 
 			});
 
+			$("#courseAllEditInSubject").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#courseAllEditInSubject").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url: "/EvaluateTool/application/courseGetSubject",
+									type: 'POST',
+									data: {
+										dataForm: dataSend
+									},
+									success: function (data) {
+										$("#subjectAllEditInSubject").empty();
+
+										var addSubject = JSON.parse(data);
+										var dummyOption = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addSubject, function (i, item) {
+											item.forEach(function (data) {
+												var subjectId = data.subjectid;
+												var name = data.subjectName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(subjectId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#subjectAllEditInSubject"));
+											});
+										});
+									}
+								});
+			});
+
 			$("#courseAllRemoveInTopic").change(
 					function() {
 						var dataForm = {};						
@@ -884,13 +1205,96 @@ h3{
 
 			});
 
+			$("#courseAllEditInTopic").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#courseAllEditInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/courseGetSubject",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										$("#subjectAllEditInTopic").empty();
+
+										var addSubject = JSON.parse(data);
+										var dummyOption = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addSubject, function(i, item) {
+											item.forEach(function(data) {
+												var subjectId = data.subjectid;
+												var name = data.subjectName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(subjectId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#subjectAllEditInTopic"));
+											});
+										});
+
+										var dataForm = {};
+										dataForm.id = $("#subjectAllEditInTopic").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/subjectGetTopic",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														$("#topicAllEditInTopic").empty();
+
+														var addTopic = JSON.parse(data);
+														var dummyOption = 0;
+														var dummyRoomId = 0;
+														var genOptionId = ("#option" + dummyOption);
+
+														$.each(addTopic, function(i, item) {
+															item.forEach(function(data) {
+																var topicId = data.topicid;
+																var name = data.topicName;
+
+
+																$("#option").clone()
+																		.attr('id', 'option' + (++dummyOption)).text(
+																		name).val(topicId)
+																		.insertAfter(genOptionId).show().appendTo(
+																		$("#topicAllEditInTopic"));
+															});
+														});
+
+													},
+													error : function(data) {
+														$("#topicAllEditInTopic").empty();
+													}
+												});
+
+									},
+									error : function(data) {
+
+									}
+								});
+
+					});
+
 			$("#btnSaveTopic").click(
 					function() {
 						var dataForm = {};
-						dataForm.TopictName = $("#TopictName").val();
-						dataForm.TopicDescription = $("#TopicDescription").val();
+						dataForm.topicName = $("#topicName").val();
+						dataForm.topicDescription = $("#topicDescription").val();
 						dataForm.id = $("#subjectAllAddInTopic").val();
-						if (dataForm.TopictName == "") {
+						if (dataForm.topicName == "") {
 							var dataSend = JSON.stringify(null);
 
 						}else{
@@ -915,12 +1319,12 @@ h3{
 												dataForm : dataSend
 										},
 										success : function(data) {		
-												$('#CourseName').empty();											
-												$('#SubjectName').val('');
-												$('#TopictName').val('');												
-												$('#CourseDescription').val('');
-												$('#TopicDescription').val('');
-												$('#SubjectDescription').val('');
+												$('#courseName').empty();
+												$('#subjectName').val('');
+												$('#topicName').val('');
+												$('#courseDescription').val('');
+												$('#topicDescription').val('');
+												$('#subjectDescription').val('');
 												swal({
 									 			type:"success",
 									 			title: "Approve Success....",
@@ -992,6 +1396,49 @@ h3{
 					});
 
 			});
+
+			$("#subjectAllEditInTopic").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#subjectAllEditInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetTopic",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										$("#topicAllEditInTopic").empty();
+
+										var addTopic = JSON.parse(data);
+										var dummyOption = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addTopic, function(i, item) {
+											item.forEach(function(data) {
+												var topicId = data.topicid;
+												var name = data.topicName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(topicId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#topicAllEditInTopic"));
+											});
+										});
+
+									},
+									error : function(data) {
+										alert("Fail");
+									}
+								});
+
+					});
 
 			$("#btnRemoveTopic").click(
 					function() {

@@ -51,17 +51,11 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public String setData(String dataForm) {
-
 		JSONObject jsonObj = new JSONObject(dataForm);
-		
 		Course course = new Course();
-
 		course.setName(jsonObj.getString("courseName"));
 		course.setDescription(jsonObj.getString("courseDescription"));
-		System.out.println("SetValue");
-		
 		courseDao.persist(course);
-		System.out.println("Persist Successful");
 
 		return null;
 	}
@@ -74,4 +68,15 @@ public class CourseServiceImpl implements CourseService {
 		return null;
 	}
 
+	@Override
+	@Transactional
+	public String editData(String dataForm) {
+		JSONObject jsonObj = new JSONObject(dataForm);
+		Course course = new Course();
+		course.setId(Long.parseLong(jsonObj.getString("id")));
+		course.setName(jsonObj.getString("courseNameEdit"));
+		course.setDescription(jsonObj.getString("courseDescriptionEdit"));
+		courseDao.update(course);
+		return null;
+	}
 }

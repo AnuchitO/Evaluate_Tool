@@ -41,8 +41,8 @@ public class TopicServiceImpl implements TopicService {
 		Topic topic = new Topic();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("id"));
 		Subject subject = subjectService.findById(passIdToLong);
-		topic.setName(jsonObj.getString("TopictName"));
-		topic.setDescription(jsonObj.getString("TopicDescription"));
+		topic.setName(jsonObj.getString("topicName"));
+		topic.setDescription(jsonObj.getString("topicDescription"));
 		topic.setSubject(subject);	
 		topicDao.persist(topic);
 		return null;
