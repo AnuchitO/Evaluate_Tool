@@ -869,7 +869,8 @@ h3{
 						var dataForm = {};
 						dataForm.subjectNameEdit = $("#subjectNameEdit").val();
 						dataForm.subjectDescriptionEdit = $("#subjectDescriptionEdit").val();
-						dataForm.id = $("#subjectAllEditInSubject").val();
+						dataForm.idSubject = $("#subjectAllEditInSubject").val();
+						dataForm.idCourse = $("#courseAllEditInSubject").val();
 
 						if (dataForm.subjectNameEdit == "") {
 							var dataSend = JSON.stringify(null);

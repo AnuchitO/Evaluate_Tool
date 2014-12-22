@@ -99,6 +99,14 @@ public class ManagerCourseController {
 		return returnMessage;
 	}
 
+	@RequestMapping(value="/editSubject", method = RequestMethod.POST)
+	public @ResponseBody String editSubject(@RequestParam(value="dataForm") String dataForm) {
+		System.out.print("Test ===============================================>"+dataForm);
+		subjectService.editData(dataForm);
+
+		return "Seccessful";
+	}
+
 	@RequestMapping(value="/saveTopic", method = RequestMethod.POST)
 	public @ResponseBody String saveTopic(@RequestParam(value="dataForm") String dataForm) {
 		topicService.setData(dataForm);

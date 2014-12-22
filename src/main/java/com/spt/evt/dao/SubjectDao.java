@@ -10,4 +10,5 @@ public interface SubjectDao {
 	public void persist(Subject subject);
 	public Subject findById(Long id);
 	public void removeSubject(Subject subject);
+	public void update(Subject subject);
 }

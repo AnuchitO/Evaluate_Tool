@@ -50,4 +50,10 @@ public class SubjectDaoImpl extends TemplateEntityManagerDao implements
 	public void removeSubject(Subject subject){
 		this.getEntityManager().remove(subject);
 	}
+
+	@Override
+	@Transactional
+	public void update(Subject subject) {
+		this.getEntityManager().merge(subject);
+	}
 }
