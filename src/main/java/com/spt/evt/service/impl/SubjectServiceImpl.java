@@ -57,5 +57,19 @@ public class SubjectServiceImpl implements SubjectService {
 		this.subjectDao.removeSubject(subject);
 		return null;
 	}
-	
+
+	@Override
+	@Transactional
+	public String editData(String dataForm) {
+		JSONObject jsonObj = new JSONObject(dataForm);
+		Subject subject = new Subject();
+		Long passIdToLong = Long.parseLong(jsonObj.getString("idCourse"));
+		Course course = courseService.findById(passIdToLong);
+		subject.setId(Long.parseLong(jsonObj.getString("idSubject")));
+		subject.setName(jsonObj.getString("subjectNameEdit"));
+		subject.setDescription(jsonObj.getString("subjectDescriptionEdit"));
+		subject.setCourse(course);
+		subjectDao.update(subject);
+		return null;
+	}
 }

@@ -2,6 +2,7 @@ package com.spt.evt.service.impl;
 
 import java.util.List;
 
+import com.spt.evt.entity.Course;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,21 @@ public class TopicServiceImpl implements TopicService {
 	public Long deleteDataById(Long id) {
 		Topic topic = findById(id);
 		this.topicDao.removeTopic(topic);
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public String editData(String dataForm) {
+		JSONObject jsonObj = new JSONObject(dataForm);
+		Topic topic = new Topic();
+		Long passIdToLong = Long.parseLong(jsonObj.getString("idSubject"));
+		Subject subject = subjectService.findById(passIdToLong);
+		topic.setId(Long.parseLong(jsonObj.getString("idTopic")));
+		topic.setName(jsonObj.getString("topicNameEdit"));
+		topic.setDescription(jsonObj.getString("topicDescriptionEdit"));
+		topic.setSubject(subject);
+		topicDao.update(topic);
 		return null;
 	}
 

@@ -53,4 +53,8 @@ public class TopicDaoImpl extends TemplateEntityManagerDao implements
 		this.getEntityManager().remove(topic);
 	}
 
+	@Override
+	public void update(Topic topic) {
+			this.getEntityManager().merge(topic);
+	}
 }

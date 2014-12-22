@@ -11,5 +11,5 @@ public interface TopicDao {
 	public List<Topic> findBySubject(Subject subject);
 	public void persist(Topic topic);
 	public void removeTopic(Topic topic);
-	
+	public void update(Topic topic);
 }

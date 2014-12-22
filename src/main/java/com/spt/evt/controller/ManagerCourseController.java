@@ -99,6 +99,13 @@ public class ManagerCourseController {
 		return returnMessage;
 	}
 
+	@RequestMapping(value="/editSubject", method = RequestMethod.POST)
+	public @ResponseBody String editSubject(@RequestParam(value="dataForm") String dataForm) {
+		subjectService.editData(dataForm);
+
+		return "Seccessful";
+	}
+
 	@RequestMapping(value="/saveTopic", method = RequestMethod.POST)
 	public @ResponseBody String saveTopic(@RequestParam(value="dataForm") String dataForm) {
 		topicService.setData(dataForm);
@@ -118,9 +125,15 @@ public class ManagerCourseController {
 		}else{
 			returnMessage = "0";
 		}
-
 		
 		return returnMessage;
+	}
+
+	@RequestMapping(value="/editTopic", method = RequestMethod.POST)
+	public @ResponseBody String editTopic(@RequestParam(value="dataForm") String dataForm) {
+		topicService.editData(dataForm);
+
+		return "Seccessful";
 	}
 
 	@RequestMapping(value="/courseGetSubject", method = RequestMethod.POST)
