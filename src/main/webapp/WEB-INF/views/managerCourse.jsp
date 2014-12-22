@@ -115,7 +115,9 @@ h3{
 					<div style="margin-bottom: 20px">
 						<select id="courseAllEdit">
 						</select>
-						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
+						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit">
+						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit">
+						<button type="button" class="btn" id="btnEditCourse">Edit</button>
 					</div>
 				</form>
 			</div>
@@ -141,6 +143,19 @@ h3{
 					</select>											
 					<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
 				</div>
+				</form>
+				<form>
+					<div style="margin-bottom: 20px">
+						<h4 style="margin-left: 50px">Edit Subject</h4>
+						<select id="courseAllEditInSubject">
+						</select>
+						<select id="subjectAllEditInSubject">
+						</select>
+						<br></br>
+						<input class="textbox"type="text" placeholder="Subject" id="SubjectNameEdit">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="SubjectDescriptionEdit">
+						<button type="button" class="btn" id="btnEditSubject">Edit</button>
+					</div>
 				</form>
 				
 			</div>
@@ -212,6 +227,20 @@ h3{
 						nameAndLastName).val(examinerId)
 						.insertAfter(genOptionId).show().appendTo(
 						$("#courseAllEdit"));
+			});
+		});
+
+		$.each(completedRoom, function(i, item) {
+
+			item.forEach(function(course) {
+
+				var nameAndLastName = course.courseName;
+				var examinerId = course.courseId;
+				$("#option").clone()
+						.attr('id', 'option' + (++dummyOption)).text(
+						nameAndLastName).val(examinerId)
+						.insertAfter(genOptionId).show().appendTo(
+						$("#courseAllEditInSubject"));
 			});
 		});
 
@@ -421,10 +450,7 @@ h3{
 					},
 					success : function(data) {
 						$("#subjectAllAddInTopic").empty();
-						$("#subjectAllAddInTopic option").each(
-								function(){
-									$(this).empty();
-								});
+
 						var addSubject = JSON.parse(data);
 						var dummyOption = 0;
 						var dummyRoomId = 0;
@@ -450,8 +476,50 @@ h3{
 					}
 				});
 
-			$("#btnSaveCourse").click(
-					function() {
+		var dataForm = {};
+		dataForm.id = $("#courseAllEditInSubject").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+
+		$
+				.ajax({
+					url : "/EvaluateTool/application/courseGetSubject",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						$("#subjectAllAddInTopic").empty();
+
+						var addSubject = JSON.parse(data);
+						var dummyOption = 0;
+						var dummyRoomId = 0;
+						var genOptionId = ("#option" + dummyOption);
+
+
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var subjectId = data.subjectid;
+								var name = data.subjectName;
+
+								$("#option").clone()
+										.attr('id', 'option' + (++dummyOption)).text(
+										name).val(subjectId)
+										.insertAfter(genOptionId).show().appendTo(
+										$("#subjectAllAddInTopic"));
+							});
+						});
+
+					},
+					error : function(data) {
+
+					}
+				});
+
+
+
+		$("#btnSaveCourse").click(
+				function() {
 						var dataForm = {};
 						dataForm.courseName = $("#courseName").val();
 						dataForm.courseDescription = $("#courseDescription").val();
