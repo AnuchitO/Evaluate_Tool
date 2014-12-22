@@ -172,4 +172,47 @@ public class ManagerCourseController {
 		}
 		return report.toString();
 	}
+
+	@RequestMapping(value="/courseGetDetail", method = RequestMethod.POST)
+	public @ResponseBody String courseGetDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
+		Course course = courseService.findById(passToLong);
+
+		JSONObject report = new JSONObject();
+			JSONObject setKeyAfterGet = new JSONObject();
+			setKeyAfterGet.put("courseName",course.getName());
+			setKeyAfterGet.put("courseDescription",course.getDescription());
+			report.append("data",setKeyAfterGet);
+		return report.toString();
+	}
+
+	@RequestMapping(value="/subjectGetDetail", method = RequestMethod.POST)
+	public @ResponseBody String subjectGetDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
+		Subject subject = subjectService.findById(passToLong);
+
+		JSONObject report = new JSONObject();
+		JSONObject setKeyAfterGet = new JSONObject();
+		setKeyAfterGet.put("subjectName",subject.getName());
+		setKeyAfterGet.put("subjectDescription",subject.getDescription());
+		report.append("data",setKeyAfterGet);
+		return report.toString();
+	}
+
+	@RequestMapping(value="/topicGetDetail", method = RequestMethod.POST)
+	public @ResponseBody String topicGetDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
+		Topic topic = topicService.findById(passToLong);
+
+		JSONObject report = new JSONObject();
+		JSONObject setKeyAfterGet = new JSONObject();
+		setKeyAfterGet.put("topicName",topic.getName());
+		setKeyAfterGet.put("topicDescription",topic.getDescription());
+		report.append("data",setKeyAfterGet);
+
+		return report.toString();
+	}
 }

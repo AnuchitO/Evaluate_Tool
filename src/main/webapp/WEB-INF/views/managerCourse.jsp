@@ -377,8 +377,39 @@ h3{
 										$("#subjectAllEditInSubject"));
 							});
 						});
+
+						var dataForm = {};
+						dataForm.id = $("#subjectAllEditInSubject").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addSubject = JSON.parse(data);
+										$.each(addSubject, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.subjectName;
+												var description = data.subjectDescription;
+												document.getElementById("subjectNameEdit").value = name;
+												document.getElementById("subjectDescriptionEdit").value = description;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+								});
 					}
+
 				});
+
 
 		var dataForm = {};
 		dataForm.id = $("#courseAllRemoveInTopic").val();
@@ -528,6 +559,35 @@ h3{
 											});
 										});
 
+										var dataForm = {};
+										dataForm.id = $("#topicAllEditInTopic").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/topicGetDetail",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														var addTopic = JSON.parse(data);
+														$.each(addTopic, function(i, item) {
+															item.forEach(function(data) {
+																var name = data.topicName;
+																var description = data.topicDescription;
+																document.getElementById("topicNameEdit").value = name;
+																document.getElementById("topicDescriptionEdit").value = description;
+															});
+														});
+
+													},
+													error : function(data) {
+
+													}
+												});
+
 									},
 									error : function(data) {
 										$("#topicAllEditInTopic").empty();
@@ -540,12 +600,38 @@ h3{
 					}
 				});
 
+			var dataForm = {};
+			dataForm.id = $("#courseAllEdit").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
 
-			$("#subjectAllRemoveInSubject option").each(
-					function(){
-						$(this).remove();
+			$
+					.ajax({
+						url : "/EvaluateTool/application/courseGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							$("#topicAllRemoveInTopic").empty();
+							var addCourse = JSON.parse(data);
+							$.each(addCourse, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.courseName;
+									var description = data.courseDescription;
+									document.getElementById("courseNameEdit").value = name;
+									document.getElementById("courseDescriptionEdit").value = description;
+								});
+							});
+
+						},
+						error : function(data) {
+
+						}
 					});
 
+
+			$("#subjectAllRemoveInSubject").empty();
 			var dataForm = {};
 			dataForm.id = $("#courseAllRemoveInSubject").val();
 			var dataSend = JSON.stringify(dataForm);
@@ -638,18 +724,11 @@ h3{
 					},
 					success : function(data) {
 						$("#subjectAllAddInTopic").empty();
-
 						var addSubject = JSON.parse(data);
-						var dummyOption = 0;
-						var dummyRoomId = 0;
-						var genOptionId = ("#option" + dummyOption);
-
-
 						$.each(addSubject, function(i, item) {
 							item.forEach(function(data) {
 								var subjectId = data.subjectid;
 								var name = data.subjectName;
-
 								$("#option").clone()
 										.attr('id', 'option' + (++dummyOption)).text(
 										name).val(subjectId)
@@ -662,7 +741,7 @@ h3{
 					error : function(data) {
 
 					}
-				});
+		});
 
 
 
@@ -1062,11 +1141,7 @@ h3{
 
 			$("#courseAllRemoveInSubject").change(
 					function() {
-							$("#subjectAllRemoveInSubject option").each(
-								function(){
-									$(this).remove();
-							});
-
+						$("#subjectAllRemoveInSubject").empty();
 						var dataForm = {};						
 						dataForm.id = $("#courseAllRemoveInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
@@ -1187,10 +1262,6 @@ h3{
 						},
 						success : function(data) {
 							$("#subjectAllAddInTopic").empty();
-							$("#subjectAllAddInTopic option").each(
-								function(){
-									$(this).empty();
-							});
 							var addSubject = JSON.parse(data);
 							var dummyOption = 0;
 							var genOptionId = ("#option" + dummyOption);
@@ -1223,7 +1294,6 @@ h3{
 						dataForm.id = $("#courseAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
-
 						$
 							.ajax({
 								url: "/EvaluateTool/application/courseGetSubject",
@@ -1233,6 +1303,8 @@ h3{
 								},
 								success: function (data) {
 									$("#subjectAllEditInSubject").empty();
+									$('#subjectNameEdit').val('');
+									$('#subjectDescriptionEdit').val('');
 
 									var addSubject = JSON.parse(data);
 									var dummyOption = 0;
@@ -1250,6 +1322,35 @@ h3{
 													.insertAfter(genOptionId).show().appendTo(
 													$("#subjectAllEditInSubject"));
 										});
+
+										var dataForm = {};
+										dataForm.id = $("#subjectAllEditInSubject").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/subjectGetDetail",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														var addSubject = JSON.parse(data);
+														$.each(addSubject, function(i, item) {
+															item.forEach(function(data) {
+																var name = data.subjectName;
+																var description = data.subjectDescription;
+																document.getElementById("subjectNameEdit").value = name;
+																document.getElementById("subjectDescriptionEdit").value = description;
+															});
+														});
+
+													},
+													error : function(data) {
+
+													}
+												});
 									});
 								}
 						});
@@ -1407,9 +1508,41 @@ h3{
 														});
 													});
 
+													var dataForm = {};
+													dataForm.id = $("#topicAllEditInTopic").val();
+													var dataSend = JSON.stringify(dataForm);
+													console.info(dataSend);
+
+													$
+															.ajax({
+																url : "/EvaluateTool/application/topicGetDetail",
+																type : 'POST',
+																data : {
+																	dataForm : dataSend
+																},
+																success : function(data) {
+																	var addTopic = JSON.parse(data);
+																	$.each(addTopic, function(i, item) {
+																		item.forEach(function(data) {
+																			var name = data.topicName;
+																			var description = data.topicDescription;
+																			document.getElementById("topicNameEdit").value = name;
+																			document.getElementById("topicDescriptionEdit").value = description;
+																		});
+																	});
+
+																},
+																error : function(data) {
+																	$('#topicNameEdit').val('');
+																	$('#topicDescriptionEdit').val('');
+																}
+															});
+
 												},
 												error : function(data) {
 													$("#topicAllEditInTopic").empty();
+													$('#topicNameEdit').val('');
+													$('#topicDescriptionEdit').val('');
 												}
 									});
 
@@ -1524,7 +1657,7 @@ h3{
 
 									},
 									error : function(data) {
-										alert("Fail");
+
 									}
 						});
 
@@ -1565,9 +1698,38 @@ h3{
 									});
 								});
 
+								var dataForm = {};
+								dataForm.id = $("#topicAllEditInTopic").val();
+								var dataSend = JSON.stringify(dataForm);
+								console.info(dataSend);
+
+								$
+										.ajax({
+											url : "/EvaluateTool/application/topicGetDetail",
+											type : 'POST',
+											data : {
+												dataForm : dataSend
+											},
+											success : function(data) {
+												var addTopic = JSON.parse(data);
+												$.each(addTopic, function(i, item) {
+													item.forEach(function(data) {
+														var name = data.topicName;
+														var description = data.topicDescription;
+														document.getElementById("topicNameEdit").value = name;
+														document.getElementById("topicDescriptionEdit").value = description;
+													});
+												});
+
+											},
+											error : function(data) {
+
+											}
+										});
+
 							},
 							error : function(data) {
-								alert("Fail");
+
 							}
 						});
 
@@ -1634,8 +1796,107 @@ h3{
 								 			confirmButtonText:"OK"
 								 		});
 								 	} 
-								 });
+		 						});
 			});
+
+			$("#courseAllEdit").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#courseAllEdit").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/courseGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addCourse = JSON.parse(data);
+										$.each(addCourse, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.courseName;
+												var description = data.courseDescription;
+												document.getElementById("courseNameEdit").value = name;
+												document.getElementById("courseDescriptionEdit").value = description;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+						});
+
+			});
+
+			$("#subjectAllEditInSubject").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#subjectAllEditInSubject").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addSubject = JSON.parse(data);
+										$.each(addSubject, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.subjectName;
+												var description = data.subjectDescription;
+												document.getElementById("subjectNameEdit").value = name;
+												document.getElementById("subjectDescriptionEdit").value = description;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+						});
+
+			});
+
+			$("#topicAllEditInTopic").change(
+					function() {
+						var dataForm = {};
+						dataForm.id = $("#topicAllEditInTopic").val();
+						var dataSend = JSON.stringify(dataForm);
+						console.info(dataSend);
+
+						$
+								.ajax({
+									url : "/EvaluateTool/application/topicGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addTopic = JSON.parse(data);
+										$.each(addTopic, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.topicName;
+												var description = data.topicDescription;
+												document.getElementById("topicNameEdit").value = name;
+												document.getElementById("topicDescriptionEdit").value = description;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+								});
+
+					});
 
 	});
 
