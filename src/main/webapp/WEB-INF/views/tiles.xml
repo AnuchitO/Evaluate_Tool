@@ -48,7 +48,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/examinerDashBoard.jsp" />
 	</definition>
 	
-	<definition name="report" extends="standardLayout">
+	<definition name="report" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/report.jsp" />
 	</definition>
 
@@ -56,7 +56,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/summaryByTopic.jsp" />
 	</definition>
 
-	<definition name="managerCourse" extends="standardLayout">
+	<definition name="managerCourse" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/managerCourse.jsp" />
 	</definition>
 		

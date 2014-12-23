@@ -45,7 +45,7 @@ table>tbody>tr>td {
 
 .btn {
 	background-color: #FF8C00;
-	margin-left: 50px;
+	margin-left: 20px;
 }
 
 .textbox,select { 
@@ -70,9 +70,9 @@ h3{
 </head>
 <body>
 
-	<div class="container">	
+	<div class="container">
 
-		<div class="col-sm-3 col-md-12 col-md-offset-0">
+		<div class="col-md-11 column">
 			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
 				<a onclick="showRoom()" style="text-decoration: none ; color: #000000">
 					<div style="text-align: center">
@@ -91,26 +91,19 @@ h3{
 					</div>
 				</form>
 				<form>
-					<h4 style="margin-left: 50px">Remove Course</h4>
-					<div style="margin-bottom: 20px">
-						<select id="courseAllRemove">
-						</select>										
-						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
-					</div>
-				</form>
-				<form>
-					<h4 style="margin-left: 50px">Edit Course</h4>
+					<h4 style="margin-left: 50px">Edit Or Remove Course</h4>
 					<div style="margin-bottom: 20px">
 						<select id="courseAllEdit">
 						</select>
 						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit">
 						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit">
 						<button type="button" class="btn" id="btnEditCourse">Edit</button>
+						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
 					</div>
 				</form>
 			</div>
 			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
-				<a onclick="showSubject()" style="text-decoration: none ; color: #000000"">
+				<a onclick="showCourseInEditSubject()" style="text-decoration: none ; color: #000000"">
 					<div style="text-align: center">
 						<h2>Subject</h2>
 					</div>
@@ -121,8 +114,10 @@ h3{
 				<form>
 					<div>
 						<h4 style="margin-left: 50px">Add Subject</h4>
-						<select id="courseAllAddInSubject">
-						</select>
+						<%--<select id="courseAllAddInSubject">--%>
+						<%--</select>--%>
+						<label style="margin-left: 50px">Course :</label>
+						<label id="showCourse"></label>
 						<input class="textbox"type="text" placeholder="Subject" id="subjectName">
 						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescription">
 						<button type="button" class="btn" id="btnSaveSubject">Add</button>
@@ -130,25 +125,28 @@ h3{
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-						<h4 style="margin-left: 50px">Remove Subject</h4>
-						<select id="courseAllRemoveInSubject">
-						</select>
-						<select id="subjectAllRemoveInSubject">
-						</select>
-						<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
+						<%--<h4 style="margin-left: 50px">Remove Subject</h4>--%>
+						<%--<select id="courseAllRemoveInSubject">--%>
+						<%--</select>--%>
+						<%--<select id="subjectAllRemoveInSubject">--%>
+						<%--</select>--%>
+
 					</div>
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-						<h4 style="margin-left: 50px">Edit Subject</h4>
-						<select id="courseAllEditInSubject">
-						</select>
+						<h4 style="margin-left: 50px">Edit Or Remove Subject</h4>
+						<%--<select id="courseAllEditInSubject">--%>
+						<%--</select>--%>
+							<label style="margin-left: 50px">Course :</label>
+							<label id="showCourseInEditSubject"></label>
 						<select id="subjectAllEditInSubject">
 						</select>
 						<br></br>
 						<input class="textbox"type="text" placeholder="Subject" id="subjectNameEdit">
 						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescriptionEdit">
 						<button type="button" class="btn" id="btnEditSubject">Edit</button>
+						<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
 					</div>
 				</form>
 				
@@ -165,10 +163,14 @@ h3{
 				<form>
 					<div>
 						<h4 style="margin-left: 50px">Add Topic</h4>
-						<select id="courseAllAddInTopic">
-						</select>
-						<select id="subjectAllAddInTopic">
-						</select>
+						<%--<select id="courseAllAddInTopic">--%>
+						<%--</select>--%>
+						<%--<select id="subjectAllAddInTopic">--%>
+						<%--</select>--%>
+						<label style="margin-left: 50px">Course :</label>
+						<label id="showCourseInAddTopic"></label>
+						<label style="margin-left: 50px">Subject :</label>
+						<label id="showSubjectInAddTopic"></label>
 						<br></br>
 						<input class="textbox"type="text" placeholder="Topic" id="topicName">
 						<input class="textbox"type="text" placeholder="Topic : Description" id="topicDescription">
@@ -177,29 +179,34 @@ h3{
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-						<h4 style="margin-left: 50px">Remove Topic</h4>
-						<select id="courseAllRemoveInTopic">
-						</select>
-						<select id="subjectAllRemoveInTopic">
-						</select>
-						<select id="topicAllRemoveInTopic">
-						</select>
-						<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
+						<%--<h4 style="margin-left: 50px">Remove Topic</h4>--%>
+						<%--<select id="courseAllRemoveInTopic">--%>
+						<%--</select>--%>
+						<%--<select id="subjectAllRemoveInTopic">--%>
+						<%--</select>--%>
+						<%--<select id="topicAllRemoveInTopic">--%>
+						<%--</select>--%>
+
 					</div>
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
 						<h4 style="margin-left: 50px">Edit Topic</h4>
-						<select id="courseAllEditInTopic">
-						</select>
-						<select id="subjectAllEditInTopic">
-						</select>
+						<%--<select id="courseAllEditInTopic">--%>
+						<%--</select>--%>
+						<%--<select id="subjectAllEditInTopic">--%>
+						<%--</select>--%>
+						<label style="margin-left: 50px">Course :</label>
+						<label id="showCourseInEditTopic"></label>
+						<label style="margin-left: 50px">Subject :</label>
+						<label id="showSubjectInEditTopic"></label>
 						<select id="topicAllEditInTopic">
 						</select>
 						<br></br>
 						<input class="textbox"type="text" placeholder="Subject" id="topicNameEdit">
 						<input class="textbox"type="text" placeholder="Subject : Description" id="topicDescriptionEdit">
 						<button type="button" class="btn" id="btnEditTopic">Edit</button>
+						<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
 					</div>
 				</form>
 				
@@ -218,19 +225,19 @@ h3{
 		var dummyOption = 0;
 		var genOptionId = ("#option" + dummyOption);
 
-		$.each(completedRoom, function(i, item) {
-
-			item.forEach(function(course) {
-
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllRemove"));
-			});
-		});
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllRemove"));
+//			});
+//		});
 
 
 		$.each(completedRoom, function(i, item) {
@@ -245,110 +252,140 @@ h3{
 						.insertAfter(genOptionId).show().appendTo(
 						$("#courseAllEdit"));
 			});
+
+			var dataForm = {};
+			dataForm.id = $("#courseAllEdit").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/courseGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							var addCourse = JSON.parse(data);
+							$.each(addCourse, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.courseName;
+									var description = data.courseDescription;
+									document.getElementById("showCourse").innerHTML = name;
+									document.getElementById("showCourseInEditSubject").innerHTML = name;
+									document.getElementById("showCourseInAddTopic").innerHTML = name;
+									document.getElementById("showCourseInEditTopic").innerHTML = name;
+								});
+							});
+
+						},
+						error : function(data) {
+
+						}
+					});
 		});
 
-		$.each(completedRoom, function(i, item) {
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//						nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//						$("#courseAllEditInSubject"));
+//			});
+//		});
 
-			item.forEach(function(course) {
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllAddInSubject"));
+//			});
+//		});
 
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-						nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-						$("#courseAllEditInSubject"));
-			});
-		});
+		<%--var completedRoom = JSON.parse('${allCourse}');--%>
+		<%--var dummyOption = 0;--%>
+		<%--var genOptionId = ("#option" + dummyOption);--%>
 
-		$.each(completedRoom, function(i, item) {
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option2").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllRemoveInSubject"));
+//			});
+//		});
 
-			item.forEach(function(course) {
+		<%--var completedRoom = JSON.parse('${allCourse}');--%>
+		<%--var dummyOption = 0;--%>
+		<%--var genOptionId = ("#option" + dummyOption);--%>
 
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllAddInSubject"));
-			});
-		});
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllAddInTopic"));
+//			});
+//		});
 
-		var completedRoom = JSON.parse('${allCourse}');
-		var dummyOption = 0;
-		var genOptionId = ("#option" + dummyOption);
+		<%--var completedRoom = JSON.parse('${allCourse}');--%>
+		<%--var dummyOption = 0;--%>
+		<%--var genOptionId = ("#option" + dummyOption);--%>
 
-		$.each(completedRoom, function(i, item) {
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllRemoveInTopic"));
+//			});
+//		});
 
-			item.forEach(function(course) {
+		<%--var completedRoom = JSON.parse('${allCourse}');--%>
+		<%--var dummyOption = 0;--%>
+		<%--var genOptionId = ("#option" + dummyOption);--%>
 
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option2").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllRemoveInSubject"));
-			});
-		});
-
-		var completedRoom = JSON.parse('${allCourse}');
-		var dummyOption = 0;
-		var genOptionId = ("#option" + dummyOption);
-
-		$.each(completedRoom, function(i, item) {
-
-			item.forEach(function(course) {
-
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllAddInTopic"));
-			});
-		});
-
-		var completedRoom = JSON.parse('${allCourse}');
-		var dummyOption = 0;
-		var genOptionId = ("#option" + dummyOption);
-
-		$.each(completedRoom, function(i, item) {
-
-			item.forEach(function(course) {
-
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllRemoveInTopic"));
-			});
-		});
-
-		var completedRoom = JSON.parse('${allCourse}');
-		var dummyOption = 0;
-		var genOptionId = ("#option" + dummyOption);
-
-		$.each(completedRoom, function(i, item) {
-
-			item.forEach(function(course) {
-
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-						nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-						$("#courseAllEditInTopic"));
-			});
-		});
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//						nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//						$("#courseAllEditInTopic"));
+//			});
+//		});
 
 		var dataForm = {};
-		dataForm.id = $("#courseAllEditInSubject").val();
+		dataForm.id = $("#courseAllEdit").val();
 		var dataSend = JSON.stringify(dataForm);
 		console.info(dataSend);
 
@@ -361,6 +398,9 @@ h3{
 					},
 					success: function (data) {
 						$("#subjectAllEditInSubject").empty();
+						document.getElementById("showSubjectInAddTopic").innerHTML = null;
+						document.getElementById("showSubjectInEditTopic").innerHTML = null;
+
 
 						var addSubject = JSON.parse(data);
 						var dummyOption = 0;
@@ -379,7 +419,6 @@ h3{
 										$("#subjectAllEditInSubject"));
 							});
 						});
-
 						var dataForm = {};
 						dataForm.id = $("#subjectAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
@@ -407,343 +446,511 @@ h3{
 									error : function(data) {
 
 									}
-								});
+						});
+					},error : function(data) {
+
 					}
 
-				});
+		});
 
-
-		var dataForm = {};
-		dataForm.id = $("#courseAllRemoveInTopic").val();
-		var dataSend = JSON.stringify(dataForm);
-		console.info(dataSend);
-
-		$
-				.ajax({
-					url : "/EvaluateTool/application/courseGetSubject",
-					type : 'POST',
-					data : {
-						dataForm : dataSend
-					},
-					success : function(data) {
-						$("#subjectAllRemoveInTopic").empty();
-
-						var addSubject = JSON.parse(data);
-						var dummyOption = 0;
-						var dummyRoomId = 0;
-						var genOptionId = ("#option" + dummyOption);
-
-						$.each(addSubject, function(i, item) {
-							item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-
-
-								$("#option").clone()
-										.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-										.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllRemoveInTopic"));
-							});
-						});
-
+		$("#courseAllEdit").change(
+					function() {
 						var dataForm = {};
-						dataForm.id = $("#subjectAllRemoveInTopic").val();
+						dataForm.id = $("#courseAllEdit").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
-
 						$
-								.ajax({
-									url : "/EvaluateTool/application/subjectGetTopic",
-									type : 'POST',
-									data : {
-										dataForm : dataSend
-									},
-									success : function(data) {
-										$("#topicAllRemoveInTopic").empty();
+							.ajax({
+								url: "/EvaluateTool/application/courseGetSubject",
+								type: 'POST',
+								data: {
+									dataForm: dataSend
+								},
+								success: function (data) {
+									$("#subjectAllEditInSubject").empty();
+									$('#subjectNameEdit').val('');
+									$('#subjectDescriptionEdit').val('');
 
-										var addTopic = JSON.parse(data);
-										var dummyOption = 0;
-										var dummyRoomId = 0;
-										var genOptionId = ("#option" + dummyOption);
-
-										$.each(addTopic, function(i, item) {
-											item.forEach(function(data) {
-												var topicId = data.topicid;
-												var name = data.topicName;
-
-
-												$("#option").clone()
-														.attr('id', 'option' + (++dummyOption)).text(
-														name).val(topicId)
-														.insertAfter(genOptionId).show().appendTo(
-														$("#topicAllRemoveInTopic"));
-											});
-										});
-
-									},
-									error : function(data) {
-										$("#topicAllRemoveInTopic").empty();
+									var addSubject = JSON.parse(data);
+									if(data.length<3){
+										document.getElementById("showSubjectInAddTopic").innerHTML = null;
+										document.getElementById("showSubjectInEditTopic").innerHTML = null;
 									}
-								});
+									var dummyOption = 0;
+									var genOptionId = ("#option" + dummyOption);
 
-					},
-					error : function(data) {
+									$.each(addSubject, function (i, item) {
+										item.forEach(function (data) {
+											var subjectId = data.subjectid;
+											var name = data.subjectName;
 
-					}
-				});
-
-		var dataForm = {};
-		dataForm.id = $("#courseAllEditInTopic").val();
-		var dataSend = JSON.stringify(dataForm);
-		console.info(dataSend);
-
-		$
-				.ajax({
-					url : "/EvaluateTool/application/courseGetSubject",
-					type : 'POST',
-					data : {
-						dataForm : dataSend
-					},
-					success : function(data) {
-						$("#subjectAllEditInTopic").empty();
-
-						var addSubject = JSON.parse(data);
-						var dummyOption = 0;
-						var dummyRoomId = 0;
-						var genOptionId = ("#option" + dummyOption);
-
-						$.each(addSubject, function(i, item) {
-							item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-
-
-								$("#option").clone()
-										.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-										.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllEditInTopic"));
-							});
-						});
-
-						var dataForm = {};
-						dataForm.id = $("#subjectAllEditInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-
-						$
-								.ajax({
-									url : "/EvaluateTool/application/subjectGetTopic",
-									type : 'POST',
-									data : {
-										dataForm : dataSend
-									},
-									success : function(data) {
-										$("#topicAllEditInTopic").empty();
-
-										var addTopic = JSON.parse(data);
-										var dummyOption = 0;
-										var dummyRoomId = 0;
-										var genOptionId = ("#option" + dummyOption);
-
-										$.each(addTopic, function(i, item) {
-											item.forEach(function(data) {
-												var topicId = data.topicid;
-												var name = data.topicName;
-
-
-												$("#option").clone()
-														.attr('id', 'option' + (++dummyOption)).text(
-														name).val(topicId)
-														.insertAfter(genOptionId).show().appendTo(
-														$("#topicAllEditInTopic"));
-											});
+											$("#option").clone()
+													.attr('id', 'option' + (++dummyOption)).text(
+													name).val(subjectId)
+													.insertAfter(genOptionId).show().appendTo(
+													$("#subjectAllEditInSubject"));
 										});
 
 										var dataForm = {};
-										dataForm.id = $("#topicAllEditInTopic").val();
+										dataForm.id = $("#subjectAllEditInSubject").val();
 										var dataSend = JSON.stringify(dataForm);
 										console.info(dataSend);
 
 										$
 												.ajax({
-													url : "/EvaluateTool/application/topicGetDetail",
+													url : "/EvaluateTool/application/subjectGetDetail",
 													type : 'POST',
 													data : {
 														dataForm : dataSend
 													},
 													success : function(data) {
-														var addTopic = JSON.parse(data);
-														$.each(addTopic, function(i, item) {
+														var addSubject = JSON.parse(data);
+														alert(addSubject);
+														$.each(addSubject, function(i, item) {
 															item.forEach(function(data) {
-																var name = data.topicName;
-																var description = data.topicDescription;
-																document.getElementById("topicNameEdit").value = name;
-																document.getElementById("topicDescriptionEdit").value = description;
+																var name = data.subjectName;
+																var description = data.subjectDescription;
+																document.getElementById("subjectNameEdit").value = name;
+																document.getElementById("subjectDescriptionEdit").value = description;
 															});
 														});
 
 													},
 													error : function(data) {
-
+														alert("Test Error");
 													}
 												});
+									});
+								},error : function(data) {
+
+								}
+						});
+						$
+								.ajax({
+									url : "/EvaluateTool/application/courseGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addCourse = JSON.parse(data);
+										$.each(addCourse, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.courseName;
+												var description = data.courseDescription;
+												document.getElementById("showCourse").innerHTML = name;
+												document.getElementById("showCourseInEditSubject").innerHTML = name;
+												document.getElementById("showCourseInAddTopic").innerHTML = name;
+												document.getElementById("showCourseInEditTopic").innerHTML = name;
+											});
+										});
 
 									},
 									error : function(data) {
-										$("#topicAllEditInTopic").empty();
+
 									}
 								});
-
-					},
-					error : function(data) {
-
-					}
-				});
-
-			var dataForm = {};
-			dataForm.id = $("#courseAllEdit").val();
-			var dataSend = JSON.stringify(dataForm);
-			console.info(dataSend);
-
-			$
-					.ajax({
-						url : "/EvaluateTool/application/courseGetDetail",
-						type : 'POST',
-						data : {
-							dataForm : dataSend
-						},
-						success : function(data) {
-							$("#topicAllRemoveInTopic").empty();
-							var addCourse = JSON.parse(data);
-							$.each(addCourse, function(i, item) {
-								item.forEach(function(data) {
-									var name = data.courseName;
-									var description = data.courseDescription;
-									document.getElementById("courseNameEdit").value = name;
-									document.getElementById("courseDescriptionEdit").value = description;
-								});
-							});
-
-						},
-						error : function(data) {
-
-						}
-					});
-
-
-			$("#subjectAllRemoveInSubject").empty();
-			var dataForm = {};
-			dataForm.id = $("#courseAllRemoveInSubject").val();
-			var dataSend = JSON.stringify(dataForm);
-			console.info(dataSend);
-
-			$
-					.ajax({
-						url : "/EvaluateTool/application/courseGetSubject",
-						type : 'POST',
-						data : {
-							dataForm : dataSend
-						},
-						success : function(data) {
-
-							var addSubject = JSON.parse(data);
-							var dummyOption = 0;
-							var genOptionId = ("#option" + dummyOption);
-
-
-							$.each(addSubject, function(i, item) {
-								item.forEach(function(data) {
-									var subjectId = data.subjectid;
-									var name = data.subjectName;
-
-									$("#option").clone()
-											.attr('id', 'option' + (++dummyOption)).text(
-											name).val(subjectId)
-											.insertAfter(genOptionId).show().appendTo(
-											$("#subjectAllRemoveInSubject"));
-								});
-							});
-
-						},
-						error : function(data) {
-
-						}
 			});
 
-		var dataForm = {};
-		dataForm.id = $("#courseAllAddInTopic").val();
-		var dataSend = JSON.stringify(dataForm);
-		console.info(dataSend);
-
-		$
-				.ajax({
-					url : "/EvaluateTool/application/courseGetSubject",
-					type : 'POST',
-					data : {
-						dataForm : dataSend
-					},
-					success : function(data) {
-						$("#subjectAllAddInTopic").empty();
-
-						var addSubject = JSON.parse(data);
-						var dummyOption = 0;
-						var dummyRoomId = 0;
-						var genOptionId = ("#option" + dummyOption);
 
 
-						$.each(addSubject, function(i, item) {
-							item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
+//		var dataForm = {};
+//		dataForm.id = $("#courseAllEditInSubject").val();
+//		var dataSend = JSON.stringify(dataForm);
+//		console.info(dataSend);
+//
+//		$
+//				.ajax({
+//					url: "/EvaluateTool/application/courseGetSubject",
+//					type: 'POST',
+//					data: {
+//						dataForm: dataSend
+//					},
+//					success: function (data) {
+//						$("#subjectAllEditInSubject").empty();
+//
+//						var addSubject = JSON.parse(data);
+//						var dummyOption = 0;
+//						var genOptionId = ("#option" + dummyOption);
+//
+//						$.each(addSubject, function (i, item) {
+//							item.forEach(function (data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//
+//								$("#option").clone()
+//										.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//										.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllEditInSubject"));
+//							});
+//						});
+//
+//						var dataForm = {};
+//						dataForm.id = $("#subjectAllEditInSubject").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//								.ajax({
+//									url : "/EvaluateTool/application/subjectGetDetail",
+//									type : 'POST',
+//									data : {
+//										dataForm : dataSend
+//									},
+//									success : function(data) {
+//										var addSubject = JSON.parse(data);
+//										$.each(addSubject, function(i, item) {
+//											item.forEach(function(data) {
+//												var name = data.subjectName;
+//												var description = data.subjectDescription;
+//												document.getElementById("subjectNameEdit").value = name;
+//												document.getElementById("subjectDescriptionEdit").value = description;
+//											});
+//										});
+//
+//									},
+//									error : function(data) {
+//
+//									}
+//								});
+//					}
+//
+//				});
 
-								$("#option").clone()
-										.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-										.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllAddInTopic"));
-							});
-						});
 
-					},
-					error : function(data) {
+//		var dataForm = {};
+//		dataForm.id = $("#courseAllRemoveInTopic").val();
+//		var dataSend = JSON.stringify(dataForm);
+//		console.info(dataSend);
+//
+//		$
+//				.ajax({
+//					url : "/EvaluateTool/application/courseGetSubject",
+//					type : 'POST',
+//					data : {
+//						dataForm : dataSend
+//					},
+//					success : function(data) {
+//						$("#subjectAllRemoveInTopic").empty();
+//
+//						var addSubject = JSON.parse(data);
+//						var dummyOption = 0;
+//						var dummyRoomId = 0;
+//						var genOptionId = ("#option" + dummyOption);
+//
+//						$.each(addSubject, function(i, item) {
+//							item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//
+//								$("#option").clone()
+//										.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//										.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllRemoveInTopic"));
+//							});
+//						});
+//
+//						var dataForm = {};
+//						dataForm.id = $("#subjectAllRemoveInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//								.ajax({
+//									url : "/EvaluateTool/application/subjectGetTopic",
+//									type : 'POST',
+//									data : {
+//										dataForm : dataSend
+//									},
+//									success : function(data) {
+//										$("#topicAllRemoveInTopic").empty();
+//
+//										var addTopic = JSON.parse(data);
+//										var dummyOption = 0;
+//										var dummyRoomId = 0;
+//										var genOptionId = ("#option" + dummyOption);
+//
+//										$.each(addTopic, function(i, item) {
+//											item.forEach(function(data) {
+//												var topicId = data.topicid;
+//												var name = data.topicName;
+//
+//
+//												$("#option").clone()
+//														.attr('id', 'option' + (++dummyOption)).text(
+//														name).val(topicId)
+//														.insertAfter(genOptionId).show().appendTo(
+//														$("#topicAllRemoveInTopic"));
+//											});
+//										});
+//
+//									},
+//									error : function(data) {
+//										$("#topicAllRemoveInTopic").empty();
+//									}
+//								});
+//
+//					},
+//					error : function(data) {
+//
+//					}
+//				});
 
-					}
-				});
+//		var dataForm = {};
+//		dataForm.id = $("#courseAllEditInTopic").val();
+//		var dataSend = JSON.stringify(dataForm);
+//		console.info(dataSend);
+//
+//		$
+//				.ajax({
+//					url : "/EvaluateTool/application/courseGetSubject",
+//					type : 'POST',
+//					data : {
+//						dataForm : dataSend
+//					},
+//					success : function(data) {
+//						$("#subjectAllEditInTopic").empty();
+//
+//						var addSubject = JSON.parse(data);
+//						var dummyOption = 0;
+//						var dummyRoomId = 0;
+//						var genOptionId = ("#option" + dummyOption);
+//
+//						$.each(addSubject, function(i, item) {
+//							item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//
+//								$("#option").clone()
+//										.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//										.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllEditInTopic"));
+//							});
+//						});
+//
+//						var dataForm = {};
+//						dataForm.id = $("#subjectAllEditInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//								.ajax({
+//									url : "/EvaluateTool/application/subjectGetTopic",
+//									type : 'POST',
+//									data : {
+//										dataForm : dataSend
+//									},
+//									success : function(data) {
+//										$("#topicAllEditInTopic").empty();
+//
+//										var addTopic = JSON.parse(data);
+//										var dummyOption = 0;
+//										var dummyRoomId = 0;
+//										var genOptionId = ("#option" + dummyOption);
+//
+//										$.each(addTopic, function(i, item) {
+//											item.forEach(function(data) {
+//												var topicId = data.topicid;
+//												var name = data.topicName;
+//
+//
+//												$("#option").clone()
+//														.attr('id', 'option' + (++dummyOption)).text(
+//														name).val(topicId)
+//														.insertAfter(genOptionId).show().appendTo(
+//														$("#topicAllEditInTopic"));
+//											});
+//										});
+//
+//										var dataForm = {};
+//										dataForm.id = $("#topicAllEditInTopic").val();
+//										var dataSend = JSON.stringify(dataForm);
+//										console.info(dataSend);
+//
+//										$
+//												.ajax({
+//													url : "/EvaluateTool/application/topicGetDetail",
+//													type : 'POST',
+//													data : {
+//														dataForm : dataSend
+//													},
+//													success : function(data) {
+//														var addTopic = JSON.parse(data);
+//														$.each(addTopic, function(i, item) {
+//															item.forEach(function(data) {
+//																var name = data.topicName;
+//																var description = data.topicDescription;
+//																document.getElementById("topicNameEdit").value = name;
+//																document.getElementById("topicDescriptionEdit").value = description;
+//															});
+//														});
+//
+//													},
+//													error : function(data) {
+//
+//													}
+//												});
+//
+//									},
+//									error : function(data) {
+//										$("#topicAllEditInTopic").empty();
+//									}
+//								});
+//
+//					},
+//					error : function(data) {
+//
+//					}
+//				});
 
-		var dataForm = {};
-		dataForm.id = $("#courseAllEditInSubject").val();
-		var dataSend = JSON.stringify(dataForm);
-		console.info(dataSend);
+//			var dataForm = {};
+//			dataForm.id = $("#courseAllEdit").val();
+//			var dataSend = JSON.stringify(dataForm);
+//			console.info(dataSend);
+//
+//			$
+//					.ajax({
+//						url : "/EvaluateTool/application/courseGetDetail",
+//						type : 'POST',
+//						data : {
+//							dataForm : dataSend
+//						},
+//						success : function(data) {
+//							$("#topicAllRemoveInTopic").empty();
+//							var addCourse = JSON.parse(data);
+//							$.each(addCourse, function(i, item) {
+//								item.forEach(function(data) {
+//									var name = data.courseName;
+//									var description = data.courseDescription;
+//									document.getElementById("courseNameEdit").value = name;
+//									document.getElementById("courseDescriptionEdit").value = description;
+//								});
+//							});
+//
+//						},
+//						error : function(data) {
+//
+//						}
+//					});
 
-		$
-				.ajax({
-					url : "/EvaluateTool/application/courseGetSubject",
-					type : 'POST',
-					data : {
-						dataForm : dataSend
-					},
-					success : function(data) {
-						$("#subjectAllAddInTopic").empty();
-						var addSubject = JSON.parse(data);
-						$.each(addSubject, function(i, item) {
-							item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-								$("#option").clone()
-										.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-										.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllAddInTopic"));
-							});
-						});
 
-					},
-					error : function(data) {
+//			$("#subjectAllRemoveInSubject").empty();
+//			var dataForm = {};
+//			dataForm.id = $("#courseAllRemoveInSubject").val();
+//			var dataSend = JSON.stringify(dataForm);
+//			console.info(dataSend);
+//
+//			$
+//					.ajax({
+//						url : "/EvaluateTool/application/courseGetSubject",
+//						type : 'POST',
+//						data : {
+//							dataForm : dataSend
+//						},
+//						success : function(data) {
+//
+//							var addSubject = JSON.parse(data);
+//							var dummyOption = 0;
+//							var genOptionId = ("#option" + dummyOption);
+//
+//
+//							$.each(addSubject, function(i, item) {
+//								item.forEach(function(data) {
+//									var subjectId = data.subjectid;
+//									var name = data.subjectName;
+//
+//									$("#option").clone()
+//											.attr('id', 'option' + (++dummyOption)).text(
+//											name).val(subjectId)
+//											.insertAfter(genOptionId).show().appendTo(
+//											$("#subjectAllRemoveInSubject"));
+//								});
+//							});
+//
+//						},
+//						error : function(data) {
+//
+//						}
+//			});
 
-					}
-		});
+//		var dataForm = {};
+//		dataForm.id = $("#courseAllAddInTopic").val();
+//		var dataSend = JSON.stringify(dataForm);
+//		console.info(dataSend);
+//
+//		$
+//				.ajax({
+//					url : "/EvaluateTool/application/courseGetSubject",
+//					type : 'POST',
+//					data : {
+//						dataForm : dataSend
+//					},
+//					success : function(data) {
+//						$("#subjectAllAddInTopic").empty();
+//
+//						var addSubject = JSON.parse(data);
+//						var dummyOption = 0;
+//						var dummyRoomId = 0;
+//						var genOptionId = ("#option" + dummyOption);
+//
+//
+//						$.each(addSubject, function(i, item) {
+//							item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//								$("#option").clone()
+//										.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//										.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllAddInTopic"));
+//							});
+//						});
+//
+//					},
+//					error : function(data) {
+//
+//					}
+//				});
+
+//		var dataForm = {};
+//		dataForm.id = $("#courseAllEditInSubject").val();
+//		var dataSend = JSON.stringify(dataForm);
+//		console.info(dataSend);
+//
+//		$
+//				.ajax({
+//					url : "/EvaluateTool/application/courseGetSubject",
+//					type : 'POST',
+//					data : {
+//						dataForm : dataSend
+//					},
+//					success : function(data) {
+//						$("#subjectAllAddInTopic").empty();
+//						var addSubject = JSON.parse(data);
+//						$.each(addSubject, function(i, item) {
+//							item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//								$("#option").clone()
+//										.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//										.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllAddInTopic"));
+//							});
+//						});
+//
+//					},
+//					error : function(data) {
+//
+//					}
+//		});
 
 
 
@@ -814,7 +1021,7 @@ h3{
 			$("#btnRemoveCourse").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#courseAllRemove").val();
+						dataForm.id = $("#courseAllEdit").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);	
 
@@ -951,7 +1158,7 @@ h3{
 						dataForm.subjectNameEdit = $("#subjectNameEdit").val();
 						dataForm.subjectDescriptionEdit = $("#subjectDescriptionEdit").val();
 						dataForm.idSubject = $("#subjectAllEditInSubject").val();
-						dataForm.idCourse = $("#courseAllEditInSubject").val();
+						dataForm.idCourse = $("#courseAllEdit").val();
 
 						if (dataForm.subjectNameEdit == "") {
 							var dataSend = JSON.stringify(null);
@@ -1017,8 +1224,6 @@ h3{
 					var dataForm = {};
 					dataForm.topicNameEdit = $("#topicNameEdit").val();
 					dataForm.topicDescriptionEdit = $("#topicDescriptionEdit").val();
-					dataForm.idTopic = $("#topicAllEditInTopic").val();
-					dataForm.idSubject = $("#subjectAllEditInTopic").val();
 
 					if (dataForm.topicNameEdit == "") {
 						var dataSend = JSON.stringify(null);
@@ -1084,7 +1289,7 @@ h3{
 						var dataForm = {};
 						dataForm.subjectName = $("#subjectName").val();
 						dataForm.subjectDescription = $("#subjectDescription").val();
-						dataForm.id = $("#courseAllAddInSubject").val();
+						dataForm.id = $("#courseAllEdit").val();
 						if (dataForm.subjectName == "") {
 							var dataSend = JSON.stringify(null);
 
@@ -1141,53 +1346,53 @@ h3{
 							 });
 			});
 
-			$("#courseAllRemoveInSubject").change(
-					function() {
-						$("#subjectAllRemoveInSubject").empty();
-						var dataForm = {};						
-						dataForm.id = $("#courseAllRemoveInSubject").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);	
-
-				$
-					.ajax({
-						url : "/EvaluateTool/application/courseGetSubject",
-						type : 'POST',
-						data : {
-							dataForm : dataSend
-						},
-						success : function(data) {
-
-							var addSubject = JSON.parse(data);
-							var dummyOption = 0;
-							var genOptionId = ("#option" + dummyOption);
-
-
-							$.each(addSubject, function(i, item) {
-								item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-								
-							$("#option").clone()
-								.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-								.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllRemoveInSubject"));
-							});
-						});
-
-						},
-						error : function(data) {
-							
-						}
-				});
-
-			});
+//			$("#courseAllRemoveInSubject").change(
+//					function() {
+//						$("#subjectAllRemoveInSubject").empty();
+//						var dataForm = {};
+//						dataForm.id = $("#courseAllRemoveInSubject").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//				$
+//					.ajax({
+//						url : "/EvaluateTool/application/courseGetSubject",
+//						type : 'POST',
+//						data : {
+//							dataForm : dataSend
+//						},
+//						success : function(data) {
+//
+//							var addSubject = JSON.parse(data);
+//							var dummyOption = 0;
+//							var genOptionId = ("#option" + dummyOption);
+//
+//
+//							$.each(addSubject, function(i, item) {
+//								item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//							$("#option").clone()
+//								.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//								.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllRemoveInSubject"));
+//							});
+//						});
+//
+//						},
+//						error : function(data) {
+//
+//						}
+//				});
+//
+//			});
 
 			$("#btnRemoveSubject").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#subjectAllRemoveInSubject").val();
+						dataForm.id = $("#subjectAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);
 
@@ -1248,320 +1453,320 @@ h3{
 								 });
 			});
 
-			$("#courseAllAddInTopic").change(
-					function() {
-						var dataForm = {};						
-						dataForm.id = $("#courseAllAddInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);	
+//			$("#courseAllAddInTopic").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#courseAllAddInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//				$
+//					.ajax({
+//						url : "/EvaluateTool/application/courseGetSubject",
+//						type : 'POST',
+//						data : {
+//							dataForm : dataSend
+//						},
+//						success : function(data) {
+//							$("#subjectAllAddInTopic").empty();
+//							var addSubject = JSON.parse(data);
+//							var dummyOption = 0;
+//							var genOptionId = ("#option" + dummyOption);
+//
+//
+//							$.each(addSubject, function(i, item) {
+//								item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//							$("#option").clone()
+//								.attr('id', 'option' + (++dummyOption)).text(
+//										name).val(subjectId)
+//								.insertAfter(genOptionId).show().appendTo(
+//										$("#subjectAllAddInTopic"));
+//							});
+//						});
+//
+//						},
+//						error : function(data) {
+//
+//						}
+//				});
+//
+//			});
 
-				$
-					.ajax({
-						url : "/EvaluateTool/application/courseGetSubject",
-						type : 'POST',
-						data : {
-							dataForm : dataSend
-						},
-						success : function(data) {
-							$("#subjectAllAddInTopic").empty();
-							var addSubject = JSON.parse(data);
-							var dummyOption = 0;
-							var genOptionId = ("#option" + dummyOption);
+//			$("#courseAllEditInSubject").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#courseAllEditInSubject").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//						$
+//							.ajax({
+//								url: "/EvaluateTool/application/courseGetSubject",
+//								type: 'POST',
+//								data: {
+//									dataForm: dataSend
+//								},
+//								success: function (data) {
+//									$("#subjectAllEditInSubject").empty();
+//									$('#subjectNameEdit').val('');
+//									$('#subjectDescriptionEdit').val('');
+//
+//									var addSubject = JSON.parse(data);
+//									var dummyOption = 0;
+//									var genOptionId = ("#option" + dummyOption);
+//
+//									$.each(addSubject, function (i, item) {
+//										item.forEach(function (data) {
+//											var subjectId = data.subjectid;
+//											var name = data.subjectName;
+//
+//
+//											$("#option").clone()
+//													.attr('id', 'option' + (++dummyOption)).text(
+//													name).val(subjectId)
+//													.insertAfter(genOptionId).show().appendTo(
+//													$("#subjectAllEditInSubject"));
+//										});
+//
+//										var dataForm = {};
+//										dataForm.id = $("#subjectAllEditInSubject").val();
+//										var dataSend = JSON.stringify(dataForm);
+//										console.info(dataSend);
+//
+//										$
+//												.ajax({
+//													url : "/EvaluateTool/application/subjectGetDetail",
+//													type : 'POST',
+//													data : {
+//														dataForm : dataSend
+//													},
+//													success : function(data) {
+//														var addSubject = JSON.parse(data);
+//														$.each(addSubject, function(i, item) {
+//															item.forEach(function(data) {
+//																var name = data.subjectName;
+//																var description = data.subjectDescription;
+//																document.getElementById("subjectNameEdit").value = name;
+//																document.getElementById("subjectDescriptionEdit").value = description;
+//															});
+//														});
+//
+//													},
+//													error : function(data) {
+//
+//													}
+//												});
+//									});
+//								}
+//						});
+//			});
 
+//			$("#courseAllRemoveInTopic").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#courseAllRemoveInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//				$
+//					.ajax({
+//						url : "/EvaluateTool/application/courseGetSubject",
+//						type : 'POST',
+//						data : {
+//							dataForm : dataSend
+//						},
+//						success : function(data) {
+//							$("#subjectAllRemoveInTopic").empty();
+//
+//							var addSubject = JSON.parse(data);
+//							var dummyOption = 0;
+//							var genOptionId = ("#option" + dummyOption);
+//
+//							$.each(addSubject, function(i, item) {
+//								item.forEach(function(data) {
+//								var subjectId = data.subjectid;
+//								var name = data.subjectName;
+//
+//
+//								$("#option").clone()
+//									.attr('id', 'option' + (++dummyOption)).text(
+//											name).val(subjectId)
+//									.insertAfter(genOptionId).show().appendTo(
+//											$("#subjectAllRemoveInTopic"));
+//							});
+//						});
+//
+//							var dataForm = {};
+//						dataForm.id = $("#subjectAllRemoveInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//								.ajax({
+//									url : "/EvaluateTool/application/subjectGetTopic",
+//									type : 'POST',
+//									data : {
+//										dataForm : dataSend
+//									},
+//									success : function(data) {
+//										$("#topicAllRemoveInTopic").empty();
+//
+//										var addTopic = JSON.parse(data);
+//										var dummyOption = 0;
+//										var dummyRoomId = 0;
+//										var genOptionId = ("#option" + dummyOption);
+//
+//										$.each(addTopic, function(i, item) {
+//											item.forEach(function(data) {
+//											var topicId = data.topicid;
+//											var name = data.topicName;
+//
+//
+//											$("#option").clone()
+//												.attr('id', 'option' + (++dummyOption)).text(
+//														name).val(topicId)
+//												.insertAfter(genOptionId).show().appendTo(
+//														$("#topicAllRemoveInTopic"));
+//										});
+//									});
+//
+//									},
+//									error : function(data) {
+//										$("#topicAllRemoveInTopic").empty();
+//									}
+//								});
+//
+//						},
+//						error : function(data) {
+//
+//						}
+//				});
+//
+//			});
 
-							$.each(addSubject, function(i, item) {
-								item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-								
-							$("#option").clone()
-								.attr('id', 'option' + (++dummyOption)).text(
-										name).val(subjectId)
-								.insertAfter(genOptionId).show().appendTo(
-										$("#subjectAllAddInTopic"));
-							});
-						});
-
-						},
-						error : function(data) {
-							
-						}
-				});
-
-			});
-
-			$("#courseAllEditInSubject").change(
-					function() {
-						var dataForm = {};
-						dataForm.id = $("#courseAllEditInSubject").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-						$
-							.ajax({
-								url: "/EvaluateTool/application/courseGetSubject",
-								type: 'POST',
-								data: {
-									dataForm: dataSend
-								},
-								success: function (data) {
-									$("#subjectAllEditInSubject").empty();
-									$('#subjectNameEdit').val('');
-									$('#subjectDescriptionEdit').val('');
-
-									var addSubject = JSON.parse(data);
-									var dummyOption = 0;
-									var genOptionId = ("#option" + dummyOption);
-
-									$.each(addSubject, function (i, item) {
-										item.forEach(function (data) {
-											var subjectId = data.subjectid;
-											var name = data.subjectName;
-
-
-											$("#option").clone()
-													.attr('id', 'option' + (++dummyOption)).text(
-													name).val(subjectId)
-													.insertAfter(genOptionId).show().appendTo(
-													$("#subjectAllEditInSubject"));
-										});
-
-										var dataForm = {};
-										dataForm.id = $("#subjectAllEditInSubject").val();
-										var dataSend = JSON.stringify(dataForm);
-										console.info(dataSend);
-
-										$
-												.ajax({
-													url : "/EvaluateTool/application/subjectGetDetail",
-													type : 'POST',
-													data : {
-														dataForm : dataSend
-													},
-													success : function(data) {
-														var addSubject = JSON.parse(data);
-														$.each(addSubject, function(i, item) {
-															item.forEach(function(data) {
-																var name = data.subjectName;
-																var description = data.subjectDescription;
-																document.getElementById("subjectNameEdit").value = name;
-																document.getElementById("subjectDescriptionEdit").value = description;
-															});
-														});
-
-													},
-													error : function(data) {
-
-													}
-												});
-									});
-								}
-						});
-			});
-
-			$("#courseAllRemoveInTopic").change(
-					function() {
-						var dataForm = {};						
-						dataForm.id = $("#courseAllRemoveInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-
-				$
-					.ajax({
-						url : "/EvaluateTool/application/courseGetSubject",
-						type : 'POST',
-						data : {
-							dataForm : dataSend
-						},
-						success : function(data) {
-							$("#subjectAllRemoveInTopic").empty();
-
-							var addSubject = JSON.parse(data);
-							var dummyOption = 0;
-							var genOptionId = ("#option" + dummyOption);
-
-							$.each(addSubject, function(i, item) {
-								item.forEach(function(data) {
-								var subjectId = data.subjectid;
-								var name = data.subjectName;
-
-								
-								$("#option").clone()
-									.attr('id', 'option' + (++dummyOption)).text(
-											name).val(subjectId)
-									.insertAfter(genOptionId).show().appendTo(
-											$("#subjectAllRemoveInTopic"));
-							});
-						});
-
-							var dataForm = {};						
-						dataForm.id = $("#subjectAllRemoveInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-
-						$
-								.ajax({
-									url : "/EvaluateTool/application/subjectGetTopic",
-									type : 'POST',
-									data : {
-										dataForm : dataSend
-									},
-									success : function(data) {
-										$("#topicAllRemoveInTopic").empty();
-
-										var addTopic = JSON.parse(data);
-										var dummyOption = 0;
-										var dummyRoomId = 0;
-										var genOptionId = ("#option" + dummyOption);
-
-										$.each(addTopic, function(i, item) {
-											item.forEach(function(data) {
-											var topicId = data.topicid;
-											var name = data.topicName;
-
-											
-											$("#option").clone()
-												.attr('id', 'option' + (++dummyOption)).text(
-														name).val(topicId)
-												.insertAfter(genOptionId).show().appendTo(
-														$("#topicAllRemoveInTopic"));
-										});
-									});
-
-									},
-									error : function(data) {
-										$("#topicAllRemoveInTopic").empty();
-									}
-								});
-
-						},
-						error : function(data) {
-							
-						}
-				});
-
-			});
-
-			$("#courseAllEditInTopic").change(
-					function() {
-						var dataForm = {};
-						dataForm.id = $("#courseAllEditInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-
-						$
-							.ajax({
-								url : "/EvaluateTool/application/courseGetSubject",
-								type : 'POST',
-								data : {
-									dataForm : dataSend
-								},
-								success : function(data) {
-									$("#subjectAllEditInTopic").empty();
-
-									var addSubject = JSON.parse(data);
-									var dummyOption = 0;
-									var genOptionId = ("#option" + dummyOption);
-
-									$.each(addSubject, function(i, item) {
-										item.forEach(function(data) {
-											var subjectId = data.subjectid;
-											var name = data.subjectName;
-
-
-											$("#option").clone()
-													.attr('id', 'option' + (++dummyOption)).text(
-													name).val(subjectId)
-													.insertAfter(genOptionId).show().appendTo(
-													$("#subjectAllEditInTopic"));
-										});
-									});
-
-									var dataForm = {};
-									dataForm.id = $("#subjectAllEditInTopic").val();
-									var dataSend = JSON.stringify(dataForm);
-									console.info(dataSend);
-
-									$
-											.ajax({
-												url : "/EvaluateTool/application/subjectGetTopic",
-												type : 'POST',
-												data : {
-													dataForm : dataSend
-												},
-												success : function(data) {
-													$("#topicAllEditInTopic").empty();
-
-													var addTopic = JSON.parse(data);
-													var dummyOption = 0;
-													var dummyRoomId = 0;
-													var genOptionId = ("#option" + dummyOption);
-
-													$.each(addTopic, function(i, item) {
-														item.forEach(function(data) {
-															var topicId = data.topicid;
-															var name = data.topicName;
-
-
-															$("#option").clone()
-																	.attr('id', 'option' + (++dummyOption)).text(
-																	name).val(topicId)
-																	.insertAfter(genOptionId).show().appendTo(
-																	$("#topicAllEditInTopic"));
-														});
-													});
-
-													var dataForm = {};
-													dataForm.id = $("#topicAllEditInTopic").val();
-													var dataSend = JSON.stringify(dataForm);
-													console.info(dataSend);
-
-													$
-															.ajax({
-																url : "/EvaluateTool/application/topicGetDetail",
-																type : 'POST',
-																data : {
-																	dataForm : dataSend
-																},
-																success : function(data) {
-																	var addTopic = JSON.parse(data);
-																	$.each(addTopic, function(i, item) {
-																		item.forEach(function(data) {
-																			var name = data.topicName;
-																			var description = data.topicDescription;
-																			document.getElementById("topicNameEdit").value = name;
-																			document.getElementById("topicDescriptionEdit").value = description;
-																		});
-																	});
-
-																},
-																error : function(data) {
-																	$('#topicNameEdit').val('');
-																	$('#topicDescriptionEdit').val('');
-																}
-															});
-
-												},
-												error : function(data) {
-													$("#topicAllEditInTopic").empty();
-													$('#topicNameEdit').val('');
-													$('#topicDescriptionEdit').val('');
-												}
-									});
-
-								},
-								error : function(data) {
-
-								}
-						});
-
-			});
+//			$("#courseAllEditInTopic").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#courseAllEditInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//							.ajax({
+//								url : "/EvaluateTool/application/courseGetSubject",
+//								type : 'POST',
+//								data : {
+//									dataForm : dataSend
+//								},
+//								success : function(data) {
+//									$("#subjectAllEditInTopic").empty();
+//
+//									var addSubject = JSON.parse(data);
+//									var dummyOption = 0;
+//									var genOptionId = ("#option" + dummyOption);
+//
+//									$.each(addSubject, function(i, item) {
+//										item.forEach(function(data) {
+//											var subjectId = data.subjectid;
+//											var name = data.subjectName;
+//
+//
+//											$("#option").clone()
+//													.attr('id', 'option' + (++dummyOption)).text(
+//													name).val(subjectId)
+//													.insertAfter(genOptionId).show().appendTo(
+//													$("#subjectAllEditInTopic"));
+//										});
+//									});
+//
+//									var dataForm = {};
+//									dataForm.id = $("#subjectAllEditInTopic").val();
+//									var dataSend = JSON.stringify(dataForm);
+//									console.info(dataSend);
+//
+//									$
+//											.ajax({
+//												url : "/EvaluateTool/application/subjectGetTopic",
+//												type : 'POST',
+//												data : {
+//													dataForm : dataSend
+//												},
+//												success : function(data) {
+//													$("#topicAllEditInTopic").empty();
+//
+//													var addTopic = JSON.parse(data);
+//													var dummyOption = 0;
+//													var dummyRoomId = 0;
+//													var genOptionId = ("#option" + dummyOption);
+//
+//													$.each(addTopic, function(i, item) {
+//														item.forEach(function(data) {
+//															var topicId = data.topicid;
+//															var name = data.topicName;
+//
+//
+//															$("#option").clone()
+//																	.attr('id', 'option' + (++dummyOption)).text(
+//																	name).val(topicId)
+//																	.insertAfter(genOptionId).show().appendTo(
+//																	$("#topicAllEditInTopic"));
+//														});
+//													});
+//
+//													var dataForm = {};
+//													dataForm.id = $("#topicAllEditInTopic").val();
+//													var dataSend = JSON.stringify(dataForm);
+//													console.info(dataSend);
+//
+//													$
+//															.ajax({
+//																url : "/EvaluateTool/application/topicGetDetail",
+//																type : 'POST',
+//																data : {
+//																	dataForm : dataSend
+//																},
+//																success : function(data) {
+//																	var addTopic = JSON.parse(data);
+//																	$.each(addTopic, function(i, item) {
+//																		item.forEach(function(data) {
+//																			var name = data.topicName;
+//																			var description = data.topicDescription;
+//																			document.getElementById("topicNameEdit").value = name;
+//																			document.getElementById("topicDescriptionEdit").value = description;
+//																		});
+//																	});
+//
+//																},
+//																error : function(data) {
+//																	$('#topicNameEdit').val('');
+//																	$('#topicDescriptionEdit').val('');
+//																}
+//															});
+//
+//												},
+//												error : function(data) {
+//													$("#topicAllEditInTopic").empty();
+//													$('#topicNameEdit').val('');
+//													$('#topicDescriptionEdit').val('');
+//												}
+//									});
+//
+//								},
+//								error : function(data) {
+//
+//								}
+//						});
+//
+//			});
 
 			$("#btnSaveTopic").click(
 					function() {
 						var dataForm = {};
 						dataForm.topicName = $("#topicName").val();
 						dataForm.topicDescription = $("#topicDescription").val();
-						dataForm.id = $("#subjectAllAddInTopic").val();
+						dataForm.id = $("#subjectAllEditInSubject").val();
 						if (dataForm.topicName == "") {
 							var dataSend = JSON.stringify(null);
 
@@ -1622,125 +1827,124 @@ h3{
 							 });
 			});
 
-			$("#subjectAllRemoveInTopic").change(
-					function() {
-						var dataForm = {};						
-						dataForm.id = $("#subjectAllRemoveInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
+//			$("#subjectAllRemoveInTopic").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#subjectAllRemoveInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//								.ajax({
+//									url : "/EvaluateTool/application/subjectGetTopic",
+//									type : 'POST',
+//									data : {
+//										dataForm : dataSend
+//									},
+//									success : function(data) {
+//										$("#topicAllRemoveInTopic").empty();
+//
+//										var addTopic = JSON.parse(data);
+//										var dummyOption = 0;
+//										var genOptionId = ("#option" + dummyOption);
+//
+//										$.each(addTopic, function(i, item) {
+//											item.forEach(function(data) {
+//											var topicId = data.topicid;
+//											var name = data.topicName;
+//
+//
+//											$("#option").clone()
+//												.attr('id', 'option' + (++dummyOption)).text(
+//														name).val(topicId)
+//												.insertAfter(genOptionId).show().appendTo(
+//														$("#topicAllRemoveInTopic"));
+//										});
+//									});
+//
+//									},
+//									error : function(data) {
+//
+//									}
+//						});
+//
+//			});
 
-						$
-								.ajax({
-									url : "/EvaluateTool/application/subjectGetTopic",
-									type : 'POST',
-									data : {
-										dataForm : dataSend
-									},
-									success : function(data) {
-										$("#topicAllRemoveInTopic").empty();
-
-										var addTopic = JSON.parse(data);
-										var dummyOption = 0;
-										var genOptionId = ("#option" + dummyOption);
-
-										$.each(addTopic, function(i, item) {
-											item.forEach(function(data) {
-											var topicId = data.topicid;
-											var name = data.topicName;
-
-
-											$("#option").clone()
-												.attr('id', 'option' + (++dummyOption)).text(
-														name).val(topicId)
-												.insertAfter(genOptionId).show().appendTo(
-														$("#topicAllRemoveInTopic"));
-										});
-									});
-
-									},
-									error : function(data) {
-
-									}
-						});
-
-			});
-
-			$("#subjectAllEditInTopic").change(
-					function() {
-						var dataForm = {};
-						dataForm.id = $("#subjectAllEditInTopic").val();
-						var dataSend = JSON.stringify(dataForm);
-						console.info(dataSend);
-
-						$
-							.ajax({
-							url : "/EvaluateTool/application/subjectGetTopic",
-							type : 'POST',
-							data : {
-								dataForm : dataSend
-							},
-							success : function(data) {
-								$("#topicAllEditInTopic").empty();
-
-								var addTopic = JSON.parse(data);
-								var dummyOption = 0;
-								var genOptionId = ("#option" + dummyOption);
-
-								$.each(addTopic, function(i, item) {
-									item.forEach(function(data) {
-										var topicId = data.topicid;
-										var name = data.topicName;
-
-
-										$("#option").clone()
-												.attr('id', 'option' + (++dummyOption)).text(
-												name).val(topicId)
-												.insertAfter(genOptionId).show().appendTo(
-												$("#topicAllEditInTopic"));
-									});
-								});
-
-								var dataForm = {};
-								dataForm.id = $("#topicAllEditInTopic").val();
-								var dataSend = JSON.stringify(dataForm);
-								console.info(dataSend);
-
-								$
-										.ajax({
-											url : "/EvaluateTool/application/topicGetDetail",
-											type : 'POST',
-											data : {
-												dataForm : dataSend
-											},
-											success : function(data) {
-												var addTopic = JSON.parse(data);
-												$.each(addTopic, function(i, item) {
-													item.forEach(function(data) {
-														var name = data.topicName;
-														var description = data.topicDescription;
-														document.getElementById("topicNameEdit").value = name;
-														document.getElementById("topicDescriptionEdit").value = description;
-													});
-												});
-
-											},
-											error : function(data) {
-
-											}
-										});
-
-							},
-							error : function(data) {
-
-							}
-						});
-
-					});
+//			$("#subjectAllEditInTopic").change(
+//					function() {
+//						var dataForm = {};
+//						dataForm.id = $("#subjectAllEditInTopic").val();
+//						var dataSend = JSON.stringify(dataForm);
+//						console.info(dataSend);
+//
+//						$
+//							.ajax({
+//							url : "/EvaluateTool/application/subjectGetTopic",
+//							type : 'POST',
+//							data : {
+//								dataForm : dataSend
+//							},
+//							success : function(data) {
+//								$("#topicAllEditInTopic").empty();
+//
+//								var addTopic = JSON.parse(data);
+//								var dummyOption = 0;
+//								var genOptionId = ("#option" + dummyOption);
+//
+//								$.each(addTopic, function(i, item) {
+//									item.forEach(function(data) {
+//										var topicId = data.topicid;
+//										var name = data.topicName;
+//
+//
+//										$("#option").clone()
+//												.attr('id', 'option' + (++dummyOption)).text(
+//												name).val(topicId)
+//												.insertAfter(genOptionId).show().appendTo(
+//												$("#topicAllEditInTopic"));
+//									});
+//								});
+//
+//								var dataForm = {};
+//								dataForm.id = $("#topicAllEditInTopic").val();
+//								var dataSend = JSON.stringify(dataForm);
+//								console.info(dataSend);
+//
+//								$
+//										.ajax({
+//											url : "/EvaluateTool/application/topicGetDetail",
+//											type : 'POST',
+//											data : {
+//												dataForm : dataSend
+//											},
+//											success : function(data) {
+//												var addTopic = JSON.parse(data);
+//												$.each(addTopic, function(i, item) {
+//													item.forEach(function(data) {
+//														var name = data.topicName;
+//														var description = data.topicDescription;
+//														document.getElementById("topicNameEdit").value = name;
+//														document.getElementById("topicDescriptionEdit").value = description;
+//													});
+//												});
+//
+//											},
+//											error : function(data) {
+//
+//											}
+//										});
+//
+//							},
+//							error : function(data) {
+//
+//							}
+//						});
+//
+//					});
 
 			$("#btnRemoveTopic").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#topicAllRemoveInTopic").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);		
 
@@ -1841,6 +2045,7 @@ h3{
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
 
+
 						$
 								.ajax({
 									url : "/EvaluateTool/application/subjectGetDetail",
@@ -1865,7 +2070,58 @@ h3{
 									}
 						});
 
+						$
+								.ajax({
+									url : "/EvaluateTool/application/subjectGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										var addSubject = JSON.parse(data);
+										$.each(addSubject, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.subjectName;
+												var description = data.subjectDescription;
+												document.getElementById("showSubjectInAddTopic").innerHTML = name;
+												document.getElementById("showSubjectInEditTopic").innerHTML = name;
+
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+								});
+
 			});
+
+
+			$
+					.ajax({
+						url : "/EvaluateTool/application/subjectGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							var addSubject = JSON.parse(data);
+							$.each(addSubject, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.subjectName;
+									var description = data.subjectDescription;
+									document.getElementById("showSubjectInAddTopic").innerHTML = name;
+									document.getElementById("showSubjectInEditTopic").innerHTML = name;
+
+								});
+							});
+
+						},
+						error : function(data) {
+
+						}
+					});
 
 			$("#topicAllEditInTopic").change(
 					function() {
@@ -1902,45 +2158,45 @@ h3{
 
 	});
 
-	var i =2;
-	var j =2;
-	var k =2;
-	$("#courseDiv").hide();
-	$("#subjectDiv").hide();
-	$("#topicDiv").hide();
-
-		function showRoom(){
-			if(i == 1){
-				$("#courseDiv").hide();
-				i++;
-			}else{
-				$("#courseDiv").slideDown(800);
-				i--;
-			}
-
-		}
-
-		function showSubject(){
-			if(j == 1){
-				$("#subjectDiv").hide();
-				j++;
-			}else{
-				$("#subjectDiv").slideDown(800);
-				j--;
-			}
-
-		}
-
-		function showTopic(){
-			if(k == 1){
-				$("#topicDiv").hide();
-				k++;
-			}else{
-				$("#topicDiv").slideDown(800);
-				k--;
-			}
-
-		}
+//	var i =2;
+//	var j =2;
+//	var k =2;
+//	$("#courseDiv").hide();
+//	$("#subjectDiv").hide();
+//	$("#topicDiv").hide();
+//
+//		function showRoom(){
+//			if(i == 1){
+//				$("#courseDiv").hide();
+//				i++;
+//			}else{
+//				$("#courseDiv").slideDown(800);
+//				i--;
+//			}
+//
+//		}
+//
+//		function showCourseInEditSubject(){
+//			if(j == 1){
+//				$("#subjectDiv").hide();
+//				j++;
+//			}else{
+//				$("#subjectDiv").slideDown(800);
+//				j--;
+//			}
+//
+//		}
+//
+//		function showTopic(){
+//			if(k == 1){
+//				$("#topicDiv").hide();
+//				k++;
+//			}else{
+//				$("#topicDiv").slideDown(800);
+//				k--;
+//			}
+//
+//		}
 
 		$("#room").click(
 				function() {
@@ -1957,6 +2213,14 @@ h3{
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});
+
+	$("#menuReSize").hide();
+	$("#menulefthead").hide();
+	$("#menulefthover").hide();
+	$("#menuleftplus").hide();
+	$("#contentcol2").removeClass("col-md-2 column");
+	$("#contenthead").removeClass("col-md-10 column");
+	$("#contenthead").addClass("col-md-12 column");
 
 
 	</script>

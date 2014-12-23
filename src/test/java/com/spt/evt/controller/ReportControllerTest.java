@@ -65,7 +65,7 @@ public class ReportControllerTest extends TemplateTestController {
 		mockMvc.perform(get("/report"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("report"))
-		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+		.andExpect(forwardedUrl("/WEB-INF/layouts/master.jsp"));
 	}
 
 	@Test
