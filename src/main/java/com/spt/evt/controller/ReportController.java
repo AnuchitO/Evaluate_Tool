@@ -94,7 +94,7 @@ public class ReportController {
 	}
 
 	@RequestMapping(value="/getRoomName",method=RequestMethod.POST)
-	public @ResponseBody String getUsernamePassword(@RequestParam(value="personId") Long personId ,HttpServletRequest arg0,HttpServletResponse arg1) {
+	public @ResponseBody String getRoomName(@RequestParam(value="personId") Long personId ,HttpServletRequest arg0,HttpServletResponse arg1) {
 
 		Person person = personService.findById(personId);
 		JSONObject personJsonResult = new JSONObject();

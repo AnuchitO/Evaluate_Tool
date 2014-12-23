@@ -7,68 +7,69 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Evaluate Tool</title>
 <style>
-.navbar-default {
-	background-color: #FF8C00;
-}
 
-.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
-	color: black;
-}
+	.btn {
+		background-color: #FF8C00;
+	}
+	#require {
+		margin-top: 10px;
+	}
 
-.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
-	color: black;
-}
+	#message {
+		margin-top: 10px;
+	}
 
-th {
-	background-color: #FF8C00;
-}
+	.navbar-default {
+		background-color: #FF8C00;
+	}
 
-.tableBody {
-	background-color: #FFD700;
-}
+	.navbar-default>.container-fluid>.navbar-header>.navbar-brand {
+		color: black;
+	}
 
-a {
-	cursor: pointer;
-}
+	.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
+		color: black;
+	}
 
-div {
-	margin-right: 20px;
-}
+	.panel-default>.panel-heading {
+		background-color: #FF8C00;
+		color: black;
+	}
 
-table>thead>tr>th {
-	text-align: center;
-}
+	.panel-default>.panel-body {
 
-table>tbody>tr>td {
-	text-align: center;
-}
+	}
 
-.btn {
-	background-color: #FF8C00;
-}
+	.panel-collapse>.panel-body>.nav-pills>li>a {
+		background-color: #FFD700;
+	}
+
+	.nav-pills>li {
+		border-radius: 5px;
+		background-color: #BDBDBD;
+	}
+
+	.nav-pills>li>a {
+		color: black;
+	}
+
+	.panel-heading {
+		cursor: pointer;
+	}
+
+	a {
+		cursor: pointer;
+	}
+
+	.badge {
+		background-color: #585858;
+	}
+	.modal{
+		margin-top: 300px;
+	}
 </style>
 </head>
 <body>
-	<div class="container">
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle"
-						data-target=".navbar-collapse" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">Evaluate Board</a>
-				</div>
-				<div id="bs-navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a id="room">Room</a></li>
-						<li><a id="logOut">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
 		<input type="hidden" id="yourId" value="${yourId}" />
 
 		<div id="menuReSize" class="col-md-2 column">
@@ -109,18 +110,18 @@ table>tbody>tr>td {
 				<button id="buttonSumary" type="button" class="btn btn-default"
 					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
 			</div>
-		</div>
+
 		<option id="option0"></option>
 		<option id="optionPickRoom"></option>
 
 <!-- ========================================================================== -->
 
-	<div class="ui list">
-			<div id="formBoard">
-					<div class="panel-group" id="accordion"></div>
-			</div>
+	<%--<div class="ui list">--%>
+			<%--<div id="formBoard">--%>
+			<div class="panel-group" style="margin-left: 170px;margin-right: 15px;margin-top: 50px" id="accordion"></div>
+			<%--</div>--%>
 			<!----------------------Model Collapse---------------------->
-			<div id="panelCollapse0" class="panel panel-default"></div>
+			<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>
 			<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
 				data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 			</div>
@@ -142,24 +143,25 @@ table>tbody>tr>td {
 			<div id="panelScore0" class="panel panel-default"></div>
 			<div id="panelScoreHead0" class="panel-heading"></div>
 			<label id="panelScoreSubject0" class="textSubject"></label>
-			<button id="panelScoreBtnClose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<button id="panelScoreBtnClose" type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 			<div id="panelScoreBody0" class="panel-body"></div>
 			<span id="dummyKeepIdTopic0" class="textId"></span>
 			<label id="panelScoreDescription0" class="textDescription"></label>
 			<textarea id="panelScoreMessage0" class="form-control" rows="3" placeholder="No comment."></textarea>
 
+
 			<!----------------------Model Panel in Modal---------------------->
 
 			<!----------------------Model Modal---------------------->
-			<div id="modalScore0" class="modal" style="width:600px;height:450px;"  tabindex="-1"
-			aria-labelledby="myModalLabel" aria-hidden="true"></div>
+			<div id="modalScore0" class="modal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 			<div id="modalScoreDialog0" class="modal-dialog"></div>
-	</div>
+	<%--</div>--%>
 
-	<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover"><img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
-		<b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
-	</div>
-
+			<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover">
+				<img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
+				<b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
+			</div>
+		</div>
 
 	<script>
 		$(function() {
@@ -173,6 +175,7 @@ table>tbody>tr>td {
 			$("#panelScoreHead0").hide();
 			$("#panelScoreSubject0").hide();
 			$("#panelScoreBtnClose").hide();
+			$("#panelScoreBtnCloseButton").hide();
 			$("#panelScoreBody0").hide();
 			$("#dummyKeepIdTopic0").hide();
 			$("#panelScoreDescription0").hide();

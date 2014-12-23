@@ -3,6 +3,7 @@ package com.spt.evt.service;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+import com.spt.evt.service.impl.ReportServiceImpl;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +31,8 @@ public class ReportServiceTest extends AbstractTestService {
 	private RoomService roomService;
 	@Autowired
 	private PersonService personService;
+
+
 
 	@Test
 	public void testGetAllScoreShouldBeJsonObject() throws Exception {
@@ -66,4 +69,14 @@ public class ReportServiceTest extends AbstractTestService {
 		Assert.assertTrue(result.has("report"));
 	}
 
+	@Test
+	public void testGetCourseInformationSummary(){
+		Long roomId = 1L;
+		Long examinerId = 6L;
+		Long committeeId = 2L;
+		Long courseId = 1L;
+		JSONObject result = this.reportService.getCourseInformationSummary(roomId,examinerId,committeeId,courseId);
+//		LOGGER.debug("=============::: "+result);
+		Assert.assertTrue(result.has("subject"));
+	}
 }
