@@ -45,7 +45,7 @@ table>tbody>tr>td {
 
 .btn {
 	background-color: #FF8C00;
-	margin-left: 50px;
+	margin-left: 20px;
 }
 
 .textbox,select { 
@@ -91,21 +91,14 @@ h3{
 					</div>
 				</form>
 				<form>
-					<h4 style="margin-left: 50px">Remove Course</h4>
-					<div style="margin-bottom: 20px">
-						<select id="courseAllRemove">
-						</select>										
-						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
-					</div>
-				</form>
-				<form>
-					<h4 style="margin-left: 50px">Edit Course</h4>
+					<h4 style="margin-left: 50px">Edit Or Remove Course</h4>
 					<div style="margin-bottom: 20px">
 						<select id="courseAllEdit">
 						</select>
 						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit">
 						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit">
 						<button type="button" class="btn" id="btnEditCourse">Edit</button>
+						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
 					</div>
 				</form>
 			</div>
@@ -218,19 +211,19 @@ h3{
 		var dummyOption = 0;
 		var genOptionId = ("#option" + dummyOption);
 
-		$.each(completedRoom, function(i, item) {
-
-			item.forEach(function(course) {
-
-				var nameAndLastName = course.courseName;
-				var examinerId = course.courseId;
-				$("#option").clone()
-						.attr('id', 'option' + (++dummyOption)).text(
-								nameAndLastName).val(examinerId)
-						.insertAfter(genOptionId).show().appendTo(
-								$("#courseAllRemove"));
-			});
-		});
+//		$.each(completedRoom, function(i, item) {
+//
+//			item.forEach(function(course) {
+//
+//				var nameAndLastName = course.courseName;
+//				var examinerId = course.courseId;
+//				$("#option").clone()
+//						.attr('id', 'option' + (++dummyOption)).text(
+//								nameAndLastName).val(examinerId)
+//						.insertAfter(genOptionId).show().appendTo(
+//								$("#courseAllRemove"));
+//			});
+//		});
 
 
 		$.each(completedRoom, function(i, item) {
@@ -814,7 +807,7 @@ h3{
 			$("#btnRemoveCourse").click(
 					function() {
 						var dataForm = {};
-						dataForm.id = $("#courseAllRemove").val();
+						dataForm.id = $("#courseAllEdit").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);	
 
