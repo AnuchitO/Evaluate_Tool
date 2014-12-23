@@ -235,6 +235,19 @@ pageEncoding="UTF-8"%>
 		.test {
 			border-bottom: 1px solid #ccc;
 		}
+        .modal{
+            position: fixed;
+            height: 200px;
+        }
+        .modal-dialog{
+            position: fixed;
+            top:20%;
+        }
+        .ui.modal{
+            width: 0px;
+            height: 0px;
+            left: 65%;
+        }
 
 	</style>
 </head>
@@ -370,7 +383,7 @@ pageEncoding="UTF-8"%>
 			<!----------------------Model Panel in Modal---------------------->
 
 			<!----------------------Model Modal---------------------->
-			<div class="modal" style="width:600px;height:350px" id="modalScore0" tabindex="-1"
+			<div class="modal"  id="modalScore0" tabindex="-1"
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
 			<div id="modalScoreDialog0" class="modal-dialog"></div>
 			<!----------------------Model Modal---------------------->
