@@ -370,7 +370,7 @@ pageEncoding="UTF-8"%>
 			<!----------------------Model Panel in Modal---------------------->
 
 			<!----------------------Model Modal---------------------->
-			<div class="modal" style="width:600px;height:350px" id="modalScore0" tabindex="-1" 
+			<div class="modal" style="width:600px;height:350px" id="modalScore0" tabindex="-1"
 			aria-labelledby="myModalLabel" aria-hidden="true"></div>
 			<div id="modalScoreDialog0" class="modal-dialog"></div>
 			<!----------------------Model Modal---------------------->

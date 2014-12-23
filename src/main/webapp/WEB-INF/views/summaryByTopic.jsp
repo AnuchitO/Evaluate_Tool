@@ -32,7 +32,7 @@
 	}
 
 	.panel-default>.panel-heading {
-		background-color: #FF8C00;
+		background-color: #FFD39B;
 		color: black;
 	}
 
@@ -41,7 +41,7 @@
 	}
 
 	.panel-collapse>.panel-body>.nav-pills>li>a {
-		background-color: #FFD700;
+		background-color: #FFD39B ;
 	}
 
 	.nav-pills>li {
@@ -56,6 +56,26 @@
 	.panel-heading {
 		cursor: pointer;
 	}
+	/*#panelHeading2{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
+
+	/*#panelHeading4{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
+
+	/*#panelHeading6{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
+	/*#panelHeading8{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
+	/*#panelHeading10{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
+	/*#panelHeading12{*/
+		/*background-color: #FFCC00;*/
+	/*}*/
 
 	a {
 		cursor: pointer;
@@ -65,14 +85,23 @@
 		background-color: #585858;
 	}
 	.modal{
-		margin-top: 300px;
+		height: 200px;
 	}
+	.modal-dialog{
+		position: fixed;
+	}
+	.ui.modal{
+		/*margin-left: 100px;*/
+		width: 0px;
+		height: 0px;
+		left: 50%
+
+	}
+
 </style>
 </head>
 <body>
 		<input type="hidden" id="yourId" value="${yourId}" />
-
-
 
 		<div id="formTable" class="row">
 			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
@@ -93,7 +122,7 @@
 				</select>
 			</div>
 
-			<div id="setSizeBtnSubmit" class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
+			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
 				<button id="buttonSumary" type="button" class="btn btn-default"
 					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
 			</div>
@@ -141,8 +170,17 @@
 
 			<!----------------------Model Modal---------------------->
 			<div id="modalScore0" class="modal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-			<div id="modalScoreDialog0" class="modal-dialog"></div>
-	<%--</div>--%>
+			<div id="modalScoreDialog0" class="modal-dialog">
+				<%--<div class="modal-context">--%>
+					<%--<div class="modal-header"></div>--%>
+					<%--<div class="modal-body">--%>
+
+
+					<%--</div>--%>
+					<%--<div class="modal-footer"></div>--%>
+				<%--</div>--%>
+			</div>
+	</div>
 
 			<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover">
 				<img width="32px" height="30px" onclick="openmenuleft()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
@@ -151,8 +189,8 @@
 		</div>
 
 	<script>
-
 		$("#menuReSize").show();
+
 		$("#menulefthead").hide();
 		$("#menulefthover").hide();
 		$("#menuleftplus").hide();
@@ -395,6 +433,8 @@
 
 				var sizeTopic = 0;
 				var numberOfTopic = 0;
+				var checkIndex = 1;
+				var checkColor =1;
 
 				$
 				.each(
@@ -733,9 +773,43 @@
 								 " / "
 								+ "  "
 								+ numberEachOfTopic);
+
+									var setColor = "panelHeading"+checkIndex;
+									var changeColor = document.getElementById(setColor);
+									switch (checkColor){
+										case 1: changeColor.style.backgroundColor = "#FF6347";
+												break;
+										case 2: changeColor.style.backgroundColor = "#FFA600";
+												break;
+										case 3: changeColor.style.backgroundColor = "#FFFF00";
+												break;
+										case 4: changeColor.style.backgroundColor = "#92D050";
+												break;
+										case 5: changeColor.style.backgroundColor = "#00BFFF";
+												break;
+										case 6:	changeColor.style.backgroundColor = "#DA70D6";
+												break;
+										case 7:	changeColor.style.backgroundColor = "#FF69B4";
+												break;
+
+									}
+									checkColor++
+									checkIndex++;
+
+									if(checkColor == 8){
+										checkColor = 1;
+									}
+
+
+
+
 					});
 
+
+
+
 });
+
 }
 
 	function showModal(element) {
