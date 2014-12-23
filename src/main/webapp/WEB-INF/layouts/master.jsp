@@ -154,9 +154,9 @@
 																		History
 																	</div>
 																</div>
-																<div class="content" hidden id="configmanager">
+																<div class="content" hidden id="coursemanager">
 																	<div style="width:100px"class="summary">
-																		<a href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/manager.png" width="20px" height="32px"/></p></a>
+																		<a id="courseManager" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/course.png" width="20px" height="32px"/></p></a>
 																		Manager
 																	</div>
 																</div>

@@ -71,25 +71,7 @@ h3{
 <body>
 
 	<div class="container">	
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle"
-						data-target=".navbar-collapse" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">Evaluate Board</a>
-				</div>
-				<div id="bs-navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a id="room">Room</a></li>
-						<li><a id="logOut">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+
 		<div class="col-sm-3 col-md-12 col-md-offset-0">
 			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
 				<a onclick="showRoom()" style="text-decoration: none ; color: #000000">
@@ -1959,6 +1941,22 @@ h3{
 			}
 
 		}
+
+		$("#room").click(
+				function() {
+					location.href = "/EvaluateTool/application/examinationRoom"
+					+ "?yourId=" + encodeURIComponent(('${yourId}'))
+					+ "&yourPosition="
+					+ encodeURIComponent('${yourPosition}')
+					+ "&yourName="
+					+ encodeURIComponent('${name}')
+					+ "&yourLastName="
+					+ encodeURIComponent('${lastName}');
+					;
+				});
+		$("#logOut").click(function() {
+			location.href = "/EvaluateTool/application/logIn";
+		});
 
 
 	</script>

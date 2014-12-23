@@ -118,7 +118,7 @@
 
 	<%--<div class="ui list">--%>
 			<%--<div id="formBoard">--%>
-			<div class="panel-group" style="margin-left: 170px;margin-right: 15px;margin-top: 50px" id="accordion"></div>
+			<div class="panel-group" style="margin-left: 200px;margin-right: 15px;margin-top: 50px" id="accordion"></div>
 			<%--</div>--%>
 			<!----------------------Model Collapse---------------------->
 			<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>

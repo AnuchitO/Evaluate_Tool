@@ -39,8 +39,16 @@ public class ManagerCourseController {
 	@RequestMapping(value="/managerCourse",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String yourId = request.getParameter("yourId");
+		String name = request.getParameter("yourName");
+		String lastName = request.getParameter("yourLastName");
+		String yourPosition = request.getParameter("yourPosition");
 		JSONObject allCourse = this.courseService.getAllCourse();
 		Map model = new HashMap();
+		model.put("yourId", yourId);
+		model.put("name", name);
+		model.put("lastName", lastName);
+		model.put("yourPosition", yourPosition);
 		model.put("allCourse", allCourse.toString());
 		return new ModelAndView("managerCourse",model);
 	}

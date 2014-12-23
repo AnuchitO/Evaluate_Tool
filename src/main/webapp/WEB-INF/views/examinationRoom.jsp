@@ -1279,6 +1279,19 @@ a {
       location.href = "/EvaluateTool/application/logIn";
   });
 
+  $("#courseManager").click(
+          function() {
+              location.href = "/EvaluateTool/application/managerCourse"
+              + "?yourId="
+              + encodeURIComponent('${yourId}')
+              + "&yourPosition="
+              + encodeURIComponent('${yourPosition}')
+              + "&yourName="
+              + encodeURIComponent('${name}')
+              + "&yourLastName="
+              + encodeURIComponent('${lastname}');
+          });
+
 </script>
 </body>
 </html>
