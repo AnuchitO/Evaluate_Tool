@@ -9,6 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Person;
+import com.spt.evt.service.ParticipantsService;
+import com.spt.evt.service.PersonService;
+import com.spt.evt.service.ReportService;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +32,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import sun.rmi.runtime.Log;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 /**
  * Created by : Anuchit Prasertsang 
  * Created Date : 06/11/2014
@@ -35,6 +48,12 @@ public class ReportControllerTest extends TemplateTestController {
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	private PersonService personService;
+	@Autowired
+	private ParticipantsService participantsService;
 
 	@Before
 	public void setUp() {
@@ -47,11 +66,18 @@ public class ReportControllerTest extends TemplateTestController {
 		.andExpect(status().isOk())
 		.andExpect(view().name("report"))
 		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
-	}  
+	}
 
 	@Test
 	public void jsonSample() throws Exception {
 		LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
 	}
 
+	@Test
+	public void testShowSummaryByTopic() throws Exception {
+		mockMvc.perform(get("/summaryByTopic"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("summaryByTopic"))
+		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+	}
 }

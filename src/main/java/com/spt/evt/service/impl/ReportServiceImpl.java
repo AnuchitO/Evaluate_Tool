@@ -157,7 +157,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId) {
 
 		JSONObject courseInformation = new JSONObject();
-		JSONObject resultcourseInformation = new JSONObject();
 
 		Room room			= this.getRoomService().findById(roomId);
 		Person committee 	= this.getPersonService().findById(committeeId);
@@ -189,6 +188,9 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 				if (beforeList >= afterList){
 					listObject.add(0, summaryNoSortArray.getJSONObject(i));
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}else {
+					listObject.add(1, summaryNoSortArray.getJSONObject(i));
 					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
 				}
 			}else{

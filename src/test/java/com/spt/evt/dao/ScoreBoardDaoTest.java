@@ -126,4 +126,18 @@ public class ScoreBoardDaoTest extends AbstractTestDao {
 		Assert.assertNotNull(resultScoreBoard);
 	}
 
+	@Test
+	public void findByRoomAndTopicAndExaminer(){
+		Room room = new Room();
+		room.setId(1L);
+		Topic topic = new Topic();
+		topic.setId(1L);
+		Person examiner = new Person();
+		examiner.setId(6L);
+
+		List<ScoreBoard> scoreBoard = scoreBoardDao.findByRoomAndTopicAndExaminer(room, topic, examiner);
+//		LOGGER.debug("====================:: "+scoreBoard);
+		Assert.assertNotNull(scoreBoard);
+	}
+
 }
