@@ -124,6 +124,10 @@ public class RequestAndApprove{
         }else if(map.get("head").equals("updateMenuApproveModulatorAfterSubmitCommittee")){
             jsonData.put("roomId",map.get("roomId"));
             jsonData.put("function","updateMenuApproveModulatorAfterSubmitCommittee");
+        }else if(map.get("head").equals("updatePercentCard")){
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("percent",map.get("percent"));
+            jsonData.put("function","processPercent");
         }
 
     	System.out.println(jsonData.toString());

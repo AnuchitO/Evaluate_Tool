@@ -84,7 +84,6 @@ public class EvaluateBoardController {
 		String comment 		= scoreExaminer.getString("comment");
 
 		String status = this.evaluateBoardService.scoring(roomId, committeeId, examinerId, topicId, score, comment);
-
 		return status;
 	}
 
