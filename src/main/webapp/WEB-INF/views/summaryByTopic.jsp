@@ -72,23 +72,10 @@
 <body>
 		<input type="hidden" id="yourId" value="${yourId}" />
 
-		<div id="menuReSize" class="col-md-2 column">
-				<div id="menuleft" class="panel panel-default" style="background-color: #eee">
-					<a style="color: black ; text-decoration: none" id="summaryScore">
-						<div class="panel-body" >
-							Summary Score
-						</div>
-					</a>
-					<a style="color: black ; text-decoration: none" id="summaryByTopic">
-						<div class="panel-body" >
-							Summary By Topic
-						</div>
-					</a>
-				</div>
-			</div>
+
 
 		<div id="formTable" class="row">
-			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-0">
+			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
 				<label>Examiner</label>
 			</div>
 			<div id="setSizeTable" class="col-sm-2 col-md-2">
@@ -98,15 +85,15 @@
 			</div>
 
 			<div id="setRoom" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
-				<label style="margin-left: -20px">Room</label>
+				<label>Room</label>
 			</div>
-			<div id="setSizeRoom" class="col-sm-2 col-md-2">
-				<select id="pickRoom"  data-width="100%" style="margin-left: -50px">
+			<div id="setSizeRoom" class="col-sm-2 col-md-2 ">
+				<select id="pickRoom"  data-width="100%">
 					<option>Please Select</option>
 				</select>
 			</div>
 
-			<div id="setSizeBtnSubmit" class="col-sm-1 col-md-1">
+			<div id="setSizeBtnSubmit" class="col-sm-2 col-md-2 col-sm-offset-1 col-md-offset-1">
 				<button id="buttonSumary" type="button" class="btn btn-default"
 					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
 			</div>
@@ -118,7 +105,7 @@
 
 	<%--<div class="ui list">--%>
 			<%--<div id="formBoard">--%>
-			<div class="panel-group" style="margin-left: 200px;margin-right: 15px;margin-top: 50px" id="accordion"></div>
+			<div class="panel-group" style="margin: 20px" id="accordion"></div>
 			<%--</div>--%>
 			<!----------------------Model Collapse---------------------->
 			<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>
@@ -164,6 +151,12 @@
 		</div>
 
 	<script>
+
+		$("#menuReSize").show();
+		$("#menulefthead").hide();
+		$("#menulefthover").hide();
+		$("#menuleftplus").hide();
+
 		$(function() {
 			$("#panelCollapse0").hide();
 			$("#panelHeading0").hide();
@@ -789,7 +782,7 @@
 		var i=0
 			function openmenuleft(){
 				if(i==0){
-					$("#menuleft").hide();
+					$("#menuleftSummary").hide();
 					// $("#menuReSize").removeClass("col-md-2 column");
 					$("#menuReSize2").removeClass("col-md-10 column");
 					$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
@@ -798,7 +791,7 @@
 					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
 					i++;
 				}else{
-					$("#menuleft").slideDown(800);
+					$("#menuleftSummary").slideDown(800);
 					// $("#menuR	eSize").removeClass("col-md-0 column");
 					$("#menuReSize2").removeClass("col-md-12 column");
 					$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");

@@ -52,7 +52,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/report.jsp" />
 	</definition>
 
-	<definition name="summaryByTopic" extends="standardLayout">
+	<definition name="summaryByTopic" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/summaryByTopic.jsp" />
 	</definition>
 

@@ -39,12 +39,13 @@ body {
 </head>
 
 <body>
-	<div id="language">
-		<span><a href="?lang=en_US">English</a> : </span>
-		<span><a href="?lang=th_TH">Thai</a></span>
-	</div>
+
 	  	
 	<div id="divLogIn" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+		<div id="language">
+			<span><a href="?lang=en_US">English</a> : </span>
+			<span><a href="?lang=th_TH">Thai</a></span>
+		</div>
 	  <div class="modal-dialog">
 	  <div class="modal-content">
 	      <div class="modal-header">

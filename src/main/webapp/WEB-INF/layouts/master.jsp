@@ -154,7 +154,7 @@
 																		History
 																	</div>
 																</div>
-																<div class="content" hidden id="coursemanager">
+																<div class="content" hidden>
 																	<div style="width:100px"class="summary">
 																		<a id="courseManager" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/course.png" width="20px" height="32px"/></p></a>
 																		Manager
@@ -176,6 +176,22 @@
 							</div>
 							<!-- /.nav-collapse -->
 						</nav>
+						<%--Menu Left SummaryByTopic Page--%>
+							<div id="menuReSize" class="col-md-2 column" hidden style="margin-top: 100px">
+								<div id="menuleftSummary" class="panel panel-default" style="background-color: #eee">
+									<a style="color: black ; text-decoration: none" id="summaryScore">
+										<div class="panel-body" >
+											Summary Score
+										</div>
+									</a>
+									<a style="color: black ; text-decoration: none" id="summaryByTopic">
+										<div class="panel-body" >
+											Summary By Topic
+										</div>
+									</a>
+								</div>
+							</div>
+						<%--End Menu Left SummaryByTopic Page--%>
 						<!-- Menu Left Plus -->
 						<div id="menuleftplus" style="width:100px;position:fixed;top:50%;left:0px;z-index:2"><img class="glyphicon" id="imgmenuleftplus" src="${contextPath}/resources/images/plus.png" width="32px" height="30px" onclick="openmenuplus()" /><b hidden id="extendimgmenuplus">Plus</b></div>
 						<!-- End Menu Left Plus -->
