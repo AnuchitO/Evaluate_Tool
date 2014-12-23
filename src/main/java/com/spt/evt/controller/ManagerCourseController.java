@@ -145,7 +145,7 @@ public class ManagerCourseController {
 	}
 
 	@RequestMapping(value="/courseGetSubject", method = RequestMethod.POST)
-	public @ResponseBody String getSubjectInCourse(@RequestParam(value="dataForm") String dataForm) {
+	public @ResponseBody String courseGetSubject(@RequestParam(value="dataForm") String dataForm) {
 		JSONObject idJsonDelete = new JSONObject(dataForm);		
 		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
 		Course course = courseService.findById(passToLong);

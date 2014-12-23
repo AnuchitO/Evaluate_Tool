@@ -135,7 +135,7 @@ h3{
 				</form>
 				<form>
 					<div style="margin-bottom: 20px">
-						<%--<h4 style="margin-left: 50px">Edit Subject</h4>--%>
+						<h4 style="margin-left: 50px">Edit Or Remove Subject</h4>
 						<%--<select id="courseAllEditInSubject">--%>
 						<%--</select>--%>
 							<label style="margin-left: 50px">Course :</label>
@@ -243,6 +243,34 @@ h3{
 						.insertAfter(genOptionId).show().appendTo(
 						$("#courseAllEdit"));
 			});
+			var dataForm = {};
+			dataForm.id = $("#courseAllEdit").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
+			$
+					.ajax({
+						url : "/EvaluateTool/application/courseGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							$("#topicAllRemoveInTopic").empty();
+							var addCourse = JSON.parse(data);
+							$.each(addCourse, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.courseName;
+									var description = data.courseDescription;
+									document.getElementById("showCourse").innerHTML = name;
+									document.getElementById("showSubject").innerHTML = name;
+								});
+							});
+
+						},
+						error : function(data) {
+
+						}
+					});
 		});
 
 //		$.each(completedRoom, function(i, item) {
@@ -477,7 +505,33 @@ h3{
 									});
 								}
 						});
+						$
+								.ajax({
+									url : "/EvaluateTool/application/courseGetDetail",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										$("#topicAllRemoveInTopic").empty();
+										var addCourse = JSON.parse(data);
+										$.each(addCourse, function(i, item) {
+											item.forEach(function(data) {
+												var name = data.courseName;
+												var description = data.courseDescription;
+												document.getElementById("showCourse").innerHTML = name;
+												document.getElementById("showSubject").innerHTML = name;
+											});
+										});
+
+									},
+									error : function(data) {
+
+									}
+								});
 			});
+
+
 
 //		var dataForm = {};
 //		dataForm.id = $("#courseAllEditInSubject").val();
@@ -2034,45 +2088,45 @@ h3{
 
 	});
 
-	var i =2;
-	var j =2;
-	var k =2;
-	$("#courseDiv").hide();
-	$("#subjectDiv").hide();
-	$("#topicDiv").hide();
-
-		function showRoom(){
-			if(i == 1){
-				$("#courseDiv").hide();
-				i++;
-			}else{
-				$("#courseDiv").slideDown(800);
-				i--;
-			}
-
-		}
-
-		function showSubject(){
-			if(j == 1){
-				$("#subjectDiv").hide();
-				j++;
-			}else{
-				$("#subjectDiv").slideDown(800);
-				j--;
-			}
-
-		}
-
-		function showTopic(){
-			if(k == 1){
-				$("#topicDiv").hide();
-				k++;
-			}else{
-				$("#topicDiv").slideDown(800);
-				k--;
-			}
-
-		}
+//	var i =2;
+//	var j =2;
+//	var k =2;
+//	$("#courseDiv").hide();
+//	$("#subjectDiv").hide();
+//	$("#topicDiv").hide();
+//
+//		function showRoom(){
+//			if(i == 1){
+//				$("#courseDiv").hide();
+//				i++;
+//			}else{
+//				$("#courseDiv").slideDown(800);
+//				i--;
+//			}
+//
+//		}
+//
+//		function showSubject(){
+//			if(j == 1){
+//				$("#subjectDiv").hide();
+//				j++;
+//			}else{
+//				$("#subjectDiv").slideDown(800);
+//				j--;
+//			}
+//
+//		}
+//
+//		function showTopic(){
+//			if(k == 1){
+//				$("#topicDiv").hide();
+//				k++;
+//			}else{
+//				$("#topicDiv").slideDown(800);
+//				k--;
+//			}
+//
+//		}
 
 		$("#room").click(
 				function() {
@@ -2094,7 +2148,7 @@ h3{
 	$("#menulefthead").hide();
 	$("#menulefthover").hide();
 	$("#menuleftplus").hide();
-		$("#contentcol2").removeClass("col-md-2 column");
+	$("#contentcol2").removeClass("col-md-2 column");
 	$("#contenthead").removeClass("col-md-10 column");
 	$("#contenthead").addClass("col-md-12 column");
 
