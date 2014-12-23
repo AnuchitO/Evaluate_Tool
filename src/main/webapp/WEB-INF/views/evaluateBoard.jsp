@@ -1058,7 +1058,7 @@ pageEncoding="UTF-8"%>
 			});
 			$("#imgnotificationsubmitandcalcel,#badgenotificationsubmitandcalcel").click(function(){
 				$("#badgenotificationsubmitandcalcel").html("");
-				$("#dropdownsubmitandcancel").slideToggle(800);
+				$("#dropdownsubmitandcancel").slideToggle(400);
 				$("#dropdownconfig").hide();
                 var roomId='${idRoom}';
                 var modulatorId='${idModulator}';
@@ -1219,6 +1219,8 @@ pageEncoding="UTF-8"%>
 				$("#spanScore" + count).text(textScore);
 			}
 
+            var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
+            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
 		}
 
 		function setScore(btnScore, groupScore) {
@@ -1974,6 +1976,7 @@ $("#btnCompleteExamination").click(
 
 		});
 		});
+
 </script>
 </body>
 </html>

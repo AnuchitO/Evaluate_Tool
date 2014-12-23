@@ -55,15 +55,10 @@ a {
 	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 	<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
 	<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div>
-       <div id="showprocess" style="position:relative;left:50px;width:100px;height:100px"></div>
-<%--   <div class="ui large active progress">
-      <div class="bar">
-          <div class="progress"></div>
-      </div>
-      <div class="label">Uploading Files</div>--%>
+       <div id="showprocess0" style="position:absolute;left:50px;width:110px;height:110px"></div>
   </div>
 </div>
-<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
+<div id="setSizeProgress0" style="display:inline" class="col-sm-4 col-md-4"></div>
 <div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
 <div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
 <input type="hidden" id="roomId0" value="" />
@@ -203,9 +198,55 @@ a {
               alertRequestSame(data);
           }else if(namefunction=="approveSubmitExaminer"){
               approveSubmitExaminer(data);
+          }else if(namefunction=="processPercent"){
+              processPercent(data);
           }
 
       }
+
+      function processPercent(data){
+               $("div[id=showprocess"+JSON.parse(data).roomId+"]").each(function(index,element1){
+                   $("div[id=showprocess"+JSON.parse(data).roomId+"] svg").each(function(index){
+                      if(index==0){
+                          $(this).remove();
+                      }
+                   });
+                   if(JSON.parse(data).percent<=9){
+                       var seconds = new ProgressBar.Circle(element1, {
+                           duration: 200,
+                           color: "#7A4634",
+                           trailColor: "#ffffff",
+                           strokeWidth: 13
+                       });
+                       seconds.animate((JSON.parse(data).percent)/100, function() {
+                       });
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").html(JSON.parse(data).percent);
+                   }else if(JSON.parse(data).percent>9 && JSON.parse(data).percent<100){
+                       var seconds = new ProgressBar.Circle(element1, {
+                           duration: 200,
+                           color: "#7A4634",
+                           trailColor: "#ffffff",
+                           strokeWidth: 13
+                       });
+                       seconds.animate((JSON.parse(data).percent)/100, function() {
+                       });
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").html(JSON.parse(data).percent);
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("left","22%");
+                   }else{
+                       var seconds = new ProgressBar.Circle(element1, {
+                           duration: 200,
+                           color: "#7A4634",
+                           trailColor: "#ffffff",
+                           strokeWidth: 13
+                       });
+                       seconds.animate((JSON.parse(data).percent)/100, function() {
+                       });
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").html(JSON.parse(data).percent);
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("left","14%");
+                   }
+               });
+       }
+
       function removeProcess(data){
           //$("#loader").hide();
           var datamessage=JSON.parse(data).data;
@@ -538,6 +579,7 @@ a {
       $("#btnExaminer0").hide();
       $("#btnCommittee0").hide();
       $("#committee0").hide();
+      $("#showprocess0").hide();
 
       var allRoom = JSON.parse('${room}');
       var memberEachRoom = JSON.parse('${memberEachRoom}');
@@ -795,6 +837,30 @@ a {
                                               .appendTo(
                                                       $("#setSizeDetail"
                                                               + dummyDetail));
+                                      $("#showprocess0")
+                                              .clone()
+                                              .attr(
+                                              'id',
+                                                      'showprocess'
+                                                      + (dummyDetail))
+                                              .insertAfter(genDetail)
+                                              .show()
+                                              .appendTo(
+                                              $("#body"
+                                                      + dummyRoom));
+                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:absolute;left:28%;top:34px"></span>');
+                                      $("div[id=showprocess"+dummyDetail+"]").each(function(index,element1){
+                                          var seconds = new ProgressBar.Circle(element1, {
+                                              duration: 200,
+                                              color: "#7A4634",
+                                              trailColor: "#ffffff",
+                                              strokeWidth: 13
+                                          });
+                                          seconds.animate((0)/100, function() {
+                                          });
+
+                                      });
+                                      $("span[id=clock-seconds"+dummyDetail+"]").html("0");
                                       $("#setHalfSizeOne0")
                                               .clone()
                                               .attr(
@@ -911,50 +977,8 @@ a {
                   $("div[id=body"+indexbody+"]").css("background-color","#cdc5bf");
               }
           });
-
-              ////////////////////////////process bar///////////////////////////
-              totalprocessPercent+=5;
-              $("div[id=showprocess]").each(function(index,element1){
-                  var element = element1;
-                  element.innerHTML = '<center><b><span id="clock-seconds" style="font-size:18pt"></span></b></center>';
-                  var seconds = new ProgressBar.Circle(element, {
-                      duration: 200,
-                      color: "#7b1515",
-                      trailColor: "#ffffff",
-                      strokeWidth: 10,
-
-                  });
-                  seconds.animate((totalprocessPercent)/100, function() {
-                  });
-              });
-              $("span[id=clock-seconds]").each(function(index,element2){
-                  var textElement = element2;
-                  var second = totalprocessPercent;
-                  textElement.innerHTML = second;
-              });
-
   });
-  /*function processPercent(idcard){
-      totalprocessPercent+=5;
-      $("div[id=showprocess]").each(function(index,element1){
-              var element = element1;
-              element.innerHTML = '<center ><b><span id="clock-seconds" style="font-size:18pt"></span></b></center>';
-              var seconds = new ProgressBar.Circle(element, {
-                  duration: 200,
-                  color: "#7b1515",
-                  trailColor: "#ffffff",
-                  strokeWidth: 10,
 
-              });
-              seconds.animate((totalprocessPercent)/100, function() {
-              });
-          });
-          $("span[id=clock-seconds]").each(function(index,element2){
-              var textElement = element2;
-              var second = totalprocessPercent;
-              textElement.innerHTML = second;
-          });
-  }*/
   function sendId(element) {
       var count = (element.id).replace(/[^\d.]/g, '');
       var roomStatus=$("#roomStatus"+count).text();
