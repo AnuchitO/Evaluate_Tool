@@ -469,9 +469,7 @@ pageEncoding="UTF-8"%>
                     swal({
                         type:"success",
                         title: JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName,
-                        text:JSON.parse(data).data+" : Please Click OK",
-                        confirmButtonColor: "#DD6B55",
-                        closeOnCancel: true,
+                        text:JSON.parse(data).data
                     }, function(isConfirm) {
                         if (isConfirm) {
 
