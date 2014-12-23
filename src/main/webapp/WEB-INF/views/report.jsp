@@ -53,20 +53,7 @@ table>tbody>tr>td {
 
 		<input type="hidden" id="yourId" value="${yourId}" />
 		<div id="formTable" class="row">
-			<div id="menuReSize" class="col-md-2 column">
-				<div id="menuleft" class="panel panel-default" style="background-color: #eee">		
-					<a style="color: black ; text-decoration: none" id="summaryScore">
-						<div class="panel-body" >
-							Summary Score
-						</div>
-					</a>
-					<a style="color: black ; text-decoration: none" id="summaryByTopic">
-						<div class="panel-body" >
-							Summary By Topic
-						</div>
-					</a>
-				</div>
-			</div>		
+
 
 			<div id="menuReSize2" class="col-md-10 column">
 				<div id="setSizeWordExaminer"
@@ -307,22 +294,10 @@ table>tbody>tr>td {
 		var i=0
 			function openmenuleft(){
 				if(i==0){
-					$("#menuleft").hide();
-					// $("#menuReSize").removeClass("col-md-2 column");
-					$("#menuReSize2").removeClass("col-md-10 column");
-					$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
-					// $("#menuReSize	").addClass("col-md-0 column");					
-					$("#menuReSize2").addClass("col-md-12 column");
-					$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");	
+					$("#menuleftSummary").hide();
 					i++;
 				}else{
-					$("#menuleft").slideDown(800);
-					// $("#menuR	eSize").removeClass("col-md-0 column");					
-					$("#menuReSize2").removeClass("col-md-12 column");
-					$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
-					// $("#menuReSiz	e").addClass("col-md-2 column");
-					$("#menuReSize2").addClass("col-md-10 column");
-					$("#menuReSize3").addClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
+					$("#menuleftSummary").slideDown(800);
 					i--;
 				}
 				
@@ -334,6 +309,12 @@ table>tbody>tr>td {
 			$("#imgmenuleft").mouseout(function(){
 				$("#extendimgmenuleft").slideToggle(300);
 			});
+
+
+		$("#menuReSize").show();
+		$("#menulefthead").hide();
+		$("#menulefthover").hide();
+		$("#menuleftplus").hide();
 
 	</script>
 </body>

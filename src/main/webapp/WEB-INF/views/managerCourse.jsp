@@ -70,9 +70,9 @@ h3{
 </head>
 <body>
 
-	<div class="container">	
+	<div class="container">
 
-		<div class="col-sm-3 col-md-12 col-md-offset-0">
+		<div class="col-md-11 column">
 			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
 				<a onclick="showRoom()" style="text-decoration: none ; color: #000000">
 					<div style="text-align: center">
@@ -1957,6 +1957,14 @@ h3{
 		$("#logOut").click(function() {
 			location.href = "/EvaluateTool/application/logIn";
 		});
+
+	$("#menuReSize").hide();
+	$("#menulefthead").hide();
+	$("#menulefthover").hide();
+	$("#menuleftplus").hide();
+		$("#contentcol2").removeClass("col-md-2 column");
+	$("#contenthead").removeClass("col-md-10 column");
+	$("#contenthead").addClass("col-md-12 column");
 
 
 	</script>
