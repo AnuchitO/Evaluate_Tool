@@ -263,19 +263,19 @@
 								<div class="field">
 									<div class="input-daterange input-group" id="datepicker">
 										<span class="input-group-addon" style="color:black">Start Date</span>
-										<input type="text" class="input-sm form-control" name="startDate" />
+										<input type="text" class="input form-control" name="startDate" />
 									</div>
 								</div>
 								<div class="field">
 									<div class="bootstrap-timepicker pull-right">
 									<span class="input-group-addon" >Start Time</span>
-										<input id="timepicker3" type="text" class="input-sm form-control" name="startTime">
+										<input id="timepicker3" type="text" class="input form-control" name="startTime">
 									</div>
 								</div><br/>
 								<div class="field">
 									<div class="bootstrap-timepicker pull-right">
 									<span class="input-group-addon">End Time</span>
-										<input id="timepicker4" type="text" class="input-sm form-control" name="endTime">
+										<input id="timepicker4" type="text" class="input form-control" name="endTime">
 									</div>
 								</div>
 							
