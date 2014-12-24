@@ -32,7 +32,7 @@
 	}
 
 	.panel-default>.panel-heading {
-		background-color: #FFD39B;
+		background-color: #F5AB35;
 		color: black;
 	}
 
@@ -41,7 +41,7 @@
 	}
 
 	.panel-collapse>.panel-body>.nav-pills>li>a {
-		background-color: #FFD39B ;
+		background-color: #EEEEEE ;
 	}
 
 	.nav-pills>li {
@@ -64,20 +64,18 @@
 		background-color: #585858;
 	}
 	.modal{
-		height: 250px;
+		position: fixed;
+		height: 200px;
 	}
 	.modal-dialog{
 		position: fixed;
+		top:20%;
 	}
 	.ui.modal{
-		/*margin-left: 100px;*/
 		width: 0px;
 		height: 0px;
-		left: 50%
+		left: 65%;
 	}
-	/*#spanScore0{*/
-		/*position: fixed;*/
-	/*}*/
 
 </style>
 </head>
