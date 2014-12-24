@@ -403,7 +403,7 @@ pageEncoding="UTF-8"%>
 		src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 
 	<script>
-
+        var elementModalPresentingNow=null;
 		var stompClient = null;
         $(function(){
             var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
@@ -414,7 +414,6 @@ pageEncoding="UTF-8"%>
                 	accessMethod(JSON.parse(data.body));
                });
             });
-
             function accessMethod(data){
 	        	var namefunction=JSON.parse(data).function;
 	        	if(namefunction=="notificationRequestCommittee"){
@@ -433,8 +432,25 @@ pageEncoding="UTF-8"%>
                     updateMenuApproveModulatorAfterSubmitCommittee(data);
                 }else if(namefunction=="notificationRequestExaminer"){
                     notificationRequestExaminer(data);
+                }else if(namefunction=="presentingShow"){
+                    presentingShowModal(data);
                 }
         	}
+            function presentingShowModal(data){
+                     var topic = JSON.parse(data).topic;
+                     elementModalPresentingNow=$("li[title='" + topic + "']")[0];
+                     if($("#menuPresenting").hasClass("teal item active")&&JSON.parse(data).roomId=='${idRoom}'&&JSON
+                             .parse(data).yourIdExaminer=='${idExaminer}'){
+                            //if($("div").hasClass("ui dimmer page visible active")) {
+                                //$("div[class='ui dimmer page visible active']").removeClass("ui dimmer page visible active").addClass("ui dimmer page hidden");
+                                //$("div[class='modal ui transition visible']").removeClass("modal ui transition visible").addClass("modal ui transition hidden");
+                                //$("div[class='modal-dialog']").hide();
+                                //$("div[class='panel panel-default']").hide();
+                           // }
+                             var element = $("li[title='" + topic + "']")[0];
+                             showModal(element);
+                    }
+            }
 
             function updateMenuApproveModulatorAfterSubmitCommittee(data){
                 $("div[id=contentlistapprove]").each( function() {
@@ -759,6 +775,21 @@ pageEncoding="UTF-8"%>
                 }
             }
         });
+
+        function presentingShow(){
+            $("#formBoard").hide();
+            $("#menuTopicList").removeClass("teal item active").addClass("teal item");
+            $("#menuPresenting").removeClass("teal item").addClass("teal item active");
+            if(elementModalPresentingNow != null){
+               showModal(elementModalPresentingNow);
+            }
+
+        }
+        function topicListShow(){
+            $("#formBoard").show();
+            $("#menuTopicList").removeClass("teal item").addClass("teal item  active");
+            $("#menuPresenting").removeClass("teal item active").addClass("teal item");
+        }
 
 		$("#menuleftplus").hide();
 		$("#menuleftbtnCompleteExamination").hide();
@@ -1110,6 +1141,8 @@ pageEncoding="UTF-8"%>
 				}
 				
 			}
+
+
 		/*Pipe*/
 		var keepId		
 		function showModal(element) {
@@ -1217,6 +1250,7 @@ pageEncoding="UTF-8"%>
 						keepOriginalSubmitEachTopic);
 				}
 				$("#spanScore" + count).text(textScore);
+                $("div[class='ui dimmer page visible active']").removeClass("ui dimmer page visible active").addClass("ui dimmer page hidden");
 			}
 
             var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
@@ -1550,6 +1584,9 @@ pageEncoding="UTF-8"%>
 									'id',
 									'listNavpills'
 									+ (++dummyList))
+                                .attr(
+                                    'title',
+                                        sendTitle)
 								.insertAfter(
 									genIdListNav)
 								.show()

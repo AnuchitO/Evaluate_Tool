@@ -56,7 +56,6 @@ public class EvaluateBoardController {
         model.put("roomName", roomName);
         model.put("roomDescription", roomDescription);
 		return new ModelAndView("evaluateBoard",model);
-
 	}
 
 	@RequestMapping(value="/evaluateBoardTopicList",method=RequestMethod.POST)
@@ -68,7 +67,6 @@ public class EvaluateBoardController {
 		Long committeeId 	= Long.parseLong(courseDetail.getString("committeeId"));		
 		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
 		JSONObject courseInformation = this.evaluateBoardService.getCourseInformation(roomId,examinerId,committeeId , courseId);
-
 		return courseInformation.toString();
 
 	}

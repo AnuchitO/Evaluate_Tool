@@ -88,7 +88,6 @@ public class ReportController {
 			Person personDetail = this.reportService.getPersonByExaminerId(examiner_Id);
 			examinerDetail = this.reportService.getScoreByExaminer(personDetail);
 		}
-
 		return examinerDetail.toString();
 	}
 

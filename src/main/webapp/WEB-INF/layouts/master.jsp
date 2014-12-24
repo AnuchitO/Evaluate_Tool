@@ -42,7 +42,7 @@
 		}
 		@font-face {
 		   font-family: myFont;
-		   src: url(${contextPath}/resources/styles/fonts/fontawesome-webfont.woff);
+		   src: url(${contextPath}/resources/styles/fonts/Ubuntu-R.ttf);
 		}
 		body{
 			font-family: myFont;
@@ -200,17 +200,13 @@
 						<div id="menulefthead" style="position:fixed;z-index:1" >
 							<div id="menuleft" hidden style="margin-top:100px">
 								<div style="width:150px;background-color:#eee" class="ui vertical labeled icon menu">
-									<a class="red item">
+									<a class="red item" id="menuPresenting" onclick="presentingShow()">
 										<img class="glyphicon" src="${contextPath}/resources/images/002.png" width="32px" height="30px" />
-										Mail
+										Presentting
 									</a>
-									<a class="teal item">
+									<a class="teal item active" id="menuTopicList" onclick="topicListShow()">
 										<img class="glyphicon" src="${contextPath}/resources/images/002.png" width="32px" height="30px" />
-										Lab
-									</a>
-									<a class="green item">
-										<img class="glyphicon" src="${contextPath}/resources/images/002.png" width="32px" height="30px" />
-										Favorites
+										TopicList
 									</a>
 									<a id="menuleftbtnCompleteExamination" class="green item">
 										<div id="showbtnCompleteExamination">

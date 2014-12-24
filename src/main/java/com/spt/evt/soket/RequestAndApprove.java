@@ -128,6 +128,11 @@ public class RequestAndApprove{
             jsonData.put("roomId",map.get("roomId"));
             jsonData.put("percent",map.get("percent"));
             jsonData.put("function","processPercent");
+        }else if(map.get("head").equals("presentingShow")){
+            jsonData.put("roomId",map.get("roomId"));
+            jsonData.put("yourIdExaminer",map.get("yourIdExaminer"));
+            jsonData.put("topic",map.get("topic"));
+            jsonData.put("function","presentingShow");
         }
 
     	System.out.println(jsonData.toString());
