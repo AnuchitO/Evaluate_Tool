@@ -94,11 +94,25 @@ a {
 	<h3 id="topicName0" class="panel-title"></h3>
 	<div id="panelBody0" class="panel-body"></div>
 	<button id="btnPresent" type="button" class="btn btn-default"
-		onClick="javascript:requestController($(this).parent().children('.panel-body').attr('id'));"
+		onClick="javascript:requestController($(this).parent().children('.panel-body').attr('id'),this.value);"
 		style="margin-left: 200px;">Present</button>
+    <script type="text/javascript"
+            src="${contextPath}/resources/stomp.js"></script>
+    <script type="text/javascript"
+            src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 
 	<script>
+        var stompClient = null;
 		$(function() {
+
+            var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                /*stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                    accessMethod(JSON.parse(data.body));
+                });*/
+            });
 			$("#eachSubject0").hide();
 			$("#card0").hide();
 			$("#panel0").hide();
@@ -179,12 +193,12 @@ a {
 							var genPanelHead = $("#panelHead" + dummyPanelHead);
 							var genTopicName = $("#topicName" + dummyTopicName);
 							var genPanelBody = $("#panelBody" + dummyPanelBody);
-
 							$
 									.each(
 											course,
 											function(i, item) {
 												var index = 0;
+
 												var keepTopic = item[sizeTopic].topic;
 												for (index; index < keepTopic.length; ++index) {
 													var sendTitle = keepTopic[index].name;
@@ -253,6 +267,9 @@ a {
 																			+ dummyPanel));
 													$("#btnPresent")
 															.clone()
+                                                            .attr(
+                                                            'value',
+                                                                sendTitle)
 															.show()
 															.appendTo(
 																	$("#panel"
@@ -266,10 +283,11 @@ a {
 						}
 					});
 		}
-		function requestController(element) {
+		function requestController(element,topic) {
 			$(".panel-body").removeClass('highlight');
 			$("#" + element).addClass('highlight');
-			var data = {};
+            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'presentingShow','topic': topic,'yourIdExaminer': '${yourId}','roomId':'${idRoom}'}));
+		/*	var data = {};
 			data.examinerId = $("#examinerId").attr('value');
 
 			var dataSend = JSON.stringify(data);
@@ -287,7 +305,7 @@ a {
 							alert("error: " + data + " status: " + status
 									+ " er:" + er);
 						}
-					});
+					});*/
 		}
 		$("#room").click(
 				function() {

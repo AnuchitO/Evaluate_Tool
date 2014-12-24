@@ -848,7 +848,27 @@ a {
                                               .appendTo(
                                               $("#body"
                                                       + dummyRoom));
-                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:absolute;left:28%;top:34px"></span>');
+                                      /*var summaryOfTopic=0;
+                                      var data={};
+                                      data.roomId=String(roomId);
+                                      data.examinerId=roomExaminerId;
+                                      data.committeeId=String(roomModulatorId);
+                                      data.courseId=String(roomCourseId);
+                                      var dataEachRoom=JSON.stringify(data);
+                                      $.ajax({
+                                          url : "/EvaluateTool/application/evaluateBoardTopicList",
+                                          type : 'POST',
+                                          data:{
+                                              data:dataEachRoom
+                                          },success:function(data){
+                                              $.each(JSON.parse(data).subject,function(i,element){
+                                                            // console.log("Test"+roomId+""+element.topic[i]);
+
+                                              });
+                                          }
+                                      });
+                                      console.log("Test"+roomId+""+summaryOfTopic);*/
+                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:absolute;left:25%;top:34px"></span>');
                                       $("div[id=showprocess"+dummyDetail+"]").each(function(index,element1){
                                           var seconds = new ProgressBar.Circle(element1, {
                                               duration: 200,
@@ -856,11 +876,10 @@ a {
                                               trailColor: "#ffffff",
                                               strokeWidth: 13
                                           });
-                                          seconds.animate((0)/100, function() {
+                                          seconds.animate((75)/100, function() {
                                           });
-
                                       });
-                                      $("span[id=clock-seconds"+dummyDetail+"]").html("0");
+                                      $("span[id=clock-seconds"+dummyDetail+"]").html("75");
                                       $("#setHalfSizeOne0")
                                               .clone()
                                               .attr(
