@@ -73,7 +73,6 @@ public class ReportController {
 		model.put("yourPosition", yourPosition);
 		model.put("completeRoom", completeRoomInformation.toString());
 		model.put("courseId",courseId);
-
 		return new ModelAndView("summaryByTopic",model);
 	}
 

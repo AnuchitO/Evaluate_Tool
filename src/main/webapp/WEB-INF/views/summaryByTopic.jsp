@@ -56,27 +56,6 @@
 	.panel-heading {
 		cursor: pointer;
 	}
-	/*#panelHeading2{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-
-	/*#panelHeading4{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-
-	/*#panelHeading6{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-	/*#panelHeading8{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-	/*#panelHeading10{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-	/*#panelHeading12{*/
-		/*background-color: #FFCC00;*/
-	/*}*/
-
 	a {
 		cursor: pointer;
 	}
@@ -85,7 +64,7 @@
 		background-color: #585858;
 	}
 	.modal{
-		height: 200px;
+		height: 250px;
 	}
 	.modal-dialog{
 		position: fixed;
@@ -95,13 +74,17 @@
 		width: 0px;
 		height: 0px;
 		left: 50%
-
 	}
+	/*#spanScore0{*/
+		/*position: fixed;*/
+	/*}*/
 
 </style>
 </head>
 <body>
+
 		<input type="hidden" id="yourId" value="${yourId}" />
+
 
 		<div id="formTable" class="row">
 			<div id="setSizeWordExaminer" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
@@ -126,16 +109,22 @@
 				<button id="buttonSumary" type="button" class="btn btn-default"
 					onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
 			</div>
+			<div style="margin-left: 10px" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
+				<button id="exportToExcel" type="button" class="btn btn-left">Export</button>
+			</div>
 
 		<option id="option0"></option>
 		<option id="optionPickRoom"></option>
 
 <!-- ========================================================================== -->
 
-	<%--<div class="ui list">--%>
-			<%--<div id="formBoard">--%>
-			<div class="panel-group" style="margin: 20px" id="accordion"></div>
-			<%--</div>--%>
+			<!--AverageAllSubject-->
+			<span id="averageAll" class="badge pull-right" style="top: 70px;margin: 20px">Average :
+				<label	id="averageAllScore" style="margin: 2px;"></label>
+			</span>
+
+			<div class="panel-group" style="margin: 20px;margin-top: 70px" id="accordion"></div>
+
 			<!----------------------Model Collapse---------------------->
 			<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>
 			<div id="panelHeading0" class="panel-heading" data-toggle="collapse"
@@ -165,21 +154,9 @@
 			<label id="panelScoreDescription0" class="textDescription"></label>
 			<textarea id="panelScoreMessage0" class="form-control" rows="3" placeholder="No comment."></textarea>
 
-
-			<!----------------------Model Panel in Modal---------------------->
-
 			<!----------------------Model Modal---------------------->
 			<div id="modalScore0" class="modal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-			<div id="modalScoreDialog0" class="modal-dialog">
-				<%--<div class="modal-context">--%>
-					<%--<div class="modal-header"></div>--%>
-					<%--<div class="modal-body">--%>
-
-
-					<%--</div>--%>
-					<%--<div class="modal-footer"></div>--%>
-				<%--</div>--%>
-			</div>
+			<div id="modalScoreDialog0" class="modal-dialog"></div>
 	</div>
 
 			<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover">
@@ -189,8 +166,12 @@
 		</div>
 
 	<script>
+		$("#fullname").text('${name}'+ " "+'${lastName}');
 		$("#menuReSize").show();
+		$("#averageAll").hide();
 
+		$("#headdropdownapprovepermission").hide();
+		$("#headdropdownsubmitandcancel").hide();
 		$("#menulefthead").hide();
 		$("#menulefthover").hide();
 		$("#menuleftplus").hide();
@@ -327,9 +308,23 @@
 						}
 					});
 					});
+
 				}
 				});
 		});
+
+		$(function() {
+			var averageAllTotal = JSON.parse('${completeRoom}');
+			$.each(averageAllTotal, function(i, item) {
+				item.forEach(function(room) {
+
+					var averageAllScore = room.averageAllScore;
+					$("#averageAllScore").text(averageAllScore+"%");
+				});
+			});
+
+		});
+
 
 		$("#room").click(function() {
 					var yourId = $("#yourId").attr('value');
@@ -351,6 +346,9 @@
 // =============================================================
 
 		function createCollapse(course) {
+			$("#averageAll").show();
+//			$.("#averageAllScore").text("xxx");
+
 			$("#panelCollapse0").empty();
 			$("#panelHeading0").empty();
 			$("#panelBody0").empty();
@@ -444,6 +442,9 @@
 						.forEach(function(subject) {
 //									alert( subject.averageScore);
 							var sendNameOfSubject = subject.name;
+//							$("averageAllScore")
+//							.clone()
+
 							$("#panelCollapse0")
 							.clone()
 							.attr(
@@ -834,9 +835,9 @@
 						+ "&yourPosition="
 						+ encodeURIComponent('${yourPosition}')
 						+ "&yourName="
-						+ encodeURIComponent('${nameCommittee}')
+						+ encodeURIComponent('${name}')
 						+ "&yourLastName="
-						+ encodeURIComponent('${lastNameCommittee}');
+						+ encodeURIComponent('${lastName}');
 				});
 
 		$("#summaryByTopic").click(
@@ -848,9 +849,9 @@
 						+ "&yourPosition="
 						+ encodeURIComponent('${yourPosition}')
 						+ "&yourName="
-						+ encodeURIComponent('${nameCommittee}')
+						+ encodeURIComponent('${name}')
 						+ "&yourLastName="
-						+ encodeURIComponent('${lastNameCommittee}');
+						+ encodeURIComponent('${lastName}');
 				});
 
 		var i=0

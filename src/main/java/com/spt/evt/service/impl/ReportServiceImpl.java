@@ -84,6 +84,11 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			JSONObject examinerReport = new JSONObject();
 
 			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
+
+			String stringCoverFloat = String.format("%.2f", scoreMap.get("score"));
+			Float scoreAll = Float.parseFloat(stringCoverFloat);
+			int topicTotalAll = (int)scoreMap.get("topicTotal");
+
 			for(String key: scoreMap.keySet()) {
 				examinerReport.put(key, scoreMap.get(key));
 			}
@@ -95,6 +100,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
 			examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime())+" - "
 				+formatDate2.format(keyScoreCalculated.getEndTime()));
+			examinerReport.put("averageAllScore",""+averageScoreAllSubject(scoreAll,topicTotalAll));
 			report.append("report", examinerReport);
 			examinerReport.put("nameRoom",keyScoreCalculated.getName());
 		}
@@ -217,7 +223,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
 		float allScore = 0;
 		int allTopic = 0;
-		int sumTopic = 0;
 		float changeMeanScore;
 		for (Topic topic : topics) {
 			JSONObject topicElement = new JSONObject();
@@ -257,11 +262,16 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	}
 
 	public float averageScoreAllSubject(float score,int allTopic){
-		float averageScore = 0;
-		averageScore = (score/allTopic)*100;
-		String stringCoverFloat = String.format("%.1f", averageScore);
-		Float ScoreAverage = Float.parseFloat(stringCoverFloat);
-		return  ScoreAverage;
+		if (allTopic==0){
+			return 0;
+		}else {
+			float averageScore = 0;
+			averageScore = (score/allTopic)*100;
+			String stringCoverFloat = String.format("%.2f", averageScore);
+			Float ScoreAverage = Float.parseFloat(stringCoverFloat);
+
+			return  ScoreAverage;
+		}
 	}
 
 
@@ -275,15 +285,14 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				sumScore += scoreBoard.get(i).getScore();
 				sumComment += "- "+scoreBoard.get(i).getComment() + "\n";
 				sumTopic++;
-
 			}
 		}
 		float returnScore = sumScore/sumTopic;
 		String stringCoverFloat = String.format("%.1f", returnScore);
 //		BigDecimal cach = new BigDecimal(returnScore).setScale(1,BigDecimal.ROUND_HALF_UP);
-		Float ScoreTopic = Float.parseFloat(stringCoverFloat);
+		Float scoreTopic = Float.parseFloat(stringCoverFloat);
 
-		result.put("meanScore",ScoreTopic);
+		result.put("meanScore",scoreTopic);
 		result.put("sumComment",sumComment);
 
 		return	result;

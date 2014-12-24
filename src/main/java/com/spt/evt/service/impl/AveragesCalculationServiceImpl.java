@@ -38,6 +38,7 @@ public class AveragesCalculationServiceImpl implements AveragesCalculationServic
 				scores.put("topicTotal",i);
 			result.put(keyRoom, scores);
 		}
+
 		return result;
 	}
 
