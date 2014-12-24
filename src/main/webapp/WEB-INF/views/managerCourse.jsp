@@ -875,6 +875,8 @@ h3{
 
 		$("#courseAllEdit").change(
 					function() {
+						document.getElementById("topicNameEdit").value = null;
+						document.getElementById("topicDescriptionEdit").value = null;
 						var dataForm = {};
 						dataForm.id = $("#courseAllEdit").val();
 						var dataSend = JSON.stringify(dataForm);
@@ -2363,7 +2365,8 @@ h3{
 						dataForm.id = $("#subjectAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
-
+//						document.getElementById("topicNameEdit").value = null;
+//						document.getElementById("topicDescriptionEdit").value = null;
 						$
 								.ajax({
 									url: "/EvaluateTool/application/subjectGetTopic",
@@ -2372,6 +2375,10 @@ h3{
 										dataForm: dataSend
 									},
 									success: function (data) {
+										if(data.length < 3){
+											document.getElementById("topicNameEdit").value = null;
+											document.getElementById("topicDescriptionEdit").value = null;
+										}
 										$("#topicAllEditInTopic").empty();
 
 										var addTopic = JSON.parse(data);
@@ -2392,6 +2399,35 @@ h3{
 														$("#topicAllEditInTopic"));
 											});
 										});
+
+										var dataForm = {};
+										dataForm.id = $("#topicAllEditInTopic").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/topicGetDetail",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														var addTopic = JSON.parse(data);
+														$.each(addTopic, function(i, item) {
+															item.forEach(function(data) {
+																var name = data.topicName;
+																var description = data.topicDescription;
+																document.getElementById("topicNameEdit").value = name;
+																document.getElementById("topicDescriptionEdit").value = description;
+															});
+														});
+
+													},
+													error : function(data) {
+
+													}
+												});
 									}
 								});
 
@@ -2444,7 +2480,6 @@ h3{
 
 									}
 								});
-
 			});
 
 
