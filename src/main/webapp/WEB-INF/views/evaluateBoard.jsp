@@ -384,7 +384,7 @@ pageEncoding="UTF-8"%>
 
 			<!----------------------Model Modal---------------------->
 			<div class="modal"  id="modalScore0" tabindex="-1"
-			aria-labelledby="myModalLabel" aria-hidden="true"></div>
+			aria-labelledby="myModalLabel" role="dialog"  aria-hidden="true"></div>
 			<div id="modalScoreDialog0" class="modal-dialog"></div>
 			<!----------------------Model Modal---------------------->
 			<div id="loader" align="center">
@@ -405,6 +405,7 @@ pageEncoding="UTF-8"%>
 	<script>
         var elementModalPresentingNow=null;
 		var stompClient = null;
+
         $(function(){
             var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);    
@@ -433,22 +434,19 @@ pageEncoding="UTF-8"%>
                 }else if(namefunction=="notificationRequestExaminer"){
                     notificationRequestExaminer(data);
                 }else if(namefunction=="presentingShow"){
-                    presentingShowModal(data);
+                        presentingShowModal(data);
                 }
         	}
             function presentingShowModal(data){
                      var topic = JSON.parse(data).topic;
                      elementModalPresentingNow=$("li[title='" + topic + "']")[0];
-                     if($("#menuPresenting").hasClass("teal item active")&&JSON.parse(data).roomId=='${idRoom}'&&JSON
+                     if(($("#menuPresenting").hasClass("red teal item active")||$("#menuPresenting").hasClass("red active teal item"))&&JSON.parse(data).roomId=='${idRoom}'&&JSON
                              .parse(data).yourIdExaminer=='${idExaminer}'){
-                            //if($("div").hasClass("ui dimmer page visible active")) {
-                                //$("div[class='ui dimmer page visible active']").removeClass("ui dimmer page visible active").addClass("ui dimmer page hidden");
-                                //$("div[class='modal ui transition visible']").removeClass("modal ui transition visible").addClass("modal ui transition hidden");
-                                //$("div[class='modal-dialog']").hide();
-                                //$("div[class='panel panel-default']").hide();
-                           // }
-                             var element = $("li[title='" + topic + "']")[0];
-                             showModal(element);
+                                $("div[class='modal ui transition visible active']").each(function(){
+                                    $(this).removeClass("modal ui transition visible active").addClass("modal ui transition hidden");
+                                });
+                                var element = $("li[title='" + topic + "']")[0];
+                                showModal(element);
                     }
             }
 
@@ -780,11 +778,11 @@ pageEncoding="UTF-8"%>
             $("#formBoard").hide();
             $("#menuTopicList").removeClass("teal item active").addClass("teal item");
             $("#menuPresenting").removeClass("teal item").addClass("teal item active");
-            if(elementModalPresentingNow != null){
-               showModal(elementModalPresentingNow);
+           if(elementModalPresentingNow != null){
+                showModal(elementModalPresentingNow);
             }
-
         }
+
         function topicListShow(){
             $("#formBoard").show();
             $("#menuTopicList").removeClass("teal item").addClass("teal item  active");
@@ -1141,8 +1139,6 @@ pageEncoding="UTF-8"%>
 				}
 				
 			}
-
-
 		/*Pipe*/
 		var keepId		
 		function showModal(element) {
@@ -1213,7 +1209,6 @@ pageEncoding="UTF-8"%>
 				$("#alertChooseScore").show().appendTo(
 					$("#panelScoreBody" + count));
 			} else {
-
 				var detailScoreOfTopic = {};
 				detailScoreOfTopic.roomId = $("#roomId").val();
 				detailScoreOfTopic.examinerId = $("#examinerId").attr('value');
@@ -1250,7 +1245,6 @@ pageEncoding="UTF-8"%>
 						keepOriginalSubmitEachTopic);
 				}
 				$("#spanScore" + count).text(textScore);
-                $("div[class='ui dimmer page visible active']").removeClass("ui dimmer page visible active").addClass("ui dimmer page hidden");
 			}
 
             var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
