@@ -15,7 +15,7 @@
 @IMPORT url("${contextPath}/resources/styles/css/alertify.core.css");
 @IMPORT url("${contextPath}/resources/styles/css/alertify.default.css");
 @IMPORT url("${contextPath}/resources/styles/css/sweet-alert.css");
-@IMPORT url("${contextPath}/resources/styles/css/custombox.min.css");
+/*@IMPORT url("${contextPath}/resources/styles/css/custombox.min.css");*/
 @IMPORT url("${contextPath}/resources/styles/css/datepicker3.css");
 @IMPORT url("${contextPath}/resources/styles/css/progress.css");
 @IMPORT url("${contextPath}/resources/styles/css/bootstrap-timepicker.min.css");
@@ -312,8 +312,8 @@
 		src="${contextPath}/resources/styles/js/alertify.min.js"></script>
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/sweet-alert.js"></script>
-	<script type="text/javascript"
-		src="${contextPath}/resources/styles/js/custombox.min.js"></script>
+    <!--	<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/custombox.min.js"></script>-->
 	<script type="text/javascript"
 		src="${contextPath}/resources/styles/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript"
