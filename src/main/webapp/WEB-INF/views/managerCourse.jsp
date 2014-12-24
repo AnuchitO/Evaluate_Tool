@@ -221,9 +221,334 @@ h3{
 	<script>
 	$(function() {
 
-		var completedRoom = JSON.parse('${allCourse}');
-		var dummyOption = 0;
-		var genOptionId = ("#option" + dummyOption);
+		function courseAllAddFunction(){
+			var dataForm = {};
+			dataForm.id = $("#courseAllEdit").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
+			$
+					.ajax({
+						url: "/EvaluateTool/application/courseGetAll",
+						type: 'POST',
+						data: {
+							dataForm: null
+						},
+						success: function (data) {
+							$("#courseAllEdit").empty();
+
+							var addTopic = JSON.parse(data);
+							var dummyOption = 0;
+							var dummyRoomId = 0;
+							var genOptionId = ("#option" + dummyOption);
+
+							$.each(addTopic, function (i, item) {
+								item.forEach(function (data) {
+									var topicId = data.courseId;
+									var name = data.courseName;
+
+
+									$("#option").clone()
+											.attr('id', 'option' + (++dummyOption)).text(
+											name).val(topicId)
+											.insertAfter(genOptionId).show().appendTo(
+											$("#courseAllEdit"));
+								});
+							});
+						}
+					});
+			$
+					.ajax({
+						url : "/EvaluateTool/application/courseGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							var addCourse = JSON.parse(data);
+							$.each(addCourse, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.courseName;
+									var description = data.courseDescription;
+//									document.getElementById("courseNameEdit").value = name;
+//									document.getElementById("courseDescriptionEdit").value = description;
+									document.getElementById("showCourse").innerHTML = name;
+									document.getElementById("showCourseInEditSubject").innerHTML = name;
+									document.getElementById("showCourseInAddTopic").innerHTML = name;
+									document.getElementById("showCourseInEditTopic").innerHTML = name;
+								});
+							});
+//							var t = document.getElementById("courseAllEdit").value = 15;
+							document.getElementById("courseAllEdit").value = parseInt(dataForm.id);
+						},
+						error : function(data) {
+
+						}
+					});
+		}
+
+		function subjectAllAddFunction(){
+				var dataForm = {};
+				dataForm.id = $("#courseAllEdit").val();
+				var idForUse = $("#subjectAllEditInSubject").val();
+				var dataSend = JSON.stringify(dataForm);
+				console.info(dataSend);
+				$
+						.ajax({
+							url: "/EvaluateTool/application/courseGetSubject",
+							type: 'POST',
+							data: {
+								dataForm: dataSend
+							},
+							success: function (data) {
+								$("#subjectAllEditInSubject").empty();
+								$('#subjectNameEdit').val('');
+								$('#subjectDescriptionEdit').val('');
+
+								var addSubject = JSON.parse(data);
+								if(data.length<3){
+									document.getElementById("showSubjectInAddTopic").innerHTML = null;
+									document.getElementById("showSubjectInEditTopic").innerHTML = null;
+									document.getElementById("topicNameEdit").value = null;
+									document.getElementById("topicDescriptionEdit").value = null;
+									$("#topicAllEditInTopic").empty();
+								}
+								var dummyOption = 0;
+								var genOptionId = ("#option" + dummyOption);
+
+								$.each(addSubject, function (i, item) {
+									item.forEach(function (data) {
+										var subjectId = data.subjectid;
+										var name = data.subjectName;
+
+										$("#option").clone()
+												.attr('id', 'option' + (++dummyOption)).text(
+												name).val(subjectId)
+												.insertAfter(genOptionId).show().appendTo(
+												$("#subjectAllEditInSubject"));
+									});
+
+									document.getElementById("subjectAllEditInSubject").value = parseInt(idForUse);
+									var dataForm = {};
+									dataForm.id = $("#subjectAllEditInSubject").val();
+									var dataSend = JSON.stringify(dataForm);
+									console.info(dataSend);
+
+									$
+											.ajax({
+												url : "/EvaluateTool/application/subjectGetDetail",
+												type : 'POST',
+												data : {
+													dataForm : dataSend
+												},
+												success : function(data) {
+													var addSubject = JSON.parse(data);
+													$.each(addSubject, function(i, item) {
+														item.forEach(function(data) {
+															var name = data.subjectName;
+															var description = data.subjectDescription;
+															document.getElementById("subjectNameEdit").value = name;
+															document.getElementById("subjectDescriptionEdit").value = description;
+															document.getElementById("showSubjectInAddTopic").innerHTML = name;
+															document.getElementById("showSubjectInEditTopic").innerHTML = name;
+														});
+													});
+												},
+												error : function(data) {
+												}
+											});
+									$
+											.ajax({
+												url: "/EvaluateTool/application/subjectGetTopic",
+												type: 'POST',
+												data: {
+													dataForm: dataSend
+												},
+												success: function (data) {
+													$("#topicAllEditInTopic").empty();
+
+													var addTopic = JSON.parse(data);
+													var dummyOption = 0;
+													var dummyRoomId = 0;
+													var genOptionId = ("#option" + dummyOption);
+
+													$.each(addTopic, function (i, item) {
+														item.forEach(function (data) {
+															var topicId = data.topicid;
+															var name = data.topicName;
+
+
+															$("#option").clone()
+																	.attr('id', 'option' + (++dummyOption)).text(
+																	name).val(topicId)
+																	.insertAfter(genOptionId).show().appendTo(
+																	$("#topicAllEditInTopic"));
+														});
+													});
+
+													var dataForm = {};
+													dataForm.id = $("#topicAllEditInTopic").val();
+													var dataSend = JSON.stringify(dataForm);
+													console.info(dataSend);
+
+													$
+															.ajax({
+																url : "/EvaluateTool/application/topicGetDetail",
+																type : 'POST',
+																data : {
+																	dataForm : dataSend
+																},
+																success : function(data) {
+																	var addTopic = JSON.parse(data);
+																	$.each(addTopic, function(i, item) {
+																		item.forEach(function(data) {
+																			var name = data.topicName;
+																			var description = data.topicDescription;
+																			document.getElementById("topicNameEdit").value = name;
+																			document.getElementById("topicDescriptionEdit").value = description;
+																		});
+																	});
+
+																},
+																error : function(data) {
+
+																}
+															});
+												},error : function(data) {
+
+												}
+											});
+								});
+
+							},error : function(data) {
+
+							}
+						});
+				$
+						.ajax({
+							url : "/EvaluateTool/application/courseGetDetail",
+							type : 'POST',
+							data : {
+								dataForm : dataSend
+							},
+							success : function(data) {
+								var addCourse = JSON.parse(data);
+								$.each(addCourse, function(i, item) {
+									item.forEach(function(data) {
+										var name = data.courseName;
+										var description = data.courseDescription;
+										document.getElementById("showCourse").innerHTML = name;
+										document.getElementById("showCourseInEditSubject").innerHTML = name;
+										document.getElementById("showCourseInAddTopic").innerHTML = name;
+										document.getElementById("showCourseInEditTopic").innerHTML = name;
+									});
+								});
+
+							},
+							error : function(data) {
+
+							}
+						});
+		}
+
+		function topicAllAddFunction(){
+			var dataForm = {};
+			dataForm.id = $("#subjectAllEditInSubject").val();
+			var dataSend = JSON.stringify(dataForm);
+			console.info(dataSend);
+			document.getElementById("topicNameEdit").value = null;
+			document.getElementById("topicDescriptionEdit").value = null;
+			var idForUse = $("#topicAllEditInTopic").val();
+
+			$
+					.ajax({
+						url: "/EvaluateTool/application/subjectGetTopic",
+						type: 'POST',
+						data: {
+							dataForm: dataSend
+						},
+						success: function (data) {
+							$("#topicAllEditInTopic").empty();
+
+							var addTopic = JSON.parse(data);
+							var dummyOption = 0;
+							var dummyRoomId = 0;
+							var genOptionId = ("#option" + dummyOption);
+
+							$.each(addTopic, function (i, item) {
+								item.forEach(function (data) {
+									var topicId = data.topicid;
+									var name = data.topicName;
+
+
+									$("#option").clone()
+											.attr('id', 'option' + (++dummyOption)).text(
+											name).val(topicId)
+											.insertAfter(genOptionId).show().appendTo(
+											$("#topicAllEditInTopic"));
+								});
+							});
+
+							document.getElementById("topicAllEditInTopic").value = parseInt(idForUse);
+						}
+					});
+
+
+			$
+					.ajax({
+						url : "/EvaluateTool/application/subjectGetDetail",
+						type : 'POST',
+						data : {
+							dataForm : dataSend
+						},
+						success : function(data) {
+							var addSubject = JSON.parse(data);
+							$.each(addSubject, function(i, item) {
+								item.forEach(function(data) {
+									var name = data.subjectName;
+									var description = data.subjectDescription;
+									document.getElementById("subjectNameEdit").value = name;
+									document.getElementById("subjectDescriptionEdit").value = description;
+									document.getElementById("showSubjectInAddTopic").innerHTML = name;
+									document.getElementById("showSubjectInEditTopic").innerHTML = name;
+								});
+							});
+
+							var dataForm = {};
+							dataForm.id = $("#topicAllEditInTopic").val();
+							var dataSend = JSON.stringify(dataForm);
+							console.info(dataSend);
+
+							$
+									.ajax({
+										url : "/EvaluateTool/application/topicGetDetail",
+										type : 'POST',
+										data : {
+											dataForm : dataSend
+										},
+										success : function(data) {
+											var addTopic = JSON.parse(data);
+											$.each(addTopic, function(i, item) {
+												item.forEach(function(data) {
+													var name = data.topicName;
+													var description = data.topicDescription;
+													document.getElementById("topicNameEdit").value = name;
+													document.getElementById("topicDescriptionEdit").value = description;
+												});
+											});
+
+										},
+										error : function(data) {
+
+										}
+									});
+
+						},
+						error : function(data) {
+
+						}
+					});
+
+		}
 
 //		$.each(completedRoom, function(i, item) {
 //
@@ -239,7 +564,9 @@ h3{
 //			});
 //		});
 
-
+		var completedRoom = JSON.parse('${allCourse}');
+		var dummyOption = 0;
+		var genOptionId = ("#option" + dummyOption);
 		$.each(completedRoom, function(i, item) {
 
 			item.forEach(function(course) {
@@ -274,6 +601,8 @@ h3{
 									document.getElementById("showCourseInEditSubject").innerHTML = name;
 									document.getElementById("showCourseInAddTopic").innerHTML = name;
 									document.getElementById("showCourseInEditTopic").innerHTML = name;
+									document.getElementById("courseNameEdit").value = name;
+									document.getElementById("courseDescriptionEdit").value = description;
 								});
 							});
 
@@ -283,6 +612,34 @@ h3{
 						}
 					});
 		});
+
+		var dataForm = {};
+		dataForm.id = $("#subjectAllEditInSubject").val();
+		var dataSend = JSON.stringify(dataForm);
+		console.info(dataSend);
+		$
+				.ajax({
+					url : "/EvaluateTool/application/subjectGetDetail",
+					type : 'POST',
+					data : {
+						dataForm : dataSend
+					},
+					success : function(data) {
+						var addSubject = JSON.parse(data);
+						$.each(addSubject, function(i, item) {
+							item.forEach(function(data) {
+								var name = data.subjectName;
+								var description = data.subjectDescription;
+								document.getElementById("subjectNameEdit").value = name;
+								document.getElementById("subjectDescriptionEdit").value = description;
+							});
+						});
+
+					},
+					error : function(data) {
+
+					}
+				});
 
 //		$.each(completedRoom, function(i, item) {
 //
@@ -426,6 +783,69 @@ h3{
 
 						$
 								.ajax({
+									url: "/EvaluateTool/application/subjectGetTopic",
+									type: 'POST',
+									data: {
+										dataForm: dataSend
+									},
+									success: function (data) {
+										$("#topicAllEditInTopic").empty();
+
+										var addTopic = JSON.parse(data);
+										var dummyOption = 0;
+										var dummyRoomId = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addTopic, function (i, item) {
+											item.forEach(function (data) {
+												var topicId = data.topicid;
+												var name = data.topicName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(topicId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#topicAllEditInTopic"));
+											});
+										});
+
+										var dataForm = {};
+										dataForm.id = $("#topicAllEditInTopic").val();
+										var dataSend = JSON.stringify(dataForm);
+										console.info(dataSend);
+
+										$
+												.ajax({
+													url : "/EvaluateTool/application/topicGetDetail",
+													type : 'POST',
+													data : {
+														dataForm : dataSend
+													},
+													success : function(data) {
+														var addTopic = JSON.parse(data);
+														$.each(addTopic, function(i, item) {
+															item.forEach(function(data) {
+																var name = data.topicName;
+																var description = data.topicDescription;
+																document.getElementById("topicNameEdit").value = name;
+																document.getElementById("topicDescriptionEdit").value = description;
+															});
+														});
+
+													},
+													error : function(data) {
+
+													}
+												});
+									},
+									error : function(data) {
+
+									}
+								});
+
+						$
+								.ajax({
 									url : "/EvaluateTool/application/subjectGetDetail",
 									type : 'POST',
 									data : {
@@ -475,6 +895,9 @@ h3{
 									if(data.length<3){
 										document.getElementById("showSubjectInAddTopic").innerHTML = null;
 										document.getElementById("showSubjectInEditTopic").innerHTML = null;
+										document.getElementById("topicNameEdit").value = null;
+										document.getElementById("topicDescriptionEdit").value = null;
+										$("#topicAllEditInTopic").empty();
 									}
 									var dummyOption = 0;
 									var genOptionId = ("#option" + dummyOption);
@@ -505,7 +928,6 @@ h3{
 													},
 													success : function(data) {
 														var addSubject = JSON.parse(data);
-														alert(addSubject);
 														$.each(addSubject, function(i, item) {
 															item.forEach(function(data) {
 																var name = data.subjectName;
@@ -515,9 +937,92 @@ h3{
 															});
 														});
 
+														$
+																.ajax({
+																	url : "/EvaluateTool/application/subjectGetDetail",
+																	type : 'POST',
+																	data : {
+																		dataForm : dataSend
+																	},
+																	success : function(data) {
+																		var addSubject = JSON.parse(data);
+																		$.each(addSubject, function(i, item) {
+																			item.forEach(function(data) {
+																				var name = data.subjectName;
+																				document.getElementById("showSubjectInAddTopic").innerHTML = name;
+																				document.getElementById("showSubjectInEditTopic").innerHTML = name;
+																			});
+																		});
+
+																	},
+																	error : function(data) {
+
+																	}
+																});
+
 													},
 													error : function(data) {
-														alert("Test Error");
+													}
+												});
+										$
+												.ajax({
+													url: "/EvaluateTool/application/subjectGetTopic",
+													type: 'POST',
+													data: {
+														dataForm: dataSend
+													},
+													success: function (data) {
+														$("#topicAllEditInTopic").empty();
+
+														var addTopic = JSON.parse(data);
+														var dummyOption = 0;
+														var dummyRoomId = 0;
+														var genOptionId = ("#option" + dummyOption);
+
+														$.each(addTopic, function (i, item) {
+															item.forEach(function (data) {
+																var topicId = data.topicid;
+																var name = data.topicName;
+
+
+																$("#option").clone()
+																		.attr('id', 'option' + (++dummyOption)).text(
+																		name).val(topicId)
+																		.insertAfter(genOptionId).show().appendTo(
+																		$("#topicAllEditInTopic"));
+															});
+														});
+
+														var dataForm = {};
+														dataForm.id = $("#topicAllEditInTopic").val();
+														var dataSend = JSON.stringify(dataForm);
+														console.info(dataSend);
+
+														$
+																.ajax({
+																	url : "/EvaluateTool/application/topicGetDetail",
+																	type : 'POST',
+																	data : {
+																		dataForm : dataSend
+																	},
+																	success : function(data) {
+																		var addTopic = JSON.parse(data);
+																		$.each(addTopic, function(i, item) {
+																			item.forEach(function(data) {
+																				var name = data.topicName;
+																				var description = data.topicDescription;
+																				document.getElementById("topicNameEdit").value = name;
+																				document.getElementById("topicDescriptionEdit").value = description;
+																			});
+																		});
+
+																	},
+																	error : function(data) {
+
+																	}
+																});
+													},error : function(data) {
+
 													}
 												});
 									});
@@ -967,53 +1472,37 @@ h3{
 						};
 						
 						console.info(dataSend);
-						swal({   title: "Are you sure?",     
-							 type: "warning",   
-							 showCancelButton: true,
-							 confirmButtonColor: "#DD6B55",   
-							 confirmButtonText: "Yes, approve it!",   
-							 cancelButtonText: "No, cancel pls!",   
-							 closeOnConfirm: false,   
-							 closeOnCancel: false 
-							 }, function(isConfirm){   
-							 	if (isConfirm) {
-							 		$
-										.ajax({
-											url : "/EvaluateTool/application/saveCourse",
-											type : 'POST',
-											data : {
-												dataForm : dataSend
-											},
-											success : function(data) {
-												$('#courseName').val('');
-												$('#courseDescription').val('');
-												swal({
-									 			type:"success",
-									 			title: "Approve Success....",
-									 			confirmButtonText: "Yes",
-									 		}, function(isConfirm){
-					                       			location.reload();
-									 			});
-											},
-											error : function(data) {
-												swal({
-												 			type:"error",
-												 			title: "Can't Add...",
-											 		}, function(isConfirm){
-							                       
-											 		});
-											}
+
+						$
+							.ajax({
+								url : "/EvaluateTool/application/saveCourse",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+								success : function(data) {
+									$('#courseName').val('');
+									$('#courseDescription').val('');
+									swal({
+									type:"success",
+									title: "Approve Success....",
+									confirmButtonText: "Yes",
+									}, function(isConfirm){
+//
 									});
-							 	} else {
-							 		swal({
-							 			type:"error",
-							 			title: "Cancelled",
-							 			text:"Click OK for Cancel",
-							 			closeOnConfirm:false,
-							 			confirmButtonText:"OK"
-							 		});
-							 	} 
-							 });
+									courseAllAddFunction();
+								},
+								error : function(data) {
+									swal({
+												type:"error",
+												title: "Can't Add...",
+										}, function(isConfirm){
+
+										});
+								}
+						});
+
+
 			
 
 			});
@@ -1025,64 +1514,41 @@ h3{
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);	
 
-						swal({   title: "Are you sure?",     
-								 type: "warning",   
-								 showCancelButton: true,
-								 confirmButtonColor: "#DD6B55",   
-								 confirmButtonText: "Yes, approve it!",   
-								 cancelButtonText: "No, cancel pls!",   
-								 closeOnConfirm: false,   
-								 closeOnCancel: false 
-								 }, function(isConfirm){   
-								 	if (isConfirm) {
-								 		$
-											$
-												.ajax({
-													url : "/EvaluateTool/application/deleteCourse",
-													type : 'POST',
-													data : {
-														dataForm : dataSend
-													},
-												success : function(data) {
-													if (data == "1") {
-														swal({
-													 			type:"success",
-													 			title: "Approve Success....",
-													 			confirmButtonText: "Yes",
-												 		}, function(isConfirm){
-								                       			location.reload();
-												 		});
-													}else{
-														swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-													};
-													
-												},
-												error : function(data) {
-													swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-												}
-										});
-								 	} else {
-								 		swal({
-								 			type:"error",
-								 			title: "Cancelled",
-								 			text:"Click OK for Cancel",
-								 			closeOnConfirm:false,
-								 			confirmButtonText:"OK"
-								 		});
-								 	} 
-								 });
+						$
+							.ajax({
+								url : "/EvaluateTool/application/deleteCourse",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+							success : function(data) {
+								if (data == "1") {
+									swal({
+											type:"success",
+											title: "Approve Success....",
+											confirmButtonText: "Yes",
+									}, function(isConfirm){
+											courseAllAddFunction();
+									});
+								}else{
+									swal({
+											type:"error",
+											title: "Can't Delete...",
+									}, function(isConfirm){
 
-			
+									});
+								};
+
+							},
+							error : function(data) {
+								swal({
+											type:"error",
+											title: "Can't Delete...",
+									}, function(isConfirm){
+
+									});
+							}
+						});
 
 			});
 
@@ -1100,55 +1566,36 @@ h3{
 							var dataSend = JSON.stringify(dataForm);
 						};
 						console.info(dataSend);
+						$
+								.ajax({
+									url : "/EvaluateTool/application/editCourse",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
 
-						swal({   title: "Are you sure?",
-							type: "warning",
-							showCancelButton: true,
-							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Yes, approve it!",
-							cancelButtonText: "No, cancel pls!",
-							closeOnConfirm: false,
-							closeOnCancel: false
-						}, function(isConfirm){
-							if (isConfirm) {
-								$
-										.ajax({
-											url : "/EvaluateTool/application/editCourse",
-											type : 'POST',
-											data : {
-												dataForm : dataSend
-											},
-											success : function(data) {
-												$('#courseNameEdit').val('');
-												$('#courseDescriptionEdit').val('');
-												swal({
-													type:"success",
-													title: "Approve Success....",
-													confirmButtonText: "Yes",
-												}, function(isConfirm){
-													location.reload();
-												});
-											},
-											error : function(data) {
-												swal({
-													type:"error",
-													title: "Can't Add...",
-												}, function(isConfirm){
 
-												});
-											}
+										swal({
+											type:"success",
+											title: "Approve Success....",
+											confirmButtonText: "Yes",
+										}, function(isConfirm){
+											courseAllAddFunction();
+//											document.getElementById("courseAllEdit").value = parseInt(dataForm.id);
 										});
-							} else {
-								swal({
-									type:"error",
-									title: "Cancelled",
-									text:"Click OK for Cancel",
-									closeOnConfirm:false,
-									confirmButtonText:"OK"
-								});
-							}
-						});
 
+									},
+									error : function(data) {
+										swal({
+											type:"error",
+											title: "Can't Add...",
+										}, function(isConfirm){
+
+
+										});
+									}
+								});
 
 			});
 
@@ -1159,7 +1606,6 @@ h3{
 						dataForm.subjectDescriptionEdit = $("#subjectDescriptionEdit").val();
 						dataForm.idSubject = $("#subjectAllEditInSubject").val();
 						dataForm.idCourse = $("#courseAllEdit").val();
-
 						if (dataForm.subjectNameEdit == "") {
 							var dataSend = JSON.stringify(null);
 
@@ -1167,56 +1613,31 @@ h3{
 							var dataSend = JSON.stringify(dataForm);
 						};
 						console.info(dataSend);
-
-						swal({   title: "Are you sure?",
-							type: "warning",
-							showCancelButton: true,
-							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Yes, approve it!",
-							cancelButtonText: "No, cancel pls!",
-							closeOnConfirm: false,
-							closeOnCancel: false
-						}, function(isConfirm){
-							if (isConfirm) {
-								$
-										.ajax({
-											url : "/EvaluateTool/application/editSubject",
-											type : 'POST',
-											data : {
-												dataForm : dataSend
-											},
-											success : function(data) {
-												$('#courseNameEdit').val('');
-												$('#courseDescriptionEdit').val('');
-												swal({
-													type:"success",
-													title: "Approve Success....",
-													confirmButtonText: "Yes",
-												}, function(isConfirm){
-													location.reload();
-												});
-											},
-											error : function(data) {
-												swal({
-													type:"error",
-													title: "Can't Add...",
-												}, function(isConfirm){
-
-												});
-											}
+						$
+								.ajax({
+									url : "/EvaluateTool/application/editSubject",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+									success : function(data) {
+										swal({
+											type:"success",
+											title: "Approve Success....",
+											confirmButtonText: "Yes",
+										}, function(isConfirm){
+											subjectAllAddFunction();
 										});
-							} else {
-								swal({
-									type:"error",
-									title: "Cancelled",
-									text:"Click OK for Cancel",
-									closeOnConfirm:false,
-									confirmButtonText:"OK"
+									},
+									error : function(data) {
+										swal({
+											type:"error",
+											title: "Can't Add...",
+										}, function(isConfirm){
+
+										});
+									}
 								});
-							}
-						});
-
-
 			});
 
 		$("#btnEditTopic").click(
@@ -1224,6 +1645,8 @@ h3{
 					var dataForm = {};
 					dataForm.topicNameEdit = $("#topicNameEdit").val();
 					dataForm.topicDescriptionEdit = $("#topicDescriptionEdit").val();
+					dataForm.idSubject = $("#subjectAllEditInSubject").val();
+					dataForm.idTopic = $("#topicAllEditInTopic").val();
 
 					if (dataForm.topicNameEdit == "") {
 						var dataSend = JSON.stringify(null);
@@ -1232,56 +1655,33 @@ h3{
 						var dataSend = JSON.stringify(dataForm);
 					};
 					console.info(dataSend);
-
-					swal({   title: "Are you sure?",
-						type: "warning",
-						showCancelButton: true,
-						confirmButtonColor: "#DD6B55",
-						confirmButtonText: "Yes, approve it!",
-						cancelButtonText: "No, cancel pls!",
-						closeOnConfirm: false,
-						closeOnCancel: false
-					}, function(isConfirm){
-						if (isConfirm) {
-							$
-									.ajax({
-										url : "/EvaluateTool/application/editTopic",
-										type : 'POST',
-										data : {
-											dataForm : dataSend
-										},
-										success : function(data) {
-											$('#courseNameEdit').val('');
-											$('#courseDescriptionEdit').val('');
-											swal({
-												type:"success",
-												title: "Approve Success....",
-												confirmButtonText: "Yes",
-											}, function(isConfirm){
-												location.reload();
-											});
-										},
-										error : function(data) {
-											swal({
-												type:"error",
-												title: "Can't Add...",
-											}, function(isConfirm){
-
-											});
-										}
+					$
+							.ajax({
+								url : "/EvaluateTool/application/editTopic",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+								success : function(data) {
+									$('#courseNameEdit').val('');
+									$('#courseDescriptionEdit').val('');
+									swal({
+										type:"success",
+										title: "Approve Success....",
+										confirmButtonText: "Yes",
+									}, function(isConfirm){
+										topicAllAddFunction();
 									});
-						} else {
-							swal({
-								type:"error",
-								title: "Cancelled",
-								text:"Click OK for Cancel",
-								closeOnConfirm:false,
-								confirmButtonText:"OK"
+								},
+								error : function(data) {
+									swal({
+										type:"error",
+										title: "Can't Add...",
+									}, function(isConfirm){
+
+									});
+								}
 							});
-						}
-					});
-
-
 				});
 
 			$("#btnSaveSubject").click(
@@ -1297,53 +1697,33 @@ h3{
 							var dataSend = JSON.stringify(dataForm);
 						};
 						console.info(dataSend);	
-						swal({   title: "Are you sure?",     
-							 type: "warning",   
-							 showCancelButton: true,
-							 confirmButtonColor: "#DD6B55",   
-							 confirmButtonText: "Yes, approve it!",   
-							 cancelButtonText: "No, cancel pls!",   
-							 closeOnConfirm: false,   
-							 closeOnCancel: false 
-							 }, function(isConfirm){   
-							 	if (isConfirm) {
-							 		$
-										.ajax({
-											url : "/EvaluateTool/application/saveSubject",
-											type : 'POST',
-											data : {
-												dataForm : dataSend
-											},
-										success : function(data) {													
-												$('#subjectName').val('');
-												$('#subjectDescription').val('');
-												swal({
-									 			type:"success",
-									 			title: "Approve Success....",
-									 			confirmButtonText: "Yes",
-								 		}, function(isConfirm){
-				                       			location.reload();
-								 			});
-										},
-										error : function(data) {
-													swal({
-													 			type:"error",
-													 			title: "Can't Add...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-												}
-									});
-							 	} else {
-							 		swal({
-							 			type:"error",
-							 			title: "Cancelled",
-							 			text:"Click OK for Cancel",
-							 			closeOnConfirm:false,
-							 			confirmButtonText:"OK"
-							 		});
-							 	} 
-							 });
+						$
+							.ajax({
+								url : "/EvaluateTool/application/saveSubject",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+							success : function(data) {
+									$('#subjectName').val('');
+									$('#subjectDescription').val('');
+									swal({
+									type:"success",
+									title: "Approve Success....",
+									confirmButtonText: "Yes",
+							}, function(isConfirm){
+									subjectAllAddFunction();
+								});
+							},
+							error : function(data) {
+										swal({
+													type:"error",
+													title: "Can't Add...",
+											}, function(isConfirm){
+
+											});
+									}
+						});
 			});
 
 //			$("#courseAllRemoveInSubject").change(
@@ -1395,62 +1775,41 @@ h3{
 						dataForm.id = $("#subjectAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);						
 						console.info(dataSend);
-
-						swal({   title: "Are you sure?",     
-								 type: "warning",   
-								 showCancelButton: true,
-								 confirmButtonColor: "#DD6B55",   
-								 confirmButtonText: "Yes, approve it!",   
-								 cancelButtonText: "No, cancel pls!",   
-								 closeOnConfirm: false,   
-								 closeOnCancel: false 
-								 }, function(isConfirm){   
-								 	if (isConfirm) {
-								 		$
-												.ajax({
-												url : "/EvaluateTool/application/deleteSubject",
-												type : 'POST',
-												data : {
-													dataForm : dataSend
-												},
-												success : function(data) {
-													if (data == "1") {
-														swal({
-													 			type:"success",
-													 			title: "Approve Success....",
-													 			confirmButtonText: "Yes",
-												 		}, function(isConfirm){
-								                       			location.reload();
-												 		});
-													}else{
-														swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-													};
-													
-												},
-												error : function(data) {
-													swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-												}
+						$
+								.ajax({
+								url : "/EvaluateTool/application/deleteSubject",
+								type : 'POST',
+								data : {
+									dataForm : dataSend
+								},
+								success : function(data) {
+									if (data == "1") {
+										swal({
+												type:"success",
+												title: "Approve Success....",
+												confirmButtonText: "Yes",
+										}, function(isConfirm){
+												subjectAllAddFunction();
 										});
-								 	} else {
-								 		swal({
-								 			type:"error",
-								 			title: "Cancelled",
-								 			text:"Click OK for Cancel",
-								 			closeOnConfirm:false,
-								 			confirmButtonText:"OK"
-								 		});
-								 	} 
-								 });
+									}else{
+										swal({
+												type:"error",
+												title: "Can't Delete...",
+										}, function(isConfirm){
+
+										});
+									};
+
+								},
+								error : function(data) {
+									swal({
+												type:"error",
+												title: "Can't Delete...",
+										}, function(isConfirm){
+
+										});
+								}
+						});
 			});
 
 //			$("#courseAllAddInTopic").change(
@@ -1773,58 +2132,38 @@ h3{
 						}else{
 							var dataSend = JSON.stringify(dataForm);
 						};
-						console.info(dataSend);	
-						swal({   title: "Are you sure?",     
-							 type: "warning",   
-							 showCancelButton: true,
-							 confirmButtonColor: "#DD6B55",   
-							 confirmButtonText: "Yes, approve it!",   
-							 cancelButtonText: "No, cancel pls!",   
-							 closeOnConfirm: false,   
-							 closeOnCancel: false 
-							 }, function(isConfirm){   
-							 	if (isConfirm) {
-							 		$
-											.ajax({
-												url : "/EvaluateTool/application/saveTopic",
-												type : 'POST',
-												data : {
-													dataForm : dataSend
-											},
-											success : function(data) {
-													$('#courseName').empty();
-													$('#subjectName').val('');
-													$('#topicName').val('');
-													$('#courseDescription').val('');
-													$('#topicDescription').val('');
-													$('#subjectDescription').val('');
-													swal({
-													type:"success",
-													title: "Approve Success....",
-													confirmButtonText: "Yes",
-											}, function(isConfirm){
-													location.reload();
-												});
-											},
-											error : function(data) {
-														swal({
-																	type:"error",
-																	title: "Can't Add...",
-															}, function(isConfirm){
-
-															});
-													}
+						console.info(dataSend);
+						$
+								.ajax({
+									url : "/EvaluateTool/application/saveTopic",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+								},
+								success : function(data) {
+										$('#courseName').empty();
+										$('#subjectName').val('');
+										$('#topicName').val('');
+										$('#courseDescription').val('');
+										$('#topicDescription').val('');
+										$('#subjectDescription').val('');
+										swal({
+										type:"success",
+										title: "Approve Success....",
+										confirmButtonText: "Yes",
+								}, function(isConfirm){
+										topicAllAddFunction();
 									});
-							 	} else {
-							 		swal({
-							 			type:"error",
-							 			title: "Cancelled",
-							 			text:"Click OK for Cancel",
-							 			closeOnConfirm:false,
-							 			confirmButtonText:"OK"
-							 		});
-							 	} 
-							 });
+								},
+								error : function(data) {
+											swal({
+														type:"error",
+														title: "Can't Add...",
+												}, function(isConfirm){
+
+												});
+										}
+						});
 			});
 
 //			$("#subjectAllRemoveInTopic").change(
@@ -1945,64 +2284,44 @@ h3{
 			$("#btnRemoveTopic").click(
 					function() {
 						var dataForm = {};
+						dataForm.id = $("#topicAllEditInTopic").val();
 						var dataSend = JSON.stringify(dataForm);						
-						console.info(dataSend);		
-
-						swal({   title: "Are you sure?",     
-								 type: "warning",   
-								 showCancelButton: true,
-								 confirmButtonColor: "#DD6B55",   
-								 confirmButtonText: "Yes, approve it!",   
-								 cancelButtonText: "No, cancel pls!",   
-								 closeOnConfirm: false,   
-								 closeOnCancel: false 
-								 }, function(isConfirm){   
-								 	if (isConfirm) {
-								 		$
-												.ajax({
-													url : "/EvaluateTool/application/deleteTopic",
-													type : 'POST',
-													data : {
-														dataForm : dataSend
-													},
-												success : function(data) {
-													if (data == "1") {
-														swal({
-													 			type:"success",
-													 			title: "Approve Success....",
-													 			confirmButtonText: "Yes",
-												 		}, function(isConfirm){
-								                       			location.reload();
-												 		});
-													}else{
-														swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-								                       
-												 		});
-													};
-													
-												},
-												error : function(data) {
-													swal({
-													 			type:"error",
-													 			title: "Can't Delete...",
-												 		}, function(isConfirm){
-
-												 		});
-												}
+						console.info(dataSend);
+						$
+								.ajax({
+									url : "/EvaluateTool/application/deleteTopic",
+									type : 'POST',
+									data : {
+										dataForm : dataSend
+									},
+								success : function(data) {
+									if (data == "1") {
+										swal({
+												type:"success",
+												title: "Approve Success....",
+												confirmButtonText: "Yes",
+										}, function(isConfirm){
+												topicAllAddFunction();
 										});
-								 	} else {
-								 		swal({
-								 			type:"error",
-								 			title: "Cancelled",
-								 			text:"Click OK for Cancel",
-								 			closeOnConfirm:false,
-								 			confirmButtonText:"OK"
-								 		});
-								 	} 
-		 						});
+									}else{
+										swal({
+												type:"error",
+												title: "Can't Delete...",
+										}, function(isConfirm){
+
+										});
+									};
+
+								},
+								error : function(data) {
+									swal({
+												type:"error",
+												title: "Can't Delete...",
+										}, function(isConfirm){
+
+										});
+								}
+						});
 			});
 
 			$("#courseAllEdit").change(
@@ -2044,6 +2363,37 @@ h3{
 						dataForm.id = $("#subjectAllEditInSubject").val();
 						var dataSend = JSON.stringify(dataForm);
 						console.info(dataSend);
+
+						$
+								.ajax({
+									url: "/EvaluateTool/application/subjectGetTopic",
+									type: 'POST',
+									data: {
+										dataForm: dataSend
+									},
+									success: function (data) {
+										$("#topicAllEditInTopic").empty();
+
+										var addTopic = JSON.parse(data);
+										var dummyOption = 0;
+										var dummyRoomId = 0;
+										var genOptionId = ("#option" + dummyOption);
+
+										$.each(addTopic, function (i, item) {
+											item.forEach(function (data) {
+												var topicId = data.topicid;
+												var name = data.topicName;
+
+
+												$("#option").clone()
+														.attr('id', 'option' + (++dummyOption)).text(
+														name).val(topicId)
+														.insertAfter(genOptionId).show().appendTo(
+														$("#topicAllEditInTopic"));
+											});
+										});
+									}
+								});
 
 
 						$
