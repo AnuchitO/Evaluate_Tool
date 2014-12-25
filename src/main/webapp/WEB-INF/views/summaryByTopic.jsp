@@ -356,7 +356,7 @@
 	function createCollapse(course) {
 		$("#averageAll").show();
 		$("#btnExport").show();
-//			$.("#averageAllScore").text("xxx");
+		$("#tableExportExcel").hide();
 
 		$("#panelCollapse0").empty();
 		$("#panelHeading0").empty();
