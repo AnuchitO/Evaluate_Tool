@@ -55,7 +55,7 @@ a {
 	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 	<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
 	<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div>
-       <div id="showprocess0" style="position:absolute;left:50px;width:110px;height:110px"></div>
+       <div id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
     </div>
 </div>
 <div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
@@ -234,7 +234,7 @@ a {
                        seconds.animate((JSON.parse(data).percent)/100, function() {
                        });
                        $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").html(JSON.parse(data).percent);
-                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("left","22%");
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("right","25px");
                    }else{
                        var seconds = new ProgressBar.Circle(element1, {
                            duration: 200,
@@ -245,7 +245,7 @@ a {
                        seconds.animate((JSON.parse(data).percent)/100, function() {
                        });
                        $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").html(JSON.parse(data).percent);
-                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("left","14%");
+                       $("span[id=clock-seconds"+JSON.parse(data).roomId+"]").css("right","18px");
                    }
                });
        }
@@ -874,7 +874,7 @@ a {
                                           }
                                       });
                                       console.log("Test"+roomId+""+summaryOfTopic);*/
-                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:absolute;left:25%;top:34px"></span>');
+                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:relative;top:65px;right:30px"></span>');
                                       $("div[id=showprocess"+dummyDetail+"]").each(function(index,element1){
                                           var seconds = new ProgressBar.Circle(element1, {
                                               duration: 1000,
@@ -882,10 +882,10 @@ a {
                                               trailColor: "#ffffff",
                                               strokeWidth: 13
                                           });
-                                          seconds.animate((75)/100, function() {
+                                          seconds.animate((0)/100, function() {
                                           });
                                       });
-                                      $("span[id=clock-seconds"+dummyDetail+"]").html("75");
+                                      $("span[id=clock-seconds"+dummyDetail+"]").html("0");
                                       $("#setHalfSizeOne0")
                                               .clone()
                                               .attr(
@@ -1003,6 +1003,7 @@ a {
               }
           });
   });
+
 
   ////////////////////////////////Event Submit Button Committee///////////////////////
   function sendId(element) {
