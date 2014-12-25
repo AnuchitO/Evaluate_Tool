@@ -1135,8 +1135,6 @@ h3{
 									dataForm : dataSend
 								},
 								success : function(data) {
-									$('#courseNameEdit').val('');
-									$('#courseDescriptionEdit').val('');
 									swal({
 										type:"success",
 										title: "Approve Success....",
