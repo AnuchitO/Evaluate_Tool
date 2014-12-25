@@ -19,7 +19,7 @@
 }
 
 .bs-sidebar {
-	background-color: #D8D8D8;
+	background-color: #f7d49e;
 }
 
 .panel-default>.panel-heading {
@@ -38,6 +38,7 @@
 
 a {
 	cursor: pointer;
+    color:black;
 }
 
 .btn {
@@ -52,27 +53,6 @@ a {
 	<label id="examinerId" value="${idExaminer}"></label>
 	<br>
 	<label id="courseId" value="${idCourse}"></label>
-	<div class="row">
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle"
-						data-target=".navbar-collapse" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">Evaluate Board</a>
-				</div>
-				<div id="bs-navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a id="room">Room</a></li>
-						<li><a id="logOut">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 			<div id="container" class="row">
@@ -89,22 +69,22 @@ a {
 	<li id="eachSubject0" onClick="javascript:showTopic(this);"></li>
 	<a id="subject0"></a>
 	<div id="card0" class="col-md-6 col-sm-6 col-xs-6"></div>
-	<div id="panel0" class="panel panel-default"></div>
-	<div id="panelHead0" class="panel-heading"></div>
+	<div id="panel0" class="panel panel-default" style="background-color: #fdf4e6"></div>
+	<div id="panelHead0" class="ui orange tiny label" style="width:100%"></div>
 	<h3 id="topicName0" class="panel-title"></h3>
 	<div id="panelBody0" class="panel-body"></div>
-	<button id="btnPresent" type="button" class="btn btn-default"
-		onClick="javascript:requestController($(this).parent().children('.panel-body').attr('id'),this.value);"
-		style="margin-left: 200px;">Present</button>
+	<button id="btnPresent" type="button" class="ui teal tiny  button"
+		onClick="javascript:requestController($(this).parent().attr('id'),this.value);"
+		style="position:relative;bottom:10px;left:40%;">Present</button>
     <script type="text/javascript"
             src="${contextPath}/resources/stomp.js"></script>
     <script type="text/javascript"
             src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 
 	<script>
+
         var stompClient = null;
 		$(function() {
-
             var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
@@ -164,6 +144,55 @@ a {
 				});
 			}
 		});
+        var yourPosition='${yourPosition}';
+        var name='${name}';
+        var lastname='${lastName}';
+        $("#fullname").html(name+"  "+lastname);
+        $("#loader").hide();
+        $("#menuleftplus").hide();
+        if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
+            $("#btnnotificationsubmitandcalcel").show();
+            $("#headdropdownapprovepermission").hide();
+            $("#headdropdownsubmitandcancel").hide();
+            $("#menuleft").hide();
+            $("#imgmenuleft").hide();
+            $("#contenthead").removeClass("col-md-10 column");
+            $("#contenthead").addClass("col-md-12 column");
+        }else{
+            $("#btnnotificationsubmitandcalcel").hide();
+            $("#headdropdownapprovepermission").hide();
+            $("#headdropdownsubmitandcancel").hide();
+            $("#menuleft").hide();
+            $("#imgmenuleft").hide();
+            $("#contenthead").removeClass("col-md-10 column");
+            $("#contenthead").addClass("col-md-12 column");
+        }
+        if(yourPosition=="Software Analyst"){
+            $("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").show();
+            $("#confighistory").show();
+            $("#configmanager").show();
+        }else if(yourPosition=="Manager"){
+            $("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").show();
+            $("#confighistory").show();
+            $("#configmanager").show();
+        }else if(yourPosition=="Software Development Trainee"){
+            $("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").hide();
+            $("#confighistory").hide();
+            $("#configmanager").hide();
+        }else{
+            $("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").show();
+            $("#confighistory").show();
+            $("#configmanager").hide();
+        }
+
 		function showTopic(element) {
 			var sizeTopic = (element.id).replace(/[^\d.]/g, '') - 1;
 			var data = {};
@@ -284,8 +313,11 @@ a {
 					});
 		}
 		function requestController(element,topic) {
-			$(".panel-body").removeClass('highlight');
-			$("#" + element).addClass('highlight');
+            var panelHead=$("#"+element+" div").attr("id");
+			$("div[class='ui green tiny label']").each(function(){
+               $(this).removeClass('ui green tiny label').addClass('ui orange tiny label');
+            });
+			$("#" + panelHead).removeClass('ui orange tiny label').addClass('ui green tiny label');
             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'presentingShow','topic': topic,'yourIdExaminer': '${yourId}','roomId':'${idRoom}'}));
 		/*	var data = {};
 			data.examinerId = $("#examinerId").attr('value');
@@ -314,7 +346,9 @@ a {
 					location.href = "/EvaluateTool/application/examinationRoom"
 							+ "?yourId=" + encodeURIComponent(yourId)
 							+ "&yourPosition="
-							+ encodeURIComponent(yourPosition);
+							+ encodeURIComponent(yourPosition)+ "&yourName="
+                            + encodeURIComponent('${name}')+ "&yourLastName="
+                            + encodeURIComponent('${lastName}');
 					;
 				});
 		$("#logOut").click(function() {

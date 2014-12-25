@@ -44,7 +44,7 @@
 		<!--put-attribute name="body" value="/WEB-INF/views/socketDemo2.jsp" /-->
 	</definition>
 	
-	<definition name="examinerDashBoard" extends="standardLayout">
+	<definition name="examinerDashBoard" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/examinerDashBoard.jsp" />
 	</definition>
 	
