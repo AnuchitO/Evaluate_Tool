@@ -8,7 +8,7 @@ import com.spt.evt.entity.Topic;
 public interface TopicService {
 	public List<Topic> findBySubject(Subject subject);
 	public Topic findById(Long id);
-	public String setData(String dataForm);
-	public Long deleteDataById(Long id);
-	public String editData(String dataForm);
+	public void setData(String dataForm);
+	public void deleteDataById(Long id);
+	public void editData(String dataForm);
 }

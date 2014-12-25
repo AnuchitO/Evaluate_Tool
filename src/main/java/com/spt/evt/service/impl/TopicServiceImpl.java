@@ -37,7 +37,7 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Transactional
-	public String setData(String dataForm) {
+	public void setData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Topic topic = new Topic();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("id"));
@@ -46,7 +46,6 @@ public class TopicServiceImpl implements TopicService {
 		topic.setDescription(jsonObj.getString("topicDescription"));
 		topic.setSubject(subject);	
 		topicDao.persist(topic);
-		return null;
 	}
 
 	@Override
@@ -56,15 +55,14 @@ public class TopicServiceImpl implements TopicService {
 
 	@Override
 	@Transactional
-	public Long deleteDataById(Long id) {
+	public void deleteDataById(Long id) {
 		Topic topic = findById(id);
 		this.topicDao.removeTopic(topic);
-		return null;
 	}
 
 	@Override
 	@Transactional
-	public String editData(String dataForm) {
+	public void editData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Topic topic = new Topic();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("idSubject"));
@@ -74,7 +72,6 @@ public class TopicServiceImpl implements TopicService {
 		topic.setDescription(jsonObj.getString("topicDescriptionEdit"));
 		topic.setSubject(subject);
 		topicDao.update(topic);
-		return null;
 	}
 
 }
