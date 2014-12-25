@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spt.evt.entity.Course;
 
+import java.util.List;
+
 /**
  * Created by : Anuchit Prasertsang Created Date : 27/10/2014
  */
@@ -26,6 +28,27 @@ public class CourseDaoTest extends AbstractTestDao {
 	public void testFindCourseByIdBeNotNull() {
 		Course course = this.courseDao.findById(1L);
 		Assert.assertNotNull(course);
+	}
+
+	@Test
+	public void testPersistCourse() {
+		Course course = new Course();
+		course.setName("courseName");
+		course.setDescription("courseDescription");
+		courseDao.persist(course);
+		Assert.assertNotNull(courseDao.findById(2L));
+	}
+
+	@Test
+	public void testUpdateCourse(){
+		Course course = courseDao.findById(1L);
+		course.setId(1L);
+		course.setName("Course Edit");
+		course.setDescription("Descrip Edit");
+		courseDao.update(course);
+		Course courseAffter = courseDao.findById(1L);
+		Assert.assertTrue("Course Edit".equals(courseAffter.getName()));
+		Assert.assertTrue("Descrip Edit".equals(courseAffter.getDescription()));
 	}
 
 }

@@ -20,12 +20,40 @@ public class SubjectDaoTest extends AbstractTestDao {
 	@Autowired
 	private SubjectDao subjectDao;
 
+	@Autowired
+	private CourseDao courseDao;
+
 	@Test
 	public void testFindSubjectByCourseShouldBeNotNull() {
 		Course course = new Course();
 		course.setId(1L);
 		List<Subject> subjects = this.subjectDao.findByCourse(course);
 		Assert.assertNotNull(subjects);
+	}
+
+	@Test
+	public void testPersistSubject() {
+		Course course = courseDao.findById(1L);
+		Subject subject = new Subject();
+		subject.setName("Subject Edit");
+		subject.setDescription("Descrip Edit");
+		subject.setCourse(course);
+		subjectDao.persist(subject);
+		Assert.assertNotNull(subjectDao.findById(12L));
+	}
+
+	@Test
+	public void testUpdateSubject(){
+		Course course = courseDao.findById(1L);
+		Subject subject = subjectDao.findById(1L);
+		subject.setId(1L);
+		subject.setName("Subject Edit");
+		subject.setDescription("Descrip Edit");
+		subject.setCourse(course);
+		subjectDao.update(subject);
+		Subject subjectAffter = subjectDao.findById(1L);
+		Assert.assertTrue("Subject Edit".equals(subjectAffter.getName()));
+		Assert.assertTrue("Descrip Edit".equals(subjectAffter.getDescription()));
 	}
 
 }

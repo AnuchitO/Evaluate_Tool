@@ -19,6 +19,8 @@ public class TopicDaoTest extends AbstractTestDao {
 
 	@Autowired
 	private TopicDao topicDao;
+	@Autowired
+	private SubjectDao subjectDao;
 
 	@Test
 	public void testFindSubjectBySubjectShouldBeNotNull() {
@@ -32,6 +34,31 @@ public class TopicDaoTest extends AbstractTestDao {
 	public void testFindTopicByIdShouldBeNotNull() {
 		Topic topic = this.topicDao.findById(1L);
 		Assert.assertNotNull(topic);
+	}
+
+	@Test
+	public void testPersistTopic() {
+		Subject subject = subjectDao.findById(1L);
+		Topic topic = new Topic();
+		topic.setName("Topic Edit");
+		topic.setDescription("Topic Edit");
+		topic.setSubject(subject);
+		topicDao.persist(topic);
+		Assert.assertNotNull(topicDao.findById(59L));
+	}
+
+	@Test
+	public void testUpdateTopic(){
+		Subject subject = subjectDao.findById(1L);
+		Topic topic = topicDao.findById(1L);
+		topic.setId(1L);
+		topic.setName("Topic Edit");
+		topic.setDescription("Descrip Edit");
+		topic.setSubject(subject);
+		topicDao.update(topic);
+		Topic topicAffter = topicDao.findById(1L);
+		Assert.assertTrue("Topic Edit".equals(topicAffter.getName()));
+		Assert.assertTrue("Descrip Edit".equals(topicAffter.getDescription()));
 	}
 
 }
