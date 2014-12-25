@@ -130,7 +130,7 @@
 	<div class="panel-group" style="margin: 20px;margin-top: 70px" id="accordion"></div>
 
 
-	<table id="tableTest"></table>
+	<table id="tableExportExcel"></table>
 
 	<!----------------------Model Collapse---------------------->
 	<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>
@@ -443,6 +443,10 @@
 		var checkIndex = 1;
 		var checkColor =1;
 
+		var dataEachSubject = null;
+		var dataEachPercenSubject = null;
+		var dataEachTopic = null;
+		var dataEachScore = null;
 		$
 				.each(
 				course,
@@ -451,8 +455,10 @@
 							.forEach(function(subject) {
 
 								var sendNameOfSubject = subject.name;
-								dataEachSubject=[];
-
+								dataEachSubject = [];
+								dataEachPercenSubject = [];
+								dataEachTopic = [];
+								dataEachScore = [];
 								$("#panelCollapse0")
 										.clone()
 										.attr(
@@ -521,6 +527,7 @@
 										+ dummyTitle));
 								$("#spanAverage"+dummyAverageScoreEachTopic)
 										.text(subject.averageScore+"%");
+								dataEachPercenSubject.push(subject.averageScore+"%");
 								$("#submitEachTopic0")
 										.clone()
 										.attr(
@@ -617,6 +624,7 @@
 											.appendTo(
 											$("#listNavpills"
 											+ dummyList));
+									dataEachTopic.push(sendTitle+ " : "	+ sendDescription);
 									$("#dummyKeepIdTopic0")
 											.clone()
 											.attr(
@@ -642,7 +650,7 @@
 											.appendTo(
 											$("#linkToScore"
 											+ dummyLink));
-
+									dataEachScore.push(sendScore);
 									$("#modalScore0")
 											.clone()
 											.attr(
@@ -793,7 +801,21 @@
 								if(checkColor == 8){
 									checkColor = 1;
 								}
+//								console.log("DDDDD "+dataEachSubject);
+//								console.log("SSSSS "+dataEachTopic)
+
+								for(var i=0;i<dataEachSubject.length;i++){
+									$("#tableExportExcel").append('<tr><th>'+dataEachSubject[i]+'</th></tr>');
+//									$("#tableExportExcel").append('<tr><th>'+dataEachPercenSubject[i]+'</th></tr>');
+									for(var j=0;j<dataEachTopic.length;j++){
+										$("#tableExportExcel").append('<tr><td>'+dataEachTopic[j]+'</td></tr>');
+//										$("#tableExportExcel").append('<tr><td>'+dataEachScore[j]+'</td></tr>');
+									}
+
+								}
+
 							});
+
 				});
 	}
 
@@ -871,7 +893,7 @@
 	});
 
 	$("#btnExport").click(function(e) {
-		window.open('data:application/vnd.ms-excel,' + $('#tableTest').html());
+		window.open('data:application/vnd.ms-excel,' + $('#tableExportExcel').html());
 		e.preventDefault();
 	});
 
