@@ -70,12 +70,12 @@ a {
 	<a id="subject0"></a>
 	<div id="card0" class="col-md-6 col-sm-6 col-xs-6"></div>
 	<div id="panel0" class="panel panel-default" style="background-color: #fdf4e6"></div>
-	<div id="panelHead0" class="ui orange tiny label" style="width:100%"></div>
+	<div id="panelHead0" class="ui orange tiny button" style="width:100%"></div>
 	<h3 id="topicName0" class="panel-title"></h3>
 	<div id="panelBody0" class="panel-body"></div>
 	<button id="btnPresent" type="button" class="ui teal tiny  button"
 		onClick="javascript:requestController($(this).parent().attr('id'),this.value);"
-		style="position:relative;bottom:10px;left:40%;">Present</button>
+		style="position:relative;bottom:10px;left:40%;"> <i class="glyphicon glyphicon-play"></i>Present</button>
     <script type="text/javascript"
             src="${contextPath}/resources/stomp.js"></script>
     <script type="text/javascript"
@@ -314,10 +314,10 @@ a {
 		}
 		function requestController(element,topic) {
             var panelHead=$("#"+element+" div").attr("id");
-			$("div[class='ui green tiny label']").each(function(){
-               $(this).removeClass('ui green tiny label').addClass('ui orange tiny label');
+			$("div[class='ui green tiny button']").each(function(){
+               $(this).removeClass('ui green tiny button').addClass('ui orange tiny button');
             });
-			$("#" + panelHead).removeClass('ui orange tiny label').addClass('ui green tiny label');
+			$("#" + panelHead).removeClass('ui orange tiny button').addClass('ui green tiny button');
             stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'presentingShow','topic': topic,'yourIdExaminer': '${yourId}','roomId':'${idRoom}'}));
 		/*	var data = {};
 			data.examinerId = $("#examinerId").attr('value');
