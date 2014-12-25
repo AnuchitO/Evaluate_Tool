@@ -43,7 +43,7 @@ public class ExaminerDashBoardControllerTest extends TemplateTestController {
 		mockMvc.perform(get("/examinerDashBoard"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("examinerDashBoard"))
-		.andExpect(forwardedUrl("/WEB-INF/layouts/standard.jsp"));
+		.andExpect(forwardedUrl("/WEB-INF/layouts/master.jsp"));
 	}  
 
 	@Test

@@ -1303,7 +1303,7 @@ a {
               + encodeURIComponent(yourId) + "&yourPosition="
               + encodeURIComponent(yourPosition) + "&name="
               + encodeURIComponent('${name}') + "&lastname="
-              + encodeURIComponent('${lastName}');
+              + encodeURIComponent('${lastname}');
           }else if(yourId==modulatorId){
               sweetAlert("คุณเป็น Modulator ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
           }else if(committee.indexOf(yourId)!=-1){
