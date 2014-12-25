@@ -44,6 +44,9 @@ a {
 .btn {
 	background-color: #FF8C00;
 }
+ div.ui:hover{
+    cursor: default;
+ }
 </style>
 </head>
 <body>
@@ -85,6 +88,7 @@ a {
 
         var stompClient = null;
 		$(function() {
+            ////////////////////////////////Web Socket ///////////////////////
             var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
@@ -93,6 +97,8 @@ a {
                     accessMethod(JSON.parse(data.body));
                 });*/
             });
+
+            ///////////////////////////////Subject List///////////////////////
 			$("#eachSubject0").hide();
 			$("#card0").hide();
 			$("#panel0").hide();
@@ -144,6 +150,8 @@ a {
 				});
 			}
 		});
+
+        ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
         var yourPosition='${yourPosition}';
         var name='${name}';
         var lastname='${lastName}';
@@ -193,6 +201,7 @@ a {
             $("#configmanager").hide();
         }
 
+        ////////////////////////////////Show Topic Each Subject///////////////////////
 		function showTopic(element) {
 			var sizeTopic = (element.id).replace(/[^\d.]/g, '') - 1;
 			var data = {};
@@ -312,6 +321,8 @@ a {
 						}
 					});
 		}
+
+        ////////////////////////////////Event Presenting Now On Websocket Page EvaluateBoard///////////////////////
 		function requestController(element,topic) {
             var panelHead=$("#"+element+" div").attr("id");
 			$("div[class='ui green tiny button']").each(function(){

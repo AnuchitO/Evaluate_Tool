@@ -91,6 +91,7 @@ a {
   var totalprocessPercent=0;
   var stompClient = null;
   $(function(){
+      ////////////////////////////////Web Socket Add Access Funtion After Subscribe///////////////////////
       var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function(frame) {
@@ -99,7 +100,7 @@ a {
                accessMethod(JSON.parse(data.body));
          });
       });
-      $('#example1').progress();
+      ////////////////////////////////From Add Room And Validate///////////////////////
       $('.input-daterange').datepicker({
           format: "yyyy-mm-dd",
           keyboardNavigation: false,
@@ -182,6 +183,8 @@ a {
 
           }
       });
+
+      ////////////////////////////////Function Call After Subscribe///////////////////////
       $(".dropdown").dropdown();
       function accessMethod(data){
           var namefunction=JSON.parse(data).function;
@@ -493,6 +496,7 @@ a {
 
   });
 
+  ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
   var yourPosition='${yourPosition}';
   var name='${name}';
   var lastname='${lastname}';
@@ -561,6 +565,8 @@ a {
               i--;
           }
       }
+
+  ////////////////////////////////Create Card///////////////////////
   $(function() {
       $("#setSizeCard0").hide();
       $("#room0").hide();
@@ -998,6 +1004,7 @@ a {
           });
   });
 
+  ////////////////////////////////Event Submit Button Committee///////////////////////
   function sendId(element) {
       var count = (element.id).replace(/[^\d.]/g, '');
       var roomStatus=$("#roomStatus"+count).text();
@@ -1267,6 +1274,7 @@ a {
       }
   }
 
+  ////////////////////////////////Event Submit Button Examiner///////////////////////
   function sendIdExaminer(element) {
       count = (element.id).replace(/[^\d.]/g, '');
       var roomId = $("#roomId" + count).val();
