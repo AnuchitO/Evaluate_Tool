@@ -33,7 +33,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	@Transactional
-	public String setData(String dataForm) {
+	public void setData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Subject subject = new Subject();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("id"));
@@ -42,7 +42,6 @@ public class SubjectServiceImpl implements SubjectService {
 		subject.setDescription(jsonObj.getString("subjectDescription"));
 		subject.setCourse(course);	
 		subjectDao.persist(subject);
-		return null;
 	}
 
 	@Override
@@ -52,15 +51,14 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	@Transactional
-	public Long deleteDataById(Long id) {
+	public void deleteDataById(Long id) {
 		Subject subject = findById(id);
 		this.subjectDao.removeSubject(subject);
-		return null;
 	}
 
 	@Override
 	@Transactional
-	public String editData(String dataForm) {
+	public void editData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Subject subject = new Subject();
 		Long passIdToLong = Long.parseLong(jsonObj.getString("idCourse"));
@@ -70,6 +68,5 @@ public class SubjectServiceImpl implements SubjectService {
 		subject.setDescription(jsonObj.getString("subjectDescriptionEdit"));
 		subject.setCourse(course);
 		subjectDao.update(subject);
-		return null;
 	}
 }

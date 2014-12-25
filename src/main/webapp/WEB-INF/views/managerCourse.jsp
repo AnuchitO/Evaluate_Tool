@@ -231,8 +231,8 @@ h3{
 								item.forEach(function(data) {
 									var name = data.courseName;
 									var description = data.courseDescription;
-//									document.getElementById("courseNameEdit").value = name;
-//									document.getElementById("courseDescriptionEdit").value = description;
+									document.getElementById("courseNameEdit").value = name;
+									document.getElementById("courseDescriptionEdit").value = description;
 									document.getElementById("showCourse").innerHTML = name;
 									document.getElementById("showCourseInEditSubject").innerHTML = name;
 									document.getElementById("showCourseInAddTopic").innerHTML = name;
@@ -243,7 +243,35 @@ h3{
 							document.getElementById("courseAllEdit").value = parseInt(dataForm.id);
 						},
 						error : function(data) {
+							var dataForm = {};
+							dataForm.id = $("#courseAllEdit").val();
+							var dataSend = JSON.stringify(dataForm);
+							$
+									.ajax({
+										url : "/EvaluateTool/application/courseGetDetail",
+										type : 'POST',
+										data : {
+											dataForm : dataSend
+										},
+										success : function(data) {
+											var addCourse = JSON.parse(data);
+											$.each(addCourse, function(i, item) {
+												item.forEach(function(data) {
+													var name = data.courseName;
+													var description = data.courseDescription;
+													document.getElementById("courseNameEdit").value = name;
+													document.getElementById("courseDescriptionEdit").value = description;
+													document.getElementById("showCourse").innerHTML = name;
+													document.getElementById("showCourseInEditSubject").innerHTML = name;
+													document.getElementById("showCourseInAddTopic").innerHTML = name;
+													document.getElementById("showCourseInEditTopic").innerHTML = name;
+												});
+											});
+										},
+										error : function(data) {
 
+										}
+									});
 						}
 					});
 		}
@@ -972,7 +1000,7 @@ h3{
 											title: "Approve Success....",
 											confirmButtonText: "Yes",
 									}, function(isConfirm){
-											courseAllAddFunction();
+										courseAllAddFunction();
 									});
 								}else{
 									swal({
@@ -1519,21 +1547,24 @@ h3{
 
 	});
 
-		$("#room").click(
-				function() {
-					location.href = "/EvaluateTool/application/examinationRoom"
-					+ "?yourId=" + encodeURIComponent(('${yourId}'))
-					+ "&yourPosition="
-					+ encodeURIComponent('${yourPosition}')
-					+ "&yourName="
-					+ encodeURIComponent('${name}')
-					+ "&yourLastName="
-					+ encodeURIComponent('${lastName}');
-					;
-				});
-		$("#logOut").click(function() {
-			location.href = "/EvaluateTool/application/logIn";
-		});
+	$("#room").click(
+			function() {
+				location.href = "/EvaluateTool/application/examinationRoom"
+				+ "?yourId=" + encodeURIComponent(('${yourId}'))
+				+ "&yourPosition="
+				+ encodeURIComponent('${yourPosition}')
+				+ "&yourName="
+				+ encodeURIComponent('${name}')
+				+ "&yourLastName="
+				+ encodeURIComponent('${lastName}');
+				;
+			});
+	$("#logOut").click(function() {
+		location.href = "/EvaluateTool/application/logIn";
+	});
+
+	var fullname = '${name}'+'  '+'${lastName}';
+	$("#fullname").html(fullname);
 
 	$("#menuReSize").hide();
 	$("#menulefthead").hide();
@@ -1542,6 +1573,8 @@ h3{
 	$("#contentcol2").removeClass("col-md-2 column");
 	$("#contenthead").removeClass("col-md-10 column");
 	$("#contenthead").addClass("col-md-12 column");
+	$("#anotificationapprove").hide();
+	$("#anotificationsubmitandcalcel").hide();
 
 
 	</script>

@@ -7,8 +7,8 @@ import com.spt.evt.entity.Subject;
 
 public interface SubjectService {
 	public List<Subject> findByCourse(Course course);
-	public String setData(String dataForm);
-	public Long deleteDataById(Long id);
+	public void setData(String dataForm);
+	public void deleteDataById(Long id);
 	public Subject findById(Long id);
-	public String editData(String dataForm);
+	public void editData(String dataForm);
 }

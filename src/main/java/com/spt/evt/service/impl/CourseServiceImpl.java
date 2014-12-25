@@ -50,33 +50,29 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	@Transactional
-	public String setData(String dataForm) {
+	public void setData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Course course = new Course();
 		course.setName(jsonObj.getString("courseName"));
 		course.setDescription(jsonObj.getString("courseDescription"));
 		courseDao.persist(course);
-
-		return null;
 	}
 
 	@Override
 	@Transactional
-	public Long deleteDataById(Long id) {
+	public void deleteDataById(Long id) {
 		Course course = findById(id);
 		this.courseDao.removeCourse(course);
-		return null;
 	}
 
 	@Override
 	@Transactional
-	public String editData(String dataForm) {
+	public void editData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
 		Course course = new Course();
 		course.setId(Long.parseLong(jsonObj.getString("id")));
 		course.setName(jsonObj.getString("courseNameEdit"));
 		course.setDescription(jsonObj.getString("courseDescriptionEdit"));
 		courseDao.update(course);
-		return null;
 	}
 }
