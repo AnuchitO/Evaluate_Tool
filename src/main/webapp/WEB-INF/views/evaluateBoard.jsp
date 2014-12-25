@@ -444,7 +444,6 @@ pageEncoding="UTF-8"%>
                     }
                      if(($("#menuPresenting").hasClass("red teal item active")||$("#menuPresenting").hasClass("red active teal item"))&&JSON.parse(data).roomId=='${idRoom}'&&JSON
                              .parse(data).yourIdExaminer=='${idExaminer}'){
-
                                 $("div[class='modal ui transition visible active']").each(function(){
                                     $(this).removeClass("modal ui transition visible active").addClass("modal ui transition hidden");
                                 });
