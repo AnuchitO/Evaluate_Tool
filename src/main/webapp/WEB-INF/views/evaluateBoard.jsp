@@ -350,7 +350,7 @@ pageEncoding="UTF-8"%>
 			<div id="panelScoreHead0" class="panel-heading"></div>
 			<label id="panelScoreSubject0" class="textSubject"></label>
 			<button id="panelScoreBtnClose" type="button" class="close"
-			data-dismiss="modal" aria-hidden="true">&times;</button>
+			data-dismiss="modal" aria-hidden="true"><i class="glyphicon glyphicon-remove"></i> </button>
 			<div id="panelScoreBody0" class="panel-body"></div>
 			<span id="dummyKeepIdTopic0" class="textId"></span> <label
 			id="panelScoreDescription0" class="textDescription"></label>
@@ -407,6 +407,7 @@ pageEncoding="UTF-8"%>
 		var stompClient = null;
 
         $(function(){
+            ////////////////////////////////Web Socket Add Access Funtion After Subscribe///////////////////////
             var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
             stompClient = Stomp.over(socket);    
             stompClient.connect({}, function(frame) {
@@ -415,6 +416,8 @@ pageEncoding="UTF-8"%>
                 	accessMethod(JSON.parse(data.body));
                });
             });
+
+            ////////////////////////////////Access Funtion After Subscribe///////////////////////
             function accessMethod(data){
 	        	var namefunction=JSON.parse(data).function;
 	        	if(namefunction=="notificationRequestCommittee"){
@@ -621,6 +624,7 @@ pageEncoding="UTF-8"%>
 
             }
 
+            ////////////////////////////////List Person With Request Committee In Room///////////////////////
             var committiIdInRoom='${idCommittee}';
             var modulatorIdInRoom='${idModulator}';
             if(committiIdInRoom==modulatorIdInRoom){
@@ -691,6 +695,8 @@ pageEncoding="UTF-8"%>
                 });
 
             }
+
+            ////////////////////////////////Alert Notification with Request Committee///////////////////////
         	function notificationRequestCommittee(data){
 				console.log(data);
 				var countbadgenotificationsubmitandcalcel=$("#badgenotificationsubmitandcalcel").text();
@@ -733,6 +739,8 @@ pageEncoding="UTF-8"%>
                     }
 				}
 			}
+
+            ////////////////////////////////Alert Notification with Request Examiner///////////////////////
             function notificationRequestExaminer(data) {
                 var countbadgenotificationsubmitandcalcel = $("#badgenotificationsubmitandcalcel").text();
                 var namerequest = JSON.parse(data).name;
@@ -776,6 +784,8 @@ pageEncoding="UTF-8"%>
             }
         });
 
+
+        ////////////////////////////////On Click Menu Presenting///////////////////////
         function presentingShow(){
             $("#formBoard").hide();
             $("#menuTopicList").removeClass("teal item active").addClass("teal item");
@@ -785,12 +795,14 @@ pageEncoding="UTF-8"%>
             }
         }
 
+        ////////////////////////////////On Click Menu Topic List///////////////////////
         function topicListShow(){
             $("#formBoard").show();
             $("#menuTopicList").removeClass("teal item").addClass("teal item  active");
             $("#menuPresenting").removeClass("teal item active").addClass("teal item");
         }
 
+        ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
 		$("#menuleftplus").hide();
 		$("#menuleftbtnCompleteExamination").hide();
 		$("#showbtnCompleteExamination").hide();
@@ -827,7 +839,7 @@ pageEncoding="UTF-8"%>
 			});
 
 		}
-		
+
 		if(yourPosition=="Software Analyst"){
 			$("#confighome").show();
 			$("#configroom").show();
@@ -864,6 +876,7 @@ pageEncoding="UTF-8"%>
 			});
 		});
 
+        ////////////////////////////////List Person with Role is Committee in Room///////////////////////
         var idRoomInRoom=JSON.parse('${idRoom}');
         var data={};
         data.roomId=JSON.parse('${idRoom}');
@@ -906,8 +919,9 @@ pageEncoding="UTF-8"%>
 				}else{
 					$(element).hide();
 				}
-		});		
+		});
 
+        ////////////////////////////////On Click Approve Person is Modulator In Room///////////////////////
 		function approve(id,roomid,name,lastname){
                var data={};
                data.roomIdApprove=roomid;
@@ -955,6 +969,8 @@ pageEncoding="UTF-8"%>
 				 	} 
 				 });
 			}
+
+        ////////////////////////////////On Click Approve Person with Request Committee///////////////////////
 			function approveNotificationRequestCommittee(type,yourid,roomid,roomDescription,roomName){
                 var data={};
                 data.yourId=yourid;
@@ -987,6 +1003,8 @@ pageEncoding="UTF-8"%>
                     }
                 });
 			}
+
+        ////////////////////////////////On Click Not Approve Person with Request Committee///////////////////////
 			function notApproveNotificationRequestCommittee(type,yourid,roomid,roomDescription,roomName){
                 var data={};
                 data.yourId=yourid;
@@ -1018,6 +1036,8 @@ pageEncoding="UTF-8"%>
                         }
                     });
 			}
+
+        ////////////////////////////////On Click Approve Person with Request Examiner///////////////////////
         function approveNotificationRequestExaminer(type,yourid,roomid,roomDescription,roomName){
             var data={};
             data.yourId=yourid;
@@ -1050,6 +1070,8 @@ pageEncoding="UTF-8"%>
                 }
             });*/
         }
+
+        ////////////////////////////////On Click Not Approve Person with Request Examiner///////////////////////
         function notApproveNotificationRequestExaminer(type,yourid,roomid,roomDescription,roomName){
             var data={};
             data.yourId=yourid;
