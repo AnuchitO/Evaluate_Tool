@@ -439,9 +439,12 @@ pageEncoding="UTF-8"%>
         	}
             function presentingShowModal(data){
                      var topic = JSON.parse(data).topic;
-                     elementModalPresentingNow=$("li[title='" + topic + "']")[0];
+                    if(JSON.parse(data).roomId=='${idRoom}'&&JSON.parse(data).yourIdExaminer=='${idExaminer}'){
+                        elementModalPresentingNow=$("li[title='" + topic + "']")[0];
+                    }
                      if(($("#menuPresenting").hasClass("red teal item active")||$("#menuPresenting").hasClass("red active teal item"))&&JSON.parse(data).roomId=='${idRoom}'&&JSON
                              .parse(data).yourIdExaminer=='${idExaminer}'){
+
                                 $("div[class='modal ui transition visible active']").each(function(){
                                     $(this).removeClass("modal ui transition visible active").addClass("modal ui transition hidden");
                                 });

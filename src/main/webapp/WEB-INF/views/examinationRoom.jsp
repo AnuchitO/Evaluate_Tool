@@ -56,9 +56,9 @@ a {
 	<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
 	<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div>
        <div id="showprocess0" style="position:absolute;left:50px;width:110px;height:110px"></div>
-  </div>
+    </div>
 </div>
-<div id="setSizeProgress0" style="display:inline" class="col-sm-4 col-md-4"></div>
+<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 <div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
 <div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
 <input type="hidden" id="roomId0" value="" />
@@ -871,7 +871,7 @@ a {
                                       var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:absolute;left:25%;top:34px"></span>');
                                       $("div[id=showprocess"+dummyDetail+"]").each(function(index,element1){
                                           var seconds = new ProgressBar.Circle(element1, {
-                                              duration: 200,
+                                              duration: 1000,
                                               color: "#7A4634",
                                               trailColor: "#ffffff",
                                               strokeWidth: 13
