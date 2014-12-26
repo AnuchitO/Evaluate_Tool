@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	response.setContentType("application/vnd.ms-excel");
-	response.setHeader("Content-Disposition", "inline; filename=" + request.getAttribute("filename") + ".xls");
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -130,7 +126,7 @@
 	<div class="panel-group" style="margin: 20px;margin-top: 70px" id="accordion"></div>
 
 
-	<table id="tableExportExcel"></table>
+	<table id="tableTest"></table>
 
 	<!----------------------Model Collapse---------------------->
 	<div id="panelCollapse0" class="panel panel-default" style="align-content: center"></div>
@@ -317,6 +313,36 @@
 							});
 				});
 
+				$("#btnExport").click(function(){
+					var roomSelect = $("#pickRoom").val();
+					var courseIdInroom = $("#pickRoom option").attr("class");
+					var committeeId = $("#yourId").val();
+
+					var dataCourse = {};
+					dataCourse.roomId = roomSelect;
+					dataCourse.examinerId = personId;
+					dataCourse.committeeId = committeeId;
+					dataCourse.courseId = courseIdInroom;
+					var dataSend = JSON.stringify(dataCourse);
+					$
+							.ajax({
+								url : "/EvaluateTool/application/exportExcel",
+								type : 'POST',
+								data : {
+									data : dataSend
+								},
+								success : function(data) {
+//									alert(data);
+									var course = JSON.parse(data);
+//									createCollapse(course);
+								},
+								error : function(data, status, er) {
+									alert("error: " + data + " status: " + status
+									+ " er:" + er);
+								}
+							});
+				});
+
 			}
 		});
 	});
@@ -356,7 +382,7 @@
 	function createCollapse(course) {
 		$("#averageAll").show();
 		$("#btnExport").show();
-		$("#tableExportExcel").hide();
+//			$.("#averageAllScore").text("xxx");
 
 		$("#panelCollapse0").empty();
 		$("#panelHeading0").empty();
@@ -443,10 +469,6 @@
 		var checkIndex = 1;
 		var checkColor =1;
 
-		var dataEachSubject = null;
-		var dataEachPercenSubject = null;
-		var dataEachTopic = null;
-		var dataEachScore = null;
 		$
 				.each(
 				course,
@@ -455,10 +477,7 @@
 							.forEach(function(subject) {
 
 								var sendNameOfSubject = subject.name;
-								dataEachSubject = [];
-								dataEachPercenSubject = [];
-								dataEachTopic = [];
-								dataEachScore = [];
+
 								$("#panelCollapse0")
 										.clone()
 										.attr(
@@ -500,7 +519,6 @@
 										.appendTo(
 										$("#panelHeading"
 										+ dummyHead));
-								dataEachSubject.push(sendNameOfSubject);
 								$("#spanTopic0")
 										.clone()
 										.attr(
@@ -527,7 +545,6 @@
 										+ dummyTitle));
 								$("#spanAverage"+dummyAverageScoreEachTopic)
 										.text(subject.averageScore+"%");
-								dataEachPercenSubject.push(subject.averageScore+"%");
 								$("#submitEachTopic0")
 										.clone()
 										.attr(
@@ -624,7 +641,6 @@
 											.appendTo(
 											$("#listNavpills"
 											+ dummyList));
-									dataEachTopic.push(sendTitle+ " : "	+ sendDescription);
 									$("#dummyKeepIdTopic0")
 											.clone()
 											.attr(
@@ -650,7 +666,7 @@
 											.appendTo(
 											$("#linkToScore"
 											+ dummyLink));
-									dataEachScore.push(sendScore);
+
 									$("#modalScore0")
 											.clone()
 											.attr(
@@ -801,21 +817,7 @@
 								if(checkColor == 8){
 									checkColor = 1;
 								}
-//								console.log("DDDDD "+dataEachSubject);
-//								console.log("SSSSS "+dataEachTopic)
-
-								for(var i=0;i<dataEachSubject.length;i++){
-									$("#tableExportExcel").append('<tr><th>'+dataEachSubject[i]+'</th></tr>');
-//									$("#tableExportExcel").append('<tr><th>'+dataEachPercenSubject[i]+'</th></tr>');
-									for(var j=0;j<dataEachTopic.length;j++){
-										$("#tableExportExcel").append('<tr><td>'+dataEachTopic[j]+'</td></tr>');
-//										$("#tableExportExcel").append('<tr><td>'+dataEachScore[j]+'</td></tr>');
-									}
-
-								}
-
 							});
-
 				});
 	}
 
@@ -891,12 +893,6 @@
 	$("#imgmenuleft").mouseout(function(){
 		$("#extendimgmenuleft").slideToggle(300);
 	});
-
-	$("#btnExport").click(function(e) {
-		window.open('data:application/vnd.ms-excel,' + $('#tableExportExcel').html());
-		e.preventDefault();
-	});
-
 
 </script>
 </body>

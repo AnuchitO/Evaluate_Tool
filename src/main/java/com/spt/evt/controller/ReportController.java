@@ -127,5 +127,20 @@ public class ReportController {
 
 	}
 
+	@RequestMapping(value="/exportExcel",method=RequestMethod.POST)
+	public @ResponseBody String exportExcel(@RequestParam(value="data") String data ,HttpServletRequest arg0,
+												  HttpServletResponse arg1)  {
+		JSONObject courseDetail = new JSONObject(data);
+
+		Long roomId			= Long.parseLong(courseDetail.getString("roomId"));
+		Long examinerId 	= Long.parseLong(courseDetail.getString("examinerId"));
+		Long committeeId 	= Long.parseLong(courseDetail.getString("committeeId"));
+		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
+
+		JSONObject courseInformation = this.reportService.getCourseInformationSummaryForExportExcel(roomId,examinerId,committeeId , courseId);
+		return courseInformation.toString();
+
+	}
+
 
 }

@@ -1,5 +1,6 @@
 package com.spt.evt.service.impl;
 
+import java.lang.Override;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -157,6 +158,71 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	public Person getPersonByExaminerId(Long examinerId) {
 		Person examiner = this.getPersonService().findById(examinerId);
 		return examiner;
+	}
+
+	@Override
+	public JSONObject getCourseInformationSummaryForExportExcel(Long roomId, Long examinerId, Long committeeId,Long courseId) {
+
+		JSONObject courseInformation = new JSONObject();
+
+
+		Room room			= this.getRoomService().findById(roomId);
+		Person committee 	= this.getPersonService().findById(committeeId);
+		Person examiner 	= this.getPersonService().findById(examinerId);
+		Course course 		= this.getCourseService().findById(courseId);
+
+		List<Subject> subjects = this.getSubjectService().findByCourse(course);
+
+		JSONObject subjectElement = null;
+		for (Subject subject : subjects) {
+			subjectElement = new JSONObject();
+			subjectElement.put("id", subject.getId());
+			subjectElement.put("name",subject.getName());
+
+			List<Topic> topics = this.getTopicService().findBySubject(subject);
+			findScoreAddIntoJsonOfTopicSummary(room, committee,examiner, subjectElement, topics);
+			courseInformation.append("subject", subjectElement);
+		}
+
+		JSONArray summaryNoSortArray = new JSONArray(""+courseInformation.get("subject")) ;
+		TreeMap<String,List<JSONObject>> summaryTreeMap = new TreeMap<String,List<JSONObject>>(Collections.reverseOrder());
+
+		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ){
+			if (summaryTreeMap.containsKey(summaryNoSortArray.getJSONObject(i).getString("sumTopic"))) {
+				List<JSONObject> listObject = summaryTreeMap.get(summaryNoSortArray.getJSONObject(i).getString("sumTopic"));
+
+				float beforeList = Float.parseFloat(summaryNoSortArray.getJSONObject(i).getString("averageScore"));
+				float afterList = Float.parseFloat(listObject.get(0).getString("averageScore"));
+
+				if (beforeList >= afterList){
+					listObject.add(0, summaryNoSortArray.getJSONObject(i));
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}else {
+					listObject.add(1, summaryNoSortArray.getJSONObject(i));
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}
+			}else{
+
+				List<JSONObject> listObject = new ArrayList<JSONObject>();
+				listObject.add(summaryNoSortArray.getJSONObject(i));
+				summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+
+			}
+
+		}
+		JSONArray summaryArray = new JSONArray() ;
+		JSONObject summary = new JSONObject();
+		for(String key: summaryTreeMap.keySet()) {
+			for (JSONObject jsList : summaryTreeMap.get(key)) {
+				summaryArray.put(jsList);
+			}
+		}
+		summary.put("subject",summaryArray);
+
+
+		JSONObject returnCourseInformation =  this.getGenerateExcelService().generateExcel(summary);
+
+		return returnCourseInformation;
 	}
 
 	@Override
