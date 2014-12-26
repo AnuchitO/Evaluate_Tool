@@ -655,10 +655,10 @@ pageEncoding="UTF-8"%>
                             var countlistrequestsubmitandcancel=$("#listrequestsubmitandcancel").val();
                             if(countlistrequestsubmitandcancel==""||countlistrequestsubmitandcancel>=0){
                                 $("#listrequestsubmitandcancel").val(++countlistrequestsubmitandcancel);
-                                $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="'+countlistrequestsubmitandcancel+'" class="ui feed">'+'<div class="event">'+'<div class="label">'+
+                                $("#listrequestsubmitandcancel").append('<div id="contentlistsubmitandcancel" title="'+yourIdRequest+'" value="committee" class="ui feed">'+'<div class="event">'+'<div class="label">'+
                                         '<img id="imguserrequestapprove" src="${contextPath}/resources/images/user.png" width="32px" height="30px"/>'+
-                                        '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick=\'(approveNotificationRequestCommittee("'+countlistrequestsubmitandcancel+'","'+yourIdRequest+'","'+roomidrequest+'","'+roomDescription+'","'+roomName+'"))\'><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
-                                        '<div class="or"></div>'+'<a onclick=\'(notApproveNotificationRequestCommittee("'+countlistrequestsubmitandcancel+'","'+yourIdRequest+'","'+roomidrequest+'","'+roomDescription+'","'+roomName+'"))\'><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
+                                        '</div>'+'<div class="content">'+'<div class="date">'+'<a onclick=\'(approveNotificationRequestCommittee("committee","'+yourIdRequest+'","'+roomidrequest+'","'+roomDescription+'","'+roomName+'"))\'><div class="ui tiny buttons">'+'<div class="ui green button">อนุญาต</div></a>'+
+                                        '<div class="or"></div>'+'<a onclick=\'(notApproveNotificationRequestCommittee("committee","'+yourIdRequest+'","'+roomidrequest+'","'+roomDescription+'","'+roomName+'"))\'><div class="ui red button">ปฎิเสธ</div></a>'+'</div>'+'</div>'+'<div class="summary">'+
                                         '<a><p id="fullnamerequestapprove">'+namerequest+' '+lastnamerequest+'</p></a>'+
                                         '<span id="titlereqeustapprove">'+title+'</span>'+'</div>'+'</div>'+'</div>'+'</div>');
                             }
