@@ -55,10 +55,9 @@ a {
 	<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 	<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
 	<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div>
-       <div id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
+       <div class="hidden-sm" id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
     </div>
 </div>
-<div id="setSizeProgress0" class="col-sm-4 col-md-4"></div>
 <div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
 <div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
 <input type="hidden" id="roomId0" value="" />
@@ -88,6 +87,17 @@ a {
   src="${contextPath}/resources/sockjs-0.3.4.js"></script>
 
 <script>
+ /*   var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+   if(x==768){
+       $("div[class='showprocess']").each(function(){
+          $(this).attr("style","position:relative;top:0px;left:50px;width:110px;height:110px");
+       });
+   }*/
   var totalprocessPercent=0;
   var stompClient = null;
   $(function(){
@@ -571,7 +581,6 @@ a {
       $("#setSizeCard0").hide();
       $("#room0").hide();
       $("#body0").hide();
-      $("#setSizeProgress0").hide();
       $("#setSizeDetail0").hide();
       $("#roomName0").hide();
       $("#courseName0").hide();
