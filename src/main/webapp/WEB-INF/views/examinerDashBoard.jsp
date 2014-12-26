@@ -71,14 +71,14 @@ a {
 	</div>
 	<li id="eachSubject0" onClick="javascript:showTopic(this);"></li>
 	<a id="subject0"></a>
-	<div id="card0" class="col-md-6 col-sm-6 col-xs-6"></div>
+	<div align="center" id="card0" class="col-md-6 col-sm-6 col-xs-6"></div>
 	<div id="panel0" class="panel panel-default" style="background-color: #fdf4e6"></div>
 	<div id="panelHead0" class="ui orange tiny button" style="width:100%"></div>
 	<h3 id="topicName0" class="panel-title"></h3>
 	<div id="panelBody0" class="panel-body"></div>
 	<button id="btnPresent" type="button" class="ui teal tiny  button"
-		onClick="javascript:requestController($(this).parent().attr('id'),this.value);"
-		style="position:relative;bottom:10px;left:40%;"> <i class="glyphicon glyphicon-play"></i>Present</button>
+		onClick="javascript:requestController($(this).parent().attr('id'),this.value);">
+        <i class="glyphicon glyphicon-play"></i>Present</button>
     <script type="text/javascript"
             src="${contextPath}/resources/stomp.js"></script>
     <script type="text/javascript"
