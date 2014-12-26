@@ -201,18 +201,22 @@
 							<div id="menuleft" hidden style="margin-top:100px">
 								<div style="width:150px;background-color:#eee" class="ui vertical labeled icon menu">
 									<a class="red item" id="menuPresenting" onclick="presentingShow()">
+                                        <div>
 										<img class="glyphicon" src="${contextPath}/resources/images/presenting.png" width="32px" height="30px" />
-										Presentting
+                                        </div>
+                                        <span style="font-size: 12pt">Presentting</span>
 									</a>
 									<a class="teal item active" id="menuTopicList" onclick="topicListShow()">
+                                        <div>
 										<img class="glyphicon" src="${contextPath}/resources/images/topicList.png" width="32px" height="30px" />
-										TopicList
+                                        </div>
+										<span  style="font-size: 12pt">TopicList</span>
 									</a>
 									<a id="menuleftbtnCompleteExamination" class="green item">
 										<div id="showbtnCompleteExamination">
 										<img id="btnCompleteExamination" class="glyphicon" src="${contextPath}/resources/images/complete.png" width="32px" height="30px" />
 										</div>
-										Complete
+										<span  style="font-size: 12pt">Complete</span>
 									</a>
 								</div>
 							</div>
