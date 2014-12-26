@@ -248,6 +248,12 @@ pageEncoding="UTF-8"%>
             height: 0px;
             left: 65%;
         }
+    a#menuPresenting:hover,a#menuTopicList:hover,a#menuleftbtnCompleteExamination:hover{
+        background-color: #d0dcdb;
+        width: 200px;
+        -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+        transition: width 1s;
+    }
 
 	</style>
 </head>
@@ -1927,7 +1933,7 @@ $("#notificationLink")
 								//return false;
 							});
 
-$("#btnCompleteExamination").click(
+$("#btnCompleteExamination,#menuleftbtnCompleteExamination").click(
 	function() {
 		var data = {};
 		data.roomId = $("#roomId").val();

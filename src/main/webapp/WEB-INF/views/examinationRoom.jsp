@@ -74,11 +74,11 @@ a {
 <div id="roomTime0"></div>
 <div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
 <div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-<button id="btnExaminer0" type="button"
+<button id="btnExaminer0" style="margin-top:10px" type="button"
   class="ui orange tiny  button"
   onClick="javascript:sendIdExaminer(this)">Examiner</button>
 <button id="btnCommittee0" type="button"
-  class="ui orange tiny  button" onClick="javascript:sendId(this)">Committee</button>
+  class="ui orange tiny  button" style="margin-top:10px" onClick="javascript:sendId(this)">Committee</button>
 <div id="loader" align="center" style="position:fixed;left:50%;top:50%">
           <img src="resources/images/loading.gif" alt="" />
       </div>
