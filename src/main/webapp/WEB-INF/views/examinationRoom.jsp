@@ -497,6 +497,7 @@ a {
              var count=JSON.parse(data).count;
              $("#body"+count+"").css("background-color","rgb(243, 243, 76");
              $("#roomStatus"+count+"").text("Status : Ready");
+             $("#roomStatus"+count+"").attr("value","Ready");
       }
       function alertRequestSame(data){
           if(JSON.parse(data).yourId=='${yourId}'){
@@ -818,6 +819,9 @@ a {
                                                       'id',
                                                       'roomStatus'
                                                               + (++dummyRoomStatus))
+                                              .attr(
+                                                        'value',
+                                                                roomStatus)
                                               .text(
                                                       "Status : "
                                                               + roomStatus)
@@ -1052,7 +1056,7 @@ a {
   ////////////////////////////////Event Submit Button Committee///////////////////////
   function sendId(element) {
       var count = (element.id).replace(/[^\d.]/g, '');
-      var roomStatus=$("#roomStatus"+count).text();
+      var roomStatus=$("#roomStatus"+count).attr('value');
       var roomName=$("#roomName"+count).text();
       var roomDescription=$("#roomDescription"+count).text();
       var yourId='${yourId}';
@@ -1065,11 +1069,11 @@ a {
       detailPerson.modulatorId = $("#modulatorId" + count).val();
       detailPerson.yourId=yourId;
       var dataPersonId = JSON.stringify(detailPerson);
-      if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"||(roomStatus=="Status : Waiting"&&yourId==detailPerson.modulatorId)||roomStatus=="Status : Completed"){
+      if(roomStatus=="Ready"||roomStatus=="Testing"||(roomStatus=="Waiting"&&yourId==detailPerson.modulatorId)||roomStatus=="Completed"){
           if(yourId==detailPerson.examinerId){
               sweetAlert("คุณเป็น Examiner ห้องนี้แล้ว", "ไม่สามารถเป็น Modulator ได้","error");
           }else if(yourId==detailPerson.modulatorId){
-              if(roomStatus!="Status : Completed"){
+              if(roomStatus!="Completed"&&roomStatus!="Testing"){
               $.ajax({
                   url:"/EvaluateTool/application/setStatusRoomReady",
                   type:"POST",
@@ -1256,7 +1260,7 @@ a {
                             }
                       });
               }else{
-                      if(roomStatus!="Status : Completed"){
+                      if(roomStatus!="Completed"){
                           $.ajax({
                               url:"/EvaluateTool/application/addRequestCommittee",
                               type:"POST",
@@ -1312,9 +1316,9 @@ a {
               }
           }
 
-      }else if(roomStatus=="Status : Terminate"){
+      }else if(roomStatus=="Terminate"){
               sweetAlert("", "การสอบได้มีการยุติ","error");
-      }else if(roomStatus=="Status : Waiting"){
+      }else if(roomStatus=="Waiting"){
           sweetAlert("", "Modulator ยังไม่เข้าห้อง","error");
       }
   }
@@ -1330,7 +1334,7 @@ a {
       var examinerId = $("#examinerId" + count).val();
       var courseId = $("#courseId" + count).val();
       var modulatorId=$("#modulatorId" + count).val();
-      var roomStatus=$("#roomStatus"+count).text();
+      var roomStatus=$("#roomStatus"+count).attr("value");
       var roomName=$("#roomName"+count).text();
       var roomDescription=$("#roomDescription"+count).text();
       var committee=[];
@@ -1344,10 +1348,10 @@ a {
       detailPerson.modulatorId = $("#modulatorId" + count).val();
       detailPerson.yourId=yourId;
       var dataPersonId = JSON.stringify(detailPerson);*/
-      if(roomStatus=="Status : Completed"){
+      if(roomStatus=="Completed"){
           sweetAlert("", "การสอบสำเร็จแล้ว","success");
       }
-      else if(roomStatus=="Status : Ready"||roomStatus=="Status : Testing"){
+      else if(roomStatus=="Ready"||roomStatus=="Testing"){
           if(yourId==examinerId){
               location.href = "/EvaluateTool/application/examinerDashBoard"
               + "?idRoom=" + encodeURIComponent(roomId) + "&idExaminer="
@@ -1366,9 +1370,9 @@ a {
               sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
           }
 
-      }else if(roomStatus=="Status : Terminate"){
+      }else if(roomStatus=="Terminate"){
           sweetAlert("", "การสอบได้มีการยุติ","error");
-      }else if(roomStatus=="Status : Waiting"){
+      }else if(roomStatus=="Waiting"){
           sweetAlert("", "Modulator ยังไม่เข้าห้อง","error");
       }
 
