@@ -632,7 +632,9 @@ a {
       var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
       var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
       var genCommittee = ("#committee" + dummyCommittee);
-
+      var summaryOfTopic=0;
+      var summarySubmitScoreOfTopic=0;
+      var totalPercentScoreInRoom=0;
       $
               .each(
                       allRoom,
@@ -854,7 +856,8 @@ a {
                                               .appendTo(
                                               $("#body"
                                                       + dummyRoom));
-                                      /*var summaryOfTopic=0;
+
+                                      ////////////////////////////////////////Add Percent Submit Topic Each Subject///////////////////////////////////////////////////
                                       var data={};
                                       data.roomId=String(roomId);
                                       data.examinerId=roomExaminerId;
@@ -867,25 +870,57 @@ a {
                                           data:{
                                               data:dataEachRoom
                                           },success:function(data){
-                                              $.each(JSON.parse(data).subject,function(i,element){
-                                                            // console.log("Test"+roomId+""+element.topic[i]);
-
+                                              $.each(JSON.parse(data),function(i,element){
+                                                  element.forEach(function(subject){
+                                                      for(var i in subject.topic){
+                                                          summaryOfTopic=summaryOfTopic+1;
+                                                          if(subject.topic[i].score!="-"){
+                                                              summarySubmitScoreOfTopic=summarySubmitScoreOfTopic+1;
+                                                          }
+                                                      }
+                                                  });
                                               });
+                                              var showProcessEachRoom=$("div[id=showprocess"+roomId+"]").append('<span id="clock-seconds'+roomId+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:relative;top:65px;right:30px"></span>');
+                                              var elementProcess=document.getElementById("showprocess"+roomId);
+                                              totalPercentScoreInRoom=totalPercentScoreInRoom+(~~((summarySubmitScoreOfTopic*100)/(summaryOfTopic)));
+                                              if(totalPercentScoreInRoom<=9){
+                                                  var seconds = new ProgressBar.Circle(elementProcess, {
+                                                      duration: 200,
+                                                      color: "#7A4634",
+                                                      trailColor: "#ffffff",
+                                                      strokeWidth: 13
+                                                  });
+                                                  seconds.animate((totalPercentScoreInRoom)/100, function() {
+                                                  });
+                                                  $("span[id=clock-seconds"+roomId+"]").html(totalPercentScoreInRoom);
+                                              }else if(totalPercentScoreInRoom>9 && totalPercentScoreInRoom<100){
+                                                  var seconds = new ProgressBar.Circle(elementProcess, {
+                                                      duration: 200,
+                                                      color: "#7A4634",
+                                                      trailColor: "#ffffff",
+                                                      strokeWidth: 13
+                                                  });
+                                                  seconds.animate((totalPercentScoreInRoom)/100, function() {
+                                                  });
+                                                  $("span[id=clock-seconds"+roomId+"]").html(totalPercentScoreInRoom);
+                                                  $("span[id=clock-seconds"+roomId+"]").css("right","25px");
+                                              }else {
+                                                  var seconds = new ProgressBar.Circle(elementProcess, {
+                                                      duration: 200,
+                                                      color: "#7A4634",
+                                                      trailColor: "#ffffff",
+                                                      strokeWidth: 13
+                                                  });
+                                                  seconds.animate((totalPercentScoreInRoom) / 100, function () {
+                                                  });
+                                                  $("span[id=clock-seconds" + roomId + "]").html(totalPercentScoreInRoom);
+                                                  $("span[id=clock-seconds" + roomId + "]").css("right", "18px");
+                                              }
+                                              summaryOfTopic=0;
+                                              summarySubmitScoreOfTopic=0;
+                                              totalPercentScoreInRoom=0;
                                           }
                                       });
-                                      console.log("Test"+roomId+""+summaryOfTopic);*/
-                                      var showProcessEachRoom=$("div[id=showprocess"+dummyDetail+"]").append('<span id="clock-seconds'+dummyDetail+'" class="label label-success" style="text-shadow: -1px 4px 4px rgb(146, 150, 150);font-size:18pt;position:relative;top:65px;right:30px"></span>');
-                                      $("div[id=showprocess"+dummyDetail+"]").each(function(index,element1){
-                                          var seconds = new ProgressBar.Circle(element1, {
-                                              duration: 1000,
-                                              color: "#7A4634",
-                                              trailColor: "#ffffff",
-                                              strokeWidth: 13
-                                          });
-                                          seconds.animate((0)/100, function() {
-                                          });
-                                      });
-                                      $("span[id=clock-seconds"+dummyDetail+"]").html("0");
                                       $("#setHalfSizeOne0")
                                               .clone()
                                               .attr(

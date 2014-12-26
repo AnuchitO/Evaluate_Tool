@@ -1269,10 +1269,11 @@ pageEncoding="UTF-8"%>
 						keepOriginalSubmitEachTopic);
 				}
 				$("#spanScore" + count).text(textScore);
+                var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
+                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
 			}
 
-            var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
-            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
+
 		}
 
 		function setScore(btnScore, groupScore) {
