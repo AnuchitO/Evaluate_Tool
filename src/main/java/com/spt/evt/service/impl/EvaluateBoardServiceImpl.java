@@ -69,8 +69,9 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 
 	@Override
 	public String scoring(Long roomId, Long committeeId, Long examinerId, Long topicId,Double score, String comment) {
-		Room room = new Room();
-		room.setId(roomId);
+//		Room room = new Room();
+//		room.setId(roomId);
+		Room  room = getRoomService().findById(roomId);
 
 		Person committee = new Person();
 		committee.setId(committeeId);
@@ -82,7 +83,7 @@ public class EvaluateBoardServiceImpl extends ProviderService implements Evaluat
 		examiner.setId(examinerId);
 
 		ScoreBoard scoreBoard = new ScoreBoard();
-		scoreBoard.setRoom(room);
+		scoreBoard.setRoom(getRoomService().findById(roomId));
 		scoreBoard.setCommittee(committee);
 		scoreBoard.setTopic(topic);
 		scoreBoard.setExaminer(examiner);
