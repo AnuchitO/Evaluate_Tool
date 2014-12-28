@@ -1474,6 +1474,8 @@ pageEncoding="UTF-8"%>
 
 				var sizeTopic = 0;
 				var numberOfTopic = 0;
+				var checkIndex = 1;
+				var checkColor =1;
 
 				$
 				.each(
@@ -1802,6 +1804,32 @@ pageEncoding="UTF-8"%>
 							"/"
 							+ " "
 							+ numberEachOfTopic);
+
+									var setColor = "panelHeading"+checkIndex;
+									var changeColor = document.getElementById(setColor);
+									switch (checkColor){
+										case 1: changeColor.style.backgroundColor = "#FF6347";
+											break;
+										case 2: changeColor.style.backgroundColor = "#FFA600";
+											break;
+										case 3: changeColor.style.backgroundColor = "#FFFF00";
+											break;
+										case 4: changeColor.style.backgroundColor = "#92D050";
+											break;
+										case 5: changeColor.style.backgroundColor = "#00BFFF";
+											break;
+										case 6:	changeColor.style.backgroundColor = "#DA70D6";
+											break;
+										case 7:	changeColor.style.backgroundColor = "#FF69B4";
+											break;
+
+									}
+									checkColor++
+									checkIndex++;
+
+									if(checkColor == 8){
+										checkColor = 1;
+									}
 					});
 
 });
