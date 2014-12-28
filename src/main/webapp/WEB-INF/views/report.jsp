@@ -310,11 +310,16 @@ table>tbody>tr>td {
 				$("#extendimgmenuleft").slideToggle(300);
 			});
 
+		var fullname = '${name}'+'  '+'${lastName}';
+		$("#fullname").html(fullname);
+
 
 		$("#menuReSize").show();
 		$("#menulefthead").hide();
 		$("#menulefthover").hide();
 		$("#menuleftplus").hide();
+		$("#headdropdownapprovepermission").hide();
+		$("#headdropdownsubmitandcancel").hide();
 
 	</script>
 </body>

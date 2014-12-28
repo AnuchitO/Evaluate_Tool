@@ -155,7 +155,7 @@
 																		History
 																	</div>
 																</div>
-																<div class="content" hidden>
+																<div class="content" hidden id="configmanager">
 																	<div style="width:100px"class="summary">
 																		<a id="courseManager" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/course.png" width="20px" height="32px"/></p></a>
 																		Manager
