@@ -54,12 +54,12 @@
 </div>
 <div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 <div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
-<div id="body0" class="panel-body"><div style="margin-right:95%; display: inline"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
+<div id="body0" class="panel-body"><div style="margin-right:95%;"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
     <div class="hidden-sm" id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
 </div>
 </div>
 <div id="setSizeDetail0" class="col-sm-12 col-md-12"></div>
-<div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1);"></div>
+<div id="roomName0" style="font-size:20pt;text-shadow: -1px 4px 4px rgba(146, 150, 150, 1); margin-left:50%" ondblclick="javascript:editName(this)"></div>
 <input type="hidden" id="roomId0" value="" />
 <input type="hidden" id="examinerId0" value="" />
 <div id="committee0"></div>
@@ -943,7 +943,7 @@ $(function() {
                                     .attr(
                                     'id',
                                             'showprocess'
-                                            + (dummyDetail))
+                                            + (roomId))
                                     .insertAfter(genDetail)
                                     .show()
                                     .appendTo(
@@ -1500,8 +1500,7 @@ $("#courseManager").click(
                     dataId:sendId
                 },
                 success:function(){
-                    element.parentElement.parentElement.parentElement.parentElement.remove();
-                    swal("Deleted!", "Your room has been deleted.", "success");
+                    location.reload();
                 },
                 error:function(){
                     swal("Cancelled", "Your room is safe :)", "error");
@@ -1512,8 +1511,11 @@ $("#courseManager").click(
     }
 
     function editName(element){
-        var x = element.textContent;
-        alert(x);
+        var roomname = element.textContent;
+        var roomid = element.parentElement.children[0].value;
+        alert(roomname);
+        alert(roomid);
+
     }
     
 </script>
