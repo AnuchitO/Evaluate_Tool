@@ -1959,7 +1959,7 @@ $(function() {
                         roomId : roomId
                     },
                     success : function(data) {
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':data.roomId,'status':'Complete' }));
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':'${idRoom}','status':'Complete' }));
                         swal({
                             type:"success",
                             title: "Success",
