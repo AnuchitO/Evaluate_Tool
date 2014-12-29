@@ -84,12 +84,9 @@ public class RequestAndApprove{
             //jsonData.put("count",map.get("count"));
             jsonData.put("function","approveSubmitExaminer");
         }else if(map.get("head").equals("updateStatusCard")){
-            jsonData.put("name",map.get("name"));
-            jsonData.put("lastname",map.get("lastname"));
-            jsonData.put("yourId",map.get("yourId"));
             jsonData.put("roomId",map.get("roomId"));
-            jsonData.put("count",map.get("count"));
-            jsonData.put("modulatorId",map.get("modulatorId"));
+            jsonData.put("status",map.get("status"));
+            //jsonData.put("count",map.get("count"));
             jsonData.put("function","updateStatusCard");
         }else if(map.get("head").equals("cancelRequestCommittee")){
             jsonData.put("name",map.get("name"));
