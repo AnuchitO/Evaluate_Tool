@@ -88,4 +88,20 @@ public class ExaminationRoomController {
         return this.examinationRoomService.removeRequestCommittee(roomId,personId);
     }
 
+    @RequestMapping(value="/addRoom",method=RequestMethod.POST)
+	public @ResponseBody String addRoom(@RequestParam(value="dataRoom")String data,HttpServletRequest request,HttpServletResponse response){
+
+		this.examinationRoomService.setAddRoom(data);
+		LOGGER.debug("DATA"+data);
+		return null;
+	}
+
+	@RequestMapping(value="/removeRoom",method=RequestMethod.POST)
+	public @ResponseBody String removeRoom(@RequestParam(value="dataId")String data,HttpServletRequest request,HttpServletResponse response){
+		Long roomLongId = new Long(data);
+		this.examinationRoomService.setremoveRoom(roomLongId);
+		LOGGER.debug("removeRoom");
+		return "success";
+	}
+
 }

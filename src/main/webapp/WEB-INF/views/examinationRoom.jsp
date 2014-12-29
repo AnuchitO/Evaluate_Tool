@@ -54,7 +54,7 @@
 </div>
 <div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
 <div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
-<div id="body0" class="panel-body"><div style="margin-right:95%"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png"/></a></div>
+<div id="body0" class="panel-body"><div style="margin-right:95%; display: inline"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
     <div class="hidden-sm" id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
 </div>
 </div>
@@ -159,42 +159,60 @@ $(function(){
                 },
             }, {
                 inline : true,
-                on     : 'blur',
-                onSuccess : function(data){
-                    var roomName=$("input[name=nameroom]").val();
-                    var description=$("textarea[name=description]").val();
-                    var nameExaminer=$("#nameExaminer").text();
-                    var nameCommitti=$("#nameCommitti").text();
-                    var startDate=$("input[name=startDate]").val();
-                    var startTime=$("input[name=startTime]").val();
-                    var endTime=$("input[name=endTime]").val();
-                    if(nameExaminer=="ผู้เข้าสอบ"||nameCommitti=="หัวหน้าห้องสอบ"||startDate==""||startTime==""||endTime==""){
+          on     : 'blur',
+          onSuccess : function(data){
+                var dataform = {};
+                    dataform.roomName=$("input[name=nameroom]").val();
+                    dataform.description=$("textarea[name=description]").val();
+                    dataform.nameExaminer=$("#listExaminer").val();
+                    dataform.nameCommitti=$("#listCommittee").val();
+                    dataform.nameCourse=$("#listCourse").val();
+                    dataform.startDate=$("input[name=startDate]").val();
+                    dataform.startTime=$("input[name=startTime]").val();
+                    dataform.endTime=$("input[name=endTime]").val();
+                    var dataSend = JSON.stringify(dataform);
+                    console.info(dataSend);
+              if(dataform.nameExaminer=="ผู้เข้าสอบ"||dataform.nameCommitti=="หัวหน้าห้องสอบ"||dataform.startDate==""||dataform.startTime==""||dataform.endTime==""||dataform.nameCourse==""){
+                  swal({
+                       type:"error",
+                       title: "แจ้งเตือน",
+                       text:"กรุณากรอกข้อมูลให้ครบถ้วน",
+                       closeOnConfirm:false,
+                       confirmButtonText:"OK"
+                   });
+              }else{
+                  $.ajax({
+                        url : "/EvaluateTool/application/addRoom",
+                        type : 'POST',
+                        data : {
+                            dataRoom : dataSend
+                        },
+                        success:function(){
                         swal({
-                            type:"error",
-                            title: "แจ้งเตือน",
-                            text:"กรุณากรอกข้อมูลให้ครบถ้วน",
-                            closeOnConfirm:false,
-                            confirmButtonText:"OK"
+                           type:"success",
+                           title: "บันทึกสำเร็จ",
+                           closeOnConfirm:false,
+                           confirmButtonText:"OK"
                         });
-                    }else{
-                        $("input[name=nameroom]").val("");
-                        $("textarea[name=description]").val("");
-                        $("#nameExaminer").text("ผู้เข้าสอบ");
-                        $("#nameCommitti").text("หัวหน้าห้องสอบ");
-                        $("input[name=startDate]").val("");
-                        $("input[name=startTime]").val("");
-                        $("input[name=endTime]").val("");
-                        swal({
-                            type:"success",
-                            title: "บันทึกสำเร็จ",
-                            closeOnConfirm:false,
-                            confirmButtonText:"OK"
-                        });
+                          $("input[name=nameroom]").val("");
+                          $("textarea[name=description]").val("");
+                          $("#listExaminer").text("ผู้เข้าสอบ");
+                          $("#listCommittee").text("หัวหน้าห้องสอบ");
+                          $("#listCourse").text("หลักสูตร");
+                          $("input[name=startDate]").val("");
+                          $("input[name=startTime]").val("");
+                          $("input[name=endTime]").val("");
+                          location.reload();
+                        },
+                        error:function(){
+                            swal("ErrorAddRoom!!!");
+                        }
+                  });
 
-                    }
+              }
 
-                }
-            });
+          }
+      });
 
     ////////////////////////////////Function Call After Subscribe///////////////////////
     $(".dropdown").dropdown();
@@ -506,7 +524,56 @@ $(function(){
             sweetAlert(JSON.parse(data).roomDescription+":"+JSON.parse(data).roomName, "กรุณารอ คุณได้ทำการส่งไปแล้ว", "warning");
         }
     }
+    $.ajax({
+          url: "/EvaluateTool/application/sendName",
+          type: "POST",
+          success: function(data){
+                var listname = JSON.parse(data);
+                $.each(listname,function(index,item){
+                    item.forEach(function(idAndName){
+                            //console.log(idAndName.idPerson);
+                            $("#listExaminer").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
 
+                    });
+                });
+          },
+          error: function(){
+              swal("ErrorGetName");
+          }
+      });
+
+      $.ajax({
+          url: "/EvaluateTool/application/sendName",
+          type: "POST",
+          success: function(data){
+                var listname = JSON.parse(data);
+                    $.each(listname,function(index,item){
+                    item.forEach(function(idAndName){
+                            //console.log(idAndName.idPerson);
+                            $("#listCommittee").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+                    });
+                });
+          },
+          error: function(){
+              swal("ErrorGetName");
+          }
+      });
+      $.ajax({
+          url: "/EvaluateTool/application/sendDescription",
+          type: "POST",
+          success: function(data){
+                var listnamecourse = JSON.parse(data);
+                    $.each(listnamecourse,function(index,item){
+                        item.forEach(function(idAndDescription){
+                                //console.log(idAndDescription.idCourse);
+                                $("#listCourse").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
+                        });
+                    });
+          },
+          error: function(){
+              swal("ErrorGetName");
+          }
+      });
 });
 
 ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
@@ -1041,14 +1108,18 @@ $(function() {
         var indexbody=index+1;
         //alert(indexbody);
         if(status==("Status : Completed")){
+            $("div[id=body"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#d0f8a6");
         }else if(status==("Status : Testing")){
+            $("div[id=body"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#b0e1df");
         }else if(status==("Status : Waiting")){
             $("div[id=body"+indexbody+"]").css("background-color","#ffc166");
         }else if(status==("Status : Ready")){
+            $("div[id=body"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#f3f34c");
         }else if(status==("Status : Terminate")){
+            $("div[id=body"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#cdc5bf");
         }
     });
@@ -1395,7 +1466,45 @@ $("#courseManager").click(
                     + "&yourLastName="
                     + encodeURIComponent('${lastname}');
         });
+    
+    function removeRoom(element){
+        var sendId = element.parentElement.parentElement.parentElement.children[2].children[0].value;
+        swal({
+          title: "Are you sure?",
+          text: "You will not be able to recover this room!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel plx!",
+          closeOnConfirm: false,
+          closeOnCancel: true
+        },
+        function(isConfirm) {
+          if (isConfirm) {
+            $.ajax({
+               url:"/EvaluateTool/application/removeRoom",
+                type:"POST",
+                data:{
+                    dataId:sendId
+                },
+                success:function(){
+                    element.parentElement.parentElement.parentElement.parentElement.remove();
+                    swal("Deleted!", "Your room has been deleted.", "success");
+                },
+                error:function(){
+                    swal("Cancelled", "Your room is safe :)", "error");
+                }
+             });
+          }
+        });
+    }
 
+    function editName(element){
+        var x = element.textContent;
+        alert(x);
+    }
+    
 </script>
 </body>
 </html>

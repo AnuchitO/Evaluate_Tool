@@ -1,7 +1,7 @@
 package com.spt.evt.controller;
 
 import java.util.List;
-
+import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,6 +51,22 @@ public class MemberRegisterController {
 		System.out.println("DATA"+data);
 		
 		return "Seccessful";
+	}
+
+	@RequestMapping(value="/sendName", method = RequestMethod.POST)
+	public @ResponseBody String sendName() {
+		JSONObject nameLarge = new JSONObject();
+		JSONObject nameSmall = null;
+		List<Person> result = this.personService.findAll();
+		for (Person person : result){
+			nameSmall = new JSONObject();
+			nameSmall.put("idPerson", person.getId());
+			nameSmall.put("namePerson", person.getName());
+			nameLarge.append("idAndName", nameSmall);
+		}
+
+		//logger.debug("==========="+nameLarge);
+		return nameLarge.toString();
 	}
 
 }

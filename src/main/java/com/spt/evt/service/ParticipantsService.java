@@ -17,6 +17,6 @@ public interface ParticipantsService {
     public Long removeRequestCommittee(Room room,Person person);
     public void addModulatorAndUpdateCommittee(Long roomIdApprove, Long yourIdApprove, Long yourIdInRoom);
     public Long findParticipantId(Long roomId,Long personId);
-
+    public void persisParticipant(Participants participants) ;
     public JSONObject allPersonToApprove(Long aLong);
 }

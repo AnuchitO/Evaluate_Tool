@@ -104,6 +104,10 @@ public class ParticipantServiceImpl implements ParticipantsService {
         }
         return allPersonToApprove;
     }
-
+    
+    @Override
+    public void persisParticipant(Participants participants) {
+        participantsDao.persistParticipants(participants);
+    }
 
 }

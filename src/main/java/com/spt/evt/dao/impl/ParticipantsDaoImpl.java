@@ -154,4 +154,10 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         return allPersonToApprove;
     }
 
+    @Override
+    @Transactional
+    public void persistParticipants(Participants participants) {
+        this.getEntityManager().persist(participants);
+    }
+
 }
