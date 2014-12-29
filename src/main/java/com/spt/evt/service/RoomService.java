@@ -11,5 +11,6 @@ public interface RoomService {
 	public List<Room> findByStatus(String status);
 	public void setStatusRoom(Room room);
     public void setStatusRoomReady(Long roomId);
-
+    public void addRoom(Room data);
+	public void removeRoom(Long roomLongId);
 }

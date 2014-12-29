@@ -47,4 +47,15 @@ public class RoomServiceImpl implements RoomService{
            this.roomDao.setStatusRoomReady(roomId);
     }
 
+    @Override
+	public void removeRoom(Long roomLongId) {
+		this.roomDao.setRemoveRoom(roomLongId);
+	}
+
+	@Override
+	public void addRoom(Room data){
+		//this.roomDao.setAddRoom(data);
+		LOGGER.debug("RoomServiceImplAddRoom");
+		this.roomDao.setAddRoom(data);
+	}
 }

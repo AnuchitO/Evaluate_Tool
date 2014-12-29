@@ -233,33 +233,22 @@
 									<textarea placeholder="คำอธิบาย" name="description"></textarea>
 								</div>
 								<div class="field">
-									<div class="ui black button floating dropdown labeled icon" style="height:25px">
-										<i class="dropdown icon"></i>
-										<span id="nameExaminer" class="text" style="font-size:8pt">ผู้เข้าสอบ</span>
-										<p id="validExaminer" style="color:white;background-color:red"></p>
-										<div class="menu">
-											<div class="item">Arabic</div>
-											<div class="item">Chinese</div>
-											<div class="item">Danish</div>
-											<div class="item">Dutch</div>
-											<div class="item">English</div>
-										</div>
-									</div>
+									<select id="listExaminer" data-width="100%">
+										<option selected="selected" disabled="disabled" >ผู้เข้าสอบ</option>
+									</select>
 								</div>
 								<div class="field">
-									<div id="dropdownaa" class="ui black button dropdown labeled  icon " style="height:25px">
-										<i class="dropdown icon"></i>
-										<span id="nameCommitti" class="text" style="font-size:8pt">หัวหน้าห้องสอบ</span>
-										<p id="validCommitti" style="color:white;background-color:red"></p>
-										<div class="menu">
-											<div class="item">Arabic</div>
-											<div class="item">Chinese</div>
-											<div class="item">Danish</div>
-											<div class="item">Dutch</div>
-											<div class="item">English</div>
-										</div>
-									</div>
+									<select id="listCommittee" data-width="100%">
+										<option selected="selected" disabled="disabled" >หัวหน้าห้องสอบ</option>
+									</select>
 								</div>
+
+								<div class="field">
+									<select id="listCourse" data-width="100%">
+										<option selected="selected" disabled="disabled" >หลักสูตร</option>
+									</select>
+								</div>
+
 								<div class="field">
 									<div class="input-daterange input-group" id="datepicker">
 										<span class="input-group-addon" style="color:black">Start Date</span>

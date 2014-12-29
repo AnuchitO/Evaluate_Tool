@@ -75,4 +75,11 @@ public class CourseServiceImpl implements CourseService {
 		course.setDescription(jsonObj.getString("courseDescriptionEdit"));
 		courseDao.update(course);
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Course> findAll(){
+		return this.courseDao.findAll();
+	}
+
 }

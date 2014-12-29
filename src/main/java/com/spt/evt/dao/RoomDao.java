@@ -10,4 +10,6 @@ public interface RoomDao {
 	public List<Room> findByStatus(String status);
 	public void setStatusByRoom(Room room);
     public void setStatusRoomReady(Long roomId);
+    public void setAddRoom(Room dataroom);
+	public void setRemoveRoom(Long roomid);
 }

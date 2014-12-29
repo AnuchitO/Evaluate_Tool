@@ -18,4 +18,5 @@ public interface ParticipantsDao {
     public Participants findById(Long id);
     public Long findParticipantId(Room room,Person person);
     public List<Participants> allPersonToApprove(Room room);
+    public void persistParticipants(Participants participants);
 }

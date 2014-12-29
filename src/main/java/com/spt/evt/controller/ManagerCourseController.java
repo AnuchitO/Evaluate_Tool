@@ -229,4 +229,18 @@ public class ManagerCourseController {
 		JSONObject allCourse = this.courseService.getAllCourse();
 		return allCourse.toString();
 	}
+
+	@RequestMapping(value="/sendDescription", method = RequestMethod.POST)
+	public @ResponseBody String sendDescription() {
+		JSONObject nameLarge = new JSONObject();
+		JSONObject nameSmall = null;
+		List<Course> result = this.courseService.findAll();
+		for (Course course : result){
+			nameSmall = new JSONObject();
+			nameSmall.put("idCourse", course.getId());
+			nameSmall.put("descriptionCourse", course.getDescription());
+			nameLarge.append("idAndDescription", nameSmall);
+		}
+		return nameLarge.toString();
+	}
 }
