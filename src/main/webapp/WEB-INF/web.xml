@@ -25,7 +25,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<filter-name>httpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping-->
-    <filter>
+   <!-- <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -40,7 +40,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 	<servlet>
 		<servlet-name>home</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -85,12 +85,10 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
                com.spt.evt.soket
             </param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>webSocket</servlet-name>
 		<url-pattern>/webSocket/*</url-pattern>
 	</servlet-mapping>
-
 </web-app>

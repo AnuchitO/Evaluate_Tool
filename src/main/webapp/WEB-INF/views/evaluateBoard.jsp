@@ -1258,8 +1258,11 @@ function sendDetailScoreOfTopic(buttonSubmit) {
                     keepOriginalSubmitEachTopic);
         }
         $("#spanScore" + count).text(textScore);
-        var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
-        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
+        if('${idCommittee}'=='${idModulator}'){
+            var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
+            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
+        }
+
     }
 
 
@@ -1956,6 +1959,7 @@ $(function() {
                         roomId : roomId
                     },
                     success : function(data) {
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':data.roomId,'status':'Complete' }));
                         swal({
                             type:"success",
                             title: "Success",

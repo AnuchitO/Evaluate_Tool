@@ -514,10 +514,18 @@ $(function(){
         }
     }
     function updateStatusCard(data){
-        var count=JSON.parse(data).count;
-        $("#body"+count+"").css("background-color","rgb(243, 243, 76");
-        $("#roomStatus"+count+"").text("Status : Ready");
-        $("#roomStatus"+count+"").attr("value","Ready");
+        var status=JSON.parse(data).status;
+        var roomId=JSON.parse(data).roomId;
+        if(status=="Ready"){
+            $("div[value=roomId"+roomId+"]").css("background-color","rgb(243, 243, 76");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Ready");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Ready");
+        }else if(status=="Complete"){
+            $("div[value=roomId"+roomId+"]").css("background-color","rgb(208, 248, 166");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Complete");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Complete");
+        }
+
     }
     function alertRequestSame(data){
         if(JSON.parse(data).yourId=='${yourId}'){
@@ -761,6 +769,9 @@ $(function() {
                                     'id',
                                             'body'
                                             + (++dummyBody))
+                                    .attr(
+                                    'value',
+                                            'roomId'+roomId)
                                     .insertAfter(genBody)
                                     .show()
                                     .appendTo(
@@ -1154,7 +1165,7 @@ function sendId(element) {
                         roomId:dataPersonId
                     },
                     success:function(){
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','name': name,'lastname': lastname,'yourId':yourId,'roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count }));
+                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':detailPerson.roomId,'status':'Ready' }));
                         $
                                 .ajax({
                                     url : "/EvaluateTool/application/checkCommittee",

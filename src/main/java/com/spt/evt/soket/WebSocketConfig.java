@@ -41,7 +41,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer
 		registry.enableSimpleBroker("/topic");
 		registry.enableSimpleBroker("/examinationroomandevaluateboard");
 		registry.setApplicationDestinationPrefixes("/app");
-		
 	}
 
 //	@Override
