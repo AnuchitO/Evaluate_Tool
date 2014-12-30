@@ -231,7 +231,7 @@
 									<input placeholder="ชื่อห้อง" name="nameroom" type="text">
 								</div>
 								<div class="field">
-									<textarea placeholder="คำอธิบาย" name="description" style="height:30px"></textarea>
+									<textarea placeholder="คำอธิบาย" name="description" style="height:25px"></textarea>
 								</div>
 								<div class="field">
 									<select id="listExaminer" data-width="100%">

@@ -77,4 +77,14 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 
 	}
 
+	@Override
+	@Transactional
+	public void editRoom(Room dataroom){
+		Room room = this.getEntityManager().find(Room.class, dataroom.getId());
+		room.setName(dataroom.getName());
+		this.getEntityManager().merge(room);
+		Query query = this.getEntityManager().createQuery("from Room");
+		LOGGER.debug(query.getResultList().toString());
+		LOGGER.debug("EditRoomDAO");
+	}
 }

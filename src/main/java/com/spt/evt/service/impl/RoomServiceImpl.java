@@ -1,16 +1,14 @@
 package com.spt.evt.service.impl;
 
-import java.util.List;
-import java.util.Set;
-
+import com.spt.evt.dao.RoomDao;
+import com.spt.evt.entity.Room;
+import com.spt.evt.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.RoomDao;
-import com.spt.evt.entity.Room;
-import com.spt.evt.service.RoomService;
+import java.util.List;
 
 @Service
 public class RoomServiceImpl implements RoomService{
@@ -57,5 +55,10 @@ public class RoomServiceImpl implements RoomService{
 		//this.roomDao.setAddRoom(data);
 		LOGGER.debug("RoomServiceImplAddRoom");
 		this.roomDao.setAddRoom(data);
+	}
+
+	@Override
+	public void editRoom(Room data){
+		this.roomDao.editRoom(data);
 	}
 }

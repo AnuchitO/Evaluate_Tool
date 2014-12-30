@@ -1,16 +1,13 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-import java.util.Set;
-
+import com.spt.evt.entity.Room;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Room;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 
@@ -50,5 +47,30 @@ public class RoomDaoTest extends AbstractTestDao {
         Assert.assertNotNull(room);
         Assert.assertThat(room.getStatus(),is("Ready"));
     }
+
+//	@Test
+//	public void testPersistShouldBeIdNotNull(){
+//		Room room = new Room();
+//		room.setName("roomName");
+//		room.setDescription("description");
+//		room.setNameexaminer("nameExaminer");
+//		room.setNamecommittee("nameCommittee");
+//		//room.setStartTime("2014-12-31 13:30");
+//		//room.setEndTime("2014-12-31 18:30");
+//		this.roomDao.setAddRoom(room);
+//		LOGGER.debug("{}",room);
+//		LOGGER.debug("{}",room.getId());
+//		Assert.assertNotNull(room.getId());
+//	}
+
+	@Test
+	public void testRemoveRoomShouldBeIdNull(){
+
+		Room room = new Room();
+		this.roomDao.setRemoveRoom(7L);
+
+		LOGGER.debug("{}",room.getId());
+		//Assert.assertNotNull(room.getId());
+	}
 
 }

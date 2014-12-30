@@ -1,9 +1,8 @@
 package com.spt.evt.service;
 
-import java.util.List;
-import java.util.Set;
-
 import com.spt.evt.entity.Room;
+
+import java.util.List;
 
 public interface RoomService {
 	public List<Room> findAll();
@@ -13,4 +12,5 @@ public interface RoomService {
     public void setStatusRoomReady(Long roomId);
     public void addRoom(Room data);
 	public void removeRoom(Long roomLongId);
+	public void editRoom(Room data);
 }
