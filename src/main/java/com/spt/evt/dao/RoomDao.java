@@ -1,8 +1,8 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-
 import com.spt.evt.entity.Room;
+
+import java.util.List;
 
 public interface RoomDao {
 	public List<Room> findAll();
@@ -12,4 +12,5 @@ public interface RoomDao {
     public void setStatusRoomReady(Long roomId);
     public void setAddRoom(Room dataroom);
 	public void setRemoveRoom(Long roomid);
+	public void editRoom(Room dataroom);
 }

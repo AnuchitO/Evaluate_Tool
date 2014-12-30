@@ -121,21 +121,17 @@ $(function(){
     });
     $('#timepicker3').timepicker({
         minuteStep: 5,
-        secondStep:10,
         showInputs: false,
         disableFocus: true,
         showMeridian:false,
-        defaultTime:'current',
-        showSeconds:true
+        defaultTime:'current'
     });
     $('#timepicker4').timepicker({
         minuteStep: 5,
-        secondStep:10,
         showInputs: false,
         disableFocus: true,
         showMeridian:false,
-        defaultTime:'current',
-        showSeconds:true
+        defaultTime:'current'
     });
     $('.ui.form')
             .form({
@@ -188,17 +184,24 @@ $(function(){
                             dataRoom : dataSend
                         },
                         success:function(){
-                        swal("Success !", "", "success")
-                          $("input[name=nameroom]").val("");
-                          $("textarea[name=description]").val("");
-                          $("#listExaminer").text("ผู้เข้าสอบ");
-                          $("#listCommittee").text("หัวหน้าห้องสอบ");
-                          $("#listCourse").text("หลักสูตร");
-                          $("input[name=startDate]").val("");
-                          $("input[name=startTime]").val("");
-                          $("input[name=endTime]").val("");
-
-                          location.reload();
+                        swal({   title: "Success !",
+                            type: "success",
+                            confirmButtonColor: "#8ACBE5",
+                            confirmButtonText: "OK",
+                            closeOnConfirm: false
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+                        });
+                            $("input[name=nameroom]").val("");
+                            $("textarea[name=description]").val("");
+                            $("#listExaminer").text("ผู้เข้าสอบ");
+                            $("#listCommittee").text("หัวหน้าห้องสอบ");
+                            $("#listCourse").text("หลักสูตร");
+                            $("input[name=startDate]").val("");
+                            $("input[name=startTime]").val("");
+                            $("input[name=endTime]").val("");
                         },
                         error:function(){
                             swal("ErrorAddRoom!!!");
@@ -945,7 +948,7 @@ $(function() {
                                             + (++dummyTime))
                                     .text(
                                             roomStartTime
-                                            + " : "
+                                            + " ┇ "
                                             + roomEndTime)
                                     .insertAfter(genTime)
                                     .show()
@@ -1525,14 +1528,31 @@ $("#courseManager").click(
     }
 
     function editName(element){
-        var roomname = element.textContent;
-        var roomid = element.parentElement.children[0].value;
         var elementId = element.id;
         $("#"+elementId).editable({
             mode: "popup",
             display: function(value) {
-                  $(this).text(value);
+                $(this).text(value);
+
+            var dataform = {};
+                dataform.roomid = element.parentElement.children[0].value;
+                dataform.editvalue = value;
+                var dataSend = JSON.stringify(dataform);
+                console.log(dataSend);
+            $.ajax({
+                url: "/EvaluateTool/application/editRoom",
+                type: "POST",
+                data:{
+                    editdata: dataSend
+                },
+                success:function(){
+
+                },
+                error:function(){
+                    alert("Error");
                 }
+              });
+            }
         });
     }
     

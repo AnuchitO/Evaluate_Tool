@@ -1,20 +1,19 @@
 package com.spt.evt.service.impl;
 
-import java.util.List;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
+import com.spt.evt.service.ExaminationRoomService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Person;
-import com.spt.evt.entity.Room;
-import com.spt.evt.service.ExaminationRoomService;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExaminationRoomServiceImpl extends ProviderService implements ExaminationRoomService {
@@ -31,8 +30,8 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 			roomDetail.put("name",room.getName());
 			roomDetail.put("courseId", room.getCourseId());
 			roomDetail.put("description",room.getDescription());
-			roomDetail.put("startTime",room.getStartTime());
-			roomDetail.put("endTime",room.getEndTime());
+			roomDetail.put("startTime",room.getStartTime().toString().substring(0, 16));
+			roomDetail.put("endTime",room.getEndTime().toString().substring(0, 16));
 			roomDetail.put("status",room.getStatus());
 
 			Long roomId = room.getId();
@@ -223,5 +222,16 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	@Override
 	public void setremoveRoom(Long roomLongId){
 		this.getRoomService().removeRoom(roomLongId);
+	}
+
+	@Override
+	public void editRoom(String data){
+		JSONObject jsonObject = new JSONObject(data);
+		Room room = new Room();
+		room.setId(jsonObject.getLong("roomid"));
+		room.setName(jsonObject.getString("editvalue"));
+
+		this.getRoomService().editRoom(room);
+		LOGGER.debug("EditExamRoomServiceImpl");
 	}
 }

@@ -1,12 +1,6 @@
 package com.spt.evt.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.JSONArray;
+import com.spt.evt.service.ExaminationRoomService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.service.EvaluateBoardService;
-import com.spt.evt.service.ExaminationRoomService;
-import com.spt.evt.service.impl.LogInServiceImpl;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ExaminationRoomController {
@@ -104,4 +99,10 @@ public class ExaminationRoomController {
 		return "success";
 	}
 
+	@RequestMapping(value="/editRoom",method=RequestMethod.POST)
+	public @ResponseBody String editRoom(@RequestParam(value="editdata")String data,HttpServletRequest request,HttpServletResponse response){
+		this.examinationRoomService.editRoom(data);
+		LOGGER.debug("editRoom");
+		return "success";
+	}
 }
