@@ -113,7 +113,7 @@ public class GenerateExcelServiceImpl extends AbstractPOIExcelView {
             }
             aRow = sheet.createRow(rowCount + 1);
             aRow.createCell(0).setCellValue("AverageScore");
-            aRow.createCell(1).setCellValue(json.get("averageScore").toString());
+            aRow.createCell(1).setCellValue(json.get("averageScore")+"%");
             aRow.getCell(0).setCellStyle(style3);
             aRow.getCell(1).setCellStyle(style4);
 

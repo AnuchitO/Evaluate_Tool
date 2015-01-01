@@ -104,11 +104,10 @@
 		</select>
 	</div>
 
-	<div id="setSizeBtnSubmit" style="margin-left: 20px" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
-		<button id="buttonSumary" type="button" class="btn btn-default"
-				onClick="javascript:showRoom($(this).parent('div').parent('div').children('#setSizeTable').children('select').val())">Sumary</button>
+	<div id="setSizeBtnSubmit" style="margin-left: 70px" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
+		<button id="buttonSumary" type="button" class="btn btn-default">Sumary</button>
 	</div>
-	<div style="margin-left: 20px" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
+	<div style="margin-left: 10px" class="col-sm-1 col-md-1 col-sm-offset-1 col-md-offset-1">
 		<input id="btnExport" type="button" class="btn btn-left"value="Export to Excel" />
 	</div>
 
@@ -250,6 +249,23 @@
 	});
 
 	$("#setSizeTable").change(function(index,element) {
+		$("#averageAll").hide();
+		$("#panelCollapse0").empty();
+		$("#panelHeading0").empty();
+		$("#panelBody0").empty();
+		$("#navpills0").empty();
+		$("#listNavpills0").empty();
+		$("#modalScoreDialog0").empty();
+		$("#panelScore0").empty();
+		$("#panelScoreHead0").empty();
+		$("#panelScoreSubject0").empty();
+		// $("#panelScoreBtnClose").empty();
+		$("#panelScoreBody0").empty();
+		$("#dummyKeepIdTopic0").empty();
+		$("#panelScoreDescription0").empty();
+		$("#panelScoreMessage0").empty();
+		$("#accordion").empty();
+
 		$("#btnExport").hide();
 		$("#pickRoom").empty();
 		$("#pleaseSelect").remove();
@@ -267,7 +283,6 @@
 				var genOptionId = ("#option" + dummyOption);
 				// var genRoomId = ("#roomId" + dummyRoomId);
 
-
 				$.each(addRoom, function(i, item) {
 					item.forEach(function(data) {
 						var roomId = data.roomId;
@@ -282,75 +297,73 @@
 								$("#pickRoom"));
 					});
 				});
-
-				$("#buttonSumary").click(function(){
-					var roomSelect = $("#pickRoom").val();
-					var courseIdInroom = $("#pickRoom option").attr("class");
-					var committeeId = $("#yourId").val();
-
-					var dataCourse = {};
-					dataCourse.roomId = roomSelect;
-					dataCourse.examinerId = personId;
-					dataCourse.committeeId = committeeId;
-					dataCourse.courseId = courseIdInroom;
-					var dataSend = JSON.stringify(dataCourse);
-					$
-							.ajax({
-								url : "/EvaluateTool/application/summaryTopicList",
-								type : 'POST',
-								data : {
-									data : dataSend
-								},
-								success : function(data) {
-									console.log("success");
-//									alert(data);
-
-									var course = JSON.parse(data);
-									createCollapse(course);
-								},
-								error : function(data, status, er) {
-									alert("error: " + data + " status: " + status
-									+ " er:" + er);
-								}
-							});
-					$(function() {
-						var personId = $("#pickExaminer").val();
-						var averageAllTotal = JSON.parse('${completeRoom}');
-
-						$.each(averageAllTotal, function(i, item) {
-							item.forEach(function(room) {
-								var examinerId = room.examinerId;
-								var averageAllScore = room.averageAllScore;
-
-								if(examinerId==personId){
-									$("#averageAllScore").text(averageAllScore+"%");
-								}
-
-							});
-						});
-					});
-				});
-
-				$("#btnExport").click(function(){
-					var roomId = $("#pickRoom").val();
-					var examinerId = $("#pickExaminer option").val();
-					var committeeId = $("#yourId").val();
-					var courseId = $("#pickRoom option").attr("class");
-
-					location.href = "/EvaluateTool/application/exportExcel"
-						+ "?roomId="
-						+ encodeURIComponent(roomId)
-						+ "&examinerId="
-						+ encodeURIComponent(examinerId)
-						+ "&committeeId="
-						+ encodeURIComponent(committeeId)
-						+ "&courseId="
-						+ encodeURIComponent(courseId);
-				});
 			}
 		});
 	});
+
+	$("#buttonSumary").click(function(){
+		var personId = $("#pickExaminer").val();
+		var roomSelect = $("#pickRoom").val();
+		var courseIdInroom = $("#pickRoom option").attr("class");
+		var committeeId = $("#yourId").val();
+
+		var dataCourse = {};
+		dataCourse.roomId = roomSelect;
+		dataCourse.examinerId = personId;
+		dataCourse.committeeId = committeeId;
+		dataCourse.courseId = courseIdInroom;
+		var dataSend = JSON.stringify(dataCourse);
+		$.ajax({
+			url : "/EvaluateTool/application/summaryTopicList",
+			type : 'POST',
+			data : {
+				data : dataSend
+			},
+			success : function(data) {
+				var course = JSON.parse(data);
+				createCollapse(course);
+			},
+			error : function(data, status, er) {
+				alert("Please select Examiner and Room");
+			}
+		});
+	});
+
+	$("#btnExport").click(function(){
+		var roomId = $("#pickRoom").val();
+		var examinerId = $("#pickExaminer option").val();
+		var committeeId = $("#yourId").val();
+		var courseId = $("#pickRoom option").attr("class");
+
+		location.href = "/EvaluateTool/application/exportExcel"
+		+ "?roomId="
+		+ encodeURIComponent(roomId)
+		+ "&examinerId="
+		+ encodeURIComponent(examinerId)
+		+ "&committeeId="
+		+ encodeURIComponent(committeeId)
+		+ "&courseId="
+		+ encodeURIComponent(courseId);
+	});
+
 	$("#setSizeRoom").change(function(){
+		$("#averageAll").hide();
+		$("#panelCollapse0").empty();
+		$("#panelHeading0").empty();
+		$("#panelBody0").empty();
+		$("#navpills0").empty();
+		$("#listNavpills0").empty();
+		$("#modalScoreDialog0").empty();
+		$("#panelScore0").empty();
+		$("#panelScoreHead0").empty();
+		$("#panelScoreSubject0").empty();
+		// $("#panelScoreBtnClose").empty();
+		$("#panelScoreBody0").empty();
+		$("#dummyKeepIdTopic0").empty();
+		$("#panelScoreDescription0").empty();
+		$("#panelScoreMessage0").empty();
+		$("#accordion").empty();
+
 		$("#btnExport").hide();
 	});
 
@@ -371,13 +384,10 @@
 		location.href = "/EvaluateTool/application/logIn";
 	});
 
-	// =============================================================
-
 	function createCollapse(course) {
 		$("#tableScore1").remove();
 		$("#averageAll").show();
 		$("#btnExport").show();
-//			$.("#averageAllScore").text("xxx");
 
 		$("#panelCollapse0").empty();
 		$("#panelHeading0").empty();
@@ -814,6 +824,21 @@
 								}
 							});
 				});
+		$(function() {
+			var personId = $("#pickExaminer").val();
+			var averageAllTotal = JSON.parse('${completeRoom}');
+
+			$.each(averageAllTotal, function(i, item) {
+				item.forEach(function(room) {
+					var examinerId = room.examinerId;
+					var averageAllScore = room.averageAllScore;
+
+					if(examinerId==personId){
+						$("#averageAllScore").text(averageAllScore+"%");
+					}
+				});
+			});
+		});
 	}
 
 
