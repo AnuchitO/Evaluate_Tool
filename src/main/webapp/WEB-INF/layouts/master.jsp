@@ -226,7 +226,7 @@
 						<!-- Content Data -->
 						<div id="contentcol2" class="col-md-2 column">
 							<div hidden id="fromadd" style="height:700px;width:280px;margin-top:100px;z-index:5;margin-bottom:20px;position:fixed;background-color: rgb(176, 225, 223)" class="ui form segment">
-								<span>เพิ่มห้อง <div style="margin-bottom:10px;float:right"class="ui green huge submit button">เพิ่ม</div></span>
+								<span style="font-style:bold; font-size:25px">เพิ่มห้อง <div style="margin-bottom:10px;float:right"class="ui green huge submit button">เพิ่ม</div></span>
 								<div class="field">
 									<input placeholder="ชื่อห้อง" name="nameroom" type="text">
 								</div>
@@ -268,8 +268,55 @@
 										<input id="timepicker4" type="text" class="input form-control" name="endTime">
 									</div>
 								</div>
-							
-						</div>
+							</div>
+
+							<!-- Edit Room -->
+							<div hidden id="fromEdit" style="height:700px;width:280px;margin-top:100px;z-index:5;margin-bottom:20px;position:fixed;background-color: rgb(176, 225, 223)" class="ui form segment">
+								<span style="font-style:bold; font-size:25px">แก้ไขห้อง <div style="margin-bottom:10px;float:right"class="ui green huge submit button">แก้ไข</div></span>
+								<div class="field">
+									<input placeholder="ชื่อห้อง" name="nameroom2" id="nameroom2" type="text">
+								</div>
+								<div class="field">
+									<textarea placeholder="คำอธิบาย" name="description2" id="description2" style="height:25px"></textarea>
+								</div>
+								<div class="field">
+									<select id="listExaminer2" data-width="100%">
+										<option disabled="disabled" >ผู้เข้าสอบ</option>
+									</select>
+								</div>
+								<div class="field">
+									<select id="listCommittee2" data-width="100%">
+										<option disabled="disabled" >หัวหน้าห้องสอบ</option>
+									</select>
+								</div>
+
+								<div class="field">
+									<select id="listCourse2" data-width="100%">
+										<option disabled="disabled" >หลักสูตร</option>
+									</select>
+								</div>
+
+								<div class="field">
+									<div class="input-daterange input-group" id="datepicker2">
+										<span class="input-group-addon" style="color:black">Start Date</span>
+										<input type="text" class="input form-control" name="startDate2" id="startDate"/>
+									</div>
+								</div>
+								<div class="field">
+									<div class="bootstrap-timepicker pull-right">
+									<span class="input-group-addon" >Start Time</span>
+										<input id="timepicker32" type="text" class="input form-control" name="startTime2">
+									</div>
+								</div><br/>
+								<div class="field">
+									<div class="bootstrap-timepicker pull-right">
+									<span class="input-group-addon">End Time</span>
+										<input id="timepicker42" type="text" class="input form-control" name="endTime2">
+									</div>
+								</div>
+							</div>
+							<!-- End Edit Room -->
+
 						</div>
 						<div id="contenthead" class="col-md-10 column">
 							<div style="margin-top:100px;margin-bottom:10%;" class="panel panel-warning">

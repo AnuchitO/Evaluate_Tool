@@ -1,10 +1,10 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
 import com.spt.evt.entity.Room;
+
+import java.util.List;
 
 public interface ParticipantsDao {
 	public List<Participants> findByExample(Participants participants);
@@ -19,4 +19,5 @@ public interface ParticipantsDao {
     public Long findParticipantId(Room room,Person person);
     public List<Participants> allPersonToApprove(Room room);
     public void persistParticipants(Participants participants);
+    public void editParticipants(Participants participants);
 }

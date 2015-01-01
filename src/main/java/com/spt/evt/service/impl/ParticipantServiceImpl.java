@@ -1,18 +1,17 @@
 package com.spt.evt.service.impl;
 
-import java.util.List;
-
+import com.spt.evt.dao.ParticipantsDao;
+import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
+import com.spt.evt.service.ParticipantsService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spt.evt.dao.ParticipantsDao;
-import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Room;
-import com.spt.evt.service.ParticipantsService;
+import java.util.List;
 
 @Service
 public class ParticipantServiceImpl implements ParticipantsService {
@@ -110,4 +109,8 @@ public class ParticipantServiceImpl implements ParticipantsService {
         participantsDao.persistParticipants(participants);
     }
 
+    @Override
+    public void editPaticitant(Participants participants){
+        participantsDao.editParticipants(participants);
+    }
 }

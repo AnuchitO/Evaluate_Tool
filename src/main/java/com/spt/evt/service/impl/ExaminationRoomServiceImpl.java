@@ -226,12 +226,54 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 
 	@Override
 	public void editRoom(String data){
-		JSONObject jsonObject = new JSONObject(data);
+		JSONObject jsonObj = new JSONObject(data);
 		Room room = new Room();
-		room.setId(jsonObject.getLong("roomid"));
-		room.setName(jsonObject.getString("editvalue"));
+		room.setId(jsonObj.getLong("roomId"));
+		room.setName(jsonObj.getString("roomName"));
+		room.setDescription(jsonObj.getString("description"));
+		room.setCourseId(jsonObj.getLong("nameCourse"));
+		String startDate = jsonObj.getString("startDate");
+		String startTime = jsonObj.getString("startTime");
+		String endTime = jsonObj.getString("endTime");
+		String sumStartDateTime = startDate + " " + startTime;
+		String sumEndDateTime = startDate + " " + endTime;
+		DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date dateStartTime = null;
+		Date dateEndTime = null;
+		try {
+			dateStartTime = formatDate.parse(sumStartDateTime);
+			dateEndTime = formatDate.parse(sumEndDateTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		room.setStartTime(dateStartTime);
+		room.setEndTime(dateEndTime);
 
 		this.getRoomService().editRoom(room);
-		LOGGER.debug("EditExamRoomServiceImpl");
+
+		Room roomLast = new Room();
+		List<Room> roomList = getRoomService().findAll();
+
+		int countAllList = 0;
+		for (Room rm : roomList){
+			countAllList++;
+		}
+		roomLast = roomList.get(countAllList-1);
+
+		Person personExam = getPersonService().findById(jsonObj.getLong("nameExaminer"));
+		Person personComit = getPersonService().findById(jsonObj.getLong("nameCommitti"));
+		Participants participants = new Participants();
+		participants.setPerson(personComit);
+		participants.setModulator(true);
+		participants.setRole("committee");
+		participants.setRoom(roomLast);
+		this.getParticipantsService().editPaticitant(participants);
+
+		Participants participants2 = new Participants();
+		participants2.setPerson(personExam);
+		participants2.setModulator(false);
+		participants2.setRole("examiner");
+		participants2.setRoom(roomLast);
+		this.getParticipantsService().editPaticitant(participants2);
 	}
 }

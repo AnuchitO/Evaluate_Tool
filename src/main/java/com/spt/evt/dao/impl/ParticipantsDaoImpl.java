@@ -1,8 +1,9 @@
 package com.spt.evt.dao.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.spt.evt.dao.ParticipantsDao;
+import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -11,12 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spt.evt.dao.ParticipantsDao;
-import com.spt.evt.entity.Participants;
-import com.spt.evt.entity.Person;
-import com.spt.evt.entity.Room;
-
 import javax.persistence.Query;
+import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements ParticipantsDao {
@@ -160,4 +158,11 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
         this.getEntityManager().persist(participants);
     }
 
+    @Override
+    @Transactional
+    public void editParticipants(Participants participants){
+//      Participants participantsII = this.getEntityManager().find(Participants.class, participants.getId());
+        this.getEntityManager().merge(participants);
+        LOGGER.debug("EditPaticipants");
+    }
 }

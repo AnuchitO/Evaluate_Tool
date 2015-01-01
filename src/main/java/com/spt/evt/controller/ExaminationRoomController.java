@@ -103,6 +103,7 @@ public class ExaminationRoomController {
 	public @ResponseBody String editRoom(@RequestParam(value="editdata")String data,HttpServletRequest request,HttpServletResponse response){
 		this.examinationRoomService.editRoom(data);
 		LOGGER.debug("editRoom");
+		LOGGER.debug("DATA"+data);
 		return "success";
 	}
 }

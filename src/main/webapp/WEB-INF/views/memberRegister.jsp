@@ -21,14 +21,14 @@ div {
 .selectpicker {
 	margin: -3px;
 }
-#confirmEmail-error, #email-error, #confirmPassword-error, #password-error, #phoneNumber-error, #phoneNumber-error, #firstName-error, #lastName-error { 
+#confirmEmail-error, #email-error, #confirmPassword-error, #password-error, #phoneNumber-error, #phoneNumber-error, #firstName-error, #lastName-error, #username-error {
 	color: red; 
 }
 
 </style>
 </head>
 <body>
-<form id="myform" novalidate="novalidate">
+<form id="myform" name="myform" novalidate="novalidate">
 	<div id="divSignUp">
 
 		<div class="row" id="head">
@@ -150,43 +150,120 @@ div {
 		$(function() {
 			$("#buttonSignUp").click(
 					function() {
-
-						var dataForm = {};
-						dataForm.firstname = $("#firstName").val();
-						dataForm.lastname = $("#lastName").val();
-						dataForm.gender = $("input:radio:checked").val();
-						dataForm.email = $("#email").val();
-						dataForm.reemail = $("#confirmEmail").val();
-						dataForm.username = $("#username").val();
-						dataForm.password = $("#password").val();
-						dataForm.repassword = $("#confirmPassword").val();
-						dataForm.position = $("#position").val();
-						dataForm.institute = $("#institute").val();
-						dataForm.phonenumber = $("#phoneNumber").val();
-						dataForm.internship = $("#internship").val();
-						dataForm.facebook = $("#facebook").val();
-
-						var dataSend = JSON.stringify(dataForm);
-
-
-							console.info(dataSend);
-							$.ajax({
-								url : "/EvaluateTool/application/memberRegister",
-								type : 'POST',
-								data : {
-									dataForm : dataSend
+						//Validate
+						jQuery.validator.setDefaults({
+							debug: true,
+							validClass: "success",
+							errorClass: "error"
+						});
+						$("#myform").validate({
+							rules: {
+								firstName: {
+									required: true,
+									rangelength : [4, 16]
 								},
-								success : function(data) {
-									//alert(data);
-									alert("Congratulations! You have successfully register");
-									window.location.href = "http://localhost:8083/EvaluateTool/application/";
+								lastname: {
+									required: true,
+									rangelength : [4, 16]
 								},
-								error : function(data, status, er) {
-									// alert("error: " + data + " status: " + status
-									// 		+ " er:" + er);
-									alert("Please fill out this form!!");
-								}
-							});
+								email: {
+									required: true,
+									email: true
+								},
+								confirmEmail: {
+									equalTo: "#email"
+								},
+								username: {
+									required: true,
+									rangelength: [4, 16]
+								},
+								password: {
+									required: true,
+									minlength: 4,
+									maxlength: 20
+								},
+								confirmPassword: {
+									equalTo: "#password"
+								},
+								phoneNumber: {
+									required: true,
+									number: true,
+									rangelength : [10, 10]
+								},
+								position: {
+									required: function(){
+										if($("select[name=position]").val() == -1){
+											return false;
+										}
+										else
+										{
+											return true;
+										}
+									}
+								},
+								internship: {
+									required: function(){
+										if($("select[name=internship]").val() == -1){
+											return false;
+										}
+										else
+										{
+											return true;
+										}
+									}
+								},
+								agree: "required"
+							},
+							messages:{
+								firstName: "Please enter your firstname.",
+								lastname: "Please enter your lastname.",
+								email:{
+									required: "We need your email address to contact you.",
+									email: "Your email address must be in the format of name@domain.com"
+								},
+								username: "Please enter your username.",
+								password: "Please enter your password.",
+								phoneNumber: "Please enter your phone number."
+							},
+							submitHandler: function(form) {
+								var dataForm = {};
+									dataForm.firstname = $("#firstName").val();
+									dataForm.lastname = $("#lastName").val();
+									dataForm.gender = $("input:radio:checked").val();
+									dataForm.email = $("#email").val();
+									dataForm.reemail = $("#confirmEmail").val();
+									dataForm.username = $("#username").val();
+									dataForm.password = $("#password").val();
+									dataForm.repassword = $("#confirmPassword").val();
+									dataForm.position = $("#position").val();
+									dataForm.institute = $("#institute").val();
+									dataForm.phonenumber = $("#phoneNumber").val();
+									dataForm.internship = $("#internship").val();
+									dataForm.facebook = $("#facebook").val();
+
+									var dataSend = JSON.stringify(dataForm);
+									console.info(dataSend);
+
+									$.ajax({
+										url : "/EvaluateTool/application/memberRegister",
+										type : 'POST',
+										data : {
+											dataForm : dataSend
+										},
+										success : function(data) {
+											//alert(data);
+											alert("Congratulations! You have successfully register");
+											window.location.href = "http://localhost:8083/EvaluateTool/application/";
+										},
+										error : function(data, status, er) {
+											// alert("error: " + data + " status: " + status
+											// 		+ " er:" + er);
+											alert("Please fill out this form!!");
+										}
+									});
+							}
+						});
+
 						
 					});
 			$("#buttonLogIn").click(function(){
@@ -213,71 +290,8 @@ div {
 				});
 			});
 		});
-	//Validate
-	jQuery.validator.setDefaults({
-	  debug: true,
-	  validClass: "success",
-	  errorClass: "error"
-	});
-	$("#myform").validate({
-	  	rules: {
-	  		firstName: {
-	  			required: true,
-	  			rangelength : [4, 16]
-	  		},
-	  		lastname: {
-	  			required: true,
-	  			rangelength : [4, 16]
-	  		},
-	    	email: {
-	      		required: true,
-	      		email: true
-	    	},
-		    confirmEmail: {
-		      	equalTo: "#email"
-		    },
-		    username: {
-		    	required: true,
-		    	rangelength: [4, 16]
-		    },
-		    password: "required",
-		    confirmPassword: {
-		    	equalTo: "#password"
-		    },
-		    phoneNumber: {
-		    	required: true,
-		    	number: true,
-                rangelength : [10, 10]
-		    },
-		    position: {
-		    	required: function(){
-			        if($("select[name=position]").val() == -1){
-			            return true;
-			        }
-			        else
-			        {
-			            return false;
-			        }
-			    }
-		    },
-		    internship: {
-		    	required: function(){
-			        if($("select[name=internship]").val() == -1){
-			            return true;
-			        }
-			        else
-			        {
-			            return false;
-			        }
-			    }
-		    },
-		  
-		    agree: "required"
-	  	},
-	  	submitHandler: function(form) {
-	  		$(form).ajaxSubmit();
-	    }
-	});
+
+
 
 
 	</script>
