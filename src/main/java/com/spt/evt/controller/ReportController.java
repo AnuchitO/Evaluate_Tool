@@ -137,8 +137,6 @@ public class ReportController {
 		JSONObject getAverageScore = (JSONObject) getReport.get(0);
 		courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
 
-		LOGGER.debug("courseInformation :: "+courseInformation);
-		LOGGER.debug("Controllerrrrrrrrrrrrrrr :: "+roomId+" "+examinerId+" "+committeeId+" "+courseId);
 		return new ModelAndView("excelView","score",courseInformation);
 	}
 
