@@ -3,8 +3,6 @@ package com.spt.evt.exportExcel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -21,7 +19,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public abstract class AbstractPOIExcelView extends AbstractView {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPOIExcelView.class);
 
     /** The content type for an Excel response */
     private static final String CONTENT_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -32,7 +29,7 @@ public abstract class AbstractPOIExcelView extends AbstractView {
      * Default Constructor. Sets the content type of the view for excel files.
      */
     public AbstractPOIExcelView() {
-        logger.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
     }
 
 
@@ -68,9 +65,8 @@ public abstract class AbstractPOIExcelView extends AbstractView {
         } else {
             setContentType(CONTENT_TYPE_XLS);
         }
-        logger.info("111111111111111111111");
+
         buildExcelDocument(model, workbook, request, response);
-        logger.info("4444444444444444444444");
         // Set the content type.
         response.setContentType(getContentType());
 

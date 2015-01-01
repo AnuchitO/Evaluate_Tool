@@ -28,7 +28,6 @@ public class GenerateExcelServiceImpl extends AbstractPOIExcelView {
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LOGGER.debug("Export Excel 55555555555555555555555555555555555");
         try {
             /*create Sheet*/
             XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
@@ -131,7 +130,6 @@ public class GenerateExcelServiceImpl extends AbstractPOIExcelView {
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-            LOGGER.debug("ENDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         }catch (Exception e){
             e.printStackTrace();
         }
