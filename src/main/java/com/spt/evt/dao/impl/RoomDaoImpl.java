@@ -72,6 +72,7 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 	public void setRemoveRoom(Long roomid){
 		Room room = this.getEntityManager().find(Room.class,roomid);
 		this.getEntityManager().remove(room);
+		this.getEntityManager().flush();
 		Query query = this.getEntityManager().createQuery("from Room");
 		LOGGER.debug(query.getResultList().toString());
 
@@ -82,7 +83,12 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 	public void editRoom(Room dataroom){
 		Room room = this.getEntityManager().find(Room.class, dataroom.getId());
 		room.setName(dataroom.getName());
+		room.setDescription(dataroom.getDescription());
+		room.setCourseId(dataroom.getCourseId());
+		room.setStartTime(dataroom.getStartTime());
+		room.setEndTime(dataroom.getEndTime());
 		this.getEntityManager().merge(room);
+		this.getEntityManager().flush();
 		Query query = this.getEntityManager().createQuery("from Room");
 		LOGGER.debug(query.getResultList().toString());
 		LOGGER.debug("EditRoomDAO");

@@ -126,12 +126,26 @@ $(function(){
         showMeridian:false,
         defaultTime:'current'
     });
+    $('#timepicker32').timepicker({
+            minuteStep: 5,
+            showInputs: false,
+            disableFocus: true,
+            showMeridian:false,
+            defaultTime:'current'
+    });
     $('#timepicker4').timepicker({
         minuteStep: 5,
         showInputs: false,
         disableFocus: true,
         showMeridian:false,
         defaultTime:'current'
+    });
+    $('#timepicker42').timepicker({
+            minuteStep: 5,
+            showInputs: false,
+            disableFocus: true,
+            showMeridian:false,
+            defaultTime:'current'
     });
     $('.ui.form')
             .form({
@@ -194,14 +208,14 @@ $(function(){
                                 location.reload();
                             }
                         });
-                            $("input[name=nameroom]").val("");
+                        /*    $("input[name=nameroom]").val("");
                             $("textarea[name=description]").val("");
                             $("#listExaminer").text("ผู้เข้าสอบ");
                             $("#listCommittee").text("หัวหน้าห้องสอบ");
                             $("#listCourse").text("หลักสูตร");
                             $("input[name=startDate]").val("");
                             $("input[name=startTime]").val("");
-                            $("input[name=endTime]").val("");
+                            $("input[name=endTime]").val("");*/
                         },
                         error:function(){
                             swal("ErrorAddRoom!!!");
@@ -548,7 +562,25 @@ $(function(){
               swal("ErrorGetName");
           }
       });
+///////////EditRoom////////////
+      $.ajax({
+                url: "/EvaluateTool/application/sendName",
+                type: "POST",
+                success: function(data){
+                      var listname = JSON.parse(data);
+                      $.each(listname,function(index,item){
+                          item.forEach(function(idAndName){
+                                  //console.log(idAndName.idPerson);
+                                  $("#listExaminer2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
 
+                          });
+                      });
+                },
+                error: function(){
+                    swal("ErrorGetName");
+                }
+            });
+//==================================================================================================================
       $.ajax({
           url: "/EvaluateTool/application/sendName",
           type: "POST",
@@ -565,6 +597,24 @@ $(function(){
               swal("ErrorGetName");
           }
       });
+///////////EditRoom////////////
+      $.ajax({
+                url: "/EvaluateTool/application/sendName",
+                type: "POST",
+                success: function(data){
+                      var listname = JSON.parse(data);
+                          $.each(listname,function(index,item){
+                          item.forEach(function(idAndName){
+                                  //console.log(idAndName.idPerson);
+                                  $("#listCommittee2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+                          });
+                      });
+                },
+                error: function(){
+                    swal("ErrorGetName");
+                }
+            });
+//==================================================================================================================
       $.ajax({
           url: "/EvaluateTool/application/sendDescription",
           type: "POST",
@@ -581,6 +631,24 @@ $(function(){
               swal("ErrorGetName");
           }
       });
+///////////EditRoom////////////
+      $.ajax({
+                url: "/EvaluateTool/application/sendDescription",
+                type: "POST",
+                success: function(data){
+                      var listnamecourse = JSON.parse(data);
+                          $.each(listnamecourse,function(index,item){
+                              item.forEach(function(idAndDescription){
+                                      //console.log(idAndDescription.idCourse);
+                                      $("#listCourse2").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
+                              });
+                          });
+                },
+                error: function(){
+                    swal("ErrorGetName");
+                }
+            });
+//==================================================================================================================
 });
 
 ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
@@ -762,7 +830,24 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeCard"
                                             + dummySetSizeCard));
+                            if(roomStatus=="Waiting"){
                             $("#body0")
+                                    .clone()
+                                    .attr(
+                                    'id',
+                                            'body'
+                                            + (++dummyBody))
+                                    .attr('ondblClick','editName(this)')
+                                    .attr(
+                                    'value',
+                                            'roomId'+roomId)
+                                    .insertAfter(genBody)
+                                    .show()
+                                    .appendTo(
+                                    $("#room"
+                                            + dummyRoom));
+                            }else{
+                                $("#body0")
                                     .clone()
                                     .attr(
                                     'id',
@@ -776,6 +861,7 @@ $(function() {
                                     .appendTo(
                                     $("#room"
                                             + dummyRoom));
+                            }
                             $("#setSizeDetail0")
                                     .clone()
                                     .attr(
@@ -799,36 +885,19 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeDetail"
                                             + dummyDetail));
-                             if(roomStatus=="Waiting"){
-                                    $("#roomName0")
-                                        .clone()
-                                        .attr(
-                                        'id',
-                                                'roomName'
-                                                + (++dummyRoomName))
-                                        .attr(
-                                        'onClick',
-                                                'editName(this)')
-                                        .text(roomName)
-                                        .insertAfter(genRoomName)
-                                        .show()
-                                        .appendTo(
-                                        $("#setSizeDetail"
-                                                + dummyDetail));
-                            }else{
-                                     $("#roomName0")
-                                        .clone()
-                                        .attr(
-                                        'id',
-                                                'roomName'
-                                                + (++dummyRoomName))
-                                        .text(roomName)
-                                        .insertAfter(genRoomName)
-                                        .show()
-                                        .appendTo(
-                                        $("#setSizeDetail"
-                                                + dummyDetail));
-                            }
+                            $("#roomName0")
+                               .clone()
+                               .attr(
+                               'id',
+                                       'roomName'
+                                       + (++dummyRoomName))
+                               .text(roomName)
+                               .insertAfter(genRoomName)
+                               .show()
+                               .appendTo(
+                               $("#setSizeDetail"
+                                       + dummyDetail));
+
                             $("#courseId0")
                                     .clone()
                                     .attr(
@@ -933,6 +1002,7 @@ $(function() {
                                     'id',
                                             'roomDescription'
                                             + (++dummyRoomDescription))
+                                    //.attr('onClick','editName(this)')
                                     .text(roomDescription)
                                     .insertAfter(
                                     genRoomDescription)
@@ -1527,35 +1597,115 @@ $("#courseManager").click(
         });
     }
 
+    var j= 0;
     function editName(element){
-        var elementId = element.id;
-        $("#"+elementId).editable({
-            mode: "popup",
-            display: function(value) {
-                $(this).text(value);
-
-            var dataform = {};
-                dataform.roomid = element.parentElement.children[0].value;
-                dataform.editvalue = value;
-                var dataSend = JSON.stringify(dataform);
-                console.log(dataSend);
-            $.ajax({
-                url: "/EvaluateTool/application/editRoom",
-                type: "POST",
-                data:{
-                    editdata: dataSend
-                },
-                success:function(){
-
-                },
-                error:function(){
-                    alert("Error");
-                }
-              });
+        //var elementId = element.id;
+        //alert(elementId);
+        var roomid = element.children[2].children[0].value
+            if(j==0){
+                $("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
+                $("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
+                $("#fromEdit").slideToggle(400);
+                j++;
+            }else{
+                $("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
+                $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
+                $("#fromEdit").hide();
+                j--;
             }
+        var nameroom = element.children[2].children[1].innerHTML;
+        var description = element.children[2].children[9].innerHTML;
+        var startDate = element.children[2].children[10].innerHTML.substring(0, 10);
+        var startTime = element.children[2].children[10].innerHTML.substring(11, 16);
+        var endTime = element.children[2].children[10].innerHTML.substring(30, 35);
+        var examiner = element.children[2].children[5].innerHTML;
+        var modulator = element.children[2].children[7].innerHTML;
+        var course = element.children[2].children[3].innerHTML;
+        document.getElementById("nameroom2").value = nameroom;
+        document.getElementById("description2").value = description;
+        document.getElementById("startDate").value = startDate;
+        document.getElementById("timepicker32").value = startTime;
+        document.getElementById("timepicker42").value = endTime;
+        document.getElementById("listExaminer2").value = examiner;
+        document.getElementById("listCommittee2").value = modulator;
+        document.getElementById("listCourse2").value = course;
+
+        $('.ui.form')
+          .form({
+              description: {
+                  identifier  : 'description',
+                  rules: [
+                      {
+                          type   : 'empty',
+                          prompt: "กรุณากรอกคำอธิบาย",
+                      }
+                  ]
+              },
+              nameroom: {
+                  identifier  : 'nameroom',
+                  rules: [
+                      {
+                          type   : 'empty',
+                          prompt: "กรุณากรอกชื่อห้อง",
+                      }
+                  ]
+              },
+          }, {
+              inline : true,
+        on     : 'blur',
+        onSuccess : function(data){
+        var dataform = {};
+            dataform.roomId = roomid;
+            dataform.roomName=$("input[name=nameroom2]").val();
+            dataform.description=$("textarea[name=description2]").val();
+            dataform.nameExaminer=$("#listExaminer2").val();
+            dataform.nameCommitti=$("#listCommittee2").val();
+            dataform.nameCourse=$("#listCourse2").val();
+            dataform.startDate=$("input[name=startDate2]").val();
+            dataform.startTime=$("input[name=startTime2]").val();
+            dataform.endTime=$("input[name=endTime2]").val();
+            var dataSend = JSON.stringify(dataform);
+            console.log(dataSend);
+            if(dataform.nameExaminer=="ผู้เข้าสอบ"||dataform.nameCommitti=="หัวหน้าห้องสอบ"||dataform.startDate==""||dataform.startTime==""||dataform.endTime==""||dataform.nameCourse==""){
+            swal({
+                 type:"error",
+                 title: "แจ้งเตือน",
+                 text:"กรุณากรอกข้อมูลให้ครบถ้วน",
+                 closeOnConfirm:false,
+                 confirmButtonText:"OK"
+            });
+            }else{
+                $.ajax({
+                      url : "/EvaluateTool/application/editRoom",
+                      type : 'POST',
+                      data : {
+                          editdata : dataSend
+                      },
+                      success:function(){
+                          swal({   title: "Success !",
+                              type: "success",
+                              confirmButtonColor: "#8ACBE5",
+                              confirmButtonText: "OK",
+                              closeOnConfirm: false
+                              },function (isConfirm) {
+                              if (isConfirm) {
+                                  location.reload();
+                              }
+                          });
+                      },
+                      error:function(){
+                          swal("ErrorAddRoom!!!");
+                      }
+                });
+
+            }
+        }
         });
+
     }
-    
+
+
+
 </script>
 </body>
 </html>
