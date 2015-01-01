@@ -250,8 +250,10 @@
 	});
 
 	$("#setSizeTable").change(function(index,element) {
+		$("#btnExport").hide();
+		$("#pickRoom").empty();
+		$("#pleaseSelect").remove();
 		var personId = $("#pickExaminer").val();
-
 		$.ajax({
 			url:"/EvaluateTool/application/getRoomName",
 			type:"POST",
@@ -264,8 +266,7 @@
 				var dummyRoomId = 0;
 				var genOptionId = ("#option" + dummyOption);
 				// var genRoomId = ("#roomId" + dummyRoomId);
-				$("#pickRoom").empty();
-				$("#pleaseSelect").remove();
+
 
 				$.each(addRoom, function(i, item) {
 					item.forEach(function(data) {
@@ -301,7 +302,8 @@
 									data : dataSend
 								},
 								success : function(data) {
-									// alert(data);
+									console.log("success");
+//									alert(data);
 
 									var course = JSON.parse(data);
 									createCollapse(course);
@@ -311,54 +313,46 @@
 									+ " er:" + er);
 								}
 							});
+					$(function() {
+						var personId = $("#pickExaminer").val();
+						var averageAllTotal = JSON.parse('${completeRoom}');
+
+						$.each(averageAllTotal, function(i, item) {
+							item.forEach(function(room) {
+								var examinerId = room.examinerId;
+								var averageAllScore = room.averageAllScore;
+
+								if(examinerId==personId){
+									$("#averageAllScore").text(averageAllScore+"%");
+								}
+
+							});
+						});
+					});
 				});
 
 				$("#btnExport").click(function(){
-					var roomSelect = $("#pickRoom").val();
-					var courseIdInroom = $("#pickRoom option").attr("class");
+					var roomId = $("#pickRoom").val();
+					var examinerId = $("#pickExaminer option").val();
 					var committeeId = $("#yourId").val();
+					var courseId = $("#pickRoom option").attr("class");
 
-					var dataCourse = {};
-					dataCourse.roomId = roomSelect;
-					dataCourse.examinerId = personId;
-					dataCourse.committeeId = committeeId;
-					dataCourse.courseId = courseIdInroom;
-					var dataSend = JSON.stringify(dataCourse);
-					$
-							.ajax({
-								url : "/EvaluateTool/application/exportExcel",
-								type : 'POST',
-								data : {
-									data : dataSend
-								},
-								success : function(data) {
-//									alert(data);
-									var course = JSON.parse(data);
-//									createCollapse(course);
-								},
-								error : function(data, status, er) {
-									alert("error: " + data + " status: " + status
-									+ " er:" + er);
-								}
-							});
+					location.href = "/EvaluateTool/application/exportExcel"
+						+ "?roomId="
+						+ encodeURIComponent(roomId)
+						+ "&examinerId="
+						+ encodeURIComponent(examinerId)
+						+ "&committeeId="
+						+ encodeURIComponent(committeeId)
+						+ "&courseId="
+						+ encodeURIComponent(courseId);
 				});
-
 			}
 		});
 	});
-
-	$(function() {
-		var averageAllTotal = JSON.parse('${completeRoom}');
-		$.each(averageAllTotal, function(i, item) {
-			item.forEach(function(room) {
-
-				var averageAllScore = room.averageAllScore;
-				$("#averageAllScore").text(averageAllScore+"%");
-			});
-		});
-
+	$("#setSizeRoom").change(function(){
+		$("#btnExport").hide();
 	});
-
 
 	$("#room").click(function() {
 		var yourId = $("#yourId").attr('value');
@@ -380,6 +374,7 @@
 	// =============================================================
 
 	function createCollapse(course) {
+		$("#tableScore1").remove();
 		$("#averageAll").show();
 		$("#btnExport").show();
 //			$.("#averageAllScore").text("xxx");

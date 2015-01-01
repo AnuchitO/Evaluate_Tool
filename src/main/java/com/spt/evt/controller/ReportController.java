@@ -1,14 +1,11 @@
 package com.spt.evt.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.spt.evt.entity.Participants;
+import com.spt.evt.entity.Person;
+import com.spt.evt.service.ParticipantsService;
+import com.spt.evt.service.PersonService;
+import com.spt.evt.service.ReportService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.entity.Person;
-import com.spt.evt.entity.Room;
-import com.spt.evt.entity.Participants;
-import com.spt.evt.service.ReportService;
-import com.spt.evt.service.impl.ReportServiceImpl;
-import com.spt.evt.service.PersonService;
-import com.spt.evt.service.ParticipantsService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ReportController {
@@ -126,20 +123,23 @@ public class ReportController {
 		return courseInformation.toString();
 
 	}
+	@RequestMapping(value="/exportExcel",method=RequestMethod.GET)
+	public ModelAndView excelView(HttpServletRequest request,HttpServletResponse response)  {
 
-	@RequestMapping(value="/exportExcel",method=RequestMethod.POST)
-	public @ResponseBody String exportExcel(@RequestParam(value="data") String data ,HttpServletRequest arg0,
-												  HttpServletResponse arg1)  {
-		JSONObject courseDetail = new JSONObject(data);
+		Long roomId			= Long.parseLong(request.getParameter("roomId"));
+		Long examinerId 	= Long.parseLong(request.getParameter("examinerId"));
+		Long committeeId 	= Long.parseLong(request.getParameter("committeeId"));
+		Long courseId 		= Long.parseLong(request.getParameter("courseId"));
 
-		Long roomId			= Long.parseLong(courseDetail.getString("roomId"));
-		Long examinerId 	= Long.parseLong(courseDetail.getString("examinerId"));
-		Long committeeId 	= Long.parseLong(courseDetail.getString("committeeId"));
-		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
+		JSONObject courseInformation = this.reportService.getCourseInformationSummary(roomId, examinerId, committeeId, courseId);
+		JSONObject completeRoomInformation = this.reportService.getAllScore();
+		JSONArray getReport = (JSONArray) completeRoomInformation.get("report");
+		JSONObject getAverageScore = (JSONObject) getReport.get(0);
+		courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
 
-		JSONObject courseInformation = this.reportService.getCourseInformationSummaryForExportExcel(roomId,examinerId,committeeId , courseId);
-		return courseInformation.toString();
-
+		LOGGER.debug("courseInformation :: "+courseInformation);
+		LOGGER.debug("Controllerrrrrrrrrrrrrrr :: "+roomId+" "+examinerId+" "+committeeId+" "+courseId);
+		return new ModelAndView("excelView","score",courseInformation);
 	}
 
 

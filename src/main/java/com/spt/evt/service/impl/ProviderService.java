@@ -27,16 +27,6 @@ public class ProviderService {
 	private ParticipantsService participantsService;
 	@Autowired
 	private AveragesCalculationService averagesCalculationService;
-	@Autowired
-	private GenerateExcelService generateExcelService;
-
-	public GenerateExcelService getGenerateExcelService() {
-		return generateExcelService;
-	}
-
-	public void setGenerateExcelService(GenerateExcelService generateExcelService) {
-		this.generateExcelService = generateExcelService;
-	}
 
 	public AveragesCalculationService getAveragesCalculationService() {
 		return averagesCalculationService;
