@@ -5,7 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Register</title>
-<style>
+<style type="text/css">
+@IMPORT url("${contextPath}/resources/styles/css/sweet-alert.css");
+@IMPORT url("${contextPath}/resources/styles/css/alertify.core.css");
+@IMPORT url("${contextPath}/resources/styles/css/alertify.default.css");
 div {
 	padding: 3px;
 }
@@ -146,6 +149,10 @@ div {
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/sweet-alert.js"></script>
+<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/alertify.min.js"></script>
 	<script>
 		$(function() {
 			$("#buttonSignUp").click(
@@ -179,8 +186,7 @@ div {
 								},
 								password: {
 									required: true,
-									minlength: 4,
-									maxlength: 20
+									rangelength: [4, 20]
 								},
 								confirmPassword: {
 									equalTo: "#password"
@@ -191,39 +197,45 @@ div {
 									rangelength : [10, 10]
 								},
 								position: {
-									required: function(){
-										if($("select[name=position]").val() == -1){
-											return false;
-										}
-										else
-										{
-											return true;
-										}
-									}
+									required: true
 								},
 								internship: {
-									required: function(){
-										if($("select[name=internship]").val() == -1){
-											return false;
-										}
-										else
-										{
-											return true;
-										}
-									}
+									required: true
 								},
 								agree: "required"
 							},
 							messages:{
-								firstName: "Please enter your firstname.",
-								lastname: "Please enter your lastname.",
+								firstName: {
+								 	required: "Please enter your firstname.",
+									rangelength: "Please enter between 4 and 16 characters."
+								},
+								lastname: {
+									required: "Please enter your lastname.",
+									rangelength: "Please enter between 4 and 16 characters."
+								},
 								email:{
 									required: "We need your email address to contact you.",
 									email: "Your email address must be in the format of name@domain.com"
 								},
-								username: "Please enter your username.",
-								password: "Please enter your password.",
-								phoneNumber: "Please enter your phone number."
+								username: {
+									required: "Please enter your username.",
+									rangelength: "Please enter between 4 and 16 characters."
+								},
+								password: {
+									required: "Please enter your password.",
+									rangelength: "Please enter between 4 and 20 characters."
+								},
+								phoneNumber: {
+									required: "Please enter your phone number.",
+									number: "Please enter a valid number.",
+									rangelength: "Please enter 10 characters."
+								},
+								position: {
+									required: "Please choose your position."
+								},
+								internship: {
+									required: "Please choose your internship."
+								}
 							},
 							submitHandler: function(form) {
 								var dataForm = {};
@@ -251,14 +263,22 @@ div {
 											dataForm : dataSend
 										},
 										success : function(data) {
-											//alert(data);
-											alert("Congratulations! You have successfully register");
-											window.location.href = "http://localhost:8083/EvaluateTool/application/";
+											swal({   title: "Congratulations! You have successfully register.",
+												type: "success",
+												confirmButtonColor: "#8ACBE5",
+												confirmButtonText: "OK",
+												closeOnConfirm: false
+												},function (isConfirm) {
+													if (isConfirm) {
+														window.location.href = "http://localhost:8083/EvaluateTool/application/";
+													}
+												}
+											);
 										},
 										error : function(data, status, er) {
 											// alert("error: " + data + " status: " + status
 											// 		+ " er:" + er);
-											alert("Please fill out this form!!");
+											swal("Please fill out this form!!");
 										}
 									});
 							}
@@ -290,9 +310,6 @@ div {
 				});
 			});
 		});
-
-
-
 
 	</script>
 </body>
