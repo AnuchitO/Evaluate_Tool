@@ -15,5 +15,4 @@ public interface ReportService {
 	public Map<Room,Map<Topic, List<Double>>> prepareDataScoreBoard(List<Room> rooms);
 	public Person getPersonByExaminerId(Long examinerId);
 	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId);
-	public JSONObject getCourseInformationSummaryForExportExcel(Long roomId, Long examinerId, Long committeeId,Long courseId);
 }
