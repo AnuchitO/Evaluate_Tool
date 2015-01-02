@@ -54,10 +54,10 @@ body {
 	      <div class="modal-body">
 	          <div class="form center-block">
 	            <div class="form-group">
-	              <input type="text" class="form-control" id="userName" placeholder="<spring:message code='APP.username' />">
+	              <input type="text" class="form-control" id="userName" placeholder="<spring:message code='APP.username' />"onkeydown="if (event.keyCode == 13) document.getElementById('buttonLogIn').click()">
 	            </div>
 	            <div class="form-group">
-	              <input type="password" class="form-control" id="password" placeholder="<spring:message code='APP.password' />">
+	              <input type="password" class="form-control" id="password" placeholder="<spring:message code='APP.password' />" onkeydown="if (event.keyCode == 13) document.getElementById('buttonLogIn').click()">
 	            </div>
 	            <div class="form-group">
 	              <button id="buttonLogIn" type="submit" class="btn btn-primary btn-lg btn-block"><spring:message code="APP.lname" /></button>
@@ -72,74 +72,47 @@ body {
 	  
 	</div>
 
-	<!-- <div id="divLogIn">
-		<div class="row">
-			<div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">Log In</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-sm-12 col-md-12">
-								<input type="text" class="form-control" id="userName" placeholder="Username">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 col-md-12">
-								<input type="password" class="form-control" id="password" placeholder="Password">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-1 col-md-1 col-md-offset-4 col-sm-offset-4">
-								<button id="buttonLogIn" type="submit" class="btn btn-default">Log In</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-
 	<script>
-		$("#buttonLogIn")
-				.click(
-						function() {
-							var userAndPassword = {};
-							userAndPassword.userName = $("#userName").val();
-							userAndPassword.password = $("#password").val();
-							var dataUserAndPassword = JSON
-									.stringify(userAndPassword);
-									// alert(dataUserAndPassword);
-							$
-									.ajax({
-										url : "/EvaluateTool/application/checkUserPassword",
-										type : 'POST',
-										data : {
-											dataUserAndPassword : dataUserAndPassword
-										},
-										success : function(data) {
-											var yourId = JSON.parse(data).id;
-											var yourName = JSON.parse(data).name;
-											var yourLastName = JSON.parse(data).lastName;
-											var yourPosition = JSON.parse(data).position;
-											//alert("Wellcome , " + yourName
-											//		+ " " + yourLastName);
-											location.href = "/EvaluateTool/application/examinationRoom"
-													+ "?yourId="
-													+ encodeURIComponent(yourId)
-													+ "&yourPosition="
-													+ encodeURIComponent(yourPosition)
-													+ "&yourName="
-													+ encodeURIComponent(yourName)
-													+ "&yourLastName="
-													+ encodeURIComponent(yourLastName);
-										},
-										error : function(data, status, er) {
-											alert("Wrong Username or Password, Try Again");
-										}
-									});
+			$("#buttonLogIn")
+					.click(
+					function sinIn(){
+						var userAndPassword = {};
+						userAndPassword.userName = $("#userName").val();
+						userAndPassword.password = $("#password").val();
+						var dataUserAndPassword = JSON
+								.stringify(userAndPassword);
+						// alert(dataUserAndPassword);
+						$
+								.ajax({
+									url: "/EvaluateTool/application/checkUserPassword",
+									type: 'POST',
+									data: {
+										dataUserAndPassword: dataUserAndPassword
+									},
+									success: function (data) {
+										var yourId = JSON.parse(data).id;
+										var yourName = JSON.parse(data).name;
+										var yourLastName = JSON.parse(data).lastName;
+										var yourPosition = JSON.parse(data).position;
+										//alert("Wellcome , " + yourName
+										//		+ " " + yourLastName);
+										location.href = "/EvaluateTool/application/examinationRoom"
+										+ "?yourId="
+										+ encodeURIComponent(yourId)
+										+ "&yourPosition="
+										+ encodeURIComponent(yourPosition)
+										+ "&yourName="
+										+ encodeURIComponent(yourName)
+										+ "&yourLastName="
+										+ encodeURIComponent(yourLastName);
+									},
+									error: function (data, status, er) {
+										alert("Wrong Username or Password, Try Again");
+									}
+								});
 
-						});
+					});
+
 	</script>
 </body>
 </html>
