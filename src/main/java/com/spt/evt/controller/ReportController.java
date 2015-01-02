@@ -81,8 +81,7 @@ public class ReportController {
 			examinerDetail = this.reportService.getAllScore();
 		}
 		else{
-			Long examiner_Id = Long.parseLong(examinerDetail.getString("id"));
-			Person personDetail = this.reportService.getPersonByExaminerId(examiner_Id);
+			Person personDetail = this.reportService.getPersonByExaminerId(Long.parseLong(id));
 			examinerDetail = this.reportService.getScoreByExaminer(personDetail);
 		}
 		return examinerDetail.toString();
