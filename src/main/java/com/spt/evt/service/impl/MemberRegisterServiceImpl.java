@@ -42,16 +42,12 @@ public class MemberRegisterServiceImpl implements MemberRegisterService {
 		memberRegister.setReenterEmail(jsonObj.getString("reemail"));
 		memberRegister.setPassword(jsonObj.getString("password"));
 		memberRegister.setReenterPassword(jsonObj.getString("repassword"));
-		System.out.println("11111111111111111111111");
 		memberRegister.setPositionA(jsonObj.getString("position").toString());
-		System.out.println("222222222222222");
 		memberRegister.setInstitute(jsonObj.getString("institute"));
 		memberRegister.setPhoneNumber(jsonObj.getString("phonenumber"));
 		memberRegister.setInternship(jsonObj.getString("internship"));
 		memberRegister.setFacebook(jsonObj.getString("facebook"));
-		
 		memberRegisterDao.save(memberRegister);
-		System.out.println("SSSSSSSSSSSSS");
 		return null;
 	}
 
