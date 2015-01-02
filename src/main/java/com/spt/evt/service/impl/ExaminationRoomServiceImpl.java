@@ -123,7 +123,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 			personDetail.put("idPerson", participant.getPerson().getId());
 			participantsDetail.append("room", personDetail);
 		}
-		
+
 		return participantsDetail;
 	}
 
@@ -215,8 +215,6 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		participants2.setRole("examiner");
 		participants2.setRoom(roomLast);
 		this.getParticipantsService().persisParticipant(participants2);
-//		LOGGER.debug("ExaminationRoomServiceImplsetAddRoom");
-
 	}
 
 	@Override
@@ -251,29 +249,20 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 
 		this.getRoomService().editRoom(room);
 
-		Room roomLast = new Room();
-		List<Room> roomList = getRoomService().findAll();
-
-		int countAllList = 0;
-		for (Room rm : roomList){
-			countAllList++;
-		}
-		roomLast = roomList.get(countAllList-1);
-
 		Person personExam = getPersonService().findById(jsonObj.getLong("nameExaminer"));
 		Person personComit = getPersonService().findById(jsonObj.getLong("nameCommitti"));
 		Participants participants = new Participants();
 		participants.setPerson(personComit);
 		participants.setModulator(true);
 		participants.setRole("committee");
-		participants.setRoom(roomLast);
+		participants.setRoom(room);
 		this.getParticipantsService().editPaticitant(participants);
 
 		Participants participants2 = new Participants();
 		participants2.setPerson(personExam);
 		participants2.setModulator(false);
 		participants2.setRole("examiner");
-		participants2.setRoom(roomLast);
+		participants2.setRoom(room);
 		this.getParticipantsService().editPaticitant(participants2);
 	}
 }

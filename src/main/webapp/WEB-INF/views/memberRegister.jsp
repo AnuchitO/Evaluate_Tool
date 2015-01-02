@@ -270,7 +270,7 @@ div {
 												closeOnConfirm: false
 												},function (isConfirm) {
 													if (isConfirm) {
-														window.location.href = "http://localhost:8083/EvaluateTool/application/";
+														window.location.href = "/EvaluateTool/";
 													}
 												}
 											);

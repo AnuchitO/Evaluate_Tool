@@ -1,18 +1,16 @@
 package com.spt.evt.service.impl;
 
-import java.util.List;
-
+import com.spt.evt.dao.PersonDao;
+import com.spt.evt.entity.Person;
+import com.spt.evt.service.PersonService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.spt.evt.dao.PersonDao;
-import com.spt.evt.entity.Person;
-import com.spt.evt.service.PersonService;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
+
+import java.util.List;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -36,10 +34,8 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Override
 	@Transactional
-	public String setData(String dataForm) {
-
+	public void setData(String dataForm) {
 		JSONObject jsonObj = new JSONObject(dataForm);
-		
 		Person person = new Person();
 
 		person.setName(jsonObj.getString("firstname"));
@@ -48,16 +44,12 @@ public class PersonServiceImpl implements PersonService {
 		person.setEmail(jsonObj.getString("email"));
 		person.setUserName(jsonObj.getString("username"));
 		person.setPassword(jsonObj.getString("password"));
+		person.setPositionName(jsonObj.getString("position"));
 		person.setInstitute(jsonObj.getString("institute"));
 		person.setPhoneNumber(jsonObj.getString("phonenumber"));
 		person.setInternship(jsonObj.getString("internship"));
 		person.setFacebook(jsonObj.getString("facebook"));
-		System.out.println("SetValue");
-		
 		personDao.persist(person);
-		System.out.println("Persist Successful");
-
-		return null;
 	}
 
 	@Override
