@@ -17,7 +17,6 @@ public class RequestAndApprove{
 	@MessageMapping("/requestandapprove")
     @SendTo("/examinationroomandevaluateboard/requestandapprove")
     public String requestandapprove(Map map) throws Exception {
-    	System.out.println(map.get("head"));
     	JSONObject jsonData=new JSONObject();
     	if(map.get("head").equals("sendRequestCommittee")){
     		jsonData.put("name",map.get("name"));
@@ -53,7 +52,6 @@ public class RequestAndApprove{
             jsonData.put("roomName",map.get("roomName"));
     		jsonData.put("function","removeProcess");
     	}else if(map.get("head").equals("approveProcess")){
-            System.out.println("approveProcess");
         }else if(map.get("head").equals("approveSubmitModulator")){
             jsonData.put("data",map.get("data"));
             jsonData.put("yourId",map.get("yourId"));
@@ -132,8 +130,6 @@ public class RequestAndApprove{
             jsonData.put("function","presentingShow");
         }
 
-    	System.out.println(jsonData.toString());
-    	
      //  Thread.sleep(800); // simulated delay
         return jsonData.toString();
     }

@@ -16,7 +16,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		System.out.println("22222222222222222222222222222222");
 		registry.addEndpoint("/requestandapprove").withSockJS();
 		registry.addEndpoint("/hello").withSockJS();
 	}
@@ -24,20 +23,17 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
 		// TODO Auto-generated method stub
-		System.out.println("33333333333333333333333333333");
 		
 	}
 
 	@Override
 	public void configureClientOutboundChannel(ChannelRegistration registration) {
 		// TODO Auto-generated method stub
-		System.out.println("44444444444444444444444");
 		
 	}
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		System.out.println("5555555555555555555555");
 		registry.enableSimpleBroker("/topic");
 		registry.enableSimpleBroker("/examinationroomandevaluateboard");
 		registry.setApplicationDestinationPrefixes("/app");
