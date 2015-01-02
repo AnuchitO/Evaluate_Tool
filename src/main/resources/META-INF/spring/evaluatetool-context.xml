@@ -81,15 +81,15 @@
 	<beans profile="evaluateTool">
 		<!-- Creates an in-memory HSQLDB Database -->
 		<!--jdbc:embedded-database id="dataSource" /-->
-		 <jdbc:embedded-database id="dataSource"/> 
-		<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${database.driverClassName}"/>
-			<property name="url" value="${database.url}"/>
-			<property name="username" value="${database.username}"/>
-			<property name="password" value="${database.password}"/>
-		</bean> -->
+		 <!--<jdbc:embedded-database id="dataSource"/>-->
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${database.driverClassName}"/>
+            <property name="url" value="${database.url}"/>
+            <property name="username" value="${database.username}"/>
+            <property name="password" value="${database.password}"/>
+        </bean>
 
-		<bean id="dataSourceInitializer"
+	    <!--<bean id="dataSourceInitializer"
 			  class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
 			<property name="dataSource" ref="dataSource" />
 			<property name="databasePopulator">
@@ -103,29 +103,33 @@
 					</property>
 				</bean>
 			</property>
-		</bean> 
+		</bean>-->
 	</beans>
 
 	<beans profile="test">
 		<!-- Creates an in-memory HSQLDB Database -->
 		<jdbc:embedded-database id="dataSource" />
-
-		<bean id="dataSourceInitializer"
-			  class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
-			<property name="dataSource" ref="dataSource" />
-			<property name="databasePopulator">
-				<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
-					<property name="ignoreFailedDrops" value="true" />
-					<property name="sqlScriptEncoding" value="UTF-8" />
-					<property name="scripts">
-						<list>
-							<value>classpath*:META-INF/database-script/prepare_test.sql
-							</value>
-						</list>
-					</property>
-				</bean>
-			</property>
-		</bean>
+        <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${database.driverClassName}"/>
+            <property name="url" value="jdbc:derby:/home/firstsut/projectfirst/HRTest;create=true;update=true"/>
+            <property name="username" value="${database.username}"/>
+            <property name="password" value="${database.password}"/>
+        </bean>-->
+        <!--<bean id="dataSourceInitializer"
+              class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
+            <property name="dataSource" ref="dataSource" />
+            <property name="databasePopulator">
+                <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+                    <property name="ignoreFailedDrops" value="true" />
+                    <property name="sqlScriptEncoding" value="UTF-8" />
+                    <property name="scripts">
+                        <list>
+                            <value>classpath*:META-INF/database-script/prepare_test.sql</value>
+                        </list>
+                    </property>
+                </bean>
+            </property>
+        </bean>-->
 	</beans>
 
 </beans>

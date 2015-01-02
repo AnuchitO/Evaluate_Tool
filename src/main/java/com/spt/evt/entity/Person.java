@@ -1,5 +1,7 @@
 package com.spt.evt.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,7 +20,8 @@ public class Person extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="aaa",strategy="increment")
+    @GeneratedValue(generator="aaa")
 	private Long id;
 	private String name;
 	private String lastName;

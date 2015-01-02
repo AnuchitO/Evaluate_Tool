@@ -1,5 +1,7 @@
 package com.spt.evt.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -16,7 +18,8 @@ public class Enroll extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="aaa",strategy="increment")
+    @GeneratedValue(generator="aaa")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
