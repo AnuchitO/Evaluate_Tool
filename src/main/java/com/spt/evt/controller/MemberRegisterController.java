@@ -1,10 +1,8 @@
 package com.spt.evt.controller;
 
-import java.util.List;
+import com.spt.evt.entity.Person;
+import com.spt.evt.service.PersonService;
 import org.json.JSONObject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.entity.Person;
-import com.spt.evt.service.PersonService;
-import com.spt.evt.entity.MemberRegister;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class MemberRegisterController {
@@ -38,17 +36,12 @@ public class MemberRegisterController {
 	@RequestMapping(value="/memberRegister", method = RequestMethod.POST)
 	public @ResponseBody String register(@RequestParam(value="dataForm") String dataForm) {
 		personService.setData(dataForm);
-		System.out.println("DATA"+dataForm);
 		List<Person> result = this.personService.findAll();
-		logger.info("Result  ::: " + result.toString());
-		
 		return "Seccessful";
 	}
 	
 	@RequestMapping(value="/memberLogIn", method = RequestMethod.POST)
 	public @ResponseBody String login(@RequestParam(value="data") String data) {
-		
-		System.out.println("DATA"+data);
 		
 		return "Seccessful";
 	}
@@ -64,8 +57,6 @@ public class MemberRegisterController {
 			nameSmall.put("namePerson", person.getName());
 			nameLarge.append("idAndName", nameSmall);
 		}
-
-		//logger.debug("==========="+nameLarge);
 		return nameLarge.toString();
 	}
 

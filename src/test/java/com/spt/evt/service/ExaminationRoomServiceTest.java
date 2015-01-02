@@ -1,9 +1,5 @@
 package com.spt.evt.service;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
-
-import com.spt.evt.entity.Participants;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014

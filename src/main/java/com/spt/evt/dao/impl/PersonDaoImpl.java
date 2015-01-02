@@ -1,7 +1,7 @@
 package com.spt.evt.dao.impl;
 
-import java.util.List;
-
+import com.spt.evt.dao.PersonDao;
+import com.spt.evt.entity.Person;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -10,14 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spt.evt.dao.PersonDao;
-import com.spt.evt.entity.Person;
-import com.spt.evt.entity.MemberRegister;
-import com.spt.evt.entity.Room;
-import com.spt.evt.entity.ScoreBoard;
-import com.spt.evt.dao.impl.TemplateEntityManagerDao;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class PersonDaoImpl extends TemplateEntityManagerDao implements PersonDao {

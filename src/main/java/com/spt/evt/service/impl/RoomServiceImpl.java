@@ -52,8 +52,6 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public void addRoom(Room data){
-		//this.roomDao.setAddRoom(data);
-		LOGGER.debug("RoomServiceImplAddRoom");
 		this.roomDao.setAddRoom(data);
 	}
 

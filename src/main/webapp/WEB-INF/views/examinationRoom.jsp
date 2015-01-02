@@ -1171,34 +1171,38 @@ $(function() {
                                             + dummySetHalfSizeTwo));
                         });
 
+
+                if(memberEachRoom == ""){
                 var count = 0;
                 var lengthOfMemberEachRoom = memberEachRoom.room.length;
                 var lengthOfAllroom = allRoom.room.length;
-                for (count; count < lengthOfMemberEachRoom; count++) {
-                    var memberOfRoom = memberEachRoom.room[count].idRoom;
+                    for (count; count < lengthOfMemberEachRoom; count++) {
+                        var memberOfRoom = memberEachRoom.room[count].idRoom;
 
-                    if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
-                        $("#btnExaminer" + (memberOfRoom));
-                        /*		.removeClass('ui orange tiny disabled button'
-                         );*/
-                        $("#btnExaminer" + (memberOfRoom));
-                        /*		.addClass('ui orange tiny button'
-                         );*/
-                        $("#btnExaminer" + (memberOfRoom));
-                        /*		.removeAttr('disabled',
-                         'disabled');	*/
-                    } else {
-                        $("#btnCommitte" + (memberOfRoom));
-                        /*	.removeClass('ui orange tiny disabled button'
-                         );*/
-                        $("#btnCommitte" + (memberOfRoom));
-                        /*	.addClass('ui orange tiny button'
-                         );*/
-                        $("#btnCommitte" + (memberOfRoom));
-                        /*	.removeAttr('disabled',
-                         'disabled');	*/
+                        if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
+                            $("#btnExaminer" + (memberOfRoom));
+                            /*		.removeClass('ui orange tiny disabled button'
+                             );*/
+                            $("#btnExaminer" + (memberOfRoom));
+                            /*		.addClass('ui orange tiny button'
+                             );*/
+                            $("#btnExaminer" + (memberOfRoom));
+                            /*		.removeAttr('disabled',
+                             'disabled');	*/
+                        } else {
+                            $("#btnCommitte" + (memberOfRoom));
+                            /*	.removeClass('ui orange tiny disabled button'
+                             );*/
+                            $("#btnCommitte" + (memberOfRoom));
+                            /*	.addClass('ui orange tiny button'
+                             );*/
+                            $("#btnCommitte" + (memberOfRoom));
+                            /*	.removeAttr('disabled',
+                             'disabled');	*/
+                        }
                     }
                 }
+
             });
     /*Check Status And AddColor Card*/
     $("div[class=checkStatus]").each(function(index,element){

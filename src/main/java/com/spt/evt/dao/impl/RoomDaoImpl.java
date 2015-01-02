@@ -62,9 +62,6 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 	public void setAddRoom(Room dataroom){
 		dataroom.setStatus("Waiting");
 		this.getEntityManager().persist(dataroom);
-		Query query = this.getEntityManager().createQuery("from Room");
-		LOGGER.debug(query.getResultList().toString());
-		LOGGER.debug("RoomDaoImplsetAddRoom");
 	}
 
 	@Override
@@ -73,9 +70,6 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 		Room room = this.getEntityManager().find(Room.class,roomid);
 		this.getEntityManager().remove(room);
 		this.getEntityManager().flush();
-		Query query = this.getEntityManager().createQuery("from Room");
-		LOGGER.debug(query.getResultList().toString());
-
 	}
 
 	@Override
@@ -89,8 +83,5 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 		room.setEndTime(dataroom.getEndTime());
 		this.getEntityManager().merge(room);
 		this.getEntityManager().flush();
-		Query query = this.getEntityManager().createQuery("from Room");
-		LOGGER.debug(query.getResultList().toString());
-		LOGGER.debug("EditRoomDAO");
 	}
 }
