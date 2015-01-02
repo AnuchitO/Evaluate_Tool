@@ -1,9 +1,6 @@
 package com.spt.evt.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.spt.evt.service.PersonService;
+import com.spt.evt.service.LogInService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.service.LogInService;
-import com.spt.evt.service.impl.LogInServiceImpl;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LogInController {
@@ -41,9 +38,7 @@ public class LogInController {
 		JSONObject userNamePassword = new JSONObject(dataUserAndPassword);
 		String userName = userNamePassword.getString("userName");
 		String password = userNamePassword.getString("password");
-        LOGGER.debug("===================" + userName+""+password);
 		JSONObject sendUserNamePassword = this.logInService.checkUserNamePassword(userName,password);
-        LOGGER.debug("===================" + sendUserNamePassword);
 		return sendUserNamePassword.toString();
 	}
 }
