@@ -134,9 +134,16 @@ public class ReportController {
 		JSONObject courseInformation = this.reportService.getCourseInformationSummary(roomId, examinerId, committeeId, courseId);
 		JSONObject completeRoomInformation = this.reportService.getAllScore();
 		JSONArray getReport = (JSONArray) completeRoomInformation.get("report");
-		JSONObject getAverageScore = (JSONObject) getReport.get(0);
-		courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
+		JSONObject getAverageScore = null;
 
+		for (int i=0;i<getReport.length();i++){
+			getAverageScore = (JSONObject) getReport.get(i);
+			LOGGER.debug("examinerId :: "+getAverageScore.get("examinerId"));
+
+			if (examinerId == Long.parseLong(getAverageScore.get("examinerId").toString())){
+				courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
+			}
+		}
 		return new ModelAndView("excelView","score",courseInformation);
 	}
 

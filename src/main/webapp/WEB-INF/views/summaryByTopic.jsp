@@ -320,6 +320,7 @@
 				data : dataSend
 			},
 			success : function(data) {
+				console.log(data)
 				var course = JSON.parse(data);
 				createCollapse(course);
 			},
@@ -331,10 +332,10 @@
 
 	$("#btnExport").click(function(){
 		var roomId = $("#pickRoom").val();
-		var examinerId = $("#pickExaminer option").val();
+		var examinerId = $("#pickExaminer").val();
 		var committeeId = $("#yourId").val();
-		var courseId = $("#pickRoom option").attr("class");
-
+		var courseId = $("#pickRoom option").attr('class');
+		console.log(roomId+examinerId+committeeId+courseId)
 		location.href = "/EvaluateTool/application/exportExcel"
 		+ "?roomId="
 		+ encodeURIComponent(roomId)
