@@ -2,7 +2,6 @@ package com.spt.evt.controller;
 
 import com.spt.evt.entity.Person;
 import com.spt.evt.service.PersonService;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +43,6 @@ public class MemberRegisterController {
 	public @ResponseBody String login(@RequestParam(value="data") String data) {
 		
 		return "Seccessful";
-	}
-
-	@RequestMapping(value="/sendName", method = RequestMethod.POST)
-	public @ResponseBody String sendName() {
-		JSONObject nameLarge = new JSONObject();
-		JSONObject nameSmall = null;
-		List<Person> result = this.personService.findAll();
-		for (Person person : result){
-			nameSmall = new JSONObject();
-			nameSmall.put("idPerson", person.getId());
-			nameSmall.put("namePerson", person.getName());
-			nameLarge.append("idAndName", nameSmall);
-		}
-		return nameLarge.toString();
 	}
 
 }

@@ -33,6 +33,10 @@
         text-align: center;
     }
 
+    #confirmEmail-error, #email-error, #confirmPassword-error, #password-error, #phoneNumber-error, #phoneNumber-error, #firstName-error, #lastName-error, #username-error {
+    	color: red;
+    }
+
     /*.btn {
         background-color: #FF8C00;
     }
@@ -46,15 +50,14 @@
 
 </style>
 <body>
-
 <input type="hidden" id="yourId" value="${yourId}" />
 <input type="hidden" id="yourPosition" value="${yourPosition}" />
 <div id="container" class="row">
     <div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
 </div>
-<div id="setSizeCard0"  class="col-sm-6 col-md-6"></div>
-<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
-<div id="body0" class="panel-body"><div id="headRemoveCard" style="margin-right:95%; z-index:5; position:absolute"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
+<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
+<div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"><div style="margin-left:2%; z-index:1; position:absolute"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div></div>
+<div id="body0" class="panel-body">
     <div class="hidden-sm" id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
 </div>
 </div>
@@ -85,10 +88,133 @@
 <div id="loader" align="center" style="position:fixed;left:50%;top:50%">
     <img src="resources/images/loading.gif" alt="" />
 </div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="exampleModalLabel">Edit Profile</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myform" name="myform" novalidate="novalidate">
+                    <div id="divSignUp">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3 col-md-offset-3">
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="Firstname">
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                    placeholder="Lastname">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-1 col-md-offset-3">
+                                <strong>Gender</strong>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="radio-inline">
+                                <input type="radio" id="female" name="radiobox" value="female">Female
+                                </label> <label class="radio-inline">
+                                <input type="radio"id="male" name="radiobox" value="male">Male
+                                </label>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter email">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <input type="email" class="form-control" id="confirmEmail" name="confirmEmail"
+                                    placeholder="Re-enter email">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-offset-3">
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Username">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3 col-md-offset-3">
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password">
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    placeholder="Re-enter Password">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <select id="position" class="selectpicker" name="position" data-width="100%">
+                                    <option selected disabled value="-1">Position</option>
+                                    <option value="1">Software Development Trainee</option>
+                                    <option value="2">Software Development</option>
+                                    <option value="3">Senior Software Development</option>
+                                    <option value="4">Software Analyst</option>
+                                    <option value="5">Senior Software Analyst</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <input type="text" class="form-control" id="institute" name="institute"
+                                    placeholder="Institute">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3 col-md-offset-3">
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                    placeholder="Phone number">
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <select id="internship" class="selectpicker" name="internship" data-width="100%">
+                                    <option selected disabled value="-1">Internship or Co-operative</option>
+                                    <option value="1">Internship</option>
+                                    <option value="2">Co-operative</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                    placeholder="Facebook">
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="buttonEditProfile" type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript"
         src="${contextPath}/resources/stomp.js"></script>
 <script type="text/javascript"
         src="${contextPath}/resources/sockjs-0.3.4.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
 <script>
 /*   var w = window,
@@ -567,7 +693,6 @@ $(function(){
                 var listname = JSON.parse(data);
                 $.each(listname,function(index,item){
                     item.forEach(function(idAndName){
-                            //console.log(idAndName.idPerson);
                             $("#listExaminer").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
 
                     });
@@ -585,7 +710,6 @@ $(function(){
                       var listname = JSON.parse(data);
                       $.each(listname,function(index,item){
                           item.forEach(function(idAndName){
-                                  //console.log(idAndName.idPerson);
                                   $("#listExaminer2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
 
                           });
@@ -603,7 +727,6 @@ $(function(){
                 var listname = JSON.parse(data);
                     $.each(listname,function(index,item){
                     item.forEach(function(idAndName){
-                            //console.log(idAndName.idPerson);
                             $("#listCommittee").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
                     });
                 });
@@ -620,7 +743,6 @@ $(function(){
                       var listname = JSON.parse(data);
                           $.each(listname,function(index,item){
                           item.forEach(function(idAndName){
-                                  //console.log(idAndName.idPerson);
                                   $("#listCommittee2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
                           });
                       });
@@ -637,7 +759,6 @@ $(function(){
                 var listnamecourse = JSON.parse(data);
                     $.each(listnamecourse,function(index,item){
                         item.forEach(function(idAndDescription){
-                                //console.log(idAndDescription.idCourse);
                                 $("#listCourse").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
                         });
                     });
@@ -654,7 +775,6 @@ $(function(){
                       var listnamecourse = JSON.parse(data);
                           $.each(listnamecourse,function(index,item){
                               item.forEach(function(idAndDescription){
-                                      //console.log(idAndDescription.idCourse);
                                       $("#listCourse2").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
                               });
                           });
@@ -727,7 +847,7 @@ function openmenuplus(){
         $("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
         $("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
         $("#fromadd").slideToggle(400);
-        i++;
+        i++
     }else{
         $("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
         $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
@@ -868,7 +988,7 @@ $(function() {
                                     'id',
                                             'body'
                                             + (++dummyBody))
-                                    .attr('ondblClick','editName(this)')
+                                    .attr('onclick','editName(this)')
                                     .attr(
                                     'value',
                                             'roomId'+roomId)
@@ -1282,18 +1402,19 @@ $(function() {
         var indexbody=index+1;
         //alert(indexbody);
         if(status==("Status : Completed")){
-            $("div[id=body"+indexbody+"] #removecard").hide();
+            $("div[id=room"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#d0f8a6");
         }else if(status==("Status : Testing")){
-            $("div[id=body"+indexbody+"] #removecard").hide();
+            $("div[id=room"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#b0e1df");
         }else if(status==("Status : Waiting")){
             $("div[id=body"+indexbody+"]").css("background-color","#ffc166");
+            $("div[id=body"+indexbody+"]").css('cursor', 'pointer');
         }else if(status==("Status : Ready")){
-            $("div[id=body"+indexbody+"] #removecard").hide();
+            $("div[id=room"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#f3f34c");
         }else if(status==("Status : Terminate")){
-            $("div[id=body"+indexbody+"] #removecard").hide();
+            $("div[id=room"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#cdc5bf");
         }
     });
@@ -1642,7 +1763,7 @@ $("#courseManager").click(
         });
     
     function removeRoom(element){
-        var sendId = element.parentElement.parentElement.parentElement.children[2].children[0].value;
+        var sendId = element.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
         swal({
           title: "Are you sure?",
           text: "You will not be able to recover this room!",
@@ -1675,8 +1796,6 @@ $("#courseManager").click(
 
     var j= 0;
     function editName(element){
-        //var elementId = element.id;
-        //alert(elementId);
         var roomid = element.children[2].children[0].value
             if(j==0){
                 $("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
@@ -1689,14 +1808,14 @@ $("#courseManager").click(
                 $("#fromEdit").hide();
                 j--;
             }
-        var nameroom = element.children[2].children[1].innerHTML;
-        var description = element.children[2].children[9].innerHTML;
-        var startDate = element.children[2].children[10].innerHTML.substring(0, 10);
-        var startTime = element.children[2].children[10].innerHTML.substring(11, 16);
-        var endTime = element.children[2].children[10].innerHTML.substring(30, 35);
-        var examiner = element.children[2].children[5].innerHTML;
-        var modulator = element.children[2].children[7].innerHTML;
-        var course = element.children[2].children[3].innerHTML;
+        var nameroom = element.children[1].children[1].innerHTML;
+        var description = element.children[1].children[9].innerHTML;
+        var startDate = element.children[1].children[10].innerHTML.substring(0, 10);
+        var startTime = element.children[1].children[10].innerHTML.substring(11, 16);
+        var endTime = element.children[1].children[10].innerHTML.substring(30, 35);
+        var examiner = element.children[1].children[4].value;
+        var modulator = element.children[1].children[6].value;
+        var course = element.children[1].children[2].value;
         document.getElementById("nameroom2").value = nameroom;
         document.getElementById("description2").value = description;
         document.getElementById("startDate").value = startDate;
@@ -1778,6 +1897,7 @@ $("#courseManager").click(
         }
         });
     }
+
     var flagShowAndHideRoomStatusWithTerminate=true;
     function showAndHideRoomStatusWithTerminate(){
         if(flagShowAndHideRoomStatusWithTerminate){
@@ -1822,6 +1942,180 @@ $("#courseManager").click(
             sweetAlert("คุณไม่ได้เป็น Modulator ห้องนี้", "ไม่สามารถเปลี่ยนสถานะห้องได้","error");
         }
     }
+
+
+    $(function() {
+        $("#buttonEditProfile").click(
+                function() {
+                    //Validate
+                    jQuery.validator.setDefaults({
+                        debug: true,
+                        validClass: "success",
+                        errorClass: "error"
+                    });
+                    $("#myform").validate({
+                        rules: {
+                            firstName: {
+                                required: true,
+                                rangelength : [4, 16]
+                            },
+                            lastname: {
+                                required: true,
+                                rangelength : [4, 16]
+                            },
+                            email: {
+                                required: true,
+                                email: true
+                            },
+                            confirmEmail: {
+                                equalTo: "#email"
+                            },
+                            username: {
+                                required: true,
+                                rangelength: [4, 16]
+                            },
+                            password: {
+                                required: true,
+                                rangelength: [4, 20]
+                            },
+                            confirmPassword: {
+                                equalTo: "#password"
+                            },
+                            phoneNumber: {
+                                required: true,
+                                number: true,
+                                rangelength : [10, 10]
+                            },
+                            position: {
+                                required: true
+                            },
+                            agree: "required"
+                        },
+                        messages:{
+                            firstName: {
+                                required: "Please enter your firstname.",
+                                rangelength: "Please enter between 4 and 16 characters."
+                            },
+                            lastname: {
+                                required: "Please enter your lastname.",
+                                rangelength: "Please enter between 4 and 16 characters."
+                            },
+                            email:{
+                                required: "We need your email address to contact you.",
+                                email: "Your email address must be in the format of name@domain.com"
+                            },
+                            username: {
+                                required: "Please enter your username.",
+                                rangelength: "Please enter between 4 and 16 characters."
+                            },
+                            password: {
+                                required: "Please enter your password.",
+                                rangelength: "Please enter between 4 and 20 characters."
+                            },
+                            phoneNumber: {
+                                required: "Please enter your phone number.",
+                                number: "Please enter a valid number.",
+                                rangelength: "Please enter 10 characters."
+                            },
+                            position: {
+                                required: "Please choose your position."
+                            }
+                        },
+                        submitHandler: function(form) {
+                            var dataForm = {};
+                                dataForm.userId = $("#yourId").val();
+                                dataForm.firstname = $("#firstName").val();
+                                dataForm.lastname = $("#lastName").val();
+                                dataForm.gender = $("input:radio:checked").val();
+                                dataForm.email = $("#email").val();
+                                dataForm.reemail = $("#confirmEmail").val();
+                                dataForm.username = $("#username").val();
+                                dataForm.password = $("#password").val();
+                                dataForm.repassword = $("#confirmPassword").val();
+                                dataForm.position = $("#position").val();
+                                dataForm.institute = $("#institute").val();
+                                dataForm.phonenumber = $("#phoneNumber").val();
+                                dataForm.internship = $("#internship").val();
+                                dataForm.facebook = $("#facebook").val();
+
+                                var dataSend = JSON.stringify(dataForm);
+                                console.info(dataSend);
+
+                                swal({
+                                  title: "Are you sure?",
+                                  type: "warning",
+                                  showCancelButton: true,
+                                  confirmButtonClass: "btn-danger",
+                                  confirmButtonText: "Save Changes",
+                                  cancelButtonText: "Cancel",
+                                  closeOnConfirm: false,
+                                  closeOnCancel: true
+                                },
+                                    function(isConfirm){
+                                        $.ajax({
+                                            url : "/EvaluateTool/application/editProfile",
+                                            type : 'POST',
+                                            data : {
+                                                dataForm : dataSend
+                                            },
+                                            success : function(data) {
+                                                var yourId = JSON.parse(data).userId;
+                                                var yourName = JSON.parse(data).firstname;
+                                                var yourLastName = JSON.parse(data).lastname;
+                                                var yourPosition = JSON.parse(data).position;
+                                                if (isConfirm) {
+                                                    location.href = "/EvaluateTool/application/examinationRoom"
+                                                    + "?yourId="
+                                                    + encodeURIComponent(yourId)
+                                                    + "&yourPosition="
+                                                    + encodeURIComponent(yourPosition)
+                                                    + "&yourName="
+                                                    + encodeURIComponent(yourName)
+                                                    + "&yourLastName="
+                                                    + encodeURIComponent(yourLastName);
+                                                }
+                                            },
+                                            error : function(data, status, er) {
+                                                swal("Please fill out this form!!");
+                                            }
+                                        });
+                                });
+                        }
+                    });
+        });
+
+    });
+
+    var userId = $("#yourId").val();
+        $.ajax({
+            url : "/EvaluateTool/application/dataProfile",
+            type : 'POST',
+            data : {
+                dataProfile : userId
+            },
+            success : function(data) {
+            var data = JSON.parse(data);
+                $("#linkProfile").click(
+                function() {
+                    console.log(data);
+                    document.getElementById("firstName").value = data.dataPerson[0].namePerson;
+                    document.getElementById("lastName").value = data.dataPerson[0].lastNamePerson;
+                    $(':radio[value="' + data.dataPerson[0].genderPerson + '"]').attr('checked', 'checked');
+                    document.getElementById("email").value = data.dataPerson[0].emailPerson;
+                    document.getElementById("confirmEmail").value = data.dataPerson[0].emailPerson;
+                    document.getElementById("username").value = data.dataPerson[0].userPerson;
+                    document.getElementById("position").value = data.dataPerson[0].positionPerson;
+                    document.getElementById("institute").value = data.dataPerson[0].institutePerson;
+                    document.getElementById("phoneNumber").value = data.dataPerson[0].phonePerson;
+                    document.getElementById("facebook").value = data.dataPerson[0].facebookPerson;
+                    document.getElementById("internship").value = data.dataPerson[0].internshipPerson;
+                });
+            },
+            error : function(data, status, er) {
+                swal("ErrorGetDataById");
+            }
+        });
+
 
 </script>
 </body>

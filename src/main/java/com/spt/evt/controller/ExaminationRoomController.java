@@ -1,5 +1,6 @@
 package com.spt.evt.controller;
 
+import com.spt.evt.entity.Person;
 import com.spt.evt.service.ExaminationRoomService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -109,4 +111,44 @@ public class ExaminationRoomController {
 		this.examinationRoomService.editRoom(data);
 		return "success";
 	}
+
+	@RequestMapping(value="/sendName", method = RequestMethod.POST)
+	public @ResponseBody String sendName(HttpServletRequest request,HttpServletResponse response) {
+		JSONObject nameLarge = new JSONObject();
+		JSONObject nameSmall = null;
+		List<Person> result = this.examinationRoomService.findAll();
+		for (Person person : result){
+			nameSmall = new JSONObject();
+			nameSmall.put("idPerson", person.getId());
+			nameSmall.put("namePerson", person.getName());
+			nameLarge.append("idAndName", nameSmall);
+		}
+		return nameLarge.toString();
+	}
+
+	@RequestMapping(value="/editProfile",method=RequestMethod.POST)
+	public @ResponseBody String editMemberProfile(@RequestParam(value="dataForm") String data, HttpServletRequest request,HttpServletResponse response){
+		this.examinationRoomService.editMemberProfile(data);
+		return data.toString();
+	}
+
+	@RequestMapping(value="/dataProfile", method = RequestMethod.POST)
+	public @ResponseBody String sendDataProfile(@RequestParam(value="dataProfile") Long data, HttpServletRequest request,HttpServletResponse response) {
+		Person person = this.examinationRoomService.dataProfile(data);
+		JSONObject dataLarge = new JSONObject();
+		JSONObject dataSmall = new JSONObject();
+		dataSmall.put("namePerson", person.getName());
+		dataSmall.put("lastNamePerson", person.getLastName());
+		dataSmall.put("genderPerson", person.getGender());
+		dataSmall.put("emailPerson", person.getEmail());
+		dataSmall.put("userPerson", person.getUserName());
+		dataSmall.put("positionPerson", person.getPositionName());
+		dataSmall.put("institutePerson", person.getInstitute());
+		dataSmall.put("phonePerson", person.getPhone());
+		dataSmall.put("facebookPerson", person.getFacebook());
+		dataSmall.put("internshipPerson", person.getInternship());
+		dataLarge.append("dataPerson", dataSmall);
+		return dataLarge.toString();
+	}
+
 }

@@ -77,7 +77,7 @@
 								<!-- Nav Bar Right -->
 								<ul class="nav navbar-nav  navbar-right" style="margin-right:20px">
 									<!-- Name and Pic Profile Account -->
-										<li class="dropdown"><a><img src="${contextPath}/resources/images/user.png" width="32px" height="32px"/><b style="color:black"><span id="fullname"></span></b></a>
+										<li class="dropdown"><a id="linkProfile" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="${contextPath}/resources/images/user.png" width="32px" height="32px"/><b style="color:black"><span id="fullname"></span></b></a>
 										</li>
 									<!-- End Name and Pic Profile Account -->
 									<!-- DropDown Approve -->

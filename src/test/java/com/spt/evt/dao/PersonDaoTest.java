@@ -1,14 +1,13 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-
+import com.spt.evt.entity.Person;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.spt.evt.entity.Person;
+import java.util.List;
 
 /**
  * Created by : Anuchit Prasertsang Created Date : 28/10/2014
@@ -49,7 +48,7 @@ public class PersonDaoTest extends AbstractTestDao {
 		person.setEmail("emailadmin");
 		person.setPassword("passwordadmin");
 		person.setInstitute("instituteadmin");
-		person.setPhoneNumber("phonenumberadmin");
+		person.setPhone("phonenumberadmin");
 		person.setInternship("internshipadmin");
 		person.setFacebook("facebookadmin");
 		this.personDao.persist(person);
