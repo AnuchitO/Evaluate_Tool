@@ -1818,6 +1818,8 @@ $("#courseManager").click(
                     });
                 }
             });
+        }else{
+            sweetAlert("คุณไม่ได้เป็น Modulator ห้องนี้", "ไม่สามารถเปลี่ยนสถานะห้องได้","error");
         }
     }
 
