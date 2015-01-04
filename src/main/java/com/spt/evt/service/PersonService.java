@@ -10,4 +10,5 @@ public interface PersonService {
 
 	public void setData(String dataForm);
 	public List<Person> findAll();
+	public void editMemberProfile(String dataform);
 }

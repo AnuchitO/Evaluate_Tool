@@ -2,17 +2,11 @@ package com.spt.evt.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Person extends BaseEntity implements Serializable {
@@ -33,7 +27,6 @@ public class Person extends BaseEntity implements Serializable {
 	private String userName;
 	private String password;
 	private String institute;
-	private String phoneNumber;
 	private String internship;
 	private String facebook;
 	
@@ -175,14 +168,6 @@ public class Person extends BaseEntity implements Serializable {
 		this.institute = institute;
 	}
 	
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
 	public String getInternship() {
 		return internship;
 	}
@@ -206,8 +191,7 @@ public class Person extends BaseEntity implements Serializable {
 				+ birthDay + ", phone=" + phone + ", positionName="
 				+ positionName + ", enrolls=" + "[enrolls]" + ", participants="
 				+ "[participants]" + ", committee=" + "[committee]"+ ", examiner=" + "[examiner]" + "]"
-				+ " Institute=" + institute + " Phonenumber=" + phoneNumber
-				+ " Internship=" + internship + " Facebook=" + facebook + "]";
+				+ " Institute=" + institute + " Internship=" + internship + " Facebook=" + facebook + "]";
 	}
 
 }

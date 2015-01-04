@@ -132,7 +132,7 @@ div {
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<input type="text" class="form-control" id="facebook"
+				<input type="text" class="form-control" id="facebook" name="facebook"
 					placeholder="Facebook">
 			</div>
 		</div>
@@ -199,9 +199,6 @@ div {
 								position: {
 									required: true
 								},
-								internship: {
-									required: true
-								},
 								agree: "required"
 							},
 							messages:{
@@ -232,9 +229,6 @@ div {
 								},
 								position: {
 									required: "Please choose your position."
-								},
-								internship: {
-									required: "Please choose your internship."
 								}
 							},
 							submitHandler: function(form) {

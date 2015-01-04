@@ -46,7 +46,7 @@ public class PersonServiceImpl implements PersonService {
 		person.setPassword(jsonObj.getString("password"));
 		person.setPositionName(jsonObj.getString("position"));
 		person.setInstitute(jsonObj.getString("institute"));
-		person.setPhoneNumber(jsonObj.getString("phonenumber"));
+		person.setPhone(jsonObj.getString("phonenumber"));
 		person.setInternship(jsonObj.getString("internship"));
 		person.setFacebook(jsonObj.getString("facebook"));
 		personDao.persist(person);
@@ -56,6 +56,27 @@ public class PersonServiceImpl implements PersonService {
 	@Transactional(readOnly = true)
 	public List<Person> findAll() {
 		return this.personDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void editMemberProfile(String dataform){
+		JSONObject jsonObject = new JSONObject(dataform);
+		Person person = new Person();
+
+		person.setId(jsonObject.getLong("userId"));
+		person.setName(jsonObject.getString("firstname"));
+		person.setLastName(jsonObject.getString("lastname"));
+		person.setGender(jsonObject.getString("gender"));
+		person.setEmail(jsonObject.getString("email"));
+		person.setUserName(jsonObject.getString("username"));
+		person.setPassword(jsonObject.getString("password"));
+		person.setPositionName(jsonObject.getString("position"));
+		person.setInstitute(jsonObject.getString("institute"));
+		person.setPhone(jsonObject.getString("phonenumber"));
+		person.setInternship(jsonObject.getString("internship"));
+		person.setFacebook(jsonObject.getString("facebook"));
+		personDao.editProfile(person);
 	}
 	
 }

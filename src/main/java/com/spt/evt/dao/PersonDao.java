@@ -1,8 +1,8 @@
 package com.spt.evt.dao;
 
-import java.util.List;
-
 import com.spt.evt.entity.Person;
+
+import java.util.List;
 
 public interface PersonDao {
 	public Person findById(Long id);
@@ -10,5 +10,6 @@ public interface PersonDao {
 
 	public void persist(Person person);
 	public List<Person> findAll();
+	public void editProfile(Person dataperson);
 
 }

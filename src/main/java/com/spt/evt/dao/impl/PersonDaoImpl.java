@@ -45,5 +45,23 @@ public class PersonDaoImpl extends TemplateEntityManagerDao implements PersonDao
 		Query query = this.getEntityManager().createQuery("FROM Person");
 		return query.getResultList();
 	}
-	
+
+	@Override
+	@Transactional
+	public void editProfile(Person dataperson){
+		Person person = this.getEntityManager().find(Person.class, dataperson.getId());
+		person.setName(dataperson.getName());
+		person.setLastName(dataperson.getLastName());
+		person.setGender(dataperson.getGender());
+		person.setEmail(dataperson.getEmail());
+		person.setUserName(dataperson.getUserName());
+		person.setPassword(dataperson.getPassword());
+		person.setPositionName(dataperson.getPositionName());
+		person.setInstitute(dataperson.getInstitute());
+		person.setPhone(dataperson.getPhone());
+		person.setInternship(dataperson.getInternship());
+		person.setFacebook(dataperson.getFacebook());
+		this.getEntityManager().merge(person);
+		this.getEntityManager().flush();
+	}
 }

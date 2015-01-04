@@ -1,6 +1,9 @@
 package com.spt.evt.service;
 
+import com.spt.evt.entity.Person;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public interface ExaminationRoomService {
 	public JSONObject getRoomInformation();
@@ -14,4 +17,7 @@ public interface ExaminationRoomService {
     public void setremoveRoom(Long roomLongId);
     public void editRoom(String data);
     public void setStatusRoomTerminate(Long idRoom);
+    public List<Person> findAll();
+    public void editMemberProfile(String dataform);
+    public Person dataProfile(Long idPerson);
 }

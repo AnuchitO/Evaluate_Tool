@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -268,4 +269,21 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 
     @Override
     public void setStatusRoomTerminate(Long idRoom) { this.getRoomService().setStatusRoomTerminate(idRoom);}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Person> findAll() {
+		return this.getPersonService().findAll();
+	}
+
+	@Override
+	public void editMemberProfile(String dataform){
+		this.getPersonService().editMemberProfile(dataform);
+	}
+
+	@Override
+	public Person dataProfile(Long idPerson){
+		return this.getPersonService().findById(idPerson);
+	}
+
 }
