@@ -52,9 +52,9 @@
 <div id="container" class="row">
     <div id="setSizeContainer" class="col-sm-12 col-md-12"></div>
 </div>
-<div id="setSizeCard0" class="col-sm-6 col-md-6"></div>
+<div id="setSizeCard0"  class="col-sm-6 col-md-6"></div>
 <div id="room0" class="panel panel-default" style="border:solid 2px #e1e9ea"></div>
-<div id="body0" class="panel-body"><div style="margin-right:95%; z-index:5; position:absolute"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
+<div id="body0" class="panel-body"><div id="headRemoveCard" style="margin-right:95%; z-index:5; position:absolute"><a ><img id="removecard" src="${contextPath}/resources/images/removecard.png" onClick="javascript:removeRoom(this)"/></a></div>
     <div class="hidden-sm" id="showprocess0" style="position:relative;bottom:190px;left:50px;width:110px;height:110px"></div>
 </div>
 </div>
@@ -71,13 +71,17 @@
 <input type="hidden" id="courseId0" value="" />
 <div id="roomDescription0"></div>
 <div id="roomTime0"></div>
-<div id="setHalfSizeOne0" class="col-sm-6 col-md-6"></div>
-<div id="setHalfSizeTwo0" class="col-sm-6 col-md-6"></div>
-<button id="btnExaminer0" style="margin-top:10px" type="button"
+<div id="setHalfSizeOne0" style="margin-top:5px" class="col-sm-4 col-md-4"></div>
+<div id="setHalfSizeTwo0" style="margin-top:5px" class="col-sm-4 col-md-4"></div>
+<div id="setHalfSizeThree0" style="margin-top:5px" class="col-sm-4 col-md-4"></div>
+<button id="btnExaminer0"  type="button"
         class="ui orange tiny  button"
         onClick="javascript:sendIdExaminer(this)">Examiner</button>
+<button id="btnTerminate0"  type="button"
+        class="ui orange tiny  button"
+        onClick="javascript:sendIdRoomTerminate(this)">Terminate</button>
 <button id="btnCommittee0" type="button"
-        class="ui orange tiny  button" style="margin-top:10px" onClick="javascript:sendId(this)">Committee</button>
+        class="ui orange tiny  button"  onClick="javascript:sendId(this)">Committee</button>
 <div id="loader" align="center" style="position:fixed;left:50%;top:50%">
     <img src="resources/images/loading.gif" alt="" />
 </div>
@@ -530,13 +534,24 @@ $(function(){
         var status=JSON.parse(data).status;
         var roomId=JSON.parse(data).roomId;
         if(status=="Ready"){
+            $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomReady');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(243, 243, 76");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Ready");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Ready");
+            var removeCard=$("button[value=btnTerminateRoomId"+roomId+"]").parent().parent().parent().attr('id');
+            $("#"+removeCard+" div[id=headRemoveCard]").hide();
         }else if(status=="Complete"){
+            $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomCompleted');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(208, 248, 166");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Complete");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Complete");
+            $("button[value=btnTerminateRoomId"+roomId+"]").show();
+        }else if(status=='Terminate'){
+            $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomTerminate');
+            $("div[value=roomId"+roomId+"]").css("background-color","rgb(205, 197, 191)");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Terminate");
+            $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Terminate");
+            $("button[value=btnTerminateRoomId"+roomId+"]").hide();
         }
 
     }
@@ -736,10 +751,13 @@ $(function() {
     $("#roomStatus0").hide();
     $("#setHalfSizeOne0").hide();
     $("#setHalfSizeTwo0").hide();
+    $("#setHalfSizeThree0").hide();
     $("#btnExaminer0").hide();
     $("#btnCommittee0").hide();
+    $("#btnTerminate0").hide();
     $("#committee0").hide();
     $("#showprocess0").hide();
+
 
     var allRoom = JSON.parse('${room}');
     var memberEachRoom = JSON.parse('${memberEachRoom}');
@@ -761,9 +779,11 @@ $(function() {
     var dummyRoomStatus = 0;
     var dummySetHalfSizeOne = 0;
     var dummySetHalfSizeTwo = 0;
+    var dummySetHalfSizeThree = 0;
     var dummyBtnExaminer = 0;
     var dummyBtnCommittee = 0;
     var dummyCommittee = 0;
+    var dummyBtnTerminate = 0;
 
     var genSetSizeCard = ("#setSizeCard" + dummySetSizeCard);
     var genRoom = ("#room" + dummyRoom);
@@ -783,9 +803,12 @@ $(function() {
     var genRoomStatus = ("#roomStatus" + dummyRoomStatus);
     var genSetHalfSizeOne = ("#setHalfSizeOne" + dummySetHalfSizeOne);
     var genSetHalfSizeTwo = ("#setHalfSizeTwo" + dummySetHalfSizeTwo);
+    var genSetHalfSizeThree = ("#setHalfSizeThree" + dummySetHalfSizeThree);
     var genBtnExaminer = ("#btnExaminer" + dummyBtnExaminer);
     var genBtnCommittee = ("#btnCommittee" + dummyBtnCommittee);
+    var genBtnTerminate = ("#btnTerminate" + dummyBtnTerminate);
     var genCommittee = ("#committee" + dummyCommittee);
+
     var summaryOfTopic=0;
     var summarySubmitScoreOfTopic=0;
     var totalPercentScoreInRoom=0;
@@ -815,6 +838,14 @@ $(function() {
                                     'id',
                                             'setSizeCard'
                                             + (++dummySetSizeCard))
+                                    .attr(
+                                    'value',
+                                            'sizeCardStatusRoom'
+                                            + roomStatus)
+                                    .attr(
+                                    'name',
+                                        'sizeCardRoomId'
+                                            + roomId)
                                     .insertAfter(genSetSizeCard)
                                     .show()
                                     .appendTo(
@@ -1113,6 +1144,18 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeDetail"
                                             + dummyDetail));
+                            $("#setHalfSizeThree0")
+                                    .clone()
+                                    .attr(
+                                    'id',
+                                            'setHalfSizeThree'
+                                            + (++dummySetHalfSizeThree))
+                                    .insertAfter(
+                                    genSetHalfSizeThree)
+                                    .show()
+                                    .appendTo(
+                                    $("#setSizeDetail"
+                                            + dummyDetail));
                             $("#setHalfSizeTwo0")
                                     .clone()
                                     .attr(
@@ -1125,7 +1168,6 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeDetail"
                                             + dummyDetail));
-
                             $("#committee0")
                                     .clone()
                                     .attr(
@@ -1157,6 +1199,37 @@ $(function() {
                                     .appendTo(
                                     $("#setHalfSizeOne"
                                             + dummySetHalfSizeOne));
+                            if(roomStatus=="Completed") {
+                                $("#btnTerminate0")
+                                        .clone()
+                                        .attr(
+                                        'id',
+                                                'btnTerminate'
+                                                + (++dummyBtnTerminate))
+                                        .attr(
+                                        'value',
+                                                'btnTerminateRoomId'+roomId)
+                                        .insertAfter(genBtnTerminate)
+                                        .show()
+                                        .appendTo(
+                                        $("#setHalfSizeThree"
+                                                + dummySetHalfSizeThree));
+                            }else{
+                                $("#btnTerminate0")
+                                        .clone()
+                                        .attr(
+                                        'id',
+                                                'btnTerminate'
+                                                + (++dummyBtnTerminate))
+                                        .attr(
+                                        'value',
+                                                'btnTerminateRoomId'+roomId)
+                                        .insertAfter(genBtnTerminate)
+                                        .hide()
+                                        .appendTo(
+                                        $("#setHalfSizeThree"
+                                                + dummySetHalfSizeThree));
+                            }
                             $("#btnCommittee0")
                                     .clone()
                                     .attr(
@@ -1172,7 +1245,7 @@ $(function() {
                         });
 
 
-                if(memberEachRoom == ""){
+               /* if(memberEachRoom == ""){
                 var count = 0;
                 var lengthOfMemberEachRoom = memberEachRoom.room.length;
                 var lengthOfAllroom = allRoom.room.length;
@@ -1181,28 +1254,27 @@ $(function() {
 
                         if (memberEachRoom.room[count].idPerson == allRoom.room[memberOfRoom - 1].examinerId) {
                             $("#btnExaminer" + (memberOfRoom));
-                            /*		.removeClass('ui orange tiny disabled button'
-                             );*/
+                            *//*		.removeClass('ui orange tiny disabled button'
+                             );*//*
                             $("#btnExaminer" + (memberOfRoom));
-                            /*		.addClass('ui orange tiny button'
-                             );*/
+                            *//*		.addClass('ui orange tiny button'
+                             );*//*
                             $("#btnExaminer" + (memberOfRoom));
-                            /*		.removeAttr('disabled',
-                             'disabled');	*/
+                            *//*		.removeAttr('disabled',
+                             'disabled');	*//*
                         } else {
                             $("#btnCommitte" + (memberOfRoom));
-                            /*	.removeClass('ui orange tiny disabled button'
-                             );*/
+                            *//*	.removeClass('ui orange tiny disabled button'
+                             );*//*
                             $("#btnCommitte" + (memberOfRoom));
-                            /*	.addClass('ui orange tiny button'
-                             );*/
+                            *//*	.addClass('ui orange tiny button'
+                             );*//*
                             $("#btnCommitte" + (memberOfRoom));
-                            /*	.removeAttr('disabled',
-                             'disabled');	*/
+                            *//*	.removeAttr('disabled',
+                             'disabled');	*//*
                         }
                     }
-                }
-
+                }*/
             });
     /*Check Status And AddColor Card*/
     $("div[class=checkStatus]").each(function(index,element){
@@ -1705,10 +1777,49 @@ $("#courseManager").click(
             }
         }
         });
-
     }
-
-
+    var flagShowAndHideRoomStatusWithTerminate=true;
+    function showAndHideRoomStatusWithTerminate(){
+        if(flagShowAndHideRoomStatusWithTerminate){
+            $("div[value='sizeCardStatusRoomTerminate']").hide();
+            flagShowAndHideRoomStatusWithTerminate=false;
+        }else{
+            $("div[value='sizeCardStatusRoomTerminate']").show();
+            flagShowAndHideRoomStatusWithTerminate=true;
+        }
+    }
+    function sendIdRoomTerminate(element){
+        var count = (element.id).replace(/[^\d.]/g, '');
+        var roomId=$("#roomId"+count).val();
+        var yourId='${yourId}';
+        var modulatorId = $("#modulatorId" + count).val();
+        var data={};
+        data.roomId=roomId;
+        var dataSend=JSON.stringify(data);
+        if(yourId==modulatorId) {
+            $.ajax({
+                url: "/EvaluateTool/application/setStatusRoomTerminate",
+                type: "POST",
+                data:{
+                    roomId:dataSend
+                },
+                success: function () {
+                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard', 'roomId': roomId, 'status': 'Terminate' }));
+                },error:function() {
+                    swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
+                        type: "error",
+                        confirmButtonColor: "#8ACBE5",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        }
+    }
 
 </script>
 </body>

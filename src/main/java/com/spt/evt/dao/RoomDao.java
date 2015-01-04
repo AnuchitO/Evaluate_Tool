@@ -13,4 +13,5 @@ public interface RoomDao {
     public void setAddRoom(Room dataroom);
 	public void setRemoveRoom(Long roomid);
 	public void editRoom(Room dataroom);
+    public void setStatusRoomTerminate(Long idRoom);
 }

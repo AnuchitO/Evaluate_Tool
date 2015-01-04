@@ -13,4 +13,5 @@ public interface ExaminationRoomService {
     public void setAddRoom(String data);
     public void setremoveRoom(Long roomLongId);
     public void editRoom(String data);
+    public void setStatusRoomTerminate(Long idRoom);
 }

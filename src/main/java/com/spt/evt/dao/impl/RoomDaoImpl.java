@@ -84,4 +84,12 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 		this.getEntityManager().merge(room);
 		this.getEntityManager().flush();
 	}
+
+    @Override
+    @Transactional
+    public void setStatusRoomTerminate(Long idRoom) {
+        Room room=(Room)this.getEntityManager().find(Room.class,idRoom);
+        room.setStatus("Terminate");
+        this.getEntityManager().merge(room);
+    }
 }
