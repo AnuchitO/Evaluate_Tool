@@ -29,4 +29,3 @@ http://172.16.250.24:9000/sonar/
 http://172.16.250.129:8899/
 
 java -jar jenkins.war --httpPort=8899
-mvn package -Dmaven.test.skip=true

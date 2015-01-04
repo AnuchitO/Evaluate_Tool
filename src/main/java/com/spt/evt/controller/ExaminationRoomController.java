@@ -66,6 +66,14 @@ public class ExaminationRoomController {
         return "success";
     }
 
+    @RequestMapping(value="/setStatusRoomTerminate",method = RequestMethod.POST)
+    public @ResponseBody String setStatusRoomTerminate(@RequestParam(value = "roomId") String data,HttpServletRequest request,HttpServletResponse response){
+        JSONObject dataRoom=new JSONObject(data);
+        Long idRoom=dataRoom.getLong("roomId");
+        this.examinationRoomService.setStatusRoomTerminate(idRoom);
+        return "success";
+    }
+
     @RequestMapping(value="/addRequestCommittee",method=RequestMethod.POST)
     public @ResponseBody String addRequestCommitee(@RequestParam(value="dataPersonId") String data,HttpServletRequest request,HttpServletResponse response){
         JSONObject dataPerson=new JSONObject(data);

@@ -59,4 +59,7 @@ public class RoomServiceImpl implements RoomService{
 	public void editRoom(Room data){
 		this.roomDao.editRoom(data);
 	}
+
+    @Override
+    public void setStatusRoomTerminate(Long idRoom) {this.roomDao.setStatusRoomTerminate(idRoom);}
 }

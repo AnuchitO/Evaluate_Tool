@@ -13,4 +13,5 @@ public interface RoomService {
     public void addRoom(Room data);
 	public void removeRoom(Long roomLongId);
 	public void editRoom(Room data);
+    public void setStatusRoomTerminate(Long idRoom);
 }

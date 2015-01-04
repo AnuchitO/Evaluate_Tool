@@ -265,4 +265,7 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		participants2.setRoom(room);
 		this.getParticipantsService().editPaticitant(participants2);
 	}
+
+    @Override
+    public void setStatusRoomTerminate(Long idRoom) { this.getRoomService().setStatusRoomTerminate(idRoom);}
 }
