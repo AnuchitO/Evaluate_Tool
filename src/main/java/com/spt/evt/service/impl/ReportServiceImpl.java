@@ -69,8 +69,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		for (Room room : roomsList ) {
 			JSONObject examinerReport = new JSONObject();
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(room);
-			int i = 0 ;
-
 			if (mapUni.containsKey(examiner.getId())){
 				//
 			}else {
@@ -80,7 +78,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				report.append("report", examinerReport);
 			}
 		}
-		LOGGER.error("+++++++++++++++++++++++++++++>"+report);
 		return report;
 	}
 
