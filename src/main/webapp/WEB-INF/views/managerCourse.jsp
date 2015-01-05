@@ -83,8 +83,8 @@ h3{
 				<form>
 					<div>
 						<h4 style="margin-left: 50px">Add Course</h4>
-						<input class="textbox"type="text" placeholder="Cource" id="courseName">
-						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescription">
+						<input class="textbox"type="text" placeholder="Cource" id="courseName" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveCourse').click()">
+						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescription" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveCourse').click()">
 						<button type="button" class="btn" id="btnSaveCourse">Add</button>
 					</div>
 				</form>
@@ -93,8 +93,8 @@ h3{
 					<div style="margin-bottom: 20px">
 						<select id="courseAllEdit">
 						</select>
-						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit">
-						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit">
+						<input class="textbox"type="text" placeholder="Cource" id="courseNameEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditCourse').click()">
+						<input class="textbox"type="text" placeholder="Cource : Description" id="courseDescriptionEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditCourse').click()">
 						<button type="button" class="btn" id="btnEditCourse">Edit</button>
 						<button type="button" class="btn" id="btnRemoveCourse">Remove</button>
 					</div>
@@ -112,8 +112,8 @@ h3{
 						<h4 style="margin-left: 50px">Add Subject</h4>
 						<label style="margin-left: 50px">Course :</label>
 						<label id="showCourse"></label>
-						<input class="textbox"type="text" placeholder="Subject" id="subjectName">
-						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescription">
+						<input class="textbox"type="text" placeholder="Subject" id="subjectName" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveSubject').click()">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescription" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveSubject').click()">
 						<button type="button" class="btn" id="btnSaveSubject">Add</button>
 					</div>
 				</form>
@@ -126,8 +126,8 @@ h3{
 						<select id="subjectAllEditInSubject">
 						</select>
 						<br></br>
-						<input class="textbox"type="text" placeholder="Subject" id="subjectNameEdit">
-						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescriptionEdit">
+						<input class="textbox"type="text" placeholder="Subject" id="subjectNameEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditSubject').click()">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="subjectDescriptionEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditSubject').click()">
 						<button type="button" class="btn" id="btnEditSubject">Edit</button>
 						<button type="button" class="btn" id="btnRemoveSubject">Remove</button>
 					</div>
@@ -149,8 +149,8 @@ h3{
 						<label style="margin-left: 50px">Subject :</label>
 						<label id="showSubjectInAddTopic"></label>
 						<br></br>
-						<input class="textbox"type="text" placeholder="Topic" id="topicName">
-						<input class="textbox"type="text" placeholder="Topic : Description" id="topicDescription">
+						<input class="textbox"type="text" placeholder="Topic" id="topicName" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveTopic').click()">
+						<input class="textbox"type="text" placeholder="Topic : Description" id="topicDescription" onkeydown="if (event.keyCode == 13) document.getElementById('btnSaveTopic').click()">
 						<button type="button" class="btn" id="btnSaveTopic">Add</button>
 					</div>
 				</form>
@@ -165,8 +165,8 @@ h3{
 						<select id="topicAllEditInTopic">
 						</select>
 						<br></br>
-						<input class="textbox"type="text" placeholder="Subject" id="topicNameEdit">
-						<input class="textbox"type="text" placeholder="Subject : Description" id="topicDescriptionEdit">
+						<input class="textbox"type="text" placeholder="Subject" id="topicNameEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditTopic').click()">
+						<input class="textbox"type="text" placeholder="Subject : Description" id="topicDescriptionEdit" onkeydown="if (event.keyCode == 13) document.getElementById('btnEditTopic').click()">
 						<button type="button" class="btn" id="btnEditTopic">Edit</button>
 						<button type="button" class="btn" id="btnRemoveTopic">Remove</button>
 					</div>
