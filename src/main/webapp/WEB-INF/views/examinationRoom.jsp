@@ -857,6 +857,7 @@ function openmenuplus(){
         $("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
         $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
         $("#fromadd").hide();
+        $("#fromEdit").hide();
         i--;
     }
 }
@@ -1813,6 +1814,7 @@ $("#courseManager").click(
                 $("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
                 $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
                 $("#fromEdit").hide();
+                $("#fromadd").hide();
                 j--;
             }
         var nameroom = element.parentElement.children[1].innerHTML;
