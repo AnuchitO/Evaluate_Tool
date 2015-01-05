@@ -348,7 +348,7 @@ $(function(){
                             $("input[name=endTime]").val("");*/
                         },
                         error:function(){
-                            swal("ErrorAddRoom!!!");
+                            swal("Failed to create room!");
                         }
                   });
 
@@ -983,14 +983,13 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeCard"
                                             + dummySetSizeCard));
-                            if(roomStatus=="Waiting"){
+
                             $("#body0")
                                     .clone()
                                     .attr(
                                     'id',
                                             'body'
                                             + (++dummyBody))
-                                    .attr('onclick','editName(this)')
                                     .attr(
                                     'value',
                                             'roomId'+roomId)
@@ -999,22 +998,7 @@ $(function() {
                                     .appendTo(
                                     $("#room"
                                             + dummyRoom));
-                            }else{
-                                $("#body0")
-                                    .clone()
-                                    .attr(
-                                    'id',
-                                            'body'
-                                            + (++dummyBody))
-                                    .attr(
-                                    'value',
-                                            'roomId'+roomId)
-                                    .insertAfter(genBody)
-                                    .show()
-                                    .appendTo(
-                                    $("#room"
-                                            + dummyRoom));
-                            }
+
                             $("#setSizeDetail0")
                                     .clone()
                                     .attr(
@@ -1038,6 +1022,21 @@ $(function() {
                                     .appendTo(
                                     $("#setSizeDetail"
                                             + dummyDetail));
+                            if(roomStatus=="Waiting"){
+                            $("#roomName0")
+                               .clone()
+                               .attr(
+                               'id',
+                                       'roomName'
+                                       + (++dummyRoomName))
+                               .attr('onclick','editName(this)')
+                               .text(roomName)
+                               .insertAfter(genRoomName)
+                               .show()
+                               .appendTo(
+                               $("#setSizeDetail"
+                                       + dummyDetail));
+                            }else{
                             $("#roomName0")
                                .clone()
                                .attr(
@@ -1050,7 +1049,7 @@ $(function() {
                                .appendTo(
                                $("#setSizeDetail"
                                        + dummyDetail));
-
+                            }
                             $("#courseId0")
                                     .clone()
                                     .attr(
@@ -1798,7 +1797,7 @@ $("#courseManager").click(
 
     var j= 0;
     function editName(element){
-        var roomid = element.children[2].children[0].value
+        var roomid = element.parentElement.children[0].value;
             if(j==0){
                 $("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
                 $("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
@@ -1810,14 +1809,14 @@ $("#courseManager").click(
                 $("#fromEdit").hide();
                 j--;
             }
-        var nameroom = element.children[1].children[1].innerHTML;
-        var description = element.children[1].children[9].innerHTML;
-        var startDate = element.children[1].children[10].innerHTML.substring(0, 10);
-        var startTime = element.children[1].children[10].innerHTML.substring(11, 16);
-        var endTime = element.children[1].children[10].innerHTML.substring(30, 35);
-        var examiner = element.children[1].children[4].value;
-        var modulator = element.children[1].children[6].value;
-        var course = element.children[1].children[2].value;
+        var nameroom = element.parentElement.children[1].innerHTML;
+        var description = element.parentElement.children[9].innerHTML;
+        var startDate = element.parentElement.children[10].innerHTML.substring(0, 10);
+        var startTime = element.parentElement.children[10].innerHTML.substring(11, 16);
+        var endTime = element.parentElement.children[10].innerHTML.substring(30, 35);
+        var examiner = element.parentElement.children[4].value;
+        var modulator = element.parentElement.children[6].value;
+        var course = element.parentElement.children[2].value;
         document.getElementById("nameroom2").value = nameroom;
         document.getElementById("description2").value = description;
         document.getElementById("startDate").value = startDate;
@@ -2099,7 +2098,7 @@ $("#courseManager").click(
             var data = JSON.parse(data);
                 $("#linkProfile").click(
                 function() {
-                    console.log(data);
+                    //console.log(data);
                     document.getElementById("firstName").value = data.dataPerson[0].namePerson;
                     document.getElementById("lastName").value = data.dataPerson[0].lastNamePerson;
                     $(':radio[value="' + data.dataPerson[0].genderPerson + '"]').attr('checked', 'checked');
