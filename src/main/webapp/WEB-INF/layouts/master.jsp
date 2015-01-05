@@ -323,7 +323,9 @@
 								<div class="panel-heading" style="background-color:#ffa100;border-color:#ff8d00">
 								</div>
 								<div class="panel-body">
-									<button class="ui teal tiny button" style="margin-bottom: 10px" onclick="showAndHideRoomStatusWithTerminate()">Show/Hide Terminate</button>
+                                    <div id="showAndHideRoomStatusWithTerminate" hidden>
+                                        <button hidden  class="ui teal tiny button" style="margin-bottom: 10px" onclick="showAndHideRoomStatusWithTerminate()">Show/Hide Terminate</button>
+                                    </div>
 				<!-- 					<button id="btnnotificationsubmitandcalcel" class="ui orange tiny button"  onclick="notificationsubmitandcalcel()">notificationsubmitandcalcel</button>
 									<button id="btnnotificationsubmitandcalcel" class="ui orange tiny button"  onclick="processPercent()">Percent</button> -->
 									<!-- <br/><hr/> -->
