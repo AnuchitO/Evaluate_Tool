@@ -207,6 +207,8 @@
 			item.forEach(function(room) {
 				var nameAndLastName = room.examiner;
 				var examinerId = room.examinerId;
+				var i =0;
+
 				$("#option0").clone()
 						.attr('id', 'option' + (++dummyOption)).text(
 						nameAndLastName).val(examinerId)
@@ -828,14 +830,18 @@
 		$(function() {
 			var personId = $("#pickExaminer").val();
 			var averageAllTotal = JSON.parse('${completeRoom}');
-
+			console.log("sssssssssssssssssssssssssssss::: "+averageAllTotal);
 			$.each(averageAllTotal, function(i, item) {
 				item.forEach(function(room) {
 					var examinerId = room.examinerId;
 					var averageAllScore = room.averageAllScore;
+					var roomId = ""+room.roomId;
+					var roomNameSelect = ""+$("#pickRoom").val();
 
 					if(examinerId==personId){
-						$("#averageAllScore").text(averageAllScore+"%");
+						if(roomId==roomNameSelect){
+							$("#averageAllScore").text(averageAllScore+"%");
+						}
 					}
 				});
 			});

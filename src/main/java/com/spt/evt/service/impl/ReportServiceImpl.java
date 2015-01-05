@@ -77,7 +77,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
 		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
 		JSONObject report = new JSONObject();
-
 		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
 			JSONObject examinerReport = new JSONObject();
 
@@ -98,6 +97,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
 			examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime())+" - "
 				+formatDate2.format(keyScoreCalculated.getEndTime()));
+			examinerReport.put("roomId",keyScoreCalculated.getId());
 			examinerReport.put("averageAllScore",""+averageScoreAllSubject(scoreAll,topicTotalAll));
 			report.append("report", examinerReport);
 			examinerReport.put("nameRoom",keyScoreCalculated.getName());

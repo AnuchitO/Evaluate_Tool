@@ -20,4 +20,5 @@ public interface ParticipantsDao {
     public List<Participants> allPersonToApprove(Room room);
     public void persistParticipants(Participants participants);
     public void editParticipants(Participants participants);
+    public List<Participants> findByPersonByRole(Person person);
 }

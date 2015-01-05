@@ -48,6 +48,16 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
 
     @Override
     @Transactional(readOnly = true)
+    public List<Participants> findByPersonByRole(Person person) {
+        String status = "examiner";
+        Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("person", person));
+        criteria.add(Restrictions.eq("role",status));
+        List<Participants> result = criteria.list();
+        return result;
+    }
+    @Override
+    @Transactional(readOnly = true)
     public List<Participants> findPersonWithRequestCommittee(Room room) {
         Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
         criteria.add(Restrictions.eq("room",room));

@@ -63,6 +63,7 @@ public class ReportController {
 		String yourPosition = request.getParameter("yourPosition");
 		String courseId = request.getParameter("courseId");
 		JSONObject completeRoomInformation = this.reportService.getAllScore();
+
 		Map model = new HashMap();
 		model.put("yourId", yourId);
 		model.put("name", name);
@@ -93,7 +94,7 @@ public class ReportController {
 		Person person = personService.findById(personId);
 		JSONObject personJsonResult = new JSONObject();
 		JSONObject personJson = null;
-		List<Participants> participants = participantsService.findByPerson(person);
+		List<Participants> participants = participantsService.findByPersonByRole(person);
 		DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (Participants ob:participants) {
@@ -104,7 +105,6 @@ public class ReportController {
 			personJson.put("startTime",formatDate.format(ob.getRoom().getStartTime()));
 			personJsonResult.append("data",personJson);
 		}
-
 		return personJsonResult.toString();
 	}
 
@@ -137,10 +137,11 @@ public class ReportController {
 
 		for (int i=0;i<getReport.length();i++){
 			getAverageScore = (JSONObject) getReport.get(i);
-			LOGGER.debug("examinerId :: "+getAverageScore.get("examinerId"));
 
-			if (examinerId == Long.parseLong(getAverageScore.get("examinerId").toString())){
-				courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
+			if (examinerId == Long.parseLong(getAverageScore.get("examinerId").toString())) {
+				if (roomId == Long.parseLong(getAverageScore.get("roomId").toString())) {
+					courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
+				}
 			}
 		}
 		return new ModelAndView("excelView","score",courseInformation);
