@@ -69,8 +69,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		for (Room room : roomsList ) {
 			JSONObject examinerReport = new JSONObject();
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(room);
-			int i = 0 ;
-
 			if (mapUni.containsKey(examiner.getId())){
 				//
 			}else {
@@ -79,12 +77,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
 				report.append("report", examinerReport);
 			}
-
-//			examinerReport.put("examinerId",examiner.getId());
-//			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
-
 		}
-		LOGGER.error("+++++++++++++++++++++++++++++>"+report);
 		return report;
 	}
 
@@ -154,7 +147,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 	@Override
 	public JSONObject getScoreByExaminer(Person examiner) {
-		List<Participants> participantsList = this.getParticipantsService().findByPerson(examiner); //Fix findByPerson
+		List<Participants> participantsList = this.getParticipantsService().findByPersonByRole(examiner);
 		List<Room> rooms = new ArrayList<Room>();
 		for(Participants participants:participantsList){
 			Room room = participants.getRoom();

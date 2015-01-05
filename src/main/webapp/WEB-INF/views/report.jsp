@@ -272,9 +272,9 @@ table>tbody>tr>td {
 						+ "&yourPosition="
 						+ encodeURIComponent('${yourPosition}')
 						+ "&yourName="
-						+ encodeURIComponent('${nameCommittee}')
+						+ encodeURIComponent('${name}')
 						+ "&yourLastName="
-						+ encodeURIComponent('${lastNameCommittee}');
+						+ encodeURIComponent('${lastName}');
 				});
 
 		$("#summaryByTopic").click(
