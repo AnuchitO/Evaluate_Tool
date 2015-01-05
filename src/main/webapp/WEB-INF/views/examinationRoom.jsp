@@ -664,8 +664,9 @@ $(function(){
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(243, 243, 76");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Ready");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Ready");
-            var removeCard=$("button[value=btnTerminateRoomId"+roomId+"]").parent().parent().parent().attr('id');
-            $("#"+removeCard+" div[id=headRemoveCard]").hide();
+           /*var removeCard=$("button[value=btnTerminateRoomId"+roomId+"]").parent().parent().parent().attr('id');
+            $("#"+removeCard+" div[id=headRemoveCard]").hide();*/
+            $("div[name=sizeCardRoomId"+roomId+"] img[id=removecard]").hide();
         }else if(status=="Complete"){
             $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomCompleted');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(208, 248, 166");
@@ -792,6 +793,7 @@ var name='${name}';
 var lastname='${lastname}';
 $("#fullname").html(name+"  "+lastname);
 $("#loader").hide();
+$("#showAndHideRoomStatusWithTerminate").show();
 if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
     $("#btnnotificationsubmitandcalcel").show();
     $("#headdropdownapprovepermission").hide();
