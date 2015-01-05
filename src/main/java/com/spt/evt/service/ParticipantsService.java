@@ -20,4 +20,5 @@ public interface ParticipantsService {
     public void persisParticipant(Participants participants) ;
     public JSONObject allPersonToApprove(Long aLong);
     public void editPaticitant(Participants participants);
+    public List<Participants> findByPersonByRole(Person person);
 }

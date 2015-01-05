@@ -48,6 +48,11 @@ public class ParticipantServiceImpl implements ParticipantsService {
 	}
 
     @Override
+    public List<Participants> findByPersonByRole(Person person) {
+        return this.participantsDao.findByPersonByRole(person);
+    }
+
+    @Override
     public List<Participants> findPersonWithRequestCommittee(Room Room) {
         return this.participantsDao.findPersonWithRequestCommittee(Room);
     }
