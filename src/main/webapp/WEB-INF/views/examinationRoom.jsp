@@ -852,7 +852,7 @@ function openmenuplus(){
         $("#contenthead").removeClass("col-md-12 column").addClass("col-md-9 column");
         $("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
         $("#fromadd").slideToggle(400);
-        i++
+        i++;
     }else{
         $("#contenthead").removeClass("col-md-9 column").addClass("col-md-12 column");
         $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
