@@ -660,6 +660,7 @@ $(function(){
         var status=JSON.parse(data).status;
         var roomId=JSON.parse(data).roomId;
         if(status=="Ready"){
+            $("div[name=sizeCardRoomId"+roomId+"] div[name=roomNameEdit]").removeAttr('onclick').css('cursor','text');
             $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomReady');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(243, 243, 76");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Ready");
@@ -668,12 +669,14 @@ $(function(){
             $("#"+removeCard+" div[id=headRemoveCard]").hide();*/
             $("div[name=sizeCardRoomId"+roomId+"] img[id=removecard]").hide();
         }else if(status=="Complete"){
+            $("div[name=sizeCardRoomId"+roomId+"] div[name=roomNameEdit]").removeAttr('onclick').css('cursor','text');
             $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomCompleted');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(208, 248, 166");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Complete");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").attr("value","Complete");
             $("button[value=btnTerminateRoomId"+roomId+"]").show();
         }else if(status=='Terminate'){
+            $("div[name=sizeCardRoomId"+roomId+"] div[name=roomNameEdit]").removeAttr('onclick').css('cursor','text');
             $("div[name=sizeCardRoomId"+roomId+"]").attr('value','sizeCardStatusRoomTerminate');
             $("div[value=roomId"+roomId+"]").css("background-color","rgb(205, 197, 191)");
             $("div[value=roomId"+roomId+"] div[class='checkStatus']").text("Status : Terminate");
@@ -1031,6 +1034,7 @@ $(function() {
                                        + (++dummyRoomName))
                                .attr('onclick','editName(this)')
                                .text(roomName)
+                               .attr('name','roomNameEdit')
                                .insertAfter(genRoomName)
                                .show()
                                .appendTo(
@@ -1410,7 +1414,6 @@ $(function() {
             $("div[id=body"+indexbody+"]").css("background-color","#b0e1df");
         }else if(status==("Status : Waiting")){
             $("div[id=body"+indexbody+"]").css("background-color","#ffc166");
-            $("div[id=body"+indexbody+"]").css('cursor', 'pointer');
         }else if(status==("Status : Ready")){
             $("div[id=room"+indexbody+"] #removecard").hide();
             $("div[id=body"+indexbody+"]").css("background-color","#f3f34c");
@@ -1419,6 +1422,9 @@ $(function() {
             $("div[id=body"+indexbody+"]").css("background-color","#cdc5bf");
         }
     });
+     $("div[name=roomNameEdit]").each(function(){
+        $(this).css('cursor', 'pointer');
+     });
 });
 
 
@@ -2116,7 +2122,6 @@ $("#courseManager").click(
                 swal("ErrorGetDataById");
             }
         });
-
 
 </script>
 </body>
