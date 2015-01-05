@@ -477,6 +477,7 @@
 		var checkIndex = 1;
 		var checkColor =1;
 
+		$("#averageAllScore").text(course.averageScoreAll+"%");
 		$
 				.each(
 				course,
@@ -827,25 +828,6 @@
 								}
 							});
 				});
-		$(function() {
-			var personId = $("#pickExaminer").val();
-			var averageAllTotal = JSON.parse('${completeRoom}');
-
-			$.each(averageAllTotal, function(i, item) {
-				item.forEach(function(room) {
-					var examinerId = room.examinerId;
-					var averageAllScore = room.averageAllScore;
-					var roomId = ""+room.roomId;
-					var roomNameSelect = ""+$("#pickRoom").val();
-
-					if(examinerId==personId){
-						if(roomId==roomNameSelect){
-							$("#averageAllScore").text(averageAllScore+"%");
-						}
-					}
-				});
-			});
-		});
 	}
 
 

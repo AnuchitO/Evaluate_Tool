@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -69,8 +68,9 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		for (Room room : roomsList ) {
 			JSONObject examinerReport = new JSONObject();
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(room);
+
 			if (mapUni.containsKey(examiner.getId())){
-				//
+
 			}else {
 				mapUni.put(examiner.getId(),null);
 				examinerReport.put("examinerId", examiner.getId());
@@ -85,34 +85,33 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
 		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
 		JSONObject report = new JSONObject();
-		Long personId = null;
+		Map mapUni = new HashMap();
 		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
 			JSONObject examinerReport = new JSONObject();
 
 			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
-
-			String stringCoverFloat = String.format("%.2f", scoreMap.get("score"));
-			Float scoreAll = Float.parseFloat(stringCoverFloat);
-			int topicTotalAll = (int)scoreMap.get("topicTotal");
 
 			for(String key: scoreMap.keySet()) {
 				examinerReport.put(key, scoreMap.get(key));
 			}
 
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
-			examinerReport.put("examinerId",examiner.getId());
-			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
-			DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
-			examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime())+" - "
-				+formatDate2.format(keyScoreCalculated.getEndTime()));
-			examinerReport.put("roomId",keyScoreCalculated.getId());
-			examinerReport.put("averageAllScore",""+averageScoreAllSubject(scoreAll,topicTotalAll));
-			report.append("report", examinerReport);
-			examinerReport.put("nameRoom",keyScoreCalculated.getName());
 
+			if (mapUni.containsKey(examiner.getId())){
+
+			}else {
+				mapUni.put(examiner.getId(), null);
+				examinerReport.put("examinerId", examiner.getId());
+				examinerReport.put("examiner", examiner.getName() + " " + examiner.getLastName());
+				DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
+				examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime()) + " - "
+						+ formatDate2.format(keyScoreCalculated.getEndTime()));
+				examinerReport.put("roomId", keyScoreCalculated.getId());
+				report.append("report", examinerReport);
+				examinerReport.put("nameRoom", keyScoreCalculated.getName());
+			}
 		}
-		LOGGER.debug("====report===="+report);
 		return report;
 	}
 
@@ -224,9 +223,48 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				summaryArray.put(jsList);
 			}
 		}
-		summary.put("subject",summaryArray);
 
+		String roomStatus = "Completed";
+		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
+		JSONObject reportNoSort = generateScoreAverage(rooms);
+		JSONArray findAverageScore = reportNoSort.getJSONArray("report");
+		JSONObject listFindAverageScore = null;
+		for (int i=0;i<findAverageScore.length();i++){
+			listFindAverageScore = (JSONObject) findAverageScore.get(i);
+			if (examinerId==Long.parseLong(listFindAverageScore.get("examinerId").toString())){
+				if (roomId==Long.parseLong(listFindAverageScore.get("roomId").toString())){
+					summary.put("averageScoreAll", listFindAverageScore.get("averageAllScore"));
+				}
+			}
+		}
+		summary.put("subject",summaryArray);
 		return summary;
+	}
+
+	@Override
+	public JSONObject generateScoreAverage(List<Room> rooms) {
+		Map<Room, Map<Topic, List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
+		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
+		JSONObject report = new JSONObject();
+
+		for (Room keyScoreCalculated : scoreCalculateds.keySet()) {
+			JSONObject examinerReport = new JSONObject();
+
+			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
+
+			String stringCoverFloat = String.format("%.2f", scoreMap.get("score"));
+			Float scoreAll = Float.parseFloat(stringCoverFloat);
+			int topicTotalAll = (int) scoreMap.get("topicTotal");
+
+			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
+
+			examinerReport.put("examinerId", examiner.getId());
+			examinerReport.put("roomId", keyScoreCalculated.getId());
+			examinerReport.put("averageAllScore", "" + averageScoreAllSubject(scoreAll, topicTotalAll));
+			report.append("report", examinerReport);
+
+		}
+		return report;
 	}
 
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
