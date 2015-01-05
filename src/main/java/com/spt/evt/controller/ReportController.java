@@ -2,9 +2,11 @@ package com.spt.evt.controller;
 
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
+import com.spt.evt.entity.Room;
 import com.spt.evt.service.ParticipantsService;
 import com.spt.evt.service.PersonService;
 import com.spt.evt.service.ReportService;
+import com.spt.evt.service.RoomService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -35,6 +37,8 @@ public class ReportController {
 	private ParticipantsService participantsService;
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private RoomService roomService;
 
 
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -131,16 +135,17 @@ public class ReportController {
 		Long courseId 		= Long.parseLong(request.getParameter("courseId"));
 
 		JSONObject courseInformation = this.reportService.getCourseInformationSummary(roomId, examinerId, committeeId, courseId);
-		JSONObject completeRoomInformation = this.reportService.getAllScore();
-		JSONArray getReport = (JSONArray) completeRoomInformation.get("report");
-		JSONObject getAverageScore = null;
 
-		for (int i=0;i<getReport.length();i++){
-			getAverageScore = (JSONObject) getReport.get(i);
-
-			if (examinerId == Long.parseLong(getAverageScore.get("examinerId").toString())) {
-				if (roomId == Long.parseLong(getAverageScore.get("roomId").toString())) {
-					courseInformation.put("averageScore", getAverageScore.get("averageAllScore"));
+		String roomStatus = "Completed";
+		List<Room> rooms = roomService.findByStatus(roomStatus);
+		JSONObject reportNoSort = reportService.generateScoreAverage(rooms);
+		JSONArray findAverageScore = reportNoSort.getJSONArray("report");
+		JSONObject listFindAverageScore = null;
+		for (int i=0;i<findAverageScore.length();i++){
+			listFindAverageScore = (JSONObject) findAverageScore.get(i);
+			if (examinerId==Long.parseLong(listFindAverageScore.get("examinerId").toString())){
+				if (roomId==Long.parseLong(listFindAverageScore.get("roomId").toString())){
+					courseInformation.put("averageScoreAll", listFindAverageScore.get("averageAllScore"));
 				}
 			}
 		}
