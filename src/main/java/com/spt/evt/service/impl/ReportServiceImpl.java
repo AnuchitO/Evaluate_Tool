@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import sun.rmi.runtime.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -60,16 +61,30 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			if(map.get(c.getName())==null){
 				map.put(c.getName(),c);
 			}
-		}	
+		}
+
+		Map mapUni = new HashMap();
 			
 		List<Room> roomsList = new ArrayList<Room>(map.values());
 		for (Room room : roomsList ) {
 			JSONObject examinerReport = new JSONObject();
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(room);
-			examinerReport.put("examinerId",examiner.getId());
-			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
-			report.append("report", examinerReport);
+			int i = 0 ;
+
+			if (mapUni.containsKey(examiner.getId())){
+				//
+			}else {
+				mapUni.put(examiner.getId(),null);
+				examinerReport.put("examinerId", examiner.getId());
+				examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
+				report.append("report", examinerReport);
+			}
+
+//			examinerReport.put("examinerId",examiner.getId());
+//			examinerReport.put("examiner", examiner.getName()+" "+examiner.getLastName());
+
 		}
+		LOGGER.error("+++++++++++++++++++++++++++++>"+report);
 		return report;
 	}
 
@@ -139,7 +154,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 	@Override
 	public JSONObject getScoreByExaminer(Person examiner) {
-		List<Participants> participantsList = this.getParticipantsService().findByPerson(examiner);
+		List<Participants> participantsList = this.getParticipantsService().findByPerson(examiner); //Fix findByPerson
 		List<Room> rooms = new ArrayList<Room>();
 		for(Participants participants:participantsList){
 			Room room = participants.getRoom();
