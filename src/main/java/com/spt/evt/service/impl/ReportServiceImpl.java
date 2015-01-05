@@ -85,6 +85,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
 		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
 		JSONObject report = new JSONObject();
+		Long personId = null;
 		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
 			JSONObject examinerReport = new JSONObject();
 
@@ -109,7 +110,9 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			examinerReport.put("averageAllScore",""+averageScoreAllSubject(scoreAll,topicTotalAll));
 			report.append("report", examinerReport);
 			examinerReport.put("nameRoom",keyScoreCalculated.getName());
+
 		}
+		LOGGER.debug("====report===="+report);
 		return report;
 	}
 

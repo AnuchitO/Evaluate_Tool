@@ -322,7 +322,7 @@
 				data : dataSend
 			},
 			success : function(data) {
-				console.log(data)
+//				console.log(data)
 				var course = JSON.parse(data);
 				createCollapse(course);
 			},
@@ -337,7 +337,7 @@
 		var examinerId = $("#pickExaminer").val();
 		var committeeId = $("#yourId").val();
 		var courseId = $("#pickRoom option").attr('class');
-		console.log(roomId+examinerId+committeeId+courseId)
+
 		location.href = "/EvaluateTool/application/exportExcel"
 		+ "?roomId="
 		+ encodeURIComponent(roomId)
@@ -830,7 +830,7 @@
 		$(function() {
 			var personId = $("#pickExaminer").val();
 			var averageAllTotal = JSON.parse('${completeRoom}');
-			console.log("sssssssssssssssssssssssssssss::: "+averageAllTotal);
+
 			$.each(averageAllTotal, function(i, item) {
 				item.forEach(function(room) {
 					var examinerId = room.examinerId;
