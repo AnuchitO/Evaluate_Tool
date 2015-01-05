@@ -166,12 +166,10 @@ div {
 						$("#myform").validate({
 							rules: {
 								firstName: {
-									required: true,
-									rangelength : [4, 16]
+									required: true
 								},
 								lastname: {
-									required: true,
-									rangelength : [4, 16]
+									required: true
 								},
 								email: {
 									required: true,
@@ -203,12 +201,10 @@ div {
 							},
 							messages:{
 								firstName: {
-								 	required: "Please enter your firstname.",
-									rangelength: "Please enter between 4 and 16 characters."
+								 	required: "Please enter your firstname."
 								},
 								lastname: {
-									required: "Please enter your lastname.",
-									rangelength: "Please enter between 4 and 16 characters."
+									required: "Please enter your lastname."
 								},
 								email:{
 									required: "We need your email address to contact you.",
@@ -304,6 +300,7 @@ div {
 				});
 			});
 		});
+
 
 	</script>
 </body>
