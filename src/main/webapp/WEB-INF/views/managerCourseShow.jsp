@@ -14,17 +14,24 @@
         a:hover{
             cursor: pointer;
         }
+        div.ui:hover{
+            cursor: default;
+        }
+        .header{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div id="test">
-        <select id="courseAllEdit"></select>
-        <button type="button" class="btn" id="btnshowDetail">Show</button>
+        <select class="ui dropdown" id="courseAllEdit"></select>
+        <button type="button" class="ui orange tiny  button" id="btnshowDetail">Show</button>
         <label id="showAll"></label>
     </div>
     <option id="option"></option>
     <option id="option0"></option>
-    <div id="showCourse"></div>
+    <div id="showCourse">
+    </div>
     <div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover">
         <img width="32px" height="30px" onclick="openmenuleftCourse()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
         <b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
@@ -69,7 +76,7 @@
 
         $("#btnshowDetail").click(
             function() {
-                $("ol").each(function(){
+                $("ul[class=list-group]").each(function(){
                     $(this).remove();
                 });
                 var dataForm = {};
@@ -89,13 +96,10 @@
                                     item.forEach(function (data) {
                                         var nameSubject = data.nameSubject;
                                         var idSubject = data.id;
-                                        $('#showCourse').append("<ol id='"+idSubject+"'>"+nameSubject+"</ol>");
+                                        $('#showCourse').append("<ul class='list-group' id='"+idSubject+"'><div class='ui icon message' style='background-color:#ffa100'><div class='content' style='float: left'><div class='header' style='color:white' onclick='hideTopic("+idSubject+")'>"+data.nameSubject+"</div></div></div></ul>");
                                         for(var j in data.topicPack){
-
-                                            $("ol[id="+idSubject+"]").append("<li>"+data.topicPack[j].nameTopic+"</li>");
+                                            $("ul[id="+idSubject+"]").append("<div class='ui green large button' style='margin:5px;width:100%'>"+data.topicPack[j].nameTopic+"</div>");
                                         }
-
-
                                     });
                                 });
 
@@ -106,42 +110,34 @@
                 });
             }
         );
-        function createTopic(allShow){
-            $.each(allShow, function (i, item) {
-                item.forEach(function (data) {
-                    var idSubject = data.id;
-
-
-
-                });
+        function hideTopic(idSubject){
+            $("ul[id="+idSubject+"] div[class='ui green large button']").each(function(){
+                $(this).slideToggle(400);
             });
         }
-
         var fullname = '${name}'+'  '+'${lastName}';
         $("#fullname").html(fullname);
-
         $("#anotificationapprove").hide();
         $("#anotificationsubmitandcalcel").hide();
-
         $("#menuReSize").hide();
         $("#menulefthead").hide();
         $("#menulefthover").hide();
         $("#menuleftplus").hide();
         $("#configmanager").hide();
-        $("#contentcol2").removeClass("col-md-2 column");
-        //	$("#contenthead").removeClass("col-md-10 column");
-        $("#contenthead").addClass("col-md-12 column");
         $("#anotificationapprove").hide();
         $("#anotificationsubmitandcalcel").hide();
-
         $("#menuReSizeCourse").show();
         var i=0
         function openmenuleftCourse(){
             if(i==0){
+                $("#contenthead").removeClass("col-md-10 column").addClass("col-md-12 column");
+                $("#contentcol2").removeClass("col-md-2 column").addClass("col-md-3 column");
                 $("#menuleftCourse").hide();
                 i++;
             }else{
-                $("#menuleftCourse").slideDown(800);
+                $("#contentcol2").removeClass("col-md-3 column").addClass("col-md-2 column");
+                $("#contenthead").removeClass("col-md-12 column").addClass("col-md-10 column");
+                $("#menuleftCourse").slideDown(400);
                 i--;
             }
         }
