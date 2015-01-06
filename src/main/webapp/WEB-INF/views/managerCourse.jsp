@@ -27,10 +27,6 @@ th {
 	background-color: #FFD700;
 }
 
-a {
-	cursor: pointer;
-}
-
 div {
 	margin-right: 0px;
 }
@@ -100,15 +96,15 @@ h3{
 					</div>
 				</form>
 			</div>
-			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px"><a onclick="showCourseInEditSubject()" style="text-decoration: none ; color: #000000"">
-				<div style="text-align: center">
+			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px;" >
+				<div style="text-align: center;" >
 					<h2>Subject</h2>
 				</div>
 			</div>
 			<div id="subjectDiv" style="border-style: solid ; margin-bottom: 20px ; background-color: #FFFFFF ;
-				border-color: #FF8C00" >
+				border-color: #FF8C00;" >
 				<form>
-					<div>
+					<div >
 						<h4 style="margin-left: 50px">Add Subject</h4>
 						<label style="margin-left: 50px">Course :</label>
 						<label id="showCourse"></label>
