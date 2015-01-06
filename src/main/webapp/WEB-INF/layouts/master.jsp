@@ -124,29 +124,35 @@
 											<li class="dropdown-submenu">
 												<div id="dropdownoption">
 													<div >
-														<div style="margin-left:40px" class="ui feed">
+														<div style="margin-left:50px" class="ui feed">
 															<div class="event">
-																<div class="content" hidden id="confighome">
+																<%--<div class="content" hidden id="confighome">
 																	<div class="summary">
 																		<a href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/home.png" width="20px" height="32px"/></p></a>
 																		Home
 																	</div>
-																</div>
-																<div class="content" hidden id="configroom">
+																</div>--%>
+																<div class="content"  hidden id="configroom">
 																	<div class="summary">
 																		<a id="room" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/room.png" width="20px" height="32px"/></p></a>					Room
 																	</div>
 																</div>
-																<div class="content" hidden id="configreport">
-																	<div lass="summary">
+																<div class="content"  hidden id="configreport">
+																	<div class="summary">
 																		<a id="report" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/report.png" width="35px" height="32px"/></p></a>
 																		Report
 																	</div>
 																</div>
+                                                                <div class="content"  hidden id="configmanager">
+                                                                    <div class="summary">
+                                                                       <a id="courseManager" href="#"><p><img class="glyphicon" src="${contextPath}/resources/images/course.png" width="20px" height="32px"/></p></a>
+                                                                        Manager
+                                                                    </div>
+                                                                </div>
 															</div>
 														</div>	
 													</div>
-													<div >
+												<%--	<div >
 														<div style="margin-left:40px" class="ui feed">
 															<div class="event">
 																<div class="content" hidden id="confighistory">
@@ -164,7 +170,7 @@
 
 															</div>
 														</div>	
-													</div>
+													</div>--%>
 												</div>
 											</li>
 											<hr/>

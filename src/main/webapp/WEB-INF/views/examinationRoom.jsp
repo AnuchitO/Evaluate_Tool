@@ -242,6 +242,7 @@ $(function(){
             accessMethod(JSON.parse(data.body));
         });
     });
+
     ////////////////////////////////From Add Room And Validate///////////////////////
     $('.input-daterange').datepicker({
         format: "yyyy-mm-dd",
@@ -789,7 +790,6 @@ $(function(){
             });
 //==================================================================================================================
 });
-
 ////////////////////////////////Set Standard Content And Menu After Open Page///////////////////////
 var yourPosition='${yourPosition}';
 var name='${name}';
@@ -797,7 +797,6 @@ var lastname='${lastname}';
 $("#fullname").html(name+"  "+lastname);
 $("#loader").hide();
 $("#showAndHideRoomStatusWithTerminate").show();
-if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
     $("#btnnotificationsubmitandcalcel").show();
     $("#headdropdownapprovepermission").hide();
     $("#headdropdownsubmitandcancel").hide();
@@ -805,38 +804,29 @@ if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Sof
     $("#imgmenuleft").hide();
     $("#contenthead").removeClass("col-md-10 column");
     $("#contenthead").addClass("col-md-12 column");
-}else{
-    $("#btnnotificationsubmitandcalcel").hide();
-    $("#headdropdownapprovepermission").hide();
-    $("#headdropdownsubmitandcancel").hide();
-    $("#menuleft").hide();
-    $("#imgmenuleft").hide();
-    $("#contenthead").removeClass("col-md-10 column");
-    $("#contenthead").addClass("col-md-12 column");
-}
 if(yourPosition=="Software Analyst"){
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").show();
     $("#configmanager").show();
 }else if(yourPosition=="Manager"){
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").show();
     $("#configmanager").show();
 }else if(yourPosition=="Software Development Trainee"){
-    $("#confighome").show();
-    $("#configroom").show();
-    $("#configreport").hide();
-    $("#confighistory").hide();
-    $("#configmanager").hide();
-}else{
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").hide();
+    $("#configmanager").hide();
+}else{
+    //$("#confighome").show();
+    $("#configroom").show();
+    $("#configreport").show();
+    //$("#confighistory").show();
     $("#configmanager").hide();
 }
 
@@ -2124,7 +2114,29 @@ $("#courseManager").click(
                 swal("ErrorGetDataById");
             }
         });
-
+    $("#report").click(
+            function() {
+                location.href = "/EvaluateTool/application/report"
+                        + "?yourId="
+                        + encodeURIComponent('${yourId}')
+                        + "&yourPosition="
+                        + encodeURIComponent('${yourPosition}')
+                        + "&yourName="
+                        + encodeURIComponent('${name}')
+                        + "&yourLastName="
+                        + encodeURIComponent('${lastname}');
+            });
+    $("#nameproject").click(function(){
+        location.href = "/EvaluateTool/application/examinationRoom"
+                + "?yourId="
+                + encodeURIComponent('${yourId}')
+                + "&yourPosition="
+                + encodeURIComponent('${yourPosition}')
+                + "&yourName="
+                + encodeURIComponent('${name}')
+                + "&yourLastName="
+                + encodeURIComponent('${lastname}');
+    });
 </script>
 </body>
 </html>

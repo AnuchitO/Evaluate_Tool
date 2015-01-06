@@ -1573,7 +1573,17 @@ h3{
 	$("#contenthead").addClass("col-md-12 column");
 	$("#anotificationapprove").hide();
 	$("#anotificationsubmitandcalcel").hide();
-
+    $("#nameproject").click(function(){
+        location.href = "/EvaluateTool/application/examinationRoom"
+                + "?yourId="
+                + encodeURIComponent('${yourId}')
+                + "&yourPosition="
+                + encodeURIComponent('${yourPosition}')
+                + "&yourName="
+                + encodeURIComponent('${name}')
+                + "&yourLastName="
+                + encodeURIComponent('${lastName}');
+    });
 
 	</script>
 </body>
