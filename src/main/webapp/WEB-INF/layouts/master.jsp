@@ -202,7 +202,7 @@
 
 						<%--Mene Left ManagerCourse Page--%>
 						<div id="menuReSizeCourse" class="col-md-2 column" hidden style="margin-top: 100px">
-							<div id="menuleftCourse" class="panel panel-default" style="background-color: #eee">
+							<div id="menuleftCourse" class="panel panel-default" style="background-color: #eee;position:fixed">
 								<a style="color: black ; text-decoration: none" id="managerCourse">
 									<div class="panel-body" >
 										Manager Course
