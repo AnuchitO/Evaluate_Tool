@@ -2,7 +2,6 @@ package com.spt.evt.controller;
 
 import com.spt.evt.entity.Participants;
 import com.spt.evt.entity.Person;
-import com.spt.evt.entity.Room;
 import com.spt.evt.service.ParticipantsService;
 import com.spt.evt.service.PersonService;
 import com.spt.evt.service.ReportService;
@@ -43,7 +42,7 @@ public class ReportController {
 
 	@RequestMapping(value="/report",method=RequestMethod.GET)
 	public ModelAndView handleGetRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+										 HttpServletResponse response) throws Exception {
 		String yourId = request.getParameter("yourId");
 		String name = request.getParameter("yourName");
 		String lastName = request.getParameter("yourLastName");
@@ -60,7 +59,7 @@ public class ReportController {
 
 	@RequestMapping(value="/summaryByTopic",method=RequestMethod.GET)
 	public ModelAndView handleGetRequestSummary(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+												HttpServletResponse response) throws Exception {
 		String yourId = request.getParameter("yourId");
 		String name = request.getParameter("yourName");
 		String lastName = request.getParameter("yourLastName");
@@ -114,7 +113,7 @@ public class ReportController {
 
 	@RequestMapping(value="/summaryTopicList",method=RequestMethod.POST)
 	public @ResponseBody String receiveCourseData(@RequestParam(value="data") String data ,HttpServletRequest arg0,
-			HttpServletResponse arg1)  {
+												  HttpServletResponse arg1)  {
 		JSONObject courseDetail = new JSONObject(data);
 
 		Long roomId			= Long.parseLong(courseDetail.getString("roomId"));
@@ -136,19 +135,26 @@ public class ReportController {
 
 		JSONObject courseInformation = this.reportService.getCourseInformationSummary(roomId, examinerId, committeeId, courseId);
 
-		String roomStatus = "Completed";
-		List<Room> rooms = roomService.findByStatus(roomStatus);
-		JSONObject reportNoSort = reportService.generateScoreAverage(rooms);
-		JSONArray findAverageScore = reportNoSort.getJSONArray("report");
-		JSONObject listFindAverageScore = null;
-		for (int i=0;i<findAverageScore.length();i++){
-			listFindAverageScore = (JSONObject) findAverageScore.get(i);
-			if (examinerId==Long.parseLong(listFindAverageScore.get("examinerId").toString())){
-				if (roomId==Long.parseLong(listFindAverageScore.get("roomId").toString())){
-					courseInformation.put("averageScoreAll", listFindAverageScore.get("averageAllScore"));
+		float allScore = 0.0f;
+		int allTopic = 0;
+		JSONArray summaryNoSortArray = new JSONArray(""+courseInformation.get("subject")) ;
+		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ) {
+			allTopic += Integer.parseInt(summaryNoSortArray.getJSONObject(i).getString("sumTopic").toString());
+			JSONArray scoreAllTopic = summaryNoSortArray.getJSONObject(i).getJSONArray("topic");
+
+			for (int j=0;j<scoreAllTopic.length();j++){
+				if (scoreAllTopic.getJSONObject(j).get("score").toString().equals("-")){
+					allScore += 0.0f;
+				}else{
+					allScore += Float.parseFloat(scoreAllTopic.getJSONObject(j).get("score").toString());
 				}
 			}
 		}
+		float returnAverageScore = reportService.averageScoreAllSubject(allScore, allTopic);
+		String stringCoverFloat = String.format("%.2f", returnAverageScore);
+		Float averageScoreAll = Float.parseFloat(stringCoverFloat);
+
+		courseInformation.put("averageScoreAll",averageScoreAll);
 		return new ModelAndView("excelView","score",courseInformation);
 	}
 
