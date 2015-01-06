@@ -19,29 +19,29 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	@Override
 	public JSONObject getAllScore() {
 		String roomStatus = "Completed";
-		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);						
+		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
 		JSONObject reportNoSort = generateScoreJsonObjectByRoom(rooms);
 		JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
 		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
 		for(int n = 0; n < reportNoSortArray.length(); n++)
-			{
-				if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
-					List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
-					listObject.add(reportNoSortArray.getJSONObject(n));
-					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
+		{
+			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
+				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
 
-				}
-				else{
-					List<JSONObject> listObject = new ArrayList<JSONObject>();
-					listObject.add(reportNoSortArray.getJSONObject(n));
-					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
-				}
 			}
-			
+			else{
+				List<JSONObject> listObject = new ArrayList<JSONObject>();
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
+			}
+		}
+
 		JSONArray reportArray = new JSONArray() ;
 		JSONObject report = new JSONObject();
 		for(String key: reportTreeMap.keySet()) {
-			for (JSONObject jsList : reportTreeMap.get(key)) {	
+			for (JSONObject jsList : reportTreeMap.get(key)) {
 				reportArray.put(jsList);
 			}
 		}
@@ -63,7 +63,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		}
 
 		Map mapUni = new HashMap();
-			
+
 		List<Room> roomsList = new ArrayList<Room>(map.values());
 		for (Room room : roomsList ) {
 			JSONObject examinerReport = new JSONObject();
@@ -154,7 +154,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		for(Participants participants:participantsList){
 			Room room = participants.getRoom();
 			if (room.getStatus().equals("Completed")) {
-				rooms.add(participants.getRoom());	
+				rooms.add(participants.getRoom());
 			}
 		}
 		JSONObject report = generateScoreJsonObjectByRoom(rooms);
@@ -171,6 +171,8 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId) {
 
 		JSONObject courseInformation = new JSONObject();
+		int allTopic = 0;
+		float allScore = 0.0f;
 
 		Room room			= this.getRoomService().findById(roomId);
 		Person committee 	= this.getPersonService().findById(committeeId);
@@ -193,6 +195,19 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		JSONArray summaryNoSortArray = new JSONArray(""+courseInformation.get("subject")) ;
 		TreeMap<String,List<JSONObject>> summaryTreeMap = new TreeMap<String,List<JSONObject>>(Collections.reverseOrder());
 
+		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ) {
+			JSONArray scoreAllTopic = summaryNoSortArray.getJSONObject(i).getJSONArray("topic");
+			allTopic += Integer.parseInt(summaryNoSortArray.getJSONObject(i).getString("sumTopic").toString());
+
+			for (int j=0;j<scoreAllTopic.length();j++){
+				if (scoreAllTopic.getJSONObject(j).get("score").toString().equals("-")){
+					allScore += 0.0f;
+				}else{
+					allScore += Float.parseFloat(scoreAllTopic.getJSONObject(j).get("score").toString());
+				}
+			}
+		}
+
 		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ){
 			if (summaryTreeMap.containsKey(summaryNoSortArray.getJSONObject(i).getString("sumTopic"))) {
 				List<JSONObject> listObject = summaryTreeMap.get(summaryNoSortArray.getJSONObject(i).getString("sumTopic"));
@@ -211,7 +226,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 				List<JSONObject> listObject = new ArrayList<JSONObject>();
 				listObject.add(summaryNoSortArray.getJSONObject(i));
-					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
 
 			}
 
@@ -223,20 +238,11 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				summaryArray.put(jsList);
 			}
 		}
+		float returnAverageScore = averageScoreAllSubject(allScore,allTopic);
+		String stringCoverFloat = String.format("%.2f", returnAverageScore);
+		Float averageScoreAll = Float.parseFloat(stringCoverFloat);
 
-		String roomStatus = "Completed";
-		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
-		JSONObject reportNoSort = generateScoreAverage(rooms);
-		JSONArray findAverageScore = reportNoSort.getJSONArray("report");
-		JSONObject listFindAverageScore = null;
-		for (int i=0;i<findAverageScore.length();i++){
-			listFindAverageScore = (JSONObject) findAverageScore.get(i);
-			if (examinerId==Long.parseLong(listFindAverageScore.get("examinerId").toString())){
-				if (roomId==Long.parseLong(listFindAverageScore.get("roomId").toString())){
-					summary.put("averageScoreAll", listFindAverageScore.get("averageAllScore"));
-				}
-			}
-		}
+		summary.put("averageScoreAll",averageScoreAll);
 		summary.put("subject",summaryArray);
 		return summary;
 	}
@@ -307,7 +313,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 			subjectElement.put("averageScore", "0");
 		}
 	}
-
+	@Override
 	public float averageScoreAllSubject(float score,int allTopic){
 		if (allTopic==0){
 			return 0;
