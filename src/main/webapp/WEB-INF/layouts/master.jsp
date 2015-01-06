@@ -205,12 +205,12 @@
 							<div id="menuleftCourse" class="panel panel-default" style="background-color: #eee;position:fixed">
 								<a style="color: black ; text-decoration: none" id="managerCourse">
 									<div class="panel-body" >
-										Manager Course
+										<span style="font-size: 12pt">Manager Course</span>
 									</div>
 								</a>
 								<a style="color: black ; text-decoration: none" id="managerShowCourse">
 									<div class="panel-body" >
-										Show Course
+                                        <span style="font-size: 12pt">Show Course</span>
 									</div>
 								</a>
 							</div>
