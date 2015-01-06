@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import sun.rmi.runtime.Log;
 
 @Controller
 public class ManagerCourseController {
@@ -94,9 +88,9 @@ public class ManagerCourseController {
 
 		JSONObject subjectElement = null;
 		for (Subject subject : subjects) {
-			int i = 0;
 			subjectElement = new JSONObject();
 			subjectElement.put("nameSubject", subject.getName());
+			subjectElement.put("id", subject.getId());
 			List<Topic> topics = topicService.findBySubject(subject);
 			for (Topic topic:topics){
 				topicElement = new JSONObject();
@@ -106,9 +100,6 @@ public class ManagerCourseController {
 			courseInformation.append("subject", subjectElement);
 
 		}
-
-
-
 
 		return courseInformation.toString();
 	}
