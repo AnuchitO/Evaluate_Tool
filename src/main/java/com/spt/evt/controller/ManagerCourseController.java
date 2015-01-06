@@ -1,14 +1,13 @@
 package com.spt.evt.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.spt.evt.entity.Course;
+import com.spt.evt.entity.ScoreBoard;
+import com.spt.evt.entity.Subject;
+import com.spt.evt.entity.Topic;
+import com.spt.evt.service.CourseService;
+import com.spt.evt.service.ScoreBoardService;
+import com.spt.evt.service.SubjectService;
+import com.spt.evt.service.TopicService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spt.evt.entity.*;
-import com.spt.evt.service.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ManagerCourseController {
@@ -230,7 +232,7 @@ public class ManagerCourseController {
 		return allCourse.toString();
 	}
 
-	@RequestMapping(value="/sendDescription", method = RequestMethod.POST)
+	@RequestMapping(value="/sendCourse", method = RequestMethod.POST)
 	public @ResponseBody String sendDescription() {
 		JSONObject nameLarge = new JSONObject();
 		JSONObject nameSmall = null;

@@ -698,7 +698,7 @@ $(function(){
                 var listname = JSON.parse(data);
                 $.each(listname,function(index,item){
                     item.forEach(function(idAndName){
-                            $("#listExaminer").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+                        $("#listExaminer").append('<option style="font-size:9pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+" "+idAndName.lastNamePerson+'</option>');
 
                     });
                 });
@@ -706,24 +706,24 @@ $(function(){
           error: function(){
               swal("ErrorGetName");
           }
-      });
+    });
 ///////////EditRoom////////////
       $.ajax({
-                url: "/EvaluateTool/application/sendName",
-                type: "POST",
-                success: function(data){
-                      var listname = JSON.parse(data);
-                      $.each(listname,function(index,item){
-                          item.forEach(function(idAndName){
-                                  $("#listExaminer2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+            url: "/EvaluateTool/application/sendName",
+            type: "POST",
+            success: function(data){
+            var listname = JSON.parse(data);
+                $.each(listname,function(index,item){
+                      item.forEach(function(idAndName){
+                          $("#listExaminer2").append('<option style="font-size:9pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+" "+idAndName.lastNamePerson+'</option>');
 
-                          });
                       });
-                },
-                error: function(){
-                    swal("ErrorGetName");
-                }
-            });
+                  });
+            },
+            error: function(){
+                swal("ErrorGetName");
+            }
+      });
 //==================================================================================================================
       $.ajax({
           url: "/EvaluateTool/application/sendName",
@@ -732,7 +732,7 @@ $(function(){
                 var listname = JSON.parse(data);
                     $.each(listname,function(index,item){
                     item.forEach(function(idAndName){
-                            $("#listCommittee").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+                            $("#listCommittee").append('<option style="font-size:9pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+" "+idAndName.lastNamePerson+'</option>');
                     });
                 });
           },
@@ -748,7 +748,7 @@ $(function(){
                       var listname = JSON.parse(data);
                           $.each(listname,function(index,item){
                           item.forEach(function(idAndName){
-                                  $("#listCommittee2").append('<option style="font-size:8pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+'</option>');
+                                  $("#listCommittee2").append('<option style="font-size:9pt" value="'+idAndName.idPerson+'">'+idAndName.namePerson+" "+idAndName.lastNamePerson+'</option>');
                           });
                       });
                 },
@@ -758,13 +758,13 @@ $(function(){
             });
 //==================================================================================================================
       $.ajax({
-          url: "/EvaluateTool/application/sendDescription",
+          url: "/EvaluateTool/application/sendCourse",
           type: "POST",
           success: function(data){
                 var listnamecourse = JSON.parse(data);
                     $.each(listnamecourse,function(index,item){
                         item.forEach(function(idAndDescription){
-                                $("#listCourse").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
+                                $("#listCourse").append('<option style="font-size:9pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
                         });
                     });
           },
@@ -774,13 +774,13 @@ $(function(){
       });
 ///////////EditRoom////////////
       $.ajax({
-                url: "/EvaluateTool/application/sendDescription",
+                url: "/EvaluateTool/application/sendCourse",
                 type: "POST",
                 success: function(data){
                       var listnamecourse = JSON.parse(data);
                           $.each(listnamecourse,function(index,item){
                               item.forEach(function(idAndDescription){
-                                      $("#listCourse2").append('<option style="font-size:8pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
+                                      $("#listCourse2").append('<option style="font-size:9pt" value="'+idAndDescription.idCourse+'">'+idAndDescription.descriptionCourse+'</option>');
                               });
                           });
                 },

@@ -121,6 +121,7 @@ public class ExaminationRoomController {
 			nameSmall = new JSONObject();
 			nameSmall.put("idPerson", person.getId());
 			nameSmall.put("namePerson", person.getName());
+			nameSmall.put("lastNamePerson", person.getLastName());
 			nameLarge.append("idAndName", nameSmall);
 		}
 		return nameLarge.toString();
