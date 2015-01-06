@@ -171,14 +171,38 @@
 	$("#fullname").text('${name}'+ " "+'${lastName}');
 	$("#menuReSize").show();
 	$("#averageAll").hide();
-
+    var yourPosition='${yourPosition}';
 	$("#headdropdownapprovepermission").hide();
 	$("#headdropdownsubmitandcancel").hide();
 	$("#menulefthead").hide();
 	$("#menulefthover").hide();
 	$("#menuleftplus").hide();
 	$("#btnExport").hide();
-
+    if(yourPosition=="Software Analyst"){
+        //$("#confighome").show();
+        $("#configroom").show();
+        $("#configreport").hide();
+        //$("#confighistory").show();
+        $("#configmanager").show();
+    }else if(yourPosition=="Manager"){
+        //$("#confighome").show();
+        $("#configroom").show();
+        $("#configreport").hide();
+        //$("#confighistory").show();
+        $("#configmanager").show();
+    }else if(yourPosition=="Software Development Trainee"){
+        //$("#confighome").show();
+        $("#configroom").show();
+        $("#configreport").hide();
+        //$("#confighistory").hide();
+        $("#configmanager").hide();
+    }else{
+        //$("#confighome").show();
+        $("#configroom").show();
+        $("#configreport").hide();
+        //$("#confighistory").show();
+        $("#configmanager").hide();
+    }
 	$(function() {
 		$("#panelCollapse0").hide();
 		$("#panelHeading0").hide();
@@ -902,7 +926,29 @@
 	$("#imgmenuleft").mouseout(function(){
 		$("#extendimgmenuleft").slideToggle(300);
 	});
-
+    $("#nameproject").click(function(){
+        location.href = "/EvaluateTool/application/examinationRoom"
+                + "?yourId="
+                + encodeURIComponent('${yourId}')
+                + "&yourPosition="
+                + encodeURIComponent('${yourPosition}')
+                + "&yourName="
+                + encodeURIComponent('${name}')
+                + "&yourLastName="
+                + encodeURIComponent('${lastname}');
+    });
+    $("#configmanager").click(
+            function() {
+                location.href = "/EvaluateTool/application/managerCourse"
+                        + "?yourId="
+                        + encodeURIComponent('${yourId}')
+                        + "&yourPosition="
+                        + encodeURIComponent('${yourPosition}')
+                        + "&yourName="
+                        + encodeURIComponent('${name}')
+                        + "&yourLastName="
+                        + encodeURIComponent('${lastName}');
+            });
 </script>
 </body>
 </html>

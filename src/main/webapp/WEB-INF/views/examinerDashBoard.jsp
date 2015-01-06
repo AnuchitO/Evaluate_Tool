@@ -160,7 +160,6 @@ var lastname='${lastName}';
 $("#fullname").html(name+"  "+lastname);
 $("#loader").hide();
 $("#menuleftplus").hide();
-if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Software Development"){
     $("#btnnotificationsubmitandcalcel").show();
     $("#headdropdownapprovepermission").hide();
     $("#headdropdownsubmitandcancel").hide();
@@ -168,38 +167,29 @@ if(yourPosition=="Manager"||yourPosition=="Software Analyst"||yourPosition=="Sof
     $("#imgmenuleft").hide();
     $("#contenthead").removeClass("col-md-10 column");
     $("#contenthead").addClass("col-md-12 column");
-}else{
-    $("#btnnotificationsubmitandcalcel").hide();
-    $("#headdropdownapprovepermission").hide();
-    $("#headdropdownsubmitandcancel").hide();
-    $("#menuleft").hide();
-    $("#imgmenuleft").hide();
-    $("#contenthead").removeClass("col-md-10 column");
-    $("#contenthead").addClass("col-md-12 column");
-}
 if(yourPosition=="Software Analyst"){
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").show();
     $("#configmanager").show();
 }else if(yourPosition=="Manager"){
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").show();
     $("#configmanager").show();
 }else if(yourPosition=="Software Development Trainee"){
-    $("#confighome").show();
-    $("#configroom").show();
-    $("#configreport").hide();
-    $("#confighistory").hide();
-    $("#configmanager").hide();
-}else{
-    $("#confighome").show();
+    //$("#confighome").show();
     $("#configroom").show();
     $("#configreport").show();
-    $("#confighistory").show();
+    //$("#confighistory").hide();
+    $("#configmanager").hide();
+}else{
+    //$("#confighome").show();
+    $("#configroom").show();
+    $("#configreport").show();
+    //$("#confighistory").show();
     $("#configmanager").hide();
 }
 
@@ -366,6 +356,29 @@ $("#room").click(
         });
 $("#logOut").click(function() {
     location.href = "/EvaluateTool/application/logIn";
+});
+$("#report").click(
+        function() {
+            location.href = "/EvaluateTool/application/report"
+                    + "?yourId="
+                    + encodeURIComponent('${yourId}')
+                    + "&yourPosition="
+                    + encodeURIComponent('${yourPosition}')
+                    + "&yourName="
+                    + encodeURIComponent('${name}')
+                    + "&yourLastName="
+                    + encodeURIComponent('${lastName}');
+        });
+$("#nameproject").click(function(){
+    location.href = "/EvaluateTool/application/examinationRoom"
+            + "?yourId="
+            + encodeURIComponent('${yourId}')
+            + "&yourPosition="
+            + encodeURIComponent('${yourPosition}')
+            + "&yourName="
+            + encodeURIComponent('${name}')
+            + "&yourLastName="
+            + encodeURIComponent('${lastName}');
 });
 </script>
 </body>

@@ -312,15 +312,61 @@ table>tbody>tr>td {
 
 		var fullname = '${name}'+'  '+'${lastName}';
 		$("#fullname").html(fullname);
-
-
+        var yourPosition='${yourPosition}';
 		$("#menuReSize").show();
 		$("#menulefthead").hide();
 		$("#menulefthover").hide();
 		$("#menuleftplus").hide();
 		$("#headdropdownapprovepermission").hide();
 		$("#headdropdownsubmitandcancel").hide();
-
+        if(yourPosition=="Software Analyst"){
+            //$("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").hide();
+            //$("#confighistory").show();
+            $("#configmanager").show();
+        }else if(yourPosition=="Manager"){
+            //$("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").hide();
+            //$("#confighistory").show();
+            $("#configmanager").show();
+        }else if(yourPosition=="Software Development Trainee"){
+            //$("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").hide();
+            //$("#confighistory").hide();
+            $("#configmanager").hide();
+        }else{
+            //$("#confighome").show();
+            $("#configroom").show();
+            $("#configreport").hide();
+            //$("#confighistory").show();
+            $("#configmanager").hide();
+        }
+        $("#nameproject").click(function(){
+            location.href = "/EvaluateTool/application/examinationRoom"
+                    + "?yourId="
+                    + encodeURIComponent('${yourId}')
+                    + "&yourPosition="
+                    + encodeURIComponent('${yourPosition}')
+                    + "&yourName="
+                    + encodeURIComponent('${name}')
+                    + "&yourLastName="
+                    + encodeURIComponent('${lastName}');
+        });
+        $("#configmanager").click(
+                function() {
+                    location.href = "/EvaluateTool/application/managerCourse"
+                            + "?yourId="
+                            + encodeURIComponent('${yourId}')
+                            + "&yourPosition="
+                            + encodeURIComponent('${yourPosition}')
+                            + "&yourName="
+                            + encodeURIComponent('${name}')
+                            + "&yourLastName="
+                            + encodeURIComponent('${lastName}');
+                });
 	</script>
 </body>
 </html>
