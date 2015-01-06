@@ -21,32 +21,38 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		String roomStatus = "Completed";
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
 		JSONObject reportNoSort = generateScoreJsonObjectByRoom(rooms);
-		JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
-		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
-		for(int n = 0; n < reportNoSortArray.length(); n++)
-		{
-			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
-				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
-				listObject.add(reportNoSortArray.getJSONObject(n));
-				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
 
-			}
-			else{
-				List<JSONObject> listObject = new ArrayList<JSONObject>();
-				listObject.add(reportNoSortArray.getJSONObject(n));
-				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
-			}
-		}
+		if (reportNoSort.length()==0){
+			return new JSONObject();
+		}else {
+			JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
+			TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
+			for(int n = 0; n < reportNoSortArray.length(); n++)
+			{
+				if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
+					List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
+					listObject.add(reportNoSortArray.getJSONObject(n));
+					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
 
-		JSONArray reportArray = new JSONArray() ;
-		JSONObject report = new JSONObject();
-		for(String key: reportTreeMap.keySet()) {
-			for (JSONObject jsList : reportTreeMap.get(key)) {
-				reportArray.put(jsList);
+				}
+				else{
+					List<JSONObject> listObject = new ArrayList<JSONObject>();
+					listObject.add(reportNoSortArray.getJSONObject(n));
+					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
+				}
 			}
+
+			JSONArray reportArray = new JSONArray() ;
+			JSONObject report = new JSONObject();
+
+			for(String key: reportTreeMap.keySet()) {
+				for (JSONObject jsList : reportTreeMap.get(key)) {
+					reportArray.put(jsList);
+				}
+			}
+			report.put("report",reportArray);
+			return report;
 		}
-		report.put("report",reportArray);
-		return report;
 	}
 
 	@Override
@@ -238,7 +244,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				summaryArray.put(jsList);
 			}
 		}
-		float returnAverageScore = averageScoreAllSubject(allScore,allTopic);
+		float returnAverageScore = averageScoreAllSubject(allScore, allTopic);
 		String stringCoverFloat = String.format("%.2f", returnAverageScore);
 		Float averageScoreAll = Float.parseFloat(stringCoverFloat);
 

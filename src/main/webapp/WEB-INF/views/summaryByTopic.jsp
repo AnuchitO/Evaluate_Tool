@@ -900,24 +900,11 @@
 	function openmenuleft(){
 		if(i==0){
 			$("#menuleftSummary").hide();
-			// $("#menuReSize").removeClass("col-md-2 column");
-			$("#menuReSize2").removeClass("col-md-10 column");
-			$("#menuReSize3").removeClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
-			// $("#menuReSize	").addClass("col-md-0 column");
-			$("#menuReSize2").addClass("col-md-12 column");
-			$("#menuReSize3").addClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
 			i++;
 		}else{
 			$("#menuleftSummary").slideDown(800);
-			// $("#menuR	eSize").removeClass("col-md-0 column");
-			$("#menuReSize2").removeClass("col-md-12 column");
-			$("#menuReSize3").removeClass("col-sm-5 col-md-10 col-sm-offset-3 col-md-offset-0");
-			// $("#menuReSiz	e").addClass("col-md-2 column");
-			$("#menuReSize2").addClass("col-md-10 column");
-			$("#menuReSize3").addClass("col-sm-5 col-md-9 col-sm-offset-3 col-md-offset-0");
 			i--;
 		}
-
 	}
 
 	$("#imgmenuleft").mouseover(function(){
