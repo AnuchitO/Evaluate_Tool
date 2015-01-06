@@ -27,10 +27,6 @@ th {
 	background-color: #FFD700;
 }
 
-a {
-	cursor: pointer;
-}
-
 div {
 	margin-right: 0px;
 }
@@ -70,9 +66,6 @@ h3{
 </head>
 <body>
 
-	<div class="container">
-
-		<div class="col-md-11 column">
 			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px">
 				<div style="text-align: center">
 					<h2>Course</h2>
@@ -100,15 +93,15 @@ h3{
 					</div>
 				</form>
 			</div>
-			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px"><a onclick="showCourseInEditSubject()" style="text-decoration: none ; color: #000000"">
-				<div style="text-align: center">
+			<div style="border-style : solid ; border-color: #FF8C00 ; margin-bottom: 20px;" >
+				<div style="text-align: center;" >
 					<h2>Subject</h2>
 				</div>
 			</div>
 			<div id="subjectDiv" style="border-style: solid ; margin-bottom: 20px ; background-color: #FFFFFF ;
-				border-color: #FF8C00" >
+				border-color: #FF8C00;" >
 				<form>
-					<div>
+					<div >
 						<h4 style="margin-left: 50px">Add Subject</h4>
 						<label style="margin-left: 50px">Course :</label>
 						<label id="showCourse"></label>
@@ -175,14 +168,14 @@ h3{
 			</div>
 			<option id="option"></option>
 			<option id="option0"></option>
-		</div>
 
+	<div style="width:100px;position:fixed;top:50%;left:0px;z-index:2" id="menulefthover">
+		<img width="32px" height="30px" onclick="openmenuleftCourse()" src="/EvaluateTool/resources/images/menu.png" id="imgmenuleft" class="glyphicon">
+		<b hidden="" id="extendimgmenuleft" style="display: none;">Menu</b>
 	</div>
-
 
 	<script>
 	$(function() {
-
 		function courseAllAddFunction(){
 			var dataForm = {};
 			dataForm.id = $("#courseAllEdit").val();
@@ -1545,6 +1538,19 @@ h3{
 
 	});
 
+	$("#report").click(
+			function() {
+				location.href = "/EvaluateTool/application/report"
+				+ "?yourId="
+				+ encodeURIComponent('${yourId}')
+				+ "&yourPosition="
+				+ encodeURIComponent('${yourPosition}')
+				+ "&yourName="
+				+ encodeURIComponent('${name}')
+				+ "&yourLastName="
+				+ encodeURIComponent('${lastName}');
+			});
+
 	$("#room").click(
 			function() {
 				location.href = "/EvaluateTool/application/examinationRoom"
@@ -1568,8 +1574,9 @@ h3{
 	$("#menulefthead").hide();
 	$("#menulefthover").hide();
 	$("#menuleftplus").hide();
+	$("#configmanager").hide();
 	$("#contentcol2").removeClass("col-md-2 column");
-	$("#contenthead").removeClass("col-md-10 column");
+//	$("#contenthead").removeClass("col-md-10 column");
 	$("#contenthead").addClass("col-md-12 column");
 	$("#anotificationapprove").hide();
 	$("#anotificationsubmitandcalcel").hide();
@@ -1585,6 +1592,50 @@ h3{
                 + encodeURIComponent('${lastName}');
     });
 
+	$("#menuReSizeCourse").show();
+	var i=0
+	function openmenuleftCourse(){
+		if(i==0){
+			$("#menuleftCourse").hide();
+			i++;
+		}else{
+			$("#menuleftCourse").slideDown(800);
+			i--;
+		}
+	}
+	$("#imgmenuleft").mouseover(function(){
+		$("#extendimgmenuleft").slideToggle(300);
+	});
+	$("#imgmenuleft").mouseout(function(){
+		$("#extendimgmenuleft").slideToggle(300);
+	});
+
+	$("#managerCourse").click(
+			function() {
+				//var yourId = $("#committeeId").attr('value');
+				location.href = "/EvaluateTool/application/managerCourse"
+				+ "?yourId="
+				+ encodeURIComponent('${yourId}')
+				+ "&yourPosition="
+				+ encodeURIComponent('${yourPosition}')
+				+ "&yourName="
+				+ encodeURIComponent('${name}')
+				+ "&yourLastName="
+				+ encodeURIComponent('${lastName}');
+			});
+	$("#managerShowCourse").click(
+			function() {
+				//var yourId = $("#committeeId").attr('value');
+				location.href = "/EvaluateTool/application/managerCourseShow"
+				+ "?yourId="
+				+ encodeURIComponent('${yourId}')
+				+ "&yourPosition="
+				+ encodeURIComponent('${yourPosition}')
+				+ "&yourName="
+				+ encodeURIComponent('${name}')
+				+ "&yourLastName="
+				+ encodeURIComponent('${lastName}');
+			});
 	</script>
 </body>
 </html>

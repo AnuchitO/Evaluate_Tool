@@ -199,6 +199,23 @@
 								</div>
 							</div>
 						<%--End Menu Left SummaryByTopic Page--%>
+
+						<%--Mene Left ManagerCourse Page--%>
+						<div id="menuReSizeCourse" class="col-md-2 column" hidden style="margin-top: 100px">
+							<div id="menuleftCourse" class="panel panel-default" style="background-color: #eee">
+								<a style="color: black ; text-decoration: none" id="managerCourse">
+									<div class="panel-body" >
+										Manager Course
+									</div>
+								</a>
+								<a style="color: black ; text-decoration: none" id="managerShowCourse">
+									<div class="panel-body" >
+										Show Course
+									</div>
+								</a>
+							</div>
+						</div>
+						<%--Mene Left ManagerCourse Page--%>
 						<!-- Menu Left Plus -->
 						<div id="menuleftplus" style="width:100px;position:fixed;top:50%;left:0px;z-index:2"><img class="glyphicon" id="imgmenuleftplus" src="${contextPath}/resources/images/plus.png" width="32px" height="30px" onclick="openmenuplus()" /><b hidden id="extendimgmenuplus">Plus</b></div>
 						<!-- End Menu Left Plus -->
