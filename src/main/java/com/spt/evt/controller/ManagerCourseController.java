@@ -8,6 +8,16 @@ import com.spt.evt.service.CourseService;
 import com.spt.evt.service.ScoreBoardService;
 import com.spt.evt.service.SubjectService;
 import com.spt.evt.service.TopicService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +63,54 @@ public class ManagerCourseController {
 		model.put("yourPosition", yourPosition);
 		model.put("allCourse", allCourse.toString());
 		return new ModelAndView("managerCourse",model);
+	}
+
+	@RequestMapping(value="/managerCourseShow",method=RequestMethod.GET)
+	public ModelAndView handleGetRequestShow(HttpServletRequest request,
+										 HttpServletResponse response) throws Exception {
+		String yourId = request.getParameter("yourId");
+		String name = request.getParameter("yourName");
+		String lastName = request.getParameter("yourLastName");
+		String yourPosition = request.getParameter("yourPosition");
+		JSONObject allCourse = this.courseService.getAllCourse();
+		Map model = new HashMap();
+		model.put("yourId", yourId);
+		model.put("name", name);
+		model.put("lastName", lastName);
+		model.put("yourPosition", yourPosition);
+		model.put("allCourse", allCourse.toString());
+		return new ModelAndView("managerCourseShow",model);
+	}
+
+	@RequestMapping(value="/showDetail", method = RequestMethod.POST)
+	public @ResponseBody String showDetail(@RequestParam(value="dataForm") String dataForm) {
+		JSONObject courseInformation = new JSONObject();
+		JSONObject allFi = new JSONObject();
+		JSONObject topicElement = null;
+		JSONObject idJsonDelete = new JSONObject(dataForm);
+		Long passToLong = idJsonDelete.getLong("id");
+		Course course = courseService.findById(passToLong);
+		List<Subject> subjects = subjectService.findByCourse(course);
+
+		JSONObject subjectElement = null;
+		for (Subject subject : subjects) {
+			int i = 0;
+			subjectElement = new JSONObject();
+			subjectElement.put("nameSubject", subject.getName());
+			List<Topic> topics = topicService.findBySubject(subject);
+			for (Topic topic:topics){
+				topicElement = new JSONObject();
+				topicElement.put("nameTopic",topic.getName()+" : "+topic.getDescription() );
+				subjectElement.append("topicPack", topicElement);
+			}
+			courseInformation.append("subject", subjectElement);
+
+		}
+
+
+
+
+		return courseInformation.toString();
 	}
 
 	@RequestMapping(value="/saveCourse", method = RequestMethod.POST)

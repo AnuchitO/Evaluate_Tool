@@ -59,5 +59,9 @@
 	<definition name="managerCourse" extends="masterLayout">
 		<put-attribute name="body" value="/WEB-INF/views/managerCourse.jsp" />
 	</definition>
+
+	<definition name="managerCourseShow" extends="masterLayout">
+		<put-attribute name="body" value="/WEB-INF/views/managerCourseShow.jsp" />
+	</definition>
 		
 </tiles-definitions>
