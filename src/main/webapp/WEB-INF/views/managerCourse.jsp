@@ -59,6 +59,9 @@ table>tbody>tr>td {
 h3{
 	margin-left: 50px;
 }
+ a:hover{
+    cursor: pointer;
+ }
 
 
 

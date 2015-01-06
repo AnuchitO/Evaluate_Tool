@@ -11,6 +11,9 @@
             background-color: #FF8C00;
             margin-left: 20px;
         }
+        a:hover{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -201,7 +204,17 @@
                     + "&yourLastName="
                     + encodeURIComponent('${lastName}');
                 });
-
+        $("#nameproject").click(function(){
+            location.href = "/EvaluateTool/application/examinationRoom"
+                    + "?yourId="
+                    + encodeURIComponent('${yourId}')
+                    + "&yourPosition="
+                    + encodeURIComponent('${yourPosition}')
+                    + "&yourName="
+                    + encodeURIComponent('${name}')
+                    + "&yourLastName="
+                    + encodeURIComponent('${lastName}');
+        });
     </script>
 </body>
 </html>
