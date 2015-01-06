@@ -2137,6 +2137,19 @@ $("#courseManager").click(
                 + "&yourLastName="
                 + encodeURIComponent('${lastname}');
     });
+    $("#room")
+            .click(
+            function() {
+                location.href = "/EvaluateTool/application/examinationRoom"
+                        + "?yourId="
+                        + encodeURIComponent('${yourId}')
+                        + "&yourPosition="
+                        + encodeURIComponent('${yourPosition}')
+                        + "&yourName="
+                        + encodeURIComponent('${name}')
+                        + "&yourLastName="
+                        + encodeURIComponent('${lastname}');
+            });
 </script>
 </body>
 </html>
