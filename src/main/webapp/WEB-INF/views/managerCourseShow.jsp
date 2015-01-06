@@ -17,9 +17,16 @@
         div.ui:hover{
             cursor: default;
         }
-        .header{
+        .ui.icon.message:hover{
             cursor: pointer;
+            color: #ffffff;
+            background-color:#ffa100;
         }
+        .ui.icon.message{
+            background-color: #d8d8d8;
+            color: #000000;
+        }
+
     </style>
 </head>
 <body>
@@ -96,7 +103,7 @@
                                     item.forEach(function (data) {
                                         var nameSubject = data.nameSubject;
                                         var idSubject = data.id;
-                                        $('#showCourse').append("<ul class='list-group' id='"+idSubject+"'><div class='ui icon message' style='background-color:#ffa100'><div class='content' style='float: left'><div class='header' style='color:white' onclick='hideTopic("+idSubject+")'>"+data.nameSubject+"</div></div></div></ul>");
+                                        $('#showCourse').append("<ul class='list-group' id='"+idSubject+"'><div class='ui icon message' onclick='hideTopic("+idSubject+")' ><div class='content' ><div class='header'  >"+data.nameSubject+"</div></div></div></ul>");
                                         for(var j in data.topicPack){
                                             $("ul[id="+idSubject+"]").append("<div class='ui green large button' style='margin:5px;width:100%'>"+data.topicPack[j].nameTopic+"</div>");
                                         }
