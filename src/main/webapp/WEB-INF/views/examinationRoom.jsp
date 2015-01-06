@@ -117,9 +117,9 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="radio-inline">
-                                <input type="radio" id="female" name="radiobox" value="female">Female
+                                <input type="radio" id="female" name="radiobox" value="Female">Female
                                 </label> <label class="radio-inline">
-                                <input type="radio"id="male" name="radiobox" value="male">Male
+                                <input type="radio"id="male" name="radiobox" value="Male">Male
                                 </label>
                             </div>
                         </div>
@@ -160,11 +160,11 @@
                             <div class="col-md-6 col-md-offset-3">
                                 <select id="position" class="selectpicker" name="position" data-width="100%">
                                     <option selected disabled value="-1">Position</option>
-                                    <option value="1">Software Development Trainee</option>
-                                    <option value="2">Software Development</option>
-                                    <option value="3">Senior Software Development</option>
-                                    <option value="4">Software Analyst</option>
-                                    <option value="5">Senior Software Analyst</option>
+                                    <option value="Software Development Trainee">Software Development Trainee</option>
+                                    <option value="Software Development">Software Development</option>
+                                    <option value="Senior Software Development">Senior Software Development</option>
+                                    <option value="Software Analyst">Software Analyst</option>
+                                    <option value="Senior Software Analyst">Senior Software Analyst</option>
                                 </select>
                             </div>
                         </div>
@@ -183,9 +183,10 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <select id="internship" class="selectpicker" name="internship" data-width="100%">
-                                    <option selected disabled value="-1">Internship or Co-operative</option>
-                                    <option value="1">Internship</option>
-                                    <option value="2">Co-operative</option>
+                                    <option selected disabled value="-1">Status</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Co-operative">Co-operative</option>
+                                    <option value="Employee">Employee</option>
                                 </select>
                             </div>
                         </div>
@@ -2103,11 +2104,21 @@ $("#courseManager").click(
                     document.getElementById("email").value = data.dataPerson[0].emailPerson;
                     document.getElementById("confirmEmail").value = data.dataPerson[0].emailPerson;
                     document.getElementById("username").value = data.dataPerson[0].userPerson;
-                    document.getElementById("position").value = data.dataPerson[0].positionPerson;
-                    document.getElementById("institute").value = data.dataPerson[0].institutePerson;
+                    $("#position").val(data.dataPerson[0].positionPerson).change();
+                    if (typeof(data.dataPerson[0].institutePerson) != "undefined"){
+                       document.getElementById("institute").value = data.dataPerson[0].institutePerson;
+                    }
+                    else{
+                        document.getElementById("institute").value = "";
+                    }
                     document.getElementById("phoneNumber").value = data.dataPerson[0].phonePerson;
-                    document.getElementById("facebook").value = data.dataPerson[0].facebookPerson;
-                    document.getElementById("internship").value = data.dataPerson[0].internshipPerson;
+                    if (typeof(data.dataPerson[0].facebookPerson) != "undefined"){
+                        document.getElementById("facebook").value = data.dataPerson[0].facebookPerson;
+                    }
+                    else{
+                        document.getElementById("facebook").value = "";
+                    }
+                    $("#internship").val(data.dataPerson[0].internshipPerson).change();
                 });
             },
             error : function(data, status, er) {

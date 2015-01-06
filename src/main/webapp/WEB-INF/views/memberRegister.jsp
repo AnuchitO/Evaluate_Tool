@@ -57,9 +57,9 @@ div {
 			</div>
 			<div class="col-md-3">
 				<label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="female" name="radiobox" value="female">Female
+					name="inlineRadioOptions" id="female" name="radiobox" value="Female">Female
 				</label> <label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="male" name="radiobox" value="male">Male
+					name="inlineRadioOptions" id="male" name="radiobox" value="Male">Male
 				</label>
 			</div>
 		</div>
@@ -100,11 +100,11 @@ div {
 			<div class="col-md-6 col-md-offset-3">
 				<select id="position" class="selectpicker" name="position" data-width="100%">
 					<option selected disabled value="-1">Position</option>
-					<option value="1">Software Development Trainee</option>
-					<option value="2">Software Development</option>
-					<option value="3">Senior Software Development</option>
-					<option value="4">Software Analyst</option>
-					<option value="5">Senior Software Analyst</option>
+					<option value="Software Development Trainee">Software Development Trainee</option>
+					<option value="Software Development">Software Development</option>
+					<option value="Senior Software Development">Senior Software Development</option>
+					<option value="Software Analyst">Software Analyst</option>
+					<option value="Senior Software Analyst">Senior Software Analyst</option>
 				</select>
 			</div>
 		</div>
@@ -123,9 +123,10 @@ div {
 			</div>
 			<div class="col-sm-6 col-md-3">
 				<select id="internship" class="selectpicker" name="internship" data-width="100%">
-					<option selected disabled value="-1">Internship or Co-operative</option>
-					<option value="1">Internship</option>
-					<option value="2">Co-operative</option>
+					<option selected disabled value="-1">Status</option>
+					<option value="Internship">Internship</option>
+					<option value="Co-operative">Co-operative</option>
+					<option value="Employee">Employee</option>
 				</select>
 			</div>
 		</div>

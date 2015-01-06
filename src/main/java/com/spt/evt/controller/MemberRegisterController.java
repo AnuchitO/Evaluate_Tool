@@ -1,6 +1,5 @@
 package com.spt.evt.controller;
 
-import com.spt.evt.entity.Person;
 import com.spt.evt.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Controller
 public class MemberRegisterController {
@@ -35,7 +33,6 @@ public class MemberRegisterController {
 	@RequestMapping(value="/memberRegister", method = RequestMethod.POST)
 	public @ResponseBody String register(@RequestParam(value="dataForm") String dataForm) {
 		personService.setData(dataForm);
-		List<Person> result = this.personService.findAll();
 		return "Seccessful";
 	}
 	
