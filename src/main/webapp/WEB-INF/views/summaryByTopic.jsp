@@ -240,38 +240,6 @@
 						$("#pickExaminer"));
 			});
 		});
-
-		var personId = $("#pickExaminer").val();
-		$.ajax({
-			url:"/EvaluateTool/application/getRoomName",
-			type:"POST",
-			data:{ personId:personId},
-
-			success:function(data){
-				var addRoom = JSON.parse(data);
-				var dummyOption = 0;
-				var dummyRoomId = 0;
-				var genOptionId = ("#option" + dummyOption);
-				// var genRoomId = ("#roomId" + dummyRoomId);
-
-				$.each(addRoom, function(i, item) {
-					item.forEach(function(data) {
-						var courseId = data.courseId;
-						var roomId = data.roomId;
-						var name = data.roomName;
-						var startTime = data.startTime;
-
-						$("#optionPickRoom").clone()
-								.attr('id', 'option' + (dummyOption++)).text(
-								name+" : "+startTime).val(roomId)
-								.insertAfter(genOptionId).show().appendTo(
-								$("#pickRoom"));
-					});
-				});
-
-			}
-		});
-
 	});
 
 	$("#setSizeTable").change(function(index,element) {
@@ -339,6 +307,7 @@
 		dataCourse.committeeId = committeeId;
 		dataCourse.courseId = courseIdInroom;
 		var dataSend = JSON.stringify(dataCourse);
+		console.log(dataSend);
 		$.ajax({
 			url : "/EvaluateTool/application/summaryTopicList",
 			type : 'POST',
