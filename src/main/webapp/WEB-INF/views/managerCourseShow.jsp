@@ -14,17 +14,18 @@
 <body>
     <div class="container">
         <div class="col-md-11 column">
-            <div>
+            <div id="test">
                 <select id="courseAllEdit"></select>
                 <button type="button" class="btn" id="btnshowDetail">Show</button>
                 <label id="showAll"></label>
             </div>
             <option id="option"></option>
             <option id="option0"></option>
+            <div id="showCourse">
+
+            </div>
+
         </div>
-
-
-
     </div>
 
     <script>
@@ -66,6 +67,9 @@
 
         $("#btnshowDetail").click(
             function() {
+                $("ol").each(function(){
+                    $(this).remove();
+                });
                 var dataForm = {};
                 dataForm.id = $("#courseAllEdit").val();
                 var dataSend = JSON.stringify(dataForm);
@@ -81,16 +85,18 @@
                                 var allShow = JSON.parse(data);
                                 $.each(allShow, function (i, item) {
                                     item.forEach(function (data) {
-                                        var topicId = data.nameSubject;
-                                        console.log(data.nameSubject);
+                                        var nameSubject = data.nameSubject;
+                                        var idSubject = data.id;
+                                        $('#showCourse').append("<ol id='"+idSubject+"'>"+nameSubject+"</ol>");
                                         for(var j in data.topicPack){
-                                            console.log(data.topicPack[j].nameTopic);
-                                        }
 
+                                            $("ol[id="+idSubject+"]").append("<li>"+data.topicPack[j].nameTopic+"</li>");
+                                        }
 
 
                                     });
                                 });
+
                             },
                             error : function(data) {
 
@@ -98,7 +104,22 @@
                 });
             }
         );
+        function createTopic(allShow){
+            $.each(allShow, function (i, item) {
+                item.forEach(function (data) {
+                    var idSubject = data.id;
 
+
+
+                });
+            });
+        }
+
+        var fullname = '${name}'+'  '+'${lastName}';
+        $("#fullname").html(fullname);
+
+        $("#anotificationapprove").hide();
+        $("#anotificationsubmitandcalcel").hide();
 
     </script>
 </body>
