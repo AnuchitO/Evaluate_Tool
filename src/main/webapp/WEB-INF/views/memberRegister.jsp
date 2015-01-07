@@ -105,6 +105,10 @@ div {
 					<option value="Senior Software Development">Senior Software Development</option>
 					<option value="Software Analyst">Software Analyst</option>
 					<option value="Senior Software Analyst">Senior Software Analyst</option>
+					<option value="Business Analysis">Business Analysis</option>
+					<option value="Assistant Business Analysis">Assistant Business Analysis</option>
+					<option value="Senior Business Analysis">Senior Business Analysis</option>
+					<option value="Project Coordinator">Project Coordinator</option>
 				</select>
 			</div>
 		</div>
