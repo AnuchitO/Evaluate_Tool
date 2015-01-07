@@ -17,4 +17,5 @@ public interface ReportService {
 	public JSONObject getCourseInformationSummary(Long roomId, Long examinerId, Long committeeId,Long courseId);
 	public JSONObject generateScoreAverage(List<Room> rooms);
 	public float averageScoreAllSubject(float score,int allTopic);
+	public JSONObject getAllNameUnique();
 }

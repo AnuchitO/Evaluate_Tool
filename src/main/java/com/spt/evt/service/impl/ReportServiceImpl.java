@@ -21,38 +21,69 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		String roomStatus = "Completed";
 		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
 		JSONObject reportNoSort = generateScoreJsonObjectByRoom(rooms);
+		JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
+		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
+		for(int n = 0; n < reportNoSortArray.length(); n++)
+		{
+			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
+				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
 
-		if (reportNoSort.length()==0){
-			return new JSONObject();
-		}else {
-			JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
-			TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
-			for(int n = 0; n < reportNoSortArray.length(); n++)
-			{
-				if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
-					List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
-					listObject.add(reportNoSortArray.getJSONObject(n));
-					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
-
-				}
-				else{
-					List<JSONObject> listObject = new ArrayList<JSONObject>();
-					listObject.add(reportNoSortArray.getJSONObject(n));
-					reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
-				}
 			}
-
-			JSONArray reportArray = new JSONArray() ;
-			JSONObject report = new JSONObject();
-
-			for(String key: reportTreeMap.keySet()) {
-				for (JSONObject jsList : reportTreeMap.get(key)) {
-					reportArray.put(jsList);
-				}
+			else{
+				List<JSONObject> listObject = new ArrayList<JSONObject>();
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
 			}
-			report.put("report",reportArray);
-			return report;
 		}
+
+		JSONArray reportArray = new JSONArray() ;
+		JSONObject report = new JSONObject();
+
+		for(String key: reportTreeMap.keySet()) {
+			for (JSONObject jsList : reportTreeMap.get(key)) {
+				reportArray.put(jsList);
+			}
+		}
+		report.put("report",reportArray);
+		return report;
+
+	}
+
+	@Override
+	public JSONObject getAllNameUnique() {
+		String roomStatus = "Completed";
+		List<Room> rooms = this.getRoomService().findByStatus(roomStatus);
+		JSONObject reportNoSort = generateScoreJsonObjectUnique(rooms);
+		JSONArray reportNoSortArray = new JSONArray(""+reportNoSort.get("report")) ;
+		TreeMap<String,List<JSONObject>> reportTreeMap = new TreeMap<String,List<JSONObject>>();
+		for(int n = 0; n < reportNoSortArray.length(); n++)
+		{
+			if (reportTreeMap.containsKey(reportNoSortArray.getJSONObject(n).getString("examiner"))) {
+				List<JSONObject> listObject = reportTreeMap.get(reportNoSortArray.getJSONObject(n).getString("examiner"));
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
+
+			}
+			else{
+				List<JSONObject> listObject = new ArrayList<JSONObject>();
+				listObject.add(reportNoSortArray.getJSONObject(n));
+				reportTreeMap.put(reportNoSortArray.getJSONObject(n).getString("examiner"),listObject);
+			}
+		}
+
+		JSONArray reportArray = new JSONArray() ;
+		JSONObject report = new JSONObject();
+
+		for(String key: reportTreeMap.keySet()) {
+			for (JSONObject jsList : reportTreeMap.get(key)) {
+				reportArray.put(jsList);
+			}
+		}
+		report.put("report",reportArray);
+		return report;
+
 	}
 
 	@Override
@@ -103,13 +134,44 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 
 			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
 
+			mapUni.put(examiner.getId(), null);
+			examinerReport.put("examinerId", examiner.getId());
+			examinerReport.put("examiner", examiner.getName() + " " + examiner.getLastName());
+			DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
+			examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime()) + " - "
+					+ formatDate2.format(keyScoreCalculated.getEndTime()));
+			examinerReport.put("roomId", keyScoreCalculated.getId());
+			report.append("report", examinerReport);
+			examinerReport.put("nameRoom", keyScoreCalculated.getName());
+		}
+
+		return report;
+	}
+
+	private JSONObject generateScoreJsonObjectUnique(List<Room> rooms) {
+		Map<Room,Map<Topic,List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
+		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
+		JSONObject report = new JSONObject();
+		Map mapUni = new HashMap();
+		for(Room keyScoreCalculated : scoreCalculateds.keySet()){
+			JSONObject examinerReport = new JSONObject();
+
+			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
+
+			for(String key: scoreMap.keySet()) {
+				examinerReport.put(key, scoreMap.get(key));
+			}
+
+			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
+
 			if (mapUni.containsKey(examiner.getId())){
 
 			}else {
 				mapUni.put(examiner.getId(), null);
 				examinerReport.put("examinerId", examiner.getId());
 				examinerReport.put("examiner", examiner.getName() + " " + examiner.getLastName());
-				DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 				DateFormat formatDate2 = new SimpleDateFormat("HH:mm");
 				examinerReport.put("dateTest", formatDate.format(keyScoreCalculated.getStartTime()) + " - "
 						+ formatDate2.format(keyScoreCalculated.getEndTime()));
@@ -120,6 +182,8 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		}
 		return report;
 	}
+
+
 
 	@Override
 	public Map<Room,Map<Topic, List<Double>>> prepareDataScoreBoard(List<Room> rooms) {

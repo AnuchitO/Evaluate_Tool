@@ -65,7 +65,7 @@ public class ReportController {
 		String lastName = request.getParameter("yourLastName");
 		String yourPosition = request.getParameter("yourPosition");
 		String courseId = request.getParameter("courseId");
-		JSONObject completeRoomInformation = this.reportService.getAllScore();
+		JSONObject completeRoomInformation = this.reportService.getAllNameUnique();
 
 		Map model = new HashMap();
 		model.put("yourId", yourId);
