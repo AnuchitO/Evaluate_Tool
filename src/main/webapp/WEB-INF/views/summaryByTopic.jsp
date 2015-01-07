@@ -891,7 +891,7 @@
                 + "&yourName="
                 + encodeURIComponent('${name}')
                 + "&yourLastName="
-                + encodeURIComponent('${lastname}');
+                + encodeURIComponent('${lastName}');
     });
     $("#configmanager").click(
             function() {
