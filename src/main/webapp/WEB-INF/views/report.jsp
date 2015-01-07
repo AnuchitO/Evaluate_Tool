@@ -147,6 +147,7 @@ table>tbody>tr>td {
 						},
 						success : function(data) {
 							var report = JSON.parse(data);
+							console.log(report);
 							var dummyTableBody = 0;
 							var dummyTableRow = 0;
 							var genTableBody = $("#tableBody" + dummyTableBody);
