@@ -1860,6 +1860,21 @@ $(function() {
                         + "&yourLastName="
                         + encodeURIComponent('${lastNameCommittee}');
             });
+    $("#nameproject")
+            .click(
+            function() {
+                var yourId = $("#committeeId").attr('value');
+                var yourPosition = $("#yourPosition").val();
+                location.href = "/EvaluateTool/application/examinationRoom"
+                + "?yourId="
+                + encodeURIComponent(yourId)
+                + "&yourPosition="
+                + encodeURIComponent(yourPosition)
+                + "&yourName="
+                + encodeURIComponent('${nameCommittee}')
+                + "&yourLastName="
+                + encodeURIComponent('${lastNameCommittee}');
+            });
     $("#configmanager").click(
             function() {
                 var yourId = $("#committeeId").attr('value');

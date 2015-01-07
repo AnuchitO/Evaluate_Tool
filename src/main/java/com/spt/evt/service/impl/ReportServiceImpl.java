@@ -279,28 +279,38 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		}
 
 		for (int i = 0 ; i < summaryNoSortArray.length() ; i++  ){
-			if (summaryTreeMap.containsKey(summaryNoSortArray.getJSONObject(i).getString("sumTopic"))) {
-				List<JSONObject> listObject = summaryTreeMap.get(summaryNoSortArray.getJSONObject(i).getString("sumTopic"));
+			String sumTopic = null;
+			if (summaryNoSortArray.getJSONObject(i).getString("sumTopic").length()>1){
+
+				sumTopic = summaryNoSortArray.getJSONObject(i).getString("sumTopic");
+			}else {
+				sumTopic = "0"+summaryNoSortArray.getJSONObject(i).getString("sumTopic");
+			}
+
+			if (summaryTreeMap.containsKey(sumTopic)) {
+				List<JSONObject> listObject = summaryTreeMap.get(sumTopic);
 
 				float beforeList = Float.parseFloat(summaryNoSortArray.getJSONObject(i).getString("averageScore"));
 				float afterList = Float.parseFloat(listObject.get(0).getString("averageScore"));
 
 				if (beforeList >= afterList){
 					listObject.add(0, summaryNoSortArray.getJSONObject(i));
-					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+					summaryTreeMap.put(sumTopic,listObject);
 				}else {
 					listObject.add(1, summaryNoSortArray.getJSONObject(i));
-					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+					summaryTreeMap.put(sumTopic,listObject);
 				}
 			}else{
-
 				List<JSONObject> listObject = new ArrayList<JSONObject>();
 				listObject.add(summaryNoSortArray.getJSONObject(i));
-				summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
-
+				if (summaryNoSortArray.getJSONObject(i).getString("sumTopic").length()>1){
+					summaryTreeMap.put(summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}else {
+					summaryTreeMap.put("0"+summaryNoSortArray.getJSONObject(i).getString("sumTopic"),listObject);
+				}
 			}
-
 		}
+
 		JSONArray summaryArray = new JSONArray() ;
 		JSONObject summary = new JSONObject();
 		for(String key: summaryTreeMap.keySet()) {
@@ -308,6 +318,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 				summaryArray.put(jsList);
 			}
 		}
+
 		float returnAverageScore = averageScoreAllSubject(allScore, allTopic);
 		String stringCoverFloat = String.format("%.2f", returnAverageScore);
 		Float averageScoreAll = Float.parseFloat(stringCoverFloat);
