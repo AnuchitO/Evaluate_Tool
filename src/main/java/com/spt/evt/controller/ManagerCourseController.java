@@ -249,14 +249,15 @@ public class ManagerCourseController {
 	@RequestMapping(value="/subjectGetDetail", method = RequestMethod.POST)
 	public @ResponseBody String subjectGetDetail(@RequestParam(value="dataForm") String dataForm) {
 		JSONObject idJsonDelete = new JSONObject(dataForm);
-		Long passToLong = Long.parseLong(idJsonDelete.getString("id"));
-		Subject subject = subjectService.findById(passToLong);
-
 		JSONObject report = new JSONObject();
-		JSONObject setKeyAfterGet = new JSONObject();
-		setKeyAfterGet.put("subjectName",subject.getName());
-		setKeyAfterGet.put("subjectDescription",subject.getDescription());
-		report.append("data",setKeyAfterGet);
+		if (!(idJsonDelete.toString().equals("{\"id\":null}"))) {
+			String passToLong = (String) idJsonDelete.get("id");
+			Subject subject = subjectService.findById(Long.parseLong(passToLong));
+			JSONObject setKeyAfterGet = new JSONObject();
+			setKeyAfterGet.put("subjectName", subject.getName());
+			setKeyAfterGet.put("subjectDescription", subject.getDescription());
+			report.append("data", setKeyAfterGet);
+		}
 		return report.toString();
 	}
 
