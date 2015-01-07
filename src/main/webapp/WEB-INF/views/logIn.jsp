@@ -6,7 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Evaluate Tool</title>
-<style>
+<style type="text/css">
+@IMPORT url("${contextPath}/resources/styles/css/alertify.core.css");
+@IMPORT url("${contextPath}/resources/styles/css/alertify.default.css");
+@IMPORT url("${contextPath}/resources/styles/css/sweet-alert.css");
 body {
 	position: absolute;
 	background:#505D6E url(resources/images/body1.jpg) no-repeat center center fixed; 
@@ -39,7 +42,10 @@ body {
 </head>
 
 <body>
-
+<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/alertify.min.js"></script>
+<script type="text/javascript"
+		src="${contextPath}/resources/styles/js/sweet-alert.js"></script>
 	  	
 	<div id="divLogIn" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
 		<div id="language">
@@ -107,7 +113,7 @@ body {
 										+ encodeURIComponent(yourLastName);
 									},
 									error: function (data, status, er) {
-										alert("Wrong Username or Password, Try Again");
+										swal("Wrong Username or Password, Try Again.");
 									}
 								});
 
