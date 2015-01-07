@@ -317,32 +317,6 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		return summary;
 	}
 
-	@Override
-	public JSONObject generateScoreAverage(List<Room> rooms) {
-		Map<Room, Map<Topic, List<Double>>> scoreExaminerAll = prepareDataScoreBoard(rooms);
-		Map<Room, Map<String, Object>> scoreCalculateds = this.getAveragesCalculationService().calculation(scoreExaminerAll);
-		JSONObject report = new JSONObject();
-
-		for (Room keyScoreCalculated : scoreCalculateds.keySet()) {
-			JSONObject examinerReport = new JSONObject();
-
-			Map<String, Object> scoreMap = scoreCalculateds.get(keyScoreCalculated);
-
-			String stringCoverFloat = String.format("%.2f", scoreMap.get("score"));
-			Float scoreAll = Float.parseFloat(stringCoverFloat);
-			int topicTotalAll = (int) scoreMap.get("topicTotal");
-
-			Person examiner = this.getParticipantsService().findByExaminerInRoom(keyScoreCalculated);
-
-			examinerReport.put("examinerId", examiner.getId());
-			examinerReport.put("roomId", keyScoreCalculated.getId());
-			examinerReport.put("averageAllScore", "" + averageScoreAllSubject(scoreAll, topicTotalAll));
-			report.append("report", examinerReport);
-
-		}
-		return report;
-	}
-
 	private void findScoreAddIntoJsonOfTopicSummary(Room room,Person committee,Person examiner,JSONObject subjectElement, List<Topic> topics){
 		float allScore = 0;
 		int allTopic = 0;

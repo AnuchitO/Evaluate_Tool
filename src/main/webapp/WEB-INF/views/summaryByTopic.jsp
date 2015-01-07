@@ -363,23 +363,6 @@
 		$("#btnExport").hide();
 	});
 
-	$("#room").click(function() {
-		var yourId = $("#yourId").attr('value');
-		location.href = "/EvaluateTool/application/examinationRoom"
-		+ "?yourId=" + encodeURIComponent(yourId)
-		+ "&yourPosition="
-		+ encodeURIComponent('${yourPosition}')
-		+ "&yourName="
-		+ encodeURIComponent('${name}')
-		+ "&yourLastName="
-		+ encodeURIComponent('${lastName}');
-
-	});
-
-	$("#logOut").click(function() {
-		location.href = "/EvaluateTool/application/logIn";
-	});
-
 	function createCollapse(course) {
 		$("#tableScore1").remove();
 		$("#averageAll").show();
@@ -836,6 +819,23 @@
 		$(".textSubject").text(textSubject);
 		$(".textDescription").text(textDescription);
 	}
+
+	$("#room").click(function() {
+		var yourId = $("#yourId").attr('value');
+		location.href = "/EvaluateTool/application/examinationRoom"
+		+ "?yourId=" + encodeURIComponent(yourId)
+		+ "&yourPosition="
+		+ encodeURIComponent('${yourPosition}')
+		+ "&yourName="
+		+ encodeURIComponent('${name}')
+		+ "&yourLastName="
+		+ encodeURIComponent('${lastName}');
+
+	});
+
+	$("#logOut").click(function() {
+		location.href = "/EvaluateTool/application/logIn";
+	});
 
 	$("#summaryScore").click(
 			function() {
