@@ -133,7 +133,7 @@
 		 data-parent="#accordion" href="#collapse0" data-target="#collapse0">
 	</div>
 	<h4 id="panelTitle0" class="panel-title"></h4>
-	<span id="spanTopic0" class="badge " style="background-color: #585858;"></span>
+	<span id="spanTopic0" class="badge " style="margin-left:10px;background-color: #585858;"></span>
 	<span id="spanAverage0" class="badge pull-right" style="background-color: #585858;"></span>
 	<label id="submitEachTopic0" style="margin: 2px;"></label>
 	<label id="totalEachTopic0" style="margin: 2px;"></label>
