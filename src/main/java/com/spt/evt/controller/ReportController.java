@@ -101,12 +101,14 @@ public class ReportController {
 		DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (Participants ob:participants) {
-			personJson = new JSONObject();
-			personJson.put("courseId",ob.getRoom().getCourseId());
-			personJson.put("roomId",ob.getRoom().getId());
-			personJson.put("roomName",ob.getRoom().getName());
-			personJson.put("startTime",formatDate.format(ob.getRoom().getStartTime()));
-			personJsonResult.append("data",personJson);
+			if (ob.getRoom().getStatus().toString().equals("Completed")){
+				personJson = new JSONObject();
+				personJson.put("courseId",ob.getRoom().getCourseId());
+				personJson.put("roomId",ob.getRoom().getId());
+				personJson.put("roomName",ob.getRoom().getName());
+				personJson.put("startTime",formatDate.format(ob.getRoom().getStartTime()));
+				personJsonResult.append("data",personJson);
+			}
 		}
 		return personJsonResult.toString();
 	}
@@ -122,6 +124,7 @@ public class ReportController {
 		Long courseId 		= Long.parseLong(courseDetail.getString("courseId"));
 
 		JSONObject courseInformation = this.reportService.getCourseInformationSummary(roomId,examinerId,committeeId , courseId);
+//		LOGGER.debug("====courseInformation====:: "+courseInformation);
 		return courseInformation.toString();
 
 	}

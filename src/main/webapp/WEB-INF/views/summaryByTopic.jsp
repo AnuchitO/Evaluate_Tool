@@ -298,7 +298,11 @@
 	$("#buttonSumary").click(function(){
 		var personId = $("#pickExaminer").val();
 		var roomSelect = $("#pickRoom").val();
-		var courseIdInroom = $("#pickRoom option").attr("class");
+		var courseIdInroom = null;
+				$( "select[id=pickRoom] option:selected" ).each(function() {
+			courseIdInroom = $( this).attr('class');
+
+		});
 		var committeeId = $("#yourId").val();
 
 		var dataCourse = {};
@@ -329,7 +333,10 @@
 		var roomId = $("#pickRoom").val();
 		var examinerId = $("#pickExaminer").val();
 		var committeeId = $("#yourId").val();
-		var courseId = $("#pickRoom option").attr('class');
+		var courseId = null;
+		$( "select[id=pickRoom] option:selected" ).each(function() {
+			courseId = $( this).attr('class');
+		});
 
 		location.href = "/EvaluateTool/application/exportExcel"
 		+ "?roomId="
