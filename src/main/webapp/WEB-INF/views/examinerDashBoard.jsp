@@ -89,17 +89,25 @@
 var stompClient = null;
 $(function() {
     ////////////////////////////////Web Socket ///////////////////////
-    var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
-    stompClient = Stomp.over(socket);
-    stompClient.heartbeat.outgoing = 20000;
-    stompClient.heartbeat.incoming = 20000;
-    stompClient.connect({}, function(frame) {
-        console.log('Connected: ' + frame);
-        /*stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
-         accessMethod(JSON.parse(data.body));
-         });*/
-    });
-
+    setConnect();
+    function setConnect(){
+        var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+        stompClient = Stomp.over(socket);
+        stompClient.heartbeat.outgoing = 20000;
+        stompClient.heartbeat.incoming = 20000;
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            /*stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                accessMethod(JSON.parse(data.body));
+            });*/
+        });
+        socket.onclose = function() {
+            console.log('close');
+            stompClient.disconnect();
+            setConnect();
+            console.log("socket fail");
+        };
+    }
     ///////////////////////////////Subject List///////////////////////
     $("#eachSubject0").hide();
     $("#card0").hide();
