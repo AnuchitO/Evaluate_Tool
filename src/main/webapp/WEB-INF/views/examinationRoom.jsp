@@ -237,16 +237,26 @@ var totalprocessPercent=0;
 var stompClient = null;
 $(function(){
     ////////////////////////////////Web Socket Add Access Funtion After Subscribe///////////////////////
-    var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
-    stompClient = Stomp.over(socket);
-    stompClient.heartbeat.outgoing = 20000;
-    stompClient.heartbeat.incoming = 20000;
-    stompClient.connect({}, function(frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
-            accessMethod(JSON.parse(data.body));
+    setConnect();
+    function setConnect(){
+        var socket = new SockJS('/EvaluateTool/webSocket/requestandapprove');
+        stompClient = Stomp.over(socket);
+        stompClient.heartbeat.outgoing = 20000;
+        stompClient.heartbeat.incoming = 20000;
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                data.ack();
+                accessMethod(JSON.parse(data.body));
+            },{ack: 'client'});
         });
-    });
+        socket.onclose = function() {
+            console.log('close');
+            stompClient.disconnect();
+            setConnect();
+            console.log("socket fail");
+        };
+    }
 
     ////////////////////////////////From Add Room And Validate///////////////////////
     $('.input-daterange').datepicker({
