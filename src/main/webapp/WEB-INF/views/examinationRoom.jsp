@@ -495,7 +495,7 @@ $(function(){
                 closeOnCancel: true
             }, function(isConfirm) {
                 if (isConfirm) {
-                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
+                    stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
                     $
                             .ajax({
                                 url : "/EvaluateTool/application/checkCommittee",
@@ -596,7 +596,7 @@ $(function(){
                 closeOnCancel: true
             }, function(isConfirm) {
                 if (isConfirm) {
-                    /*stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
+                    /*stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updateMenuApproveModulatorAfterSubmitCommittee','roomId':detailPerson.roomId}));
                      $
                      .ajax({
                      url : "/EvaluateTool/application/checkCommittee",
@@ -1462,7 +1462,7 @@ function sendId(element) {
                         roomId:dataPersonId
                     },
                     success:function(){
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':detailPerson.roomId,'status':'Ready' }));
+                        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updateStatusCard','roomId':detailPerson.roomId,'status':'Ready' }));
                         $
                                 .ajax({
                                     url : "/EvaluateTool/application/checkCommittee",
@@ -1650,7 +1650,7 @@ function sendId(element) {
                         },
                         success:function(data){
                             if(data=="success"){
-                                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
+                                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'sendRequestCommittee','name': name,'lastname': lastname,'yourId':yourId,'role':'committee','modulator':false,'title':'เข้าเป็นผู้ประเมิน','roomId':detailPerson.roomId,'modulatorId':detailPerson.modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
                                 swal({   title: "ระบบได้ส่ง Request ไปแล้วกรุณารอ Modulator Approve",
                                     text:"Click Yes for Wait Behind OR Click Cancel for Cancel",
                                     confirmButtonColor: "#8ACBE5",
@@ -1670,13 +1670,13 @@ function sendId(element) {
                                                 dataPersonId:dataPersonId
                                             },
                                             success: function (data) {
-                                                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count,'participantId':data }));
+                                                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'cancelRequestCommittee', 'name': name, 'lastname': lastname, 'yourId': yourId, 'role': 'committee', 'modulator': false, 'title': 'เข้าเป็นผู้ประเมิน', 'roomId': detailPerson.roomId, 'modulatorId': detailPerson.modulatorId, 'count': count,'participantId':data }));
                                             }
                                         });
                                     }
                                 });
                             }else{
-                                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}','roomName':roomName,'roomDescription':roomDescription}));
+                                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'alertRequestSame','yourId':'${yourId}','roomName':roomName,'roomDescription':roomDescription}));
                             }
                         },error:function(){
                             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -1747,7 +1747,7 @@ function sendIdExaminer(element) {
         }else if(committee.indexOf(yourId)!=-1){
             sweetAlert("คุณเป็น Comittee ห้องนี้แล้ว", "ไม่สามารถเป็น Examiner ได้","error");
         }else{
-            //stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'sendRequestExaminer','name': name,'lastname': lastname,'yourId':yourId,'role':'examiner','modulator':false,'title':'เข้าเป็นผู้เข้าสอบ','roomId':roomId,'modulatorId':modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
+            //stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'sendRequestExaminer','name': name,'lastname': lastname,'yourId':yourId,'role':'examiner','modulator':false,'title':'เข้าเป็นผู้เข้าสอบ','roomId':roomId,'modulatorId':modulatorId,'count':count,'roomName':roomName,'roomDescription':roomDescription }));
             sweetAlert("กรุณาสร้างห้องใหม่", "ห้องนี้มี Examiner แล้ว","error");
         }
 
@@ -1774,7 +1774,7 @@ $("#courseManager").click(
                     + "&yourLastName="
                     + encodeURIComponent('${lastname}');
         });
-    
+
     function removeRoom(element){
         var sendId = element.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
         swal({
@@ -1938,7 +1938,7 @@ $("#courseManager").click(
                     roomId:dataSend
                 },
                 success: function () {
-                    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard', 'roomId': roomId, 'status': 'Terminate' }));
+                    stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updateStatusCard', 'roomId': roomId, 'status': 'Terminate' }));
                 },error:function() {
                     swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                         type: "error",
