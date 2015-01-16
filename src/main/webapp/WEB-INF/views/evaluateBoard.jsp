@@ -379,7 +379,7 @@ a#menuPresenting:hover,a#menuTopicList:hover,a#menuleftbtnCompleteExamination:ho
 <!----------------------Model Panel in Modal---------------------->
 
 <!----------------------Model Modal---------------------->
-<div class="modal"  id="modalScore0" tabindex="-1"
+<div class="modal"  title="genModal" id="modalScore0" tabindex="-1"
      aria-labelledby="myModalLabel" role="dialog"  aria-hidden="true" ></div>
 <div id="modalScoreDialog0" class="modal-dialog"></div>
 <!----------------------Model Modal---------------------->
@@ -941,8 +941,8 @@ function approve(id,roomid,name,lastname){
                     type:"POST",
                     success:function(){
                         //location.reload();
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id,'roomName':roomName,'roomDescription':roomDescription,'name':name,'lastname':lastname}));
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'updateMenuApproveAfterSubmit','roomId':roomid,'yourId':id}));
+                        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'approveSubmitModulator','data': 'คุณได้รับสิทธิเป็น Modulator','roomId':roomid,'yourId':id,'roomName':roomName,'roomDescription':roomDescription,'name':name,'lastname':lastname}));
+                        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'updateMenuApproveAfterSubmit','roomId':roomid,'yourId':id}));
                     }
                 });
             });
@@ -975,8 +975,8 @@ function approveNotificationRequestCommittee(type,yourid,roomid,roomDescription,
         success:function(){
             $("div[title=" + yourid + "][value=committee]").fadeOut("slow",function(){
                 $("div[title=" + yourid + "][value=committee]").remove();
-                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับให้คุณเป็น Committee แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
-                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
+                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'approveSubmitCommittee','data': 'Modulator ได้ยอมรับให้คุณเป็น Committee แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
+                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
             });
         },error:function() {
             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -1009,8 +1009,8 @@ function notApproveNotificationRequestCommittee(type,yourid,roomid,roomDescripti
             $("div[title=" + yourid + "][value=committee]").fadeOut("slow",function(){
                 $("div[title=" + yourid + "][value=committee]").remove();
             });
-            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ การร้องขอเป็น Comittee','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
-            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
+            stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธ การร้องขอเป็น Comittee','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
+            stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
         },error:function() {
             swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                 type: "error",
@@ -1042,8 +1042,8 @@ function approveNotificationRequestExaminer(type,yourid,roomid,roomDescription,r
      success:function(){*/
     $("div[value="+index+"]").fadeOut("slow",function(){
         $("div[value="+index+"]").remove();
-        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'approveSubmitExaminer','data': 'Modulator ได้ยอมรับให้คุณเป็น Examiner แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
-        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
+        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'approveSubmitExaminer','data': 'Modulator ได้ยอมรับให้คุณเป็น Examiner แล้ว','yourId':yourid,'roomId':roomid,'examinerId':'${idExaminer}','modulatorId':'${idModulator}','roomDescription':roomDescription,'roomName':roomName}));
+        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
     });
     /*          },error:function() {
      swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
@@ -1076,8 +1076,8 @@ function notApproveNotificationRequestExaminer(type,yourid,roomid,roomDescriptio
     $("div[value="+index+"]").fadeOut("slow",function(){
         $("div[value="+index+"]").remove();
     });
-    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธการร้องขอเป็น Examiner','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
-    stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
+    stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'removeProcess','data': 'Modulator ได้ปฏิเสธการร้องขอเป็น Examiner','yourId':yourid,'roomId':roomid,'roomDescription':roomDescription,'roomName':roomName}));
+    stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'notificationRequestUpdate','type':type,'yourId':yourid,'roomId':roomid}));
     /*   },error:function() {
      swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
      type: "error",
@@ -1117,7 +1117,7 @@ $("#imgnotificationsubmitandcalcel,#badgenotificationsubmitandcalcel").click(fun
                 paticipantId:paticipantId
             },
             success:function(){
-                stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head':'updateBadgeNotification','roomId':roomId,'modulatorId':modulatorId}));
+                stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head':'updateBadgeNotification','roomId':roomId,'modulatorId':modulatorId}));
             },error:function() {
                 swal({   title: "เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง",
                     type: "error",
@@ -1260,7 +1260,7 @@ function sendDetailScoreOfTopic(buttonSubmit) {
         $("#spanScore" + count).text(textScore);
         if('${idCommittee}'=='${idModulator}'){
             var totalPercentScoreInRoom=~~(($("#submitTopic").text()*100)/($("#totalTopic").text()));
-            stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
+            stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updatePercentCard','roomId':'${idRoom}','percent':totalPercentScoreInRoom}));
         }
 
     }
@@ -1330,6 +1330,11 @@ function checkScoreFromBase(score, count) {
 
     }
 }
+$( document ).on( "click", "#panelScoreBtnClose", function() {
+    $("div[title=genModal]").each(function(){
+       $(this).modal("hide");
+    });
+});
 
 $(function() {
     var $loading = $('#loader').hide();
@@ -1584,6 +1589,7 @@ $(function() {
                                 var numberEachOfTopic = 0;
                                 var index = 0;
                                 var keepTopic = item[sizeTopic].topic;
+                                if(typeof keepTopic != "undefined"){
                                 for (index; index < keepTopic.length; ++index) {
                                     var sendId = keepTopic[index].id;
                                     var sendTitle = keepTopic[index].name;
@@ -1766,6 +1772,7 @@ $(function() {
 
                                     numberOfTopic++;
                                     numberEachOfTopic++;
+                                }
                                 }
                                 sizeTopic++;
                                 var indexCheckTopic = 0;
@@ -1988,7 +1995,7 @@ $(function() {
                         roomId : roomId
                     },
                     success : function(data) {
-                        stompClient.send("/app/requestandapprove", {}, JSON.stringify({ 'head': 'updateStatusCard','roomId':'${idRoom}','status':'Complete' }));
+                        stompClient.send("/app/requestandapprove", {"content-type": "application/json;charset=UTF-8"}, JSON.stringify({ 'head': 'updateStatusCard','roomId':'${idRoom}','status':'Complete' }));
                         swal({
                             type:"success",
                             title: "Success",
