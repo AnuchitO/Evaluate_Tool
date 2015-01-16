@@ -11353,7 +11353,7 @@ body.ui.dimmed.dimmable > :not(.dimmer){
  */
 /*******************************
              Modal
-*******************************/
+*******************************//*
 .ui.modal {
   display: none;
   position: fixed;
@@ -11371,12 +11371,12 @@ body.ui.dimmed.dimmable > :not(.dimmer){
   -ms-user-select: text;
   user-select: text;
 }
-/*******************************
+*//*******************************
             Content
-*******************************/
-/*--------------
+*******************************//*
+*//*--------------
      Close
----------------*/
+---------------*//*
 .ui.modal > .close {
   cursor: pointer;
   position: absolute;
@@ -11390,9 +11390,9 @@ body.ui.dimmed.dimmable > :not(.dimmer){
 .ui.modal > .close:hover {
   opacity: 1;
 }
-/*--------------
+*//*--------------
      Header
----------------*/
+---------------*//*
 .ui.modal > .header {
   margin: 0em;
   padding: 1.5rem 2rem;
@@ -11400,9 +11400,9 @@ body.ui.dimmed.dimmable > :not(.dimmer){
   font-weight: bold;
   border-radius: 0.325em 0.325em 0px 0px;
 }
-/*--------------
+*//*--------------
      Content
----------------*/
+---------------*//*
 .ui.modal > .content {
   display: table;
   width: 100%;
@@ -11424,7 +11424,7 @@ body.ui.dimmed.dimmable > :not(.dimmer){
   padding-left: 1.5%;
   vertical-align: top;
 }
-/*rtl:ignore*/
+*//*rtl:ignore*//*
 .ui.modal > .content > .left:not(.ui) > i.icon {
   font-size: 8em;
   margin: 0em;
@@ -11432,9 +11432,9 @@ body.ui.dimmed.dimmable > :not(.dimmer){
 .ui.modal > .content p {
   line-height: 1.6;
 }
-/*--------------
+*//*--------------
      Actions
----------------*/
+---------------*//*
 .ui.modal .actions {
   padding: 1rem 2rem;
   text-align: right;
@@ -11442,17 +11442,17 @@ body.ui.dimmed.dimmable > :not(.dimmer){
 .ui.modal .actions > .button {
   margin-left: 0.75em;
 }
-/*-------------------
+*//*-------------------
        Sizing
---------------------*/
-/* Mobile Only */
+--------------------*//*
+*//* Mobile Only *//*
 @media only screen and (max-width: 768px) {
-  /*rtl:ignore*/
+  *//*rtl:ignore*//*
   .ui.modal .content > .left:not(.ui) {
     display: block;
     padding: 0em 0em 1em;
   }
-  /*rtl:ignore*/
+  *//*rtl:ignore*//*
   .ui.modal .content > .right:not(.ui) {
     display: block;
     padding: 1em 0em 0em;
@@ -11471,11 +11471,13 @@ body.ui.dimmed.dimmable > :not(.dimmer){
     margin-bottom: 1em;
   }
 }
-/* Tablet and Mobile */
+*//* Tablet and Mobile *//*
 @media only screen and (max-width: 998px) {
   .ui.modal {
     width: 92%;
     margin-left: -46%;
+    height: 350px;
+      position: fixed;
   }
   .ui.modal > .close {
     color: rgba(0, 0, 0, 0.8);
@@ -11483,11 +11485,13 @@ body.ui.dimmed.dimmable > :not(.dimmer){
     right: 1rem;
   }
 }
-/* Computer / Responsive */
+*//* Computer / Responsive *//*
 @media only screen and (min-width: 998px) {
   .ui.modal {
-    width: 74%;
-    margin-left: -37%;
+      height: 350px;
+      margin-left: -23%;
+      width: 46%;
+      position: fixed;
   }
 }
 @media only screen and (min-width: 1500px) {
@@ -11508,9 +11512,9 @@ body.ui.dimmed.dimmable > :not(.dimmer){
     margin-left: -18%;
   }
 }
-/*******************************
+*//*******************************
              Types
-*******************************/
+*******************************//*
 .ui.basic.modal {
   background-color: transparent;
   border: none;
@@ -11523,24 +11527,25 @@ body.ui.dimmed.dimmable > :not(.dimmer){
 .ui.basic.modal .content {
   background-color: transparent;
 }
-/*******************************
+*//*******************************
             Variations
-*******************************/
-/* A modal that cannot fit on the page */
+*******************************//*
+*//* A modal that cannot fit on the page *//*
 .ui.modal.scrolling {
   position: absolute;
   margin-top: 10px;
 }
-/*******************************
+*//*******************************
               States
-*******************************/
+*******************************//*
 .ui.active.modal {
+    position: fixed;
   display: block;
 }
-/*--------------
+*//*--------------
       Size
----------------*/
-/* Small */
+---------------*//*
+*//* Small *//*
 .ui.small.modal > .header {
   font-size: 1.3em;
 }
@@ -11568,7 +11573,7 @@ body.ui.dimmed.dimmable > :not(.dimmer){
     margin-left: -10%;
   }
 }
-/* Large */
+*//* Large *//*
 @media only screen and (min-width: 998px) {
   .ui.large.modal {
     width: 74%;
@@ -11592,7 +11597,7 @@ body.ui.dimmed.dimmable > :not(.dimmer){
     width: 44%;
     margin-left: -22%;
   }
-}
+}*/
 
 /*
  * # Semantic - Nag

@@ -97,9 +97,10 @@ $(function() {
         stompClient.heartbeat.incoming = 20000;
         stompClient.connect({}, function(frame) {
             console.log('Connected: ' + frame);
-            /*stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
-                accessMethod(JSON.parse(data.body));
-            });*/
+            stompClient.subscribe('/examinationroomandevaluateboard/requestandapprove', function(data){
+                data.ack
+                //accessMethod(JSON.parse(data.body));
+            },{ack: 'client'});
         });
         socket.onclose = function() {
             console.log('close');

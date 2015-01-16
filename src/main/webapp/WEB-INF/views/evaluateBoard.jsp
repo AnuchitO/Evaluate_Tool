@@ -236,17 +236,7 @@ a {
     border-bottom: 1px solid #ccc;
 }
 .modal{
-    position: fixed;
-    height: 200px;
-}
-.modal-dialog{
-    position: fixed;
-    top:20%;
-}
-.ui.modal{
-    width: 0px;
-    height: 0px;
-    left: 65%;
+    top:300px;
 }
 a#menuPresenting:hover,a#menuTopicList:hover,a#menuleftbtnCompleteExamination:hover{
     background-color: #d0dcdb;
@@ -390,7 +380,7 @@ a#menuPresenting:hover,a#menuTopicList:hover,a#menuleftbtnCompleteExamination:ho
 
 <!----------------------Model Modal---------------------->
 <div class="modal"  id="modalScore0" tabindex="-1"
-     aria-labelledby="myModalLabel" role="dialog"  aria-hidden="true"></div>
+     aria-labelledby="myModalLabel" role="dialog"  aria-hidden="true" ></div>
 <div id="modalScoreDialog0" class="modal-dialog"></div>
 <!----------------------Model Modal---------------------->
 <div id="loader" align="center">
@@ -466,7 +456,7 @@ $(function(){
         if(($("#menuPresenting").hasClass("red teal item active")||$("#menuPresenting").hasClass("red active teal item"))&&JSON.parse(data).roomId=='${idRoom}'&&JSON
                 .parse(data).yourIdExaminer=='${idExaminer}'){
             $("div[class='modal ui transition visible active']").each(function(){
-                $(this).removeClass("modal ui transition visible active").addClass("modal ui transition hidden");
+                $(this).removeClass("modal ui transition visible active").addClass("modal ui transition visible hidden");
             });
             var element = $("li[title='" + topic + "']")[0];
             showModal(element);
