@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -37,7 +38,8 @@ public class RoomDaoImpl extends TemplateEntityManagerDao implements RoomDao {
 	@Transactional(readOnly = true)
 	public List<Room> findByStatus(String status) {
 		Criteria criteria = ((Session) this.getEntityManager().getDelegate()).createCriteria(Room.class);
-		criteria.add(Restrictions.eq("status", status));
+		//criteria.add(Restrictions.eq("status", status));
+        criteria.add(Restrictions.in("status", Arrays.asList(status, "Terminate")));
 		List<Room> resultRoom = criteria.list();
 		return resultRoom;
 	}

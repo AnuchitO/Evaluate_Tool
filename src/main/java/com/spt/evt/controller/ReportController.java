@@ -101,7 +101,7 @@ public class ReportController {
 		DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
 
 		for (Participants ob:participants) {
-			if (ob.getRoom().getStatus().toString().equals("Completed")){
+			if (ob.getRoom().getStatus().toString().equals("Completed")||ob.getRoom().getStatus().toString().equals("Terminate")){
 				personJson = new JSONObject();
 				personJson.put("courseId",ob.getRoom().getCourseId());
 				personJson.put("roomId",ob.getRoom().getId());
