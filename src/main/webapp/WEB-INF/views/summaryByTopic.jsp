@@ -64,7 +64,10 @@
 		.badge {
 			background-color: #585858;
 		}
-		.modal{
+        .modal{
+            top:300px;
+        }
+/*		.modal{
 			position: fixed;
 			height: 200px;
 		}
@@ -76,7 +79,7 @@
 			width: 0px;
 			height: 0px;
 			left: 65%;
-		}
+		}*/
 
 	</style>
 </head>

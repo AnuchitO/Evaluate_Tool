@@ -223,7 +223,7 @@ public class ReportServiceImpl extends ProviderService implements ReportService{
 		List<Room> rooms = new ArrayList<Room>();
 		for(Participants participants:participantsList){
 			Room room = participants.getRoom();
-			if (room.getStatus().equals("Completed")) {
+			if (room.getStatus().equals("Completed")||room.getStatus().equals("Terminate")) {
 				rooms.add(participants.getRoom());
 			}
 		}
