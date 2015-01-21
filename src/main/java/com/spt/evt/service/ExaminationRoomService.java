@@ -20,4 +20,5 @@ public interface ExaminationRoomService {
     public List<Person> findAll();
     public void editMemberProfile(String dataform);
     public Person dataProfile(Long idPerson);
+    public void removeRoomInParticipants(Long id);
 }

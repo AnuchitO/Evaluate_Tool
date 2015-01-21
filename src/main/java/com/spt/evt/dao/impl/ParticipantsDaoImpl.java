@@ -171,8 +171,23 @@ public class ParticipantsDaoImpl extends TemplateEntityManagerDao implements Par
     @Override
     @Transactional
     public void editParticipants(Participants participants){
-//      Participants participantsII = this.getEntityManager().find(Participants.class, participants.getId());
         this.getEntityManager().merge(participants);
-        LOGGER.debug("EditPaticipants");
     }
+
+    @Override
+    @Transactional
+    public void removeRoomInParticipants(Long roomid){
+        Room room = new Room();
+        room.setId(roomid);
+        Criteria criteria=((Session)this.getEntityManager().getDelegate()).createCriteria(Participants.class);
+        criteria.add(Restrictions.eq("room",room));
+        List<Participants> participantses = criteria.list();
+        for (Participants participants : participantses){
+            LOGGER.debug("========="+participants);
+            this.getEntityManager().remove(participants);
+            this.getEntityManager().flush();
+        }
+    }
+
+
 }

@@ -19,6 +19,7 @@ public interface ParticipantsService {
     public Long findParticipantId(Long roomId,Long personId);
     public void persisParticipant(Participants participants) ;
     public JSONObject allPersonToApprove(Long aLong);
-    public void editPaticitant(Participants participants);
+    public void editParticipants(Participants participants);
     public List<Participants> findByPersonByRole(Person person);
+    public void removeRoomInParticipants(Long id);
 }

@@ -115,7 +115,12 @@ public class ParticipantServiceImpl implements ParticipantsService {
     }
 
     @Override
-    public void editPaticitant(Participants participants){
+    public void editParticipants(Participants participants){
         participantsDao.editParticipants(participants);
+    }
+
+    @Override
+    public void removeRoomInParticipants(Long id){
+        this.participantsDao.removeRoomInParticipants(id);
     }
 }
