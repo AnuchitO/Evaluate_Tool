@@ -21,4 +21,5 @@ public interface ParticipantsDao {
     public void persistParticipants(Participants participants);
     public void editParticipants(Participants participants);
     public List<Participants> findByPersonByRole(Person person);
+    public void removeRoomInParticipants(Long id);
 }

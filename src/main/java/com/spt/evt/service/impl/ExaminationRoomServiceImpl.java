@@ -251,20 +251,18 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 		this.getRoomService().editRoom(room);
 
 		Person personExam = getPersonService().findById(jsonObj.getLong("nameExaminer"));
-		Person personComit = getPersonService().findById(jsonObj.getLong("nameCommitti"));
-		Participants participants = new Participants();
-		participants.setPerson(personComit);
-		participants.setModulator(true);
-		participants.setRole("committee");
-		participants.setRoom(room);
-		this.getParticipantsService().editPaticitant(participants);
-
-		Participants participants2 = new Participants();
-		participants2.setPerson(personExam);
-		participants2.setModulator(false);
-		participants2.setRole("examiner");
-		participants2.setRoom(room);
-		this.getParticipantsService().editPaticitant(participants2);
+		Person personComit = getPersonService().findById(jsonObj.getLong("nameCommitti"));;
+		List<Participants> participantsList = this.getParticipantsService().findByRoom(room);
+		LOGGER.debug("==="+participantsList);
+		for (Participants participants : participantsList){
+			if (participants.getRole().equals("examiner")){
+				participants.setPerson(personExam);
+				this.getParticipantsService().editParticipants(participants);
+			}else if (participants.getModulator()==true){
+				participants.setPerson(personComit);
+				this.getParticipantsService().editParticipants(participants);
+			}
+		}
 	}
 
     @Override
@@ -284,6 +282,11 @@ public class ExaminationRoomServiceImpl extends ProviderService implements Exami
 	@Override
 	public Person dataProfile(Long idPerson){
 		return this.getPersonService().findById(idPerson);
+	}
+
+	@Override
+	public void removeRoomInParticipants(Long id){
+		this.getParticipantsService().removeRoomInParticipants(id);
 	}
 
 }
